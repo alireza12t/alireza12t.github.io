@@ -6,17 +6,19 @@
 }
 
 :root {
-    --primary-color: #007AFF;
-    --secondary-color: #5856D6;
-    --text-dark: #1D1D1F;
-    --text-light: #6E6E73;
-    --bg-light: #F5F5F7;
+    --primary-color: #1B3A6B;        /* سورمه‌ای (Navy Blue) */
+    --secondary-color: #FDB813;       /* Golden Yellow */
+    --text-dark: #1B3A6B;
+    --text-light: #5A6C84;
+    --bg-light: #F7F9FC;
     --bg-white: #FFFFFF;
-    --accent-color: #FF3B30;
+    --accent-color: #FDB813;
     --success-color: #34C759;
     --border-color: #D2D2D7;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --shadow: 0 4px 6px rgba(27, 58, 107, 0.1);
+    --shadow-lg: 0 10px 30px rgba(27, 58, 107, 0.15);
+    --yellow-light: #FFF8E1;
+    --navy-dark: #0F1F3D;
 }
 
 html {
@@ -96,7 +98,7 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1B3A6B 0%, #2C5282 50%, #1B3A6B 100%);
     color: white;
     padding-top: 80px;
 }
@@ -113,7 +115,7 @@ body {
 }
 
 .highlight {
-    background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    background: linear-gradient(120deg, #FDB813 0%, #FFD700 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -153,23 +155,25 @@ body {
 }
 
 .btn-primary {
-    background-color: white;
+    background-color: var(--secondary-color);
     color: var(--primary-color);
+    font-weight: 700;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 10px 30px rgba(253, 184, 19, 0.4);
+    background-color: #FFD700;
 }
 
 .btn-secondary {
     background-color: transparent;
     color: white;
-    border: 2px solid white;
+    border: 2px solid var(--secondary-color);
 }
 
 .btn-secondary:hover {
-    background-color: white;
+    background-color: var(--secondary-color);
     color: var(--primary-color);
 }
 
@@ -213,7 +217,7 @@ section {
     transform: translateX(-50%);
     width: 60px;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    background: var(--secondary-color);
     border-radius: 2px;
 }
 
@@ -300,6 +304,18 @@ section {
     margin-bottom: 0.5rem;
 }
 
+.timeline-period {
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.timeline-period i {
+    margin-right: 0.5rem;
+    color: var(--secondary-color);
+}
+
 .timeline-location {
     color: var(--text-light);
     margin-bottom: 1rem;
@@ -308,6 +324,27 @@ section {
 
 .timeline-location i {
     margin-right: 0.5rem;
+}
+
+.timeline-highlights {
+    list-style: none;
+    padding-left: 0;
+}
+
+.timeline-highlights li {
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.timeline-highlights li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+    font-weight: bold;
 }
 
 .achievements {
@@ -446,12 +483,20 @@ section {
 }
 
 .skill-tag {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background-color: var(--primary-color);
     color: white;
     padding: 0.6rem 1.2rem;
     border-radius: 25px;
     font-size: 0.9rem;
     font-weight: 500;
+    border: 2px solid var(--secondary-color);
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
 }
 
 .volunteer-section {
@@ -486,7 +531,7 @@ section {
 
 .volunteer-card i {
     font-size: 2.5rem;
-    color: var(--secondary-color);
+    color: var(--primary-color);
     margin-bottom: 1rem;
 }
 
@@ -556,7 +601,7 @@ section {
 
 /* Footer */
 .footer {
-    background-color: var(--text-dark);
+    background-color: var(--primary-color);
     color: white;
     text-align: center;
     padding: 2rem 0;
@@ -567,7 +612,7 @@ section {
 }
 
 .footer i {
-    color: var(--accent-color);
+    color: var(--secondary-color);
 }
 
 /* Animations */
