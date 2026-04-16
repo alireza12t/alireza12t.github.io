@@ -382,7 +382,7 @@ window.addEventListener('scroll', navHighlighter);
             `SUMMARY:Call with ${name}`,
             `DESCRIPTION:Booked via alireza12t.github.io\\nTime: ${timeStr} (${tzShort})`,
             `ORGANIZER;CN=${name}:mailto:${email}`,
-            `ATTENDEE;CN=Alireza Toghiani;RSVP=TRUE:mailto:alirezatoghyiani@gmail.com`,
+            `ATTENDEE;CN=Alireza Toghiani;RSVP=TRUE:mailto:${availData.contactEmail}`,
             'STATUS:CONFIRMED',
             'END:VEVENT',
             'END:VCALENDAR',
@@ -396,7 +396,7 @@ window.addEventListener('scroll', navHighlighter);
 
         const eml = [
             `From: ${name} <${email}>`,
-            `To: Alireza Toghiani <alirezatoghyiani@gmail.com>`,
+            `To: Alireza Toghiani <${availData.contactEmail}>`,
             `Subject: ${emailSubject}`,
             'MIME-Version: 1.0',
             `Content-Type: multipart/mixed; boundary="${boundary}"`,
