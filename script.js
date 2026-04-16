@@ -395,17 +395,20 @@ window.addEventListener('scroll', navHighlighter);
         const a = document.createElement('a');
         a.href = url;
         a.download = `call-with-alireza-${selectedDate.toISOString().slice(0,10)}.ics`;
+        a.style.display = 'none';
+        document.body.appendChild(a);
         a.click();
-        URL.revokeObjectURL(url);
 
-        // Also send email notification
+        // Email notification after download starts
         const subject = encodeURIComponent(`Meeting Request — ${dateStr}`);
         const body = encodeURIComponent(
-            `Hi Alireza,\n\nI've booked a call with you:\n\nDate: ${dateStr}\nTime: ${timeStr} (${tzShort})\nName: ${name}\nEmail: ${email}\n\nThe calendar invite (.ics) is attached / was downloaded.\n\nBest regards,\n${name}`
+            `Hi Alireza,\n\nI've booked a call with you:\n\nDate: ${dateStr}\nTime: ${timeStr} (${tzShort})\nName: ${name}\nEmail: ${email}\n\nThe calendar invite (.ics) was downloaded.\n\nBest regards,\n${name}`
         );
         setTimeout(() => {
-            window.location.href = `mailto:${availData.contactEmail}?subject=${subject}&body=${body}`;
-        }, 500);
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            window.open(`mailto:${availData.contactEmail}?subject=${subject}&body=${body}`, '_blank');
+        }, 1000);
     }
 
     document.getElementById('cal-prev').addEventListener('click', () => {
