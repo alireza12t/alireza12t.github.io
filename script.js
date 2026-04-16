@@ -338,7 +338,7 @@ window.addEventListener('scroll', navHighlighter);
                     confirmDiv.innerHTML = `
                         <input type="text" id="booking-name" class="booking-input" placeholder="Your name" required>
                         <input type="email" id="booking-email" class="booking-input" placeholder="Your email" required>
-                        <button class="confirm-btn">Confirm & Download Invite</button>`;
+                        <button class="confirm-btn">Confirm & Send Invite</button>`;
                     slotsPanel.appendChild(confirmDiv);
                     confirmDiv.querySelector('.confirm-btn').addEventListener('click', confirmBooking);
                 }
@@ -389,25 +389,47 @@ window.addEventListener('scroll', navHighlighter);
             'END:VCALENDAR',
         ].join('\r\n');
 
-        // Download .ics file
-        const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
+        // Build .eml file with .ics attachment
+        const icsBase64 = btoa(unescape(encodeURIComponent(ics)));
+        const boundary = `----=_Part_${Date.now()}`;
+        const emailSubject = `Meeting Request — ${dateStr}`;
+        const emailBody = `Hi Alireza,\r\n\r\nI've booked a call with you:\r\n\r\nDate: ${dateStr}\r\nTime: ${timeStr} (${tzShort})\r\nName: ${name}\r\nEmail: ${email}\r\n\r\nPlease open the attached .ics file to add this event to your calendar.\r\n\r\nBest regards,\r\n${name}`;
+
+        const eml = [
+            `From: ${name} <${email}>`,
+            `To: Alireza Toghiani <${availData.contactEmail}>`,
+            `Subject: ${emailSubject}`,
+            'MIME-Version: 1.0',
+            `Content-Type: multipart/mixed; boundary="${boundary}"`,
+            '',
+            `--${boundary}`,
+            'Content-Type: text/plain; charset=UTF-8',
+            'Content-Transfer-Encoding: 7bit',
+            '',
+            emailBody,
+            '',
+            `--${boundary}`,
+            'Content-Type: text/calendar; method=REQUEST; charset=UTF-8; name="invite.ics"',
+            'Content-Transfer-Encoding: base64',
+            'Content-Disposition: attachment; filename="invite.ics"',
+            '',
+            icsBase64.match(/.{1,76}/g).join('\r\n'),
+            '',
+            `--${boundary}--`,
+        ].join('\r\n');
+
+        // Download .eml file — opens in email client with .ics attached
+        const emlBlob = new Blob([eml], { type: 'message/rfc822' });
+        const emlUrl = URL.createObjectURL(emlBlob);
         const a = document.createElement('a');
-        a.href = url;
-        a.download = `call-with-alireza-${selectedDate.toISOString().slice(0,10)}.ics`;
+        a.href = emlUrl;
+        a.download = `call-with-alireza-${selectedDate.toISOString().slice(0,10)}.eml`;
         a.style.display = 'none';
         document.body.appendChild(a);
         a.click();
-
-        // Email notification after download starts
-        const subject = encodeURIComponent(`Meeting Request — ${dateStr}`);
-        const body = encodeURIComponent(
-            `Hi Alireza,\n\nI've booked a call with you:\n\nDate: ${dateStr}\nTime: ${timeStr} (${tzShort})\nName: ${name}\nEmail: ${email}\n\nThe calendar invite (.ics) was downloaded.\n\nBest regards,\n${name}`
-        );
         setTimeout(() => {
             document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            window.open(`mailto:${availData.contactEmail}?subject=${subject}&body=${body}`, '_blank');
+            URL.revokeObjectURL(emlUrl);
         }, 1000);
     }
 
