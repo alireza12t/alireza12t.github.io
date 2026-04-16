@@ -23,6 +23,7 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="#booking">Book a Call</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -406,6 +407,37 @@
                         <h3>Phone</h3>
                         <p>+1 (514) 518-0179</p>
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="booking">
+        <div class="container">
+            <h2 class="section-title">Book a Call</h2>
+            <p class="booking-description">Pick a time that works for you and let's chat!</p>
+            <div class="timezone-picker">
+                <i class="fas fa-globe-americas"></i>
+                <select id="tz-select"></select>
+            </div>
+            <div class="booking-widget">
+                <div class="booking-calendar">
+                    <div class="calendar-header">
+                        <button class="cal-nav-btn" id="cal-prev"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="cal-month-year"></h3>
+                        <button class="cal-nav-btn" id="cal-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="calendar-days" id="cal-days"></div>
+                </div>
+                <div class="booking-slots" id="booking-slots">
+                    <div class="slots-placeholder">
+                        <i class="fas fa-calendar-check"></i>
+                        <p>Select a date to see available times</p>
+                    </div>
                 </div>
             </div>
         </div>
