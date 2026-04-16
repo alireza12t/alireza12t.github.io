@@ -2,8 +2,8 @@ name: Sync Calendar Availability
 
 on:
   schedule:
-    # Runs every day at 6:00 AM UTC (2:00 AM Eastern)
-    - cron: "0 6 * * *"
+    # Runs every Monday at 10:00 AM UTC (6:00 AM Eastern)
+    - cron: "0 10 * * 1"
   workflow_dispatch: # Allow manual trigger
 
 permissions:
