@@ -9,7 +9,10 @@ import os
 import sys
 from datetime import datetime, timedelta, timezone
 
+import urllib.request
+
 import caldav
+import vobject
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 
@@ -154,6 +157,67 @@ def fetch_apple_events(start, end):
     return events
 
 
+def fetch_ics_events(start, end):
+    """Fetch events from ICS URLs (e.g. work calendar shared link)."""
+    ics_urls = os.environ.get("ICS_CALENDAR_URLS", "")
+    if not ics_urls.strip():
+        print("ICS calendar URLs not set, skipping.")
+        return []
+
+    events = []
+    for url in ics_urls.split(","):
+        url = url.strip()
+        if not url:
+            continue
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "CalendarSync/1.0"})
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                data = resp.read().decode("utf-8")
+
+            cal = vobject.readOne(data)
+            for component in cal.components():
+                if component.name != "VEVENT":
+                    continue
+                try:
+                    dtstart = component.dtstart.value
+                    dtend = component.dtend.value if hasattr(component, "dtend") else None
+
+                    if not hasattr(dtstart, "hour"):
+                        # All-day event
+                        if dtend and not hasattr(dtend, "hour"):
+                            ev_start = dtstart if hasattr(dtstart, "isoformat") else dtstart
+                            ev_end = dtend if hasattr(dtend, "isoformat") else dtend
+                            if ev_end > start.date() and ev_start < end.date():
+                                events.append({
+                                    "start_date": ev_start.isoformat(),
+                                    "end_date": ev_end.isoformat(),
+                                    "all_day": True,
+                                })
+                    else:
+                        if dtend:
+                            # Make timezone-aware for comparison
+                            if hasattr(dtstart, "tzinfo") and dtstart.tzinfo:
+                                if dtend > start and dtstart < end:
+                                    events.append({
+                                        "start": dtstart.isoformat(),
+                                        "end": dtend.isoformat(),
+                                    })
+                            else:
+                                events.append({
+                                    "start": dtstart.isoformat(),
+                                    "end": dtend.isoformat(),
+                                })
+                except Exception as e:
+                    print(f"  Warning: could not parse ICS event: {e}")
+                    continue
+
+            print(f"  ICS ({url[:50]}...): {len(events)} events so far")
+        except Exception as e:
+            print(f"  ICS fetch error for {url[:50]}...: {e}")
+
+    return events
+
+
 def events_to_blocked_slots(events):
     """Convert raw events into blocked slot entries for the JSON."""
     try:
@@ -228,6 +292,10 @@ def main():
     apple_events = fetch_apple_events(start, end)
     print(f"  Apple Calendar: {len(apple_events)} events")
     all_events.extend(apple_events)
+
+    ics_events = fetch_ics_events(start, end)
+    print(f"  ICS Calendars: {len(ics_events)} events")
+    all_events.extend(ics_events)
 
     blocked_slots = events_to_blocked_slots(all_events)
     print(f"  Total blocked slots: {len(blocked_slots)}")

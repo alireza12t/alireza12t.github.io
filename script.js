@@ -178,18 +178,29 @@ window.addEventListener('scroll', navHighlighter);
         });
     }
 
-    // Build a Date object for a given date string + time (minutes) in a given timezone
+    // Build a Date (UTC instant) for a given date string + time (minutes) in a given timezone
     function dateInTz(dateStr, minutes, tz) {
         const h = Math.floor(minutes / 60);
         const m = minutes % 60;
-        // Create an ISO-ish string and use the timezone to interpret it
-        const isoish = `${dateStr}T${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00`;
-        // Get the UTC equivalent by computing offset
-        const dummy = new Date(isoish + 'Z'); // treat as UTC first
-        const utcStr = dummy.toLocaleString('en-US', { timeZone: tz });
-        const inTz = new Date(utcStr);
-        const offset = dummy.getTime() - inTz.getTime();
-        return new Date(dummy.getTime() + offset);
+        // Treat as UTC first to get a reference point
+        const utcGuess = new Date(`${dateStr}T${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00Z`);
+        // Format that UTC instant in the target timezone to find the offset
+        const parts = {};
+        new Intl.DateTimeFormat('en-US', {
+            timeZone: tz, hour12: false,
+            year: 'numeric', month: '2-digit', day: '2-digit',
+            hour: '2-digit', minute: '2-digit'
+        }).formatToParts(utcGuess).forEach(p => parts[p.type] = p.value);
+        const tzH = parseInt(parts.hour === '24' ? '0' : parts.hour);
+        const tzM = parseInt(parts.minute);
+        const tzDay = parseInt(parts.day);
+        const guessDay = utcGuess.getUTCDate();
+        // Offset in minutes: how far ahead is tz from UTC
+        let offsetMin = (tzH * 60 + tzM) - (h * 60 + m) + (tzDay - guessDay) * 1440;
+        if (offsetMin > 720) offsetMin -= 1440;
+        if (offsetMin < -720) offsetMin += 1440;
+        // Actual UTC time = desired local time - offset
+        return new Date(utcGuess.getTime() - offsetMin * 60000);
     }
 
     // Get available slots for a visitor-local date, converting from host timezone
@@ -223,8 +234,11 @@ window.addEventListener('scroll', navHighlighter);
                         const absEnd = dateInTz(hostDateStr, slotEnd, hostTz);
 
                         // Check if this slot falls on the visitor's selected date
-                        const visitorStart = new Date(absStart.toLocaleString('en-US', { timeZone: visitorTz }));
-                        const slotVisitorDate = `${visitorStart.getFullYear()}-${String(visitorStart.getMonth()+1).padStart(2,'0')}-${String(visitorStart.getDate()).padStart(2,'0')}`;
+                        const vParts = {};
+                        new Intl.DateTimeFormat('en-CA', {
+                            timeZone: visitorTz, year: 'numeric', month: '2-digit', day: '2-digit'
+                        }).formatToParts(absStart).forEach(p => vParts[p.type] = p.value);
+                        const slotVisitorDate = `${vParts.year}-${vParts.month}-${vParts.day}`;
 
                         if (slotVisitorDate === visitorDateStr) {
                             // Skip past slots

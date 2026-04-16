@@ -29,6 +29,7 @@ jobs:
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+          ICS_CALENDAR_URLS: ${{ secrets.ICS_CALENDAR_URLS }}
         run: python scripts/sync_calendar.py
 
       - name: Commit and push if changed
