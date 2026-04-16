@@ -22,11 +22,11 @@ DAYS_AHEAD = 30
 MEETING_DURATION = 30
 CONTACT_EMAIL = "alireza.toghiani@icloud.com"
 WEEKLY_AVAILABILITY = {
-    "monday":    [{"start": "10:00", "end": "17:00"}],
-    "tuesday":   [{"start": "10:00", "end": "17:00"}],
-    "wednesday": [{"start": "10:00", "end": "17:00"}],
-    "thursday":  [{"start": "10:00", "end": "17:00"}],
-    "friday":    [{"start": "10:00", "end": "17:00"}],
+    "monday":    [{"start": "10:00", "end": "19:00"}],
+    "tuesday":   [{"start": "10:00", "end": "19:00"}],
+    "wednesday": [{"start": "10:00", "end": "19:00"}],
+    "thursday":  [{"start": "10:00", "end": "19:00"}],
+    "friday":    [{"start": "10:00", "end": "19:00"}],
     "saturday":  [],
     "sunday":    [],
 }
