@@ -828,6 +828,24 @@ section {
     margin-top: 1rem;
 }
 
+.booking-input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: var(--text-dark);
+    transition: border-color 0.2s ease;
+}
+
+.booking-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
 .confirm-btn {
     display: block;
     width: 100%;

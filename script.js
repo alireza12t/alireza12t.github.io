@@ -335,7 +335,10 @@ window.addEventListener('scroll', navHighlighter);
                 if (!confirmDiv) {
                     confirmDiv = document.createElement('div');
                     confirmDiv.className = 'booking-confirm';
-                    confirmDiv.innerHTML = '<button class="confirm-btn">Confirm & Send Request</button>';
+                    confirmDiv.innerHTML = `
+                        <input type="text" id="booking-name" class="booking-input" placeholder="Your name" required>
+                        <input type="email" id="booking-email" class="booking-input" placeholder="Your email" required>
+                        <button class="confirm-btn">Confirm & Download Invite</button>`;
                     slotsPanel.appendChild(confirmDiv);
                     confirmDiv.querySelector('.confirm-btn').addEventListener('click', confirmBooking);
                 }
@@ -343,16 +346,66 @@ window.addEventListener('scroll', navHighlighter);
         });
     }
 
+    function pad2(n) { return String(n).padStart(2, '0'); }
+
+    function toICSDate(date) {
+        return `${date.getUTCFullYear()}${pad2(date.getUTCMonth()+1)}${pad2(date.getUTCDate())}T${pad2(date.getUTCHours())}${pad2(date.getUTCMinutes())}00Z`;
+    }
+
     function confirmBooking() {
         if (!selectedDate || !selectedSlot) return;
+        const nameInput = document.getElementById('booking-name');
+        const emailInput = document.getElementById('booking-email');
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        if (!name) { nameInput.focus(); return; }
+        if (!email || !email.includes('@')) { emailInput.focus(); return; }
+
         const dateStr = selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
         const timeStr = selectedSlot.label;
         const tzShort = visitorTz.replace(/_/g, ' ');
+        const uid = `${Date.now()}-${Math.random().toString(36).slice(2)}@alireza12t.github.io`;
+        const now = toICSDate(new Date());
+        const dtStart = toICSDate(selectedSlot.absStart);
+        const dtEnd = toICSDate(selectedSlot.absEnd);
+
+        const ics = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//Alireza Toghiani//Booking//EN',
+            'METHOD:REQUEST',
+            'BEGIN:VEVENT',
+            `UID:${uid}`,
+            `DTSTAMP:${now}`,
+            `DTSTART:${dtStart}`,
+            `DTEND:${dtEnd}`,
+            `SUMMARY:Call with ${name}`,
+            `DESCRIPTION:Booked via alireza12t.github.io\\nTime: ${timeStr} (${tzShort})`,
+            `ORGANIZER;CN=${name}:mailto:${email}`,
+            `ATTENDEE;CN=Alireza Toghiani;RSVP=TRUE:mailto:${availData.contactEmail}`,
+            `ATTENDEE;CN=${name};RSVP=TRUE:mailto:${email}`,
+            'STATUS:CONFIRMED',
+            'END:VEVENT',
+            'END:VCALENDAR',
+        ].join('\r\n');
+
+        // Download .ics file
+        const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `call-with-alireza-${selectedDate.toISOString().slice(0,10)}.ics`;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        // Also send email notification
         const subject = encodeURIComponent(`Meeting Request — ${dateStr}`);
         const body = encodeURIComponent(
-            `Hi Alireza,\n\nI'd like to book a call with you:\n\nDate: ${dateStr}\nTime: ${timeStr} (${tzShort})\n\nPlease let me know if this works!\n\nBest regards`
+            `Hi Alireza,\n\nI've booked a call with you:\n\nDate: ${dateStr}\nTime: ${timeStr} (${tzShort})\nName: ${name}\nEmail: ${email}\n\nThe calendar invite (.ics) is attached / was downloaded.\n\nBest regards,\n${name}`
         );
-        window.location.href = `mailto:${availData.contactEmail}?subject=${subject}&body=${body}`;
+        setTimeout(() => {
+            window.location.href = `mailto:${availData.contactEmail}?subject=${subject}&body=${body}`;
+        }, 500);
     }
 
     document.getElementById('cal-prev').addEventListener('click', () => {
