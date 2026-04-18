@@ -88,12 +88,12 @@
 
 .theme-toggle,
 .lang-toggle {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    border: 2px solid var(--primary-color);
-    background-color: var(--bg-white);
-    color: var(--primary-color);
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -101,16 +101,24 @@
     font-size: 0.85rem;
     font-weight: 700;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(27, 58, 107, 0.2);
 }
 
 .theme-toggle:hover,
 .lang-toggle:hover {
-    background-color: var(--primary-color);
-    color: var(--bg-white);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(253, 184, 19, 0.4);
+}
+
+.theme-toggle:active,
+.lang-toggle:active {
+    transform: scale(0.95);
 }
 
 .theme-toggle i {
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 html {
@@ -140,6 +148,14 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     padding: 1rem 0;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                backdrop-filter 0.35s ease,
+                background-color 0.35s ease,
+                box-shadow 0.35s ease;
+}
+
+.navbar.nav-hidden {
+    transform: translateY(-100%);
 }
 
 .navbar .container {
@@ -190,13 +206,16 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #1B3A6B 0%, #2C5282 50%, #1B3A6B 100%);
+    background: linear-gradient(135deg, #1B3A6B 0%, #2C5282 25%, #1B3A6B 50%, #2C5282 75%, #1B3A6B 100%);
+    background-size: 300% 300%;
+    animation: heroGradient 12s ease infinite;
     color: white;
     padding-top: 80px;
 }
 
 .hero-content {
     text-align: center;
+    animation: heroFloat 5s ease-in-out infinite;
 }
 
 .hero-title {
@@ -211,6 +230,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: shimmerGlow 3s ease-in-out infinite;
 }
 
 .hero-subtitle {
@@ -273,13 +293,19 @@ body {
     display: flex;
     gap: 1.5rem;
     justify-content: center;
-    animation: fadeInUp 0.8s ease 0.8s backwards;
 }
+
+.social-links a {
+    animation: bounceIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+.social-links a:nth-child(1) { animation-delay: 0.8s; }
+.social-links a:nth-child(2) { animation-delay: 0.95s; }
+.social-links a:nth-child(3) { animation-delay: 1.1s; }
 
 .social-links a {
     color: white;
     font-size: 1.8rem;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .social-links a:hover {
@@ -307,10 +333,15 @@ section {
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
+    width: 0;
     height: 4px;
     background: var(--secondary-color);
     border-radius: 2px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-title.revealed::after {
+    width: 60px;
 }
 
 /* About Section */
@@ -469,12 +500,13 @@ section {
     border-radius: 15px;
     box-shadow: var(--shadow);
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .achievement-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(253, 184, 19, 0.15);
 }
 
 .achievement-icon {
@@ -509,12 +541,14 @@ section {
     padding: 2rem;
     border-radius: 15px;
     box-shadow: var(--shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    perspective: 800px;
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: var(--shadow-lg), 0 0 25px rgba(253, 184, 19, 0.15);
 }
 
 .project-icon {
@@ -562,6 +596,13 @@ section {
     padding: 2rem;
     border-radius: 15px;
     box-shadow: var(--shadow);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-category:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(253, 184, 19, 0.15);
 }
 
 .skill-category h3 {
@@ -595,7 +636,8 @@ section {
 .skill-tag:hover {
     background-color: var(--secondary-color);
     color: var(--primary-color);
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 4px 15px rgba(253, 184, 19, 0.35);
 }
 
 .volunteer-section {
@@ -621,11 +663,13 @@ section {
     border-radius: 15px;
     box-shadow: var(--shadow);
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .volunteer-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(253, 184, 19, 0.15);
 }
 
 .volunteer-card i {
@@ -679,8 +723,8 @@ section {
 }
 
 .contact-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(253, 184, 19, 0.15);
 }
 
 .contact-card i {
@@ -700,7 +744,7 @@ section {
 
 /* Booking Section */
 .booking {
-    background-color: var(--bg-white);
+    background: linear-gradient(160deg, var(--bg-white) 0%, var(--bg-light) 50%, var(--bg-white) 100%);
 }
 
 .booking-description {
@@ -756,7 +800,7 @@ section {
     background-color: var(--bg-white);
     border-radius: 15px;
     box-shadow: var(--shadow);
-    padding: 1.5rem;
+    padding: 2rem;
 }
 
 .calendar-header {
@@ -807,7 +851,7 @@ section {
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
+    gap: 6px;
 }
 
 .cal-day {
@@ -819,7 +863,19 @@ section {
     font-size: 0.9rem;
     cursor: default;
     color: var(--border-color);
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.cal-day .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(253, 184, 19, 0.35);
+    animation: ripple 0.5s ease-out forwards;
+    pointer-events: none;
+    width: 10px;
+    height: 10px;
 }
 
 .cal-day.available {
@@ -878,9 +934,12 @@ section {
 }
 
 .slot-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.85rem 1rem;
     margin-bottom: 0.5rem;
     border: 2px solid var(--primary-color);
     border-radius: 10px;
@@ -889,8 +948,10 @@ section {
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
+    animation: slideInFromRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation-delay: calc(var(--slot-i, 0) * 0.05s);
 }
 
 .slot-btn:hover {
@@ -918,24 +979,31 @@ section {
 
 .booking-confirm {
     margin-top: 1rem;
+    animation: slideUpIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .booking-input {
     display: block;
     width: 100%;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.5rem;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.75rem;
     border: 2px solid var(--border-color);
     border-radius: 10px;
     font-size: 0.95rem;
     font-family: inherit;
     color: var(--text-dark);
-    transition: border-color 0.2s ease;
+    transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .booking-input:focus {
     outline: none;
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(27, 58, 107, 0.12);
+}
+
+[data-theme="dark"] .booking-input:focus {
+    box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.2);
 }
 
 .confirm-btn {
@@ -973,29 +1041,50 @@ section {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    animation: shake 0.5s ease;
 }
 
 .booking-success {
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 2.5rem 1rem;
+    position: relative;
+    overflow: hidden;
 }
 
-.booking-success i {
-    font-size: 3rem;
+.booking-success::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle, var(--secondary-color) 1.5px, transparent 1.5px),
+        radial-gradient(circle, var(--primary-color) 1px, transparent 1px),
+        radial-gradient(circle, var(--success-color) 1.5px, transparent 1.5px);
+    background-size: 60px 60px, 40px 40px, 80px 80px;
+    background-position: 0 0, 20px 20px, 40px 10px;
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.booking-success i.fa-check-circle {
+    font-size: 4rem;
     color: #27ae60;
     margin-bottom: 1rem;
+    display: inline-block;
+    animation: checkBounce 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .booking-success h3 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: var(--text-dark);
     margin-bottom: 0.75rem;
+    animation: fadeInUp 0.5s 0.2s both;
 }
 
 .booking-success p {
     color: var(--text-light);
     margin-bottom: 0.5rem;
     line-height: 1.6;
+    animation: fadeInUp 0.5s 0.3s both;
 }
 
 .meet-link {
@@ -1043,7 +1132,8 @@ section {
     color: var(--secondary-color);
 }
 
-/* Animations */
+/* ===== Animations & Keyframes ===== */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -1053,6 +1143,182 @@ section {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes heroFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes heroGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmerGlow {
+    0%, 100% {
+        filter: brightness(1) drop-shadow(0 0 0px transparent);
+    }
+    50% {
+        filter: brightness(1.15) drop-shadow(0 0 12px rgba(253, 184, 19, 0.5));
+    }
+}
+
+@keyframes underlineReveal {
+    from { width: 0; }
+    to { width: 60px; }
+}
+
+@keyframes skillPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    60% {
+        transform: scale(1.08);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+    60% {
+        transform: translateY(-4px) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideUpIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes checkBounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.3); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+    20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+@keyframes confettiFloat {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-60px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===== Scroll-reveal system ===== */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-left.revealed,
+.reveal-right.revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Staggered children in grids */
+.reveal-stagger > .reveal {
+    transition-delay: calc(var(--reveal-i, 0) * 0.1s);
+}
+
+/* ===== Skill tag viewport animation ===== */
+.skill-tag.revealed {
+    animation: skillPop 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation-delay: calc(var(--reveal-i, 0) * 0.06s);
 }
 
 /* Responsive Design */
