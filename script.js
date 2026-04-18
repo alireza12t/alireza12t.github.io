@@ -93,12 +93,26 @@ window.addEventListener('scroll', navHighlighter);
 
 // Booking Calendar with timezone support
 (async function initBooking() {
+    const BOOKING_API_URL = 'https://ijmmyxjtvlzcxnqe7cv6hpwwci0xlgps.lambda-url.us-east-1.on.aws/';
+
     let availData;
     try {
         const resp = await fetch('availabilities.json');
         availData = resp.ok ? await resp.json() : null;
     } catch { availData = null; }
     if (!availData) return;
+
+    // Fetch already-booked slots from Lambda so we can hide them
+    let bookedSlots = new Set();
+    if (BOOKING_API_URL) {
+        try {
+            const r = await fetch(BOOKING_API_URL);
+            if (r.ok) {
+                const data = await r.json();
+                (data.booked_slots || []).forEach(s => bookedSlots.add(s));
+            }
+        } catch { /* Lambda not deployed yet — show all slots */ }
+    }
 
     const DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     const duration = availData.meetingDurationMinutes;
@@ -243,6 +257,8 @@ window.addEventListener('scroll', navHighlighter);
                         if (slotVisitorDate === visitorDateStr) {
                             // Skip past slots
                             if (absStart <= new Date()) { cursor += duration; continue; }
+                            // Skip already-booked slots
+                            if (bookedSlots.has(absStart.toISOString())) { cursor += duration; continue; }
 
                             slots.push({
                                 absStart,
@@ -346,90 +362,82 @@ window.addEventListener('scroll', navHighlighter);
         });
     }
 
-    function pad2(n) { return String(n).padStart(2, '0'); }
-
-    function toICSDate(date) {
-        return `${date.getUTCFullYear()}${pad2(date.getUTCMonth()+1)}${pad2(date.getUTCDate())}T${pad2(date.getUTCHours())}${pad2(date.getUTCMinutes())}00Z`;
-    }
-
-    function confirmBooking() {
+    async function confirmBooking() {
         if (!selectedDate || !selectedSlot) return;
         const nameInput = document.getElementById('booking-name');
         const emailInput = document.getElementById('booking-email');
+        const confirmBtn = slotsPanel.querySelector('.confirm-btn');
         const name = nameInput.value.trim();
         const email = emailInput.value.trim();
         if (!name) { nameInput.focus(); return; }
         if (!email || !email.includes('@')) { emailInput.focus(); return; }
 
-        const dateStr = selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-        const timeStr = selectedSlot.label;
-        const tzShort = visitorTz.replace(/_/g, ' ');
-        const uid = `${Date.now()}-${Math.random().toString(36).slice(2)}@alireza12t.github.io`;
-        const now = toICSDate(new Date());
-        const dtStart = toICSDate(selectedSlot.absStart);
-        const dtEnd = toICSDate(selectedSlot.absEnd);
+        if (!BOOKING_API_URL) {
+            alert('Booking is not available yet. Please try again later.');
+            return;
+        }
 
-        const ics = [
-            'BEGIN:VCALENDAR',
-            'VERSION:2.0',
-            'PRODID:-//Alireza Toghiani//Booking//EN',
-            'METHOD:REQUEST',
-            'BEGIN:VEVENT',
-            `UID:${uid}`,
-            `DTSTAMP:${now}`,
-            `DTSTART:${dtStart}`,
-            `DTEND:${dtEnd}`,
-            `SUMMARY:Call with ${name}`,
-            `DESCRIPTION:Booked via alireza12t.github.io\\nTime: ${timeStr} (${tzShort})`,
-            `ORGANIZER;CN=${name}:mailto:${email}`,
-            `ATTENDEE;CN=Alireza Toghiani;RSVP=TRUE:mailto:${availData.contactEmail}`,
-            'STATUS:CONFIRMED',
-            'END:VEVENT',
-            'END:VCALENDAR',
-        ].join('\r\n');
+        // Loading state
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'Booking...';
 
-        // Build .eml file with .ics attachment
-        const icsBase64 = btoa(unescape(encodeURIComponent(ics)));
-        const boundary = `----=_Part_${Date.now()}`;
-        const emailSubject = `Meeting Request — ${dateStr}`;
-        const emailBody = `Hi Alireza,\r\n\r\nI've booked a call with you:\r\n\r\nDate: ${dateStr}\r\nTime: ${timeStr} (${tzShort})\r\nName: ${name}\r\nEmail: ${email}\r\n\r\nPlease open the attached .ics file to add this event to your calendar.\r\n\r\nBest regards,\r\n${name}`;
+        try {
+            const resp = await fetch(BOOKING_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    slot_iso: selectedSlot.absStart.toISOString(),
+                    duration_min: duration,
+                    name,
+                    email,
+                }),
+            });
+            const data = await resp.json();
 
-        const eml = [
-            `From: ${name} <${email}>`,
-            `To: Alireza Toghiani <${availData.contactEmail}>`,
-            `Subject: ${emailSubject}`,
-            'MIME-Version: 1.0',
-            `Content-Type: multipart/mixed; boundary="${boundary}"`,
-            '',
-            `--${boundary}`,
-            'Content-Type: text/plain; charset=UTF-8',
-            'Content-Transfer-Encoding: 7bit',
-            '',
-            emailBody,
-            '',
-            `--${boundary}`,
-            'Content-Type: text/calendar; method=REQUEST; charset=UTF-8; name="invite.ics"',
-            'Content-Transfer-Encoding: base64',
-            'Content-Disposition: attachment; filename="invite.ics"',
-            '',
-            icsBase64.match(/.{1,76}/g).join('\r\n'),
-            '',
-            `--${boundary}--`,
-        ].join('\r\n');
+            if (resp.status === 409) {
+                // Slot was taken — mark it booked and refresh
+                bookedSlots.add(selectedSlot.absStart.toISOString());
+                confirmBtn.disabled = false;
+                confirmBtn.textContent = 'Confirm & Send Invite';
+                slotsPanel.querySelector('.booking-confirm').remove();
+                selectedSlot = null;
+                renderSlots(selectedDate);
+                const errDiv = document.createElement('div');
+                errDiv.className = 'booking-error';
+                errDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> That slot was just taken. Please pick another time.';
+                slotsPanel.prepend(errDiv);
+                setTimeout(() => errDiv.remove(), 5000);
+                return;
+            }
 
-        // Download .eml file — opens in email client with .ics attached
-        const emlBlob = new Blob([eml], { type: 'message/rfc822' });
-        const emlUrl = URL.createObjectURL(emlBlob);
-        const a = document.createElement('a');
-        a.href = emlUrl;
-        a.download = `call-with-alireza-${selectedDate.toISOString().slice(0,10)}.eml`;
-        a.style.display = 'none';
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => {
-            document.body.removeChild(a);
-            URL.revokeObjectURL(emlUrl);
-        }, 1000);
+            if (!resp.ok) {
+                throw new Error(data.error || 'Booking failed');
+            }
+
+            // Success — show confirmation
+            bookedSlots.add(selectedSlot.absStart.toISOString());
+            const dateStr = selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+            const timeStr = selectedSlot.label;
+            const meetLink = data.meet_link;
+
+            slotsPanel.innerHTML = `
+                <div class="booking-success">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Booking Confirmed!</h3>
+                    <p><strong>${dateStr}</strong><br>${timeStr}</p>
+                    <p>A calendar invite has been sent to <strong>${email}</strong>.</p>
+                    ${meetLink ? `<a href="${meetLink}" target="_blank" class="meet-link"><i class="fas fa-video"></i> Join Google Meet</a>` : ''}
+                    <button class="confirm-btn" onclick="location.reload()">Book Another</button>
+                </div>`;
+        } catch (err) {
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = 'Confirm & Send Invite';
+            const errDiv = document.createElement('div');
+            errDiv.className = 'booking-error';
+            errDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${err.message}. Please try again.`;
+            slotsPanel.querySelector('.booking-confirm').prepend(errDiv);
+            setTimeout(() => errDiv.remove(), 5000);
+        }
     }
 
     document.getElementById('cal-prev').addEventListener('click', () => {
