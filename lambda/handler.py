@@ -50,7 +50,6 @@ HOST_EMAIL = os.environ.get("HOST_EMAIL", "alireza.toghiani@icloud.com")
 HOST_NAME = os.environ.get("HOST_NAME", "Alireza Toghiani")
 TIMEZONE = os.environ.get("TIMEZONE", "America/Toronto")
 DDB_TABLE = os.environ.get("DDB_TABLE", "bookings")
-ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "https://alireza12t.github.io")
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 CALENDAR_URL = (
@@ -74,19 +73,11 @@ def _get_secret(param_name):
     return _secret_cache[param_name]
 
 
-def _cors_headers():
-    return {
-        "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Max-Age": "300",
-    }
-
-
 def _response(status, body):
+    # CORS headers are handled by the Function URL config — don't duplicate them here
     return {
         "statusCode": status,
-        "headers": {"Content-Type": "application/json", **_cors_headers()},
+        "headers": {"Content-Type": "application/json"},
         "body": json.dumps(body),
     }
 
@@ -229,7 +220,7 @@ def lambda_handler(event, context):
     ).upper()
     print(f"[booking] method={method}")
     if method == "OPTIONS":
-        return {"statusCode": 204, "headers": _cors_headers(), "body": ""}
+        return {"statusCode": 204, "headers": {}, "body": ""}
     if method == "GET":
         slots = _get_booked_slots()
         print(f"[booking] GET returning {len(slots)} booked slots")
