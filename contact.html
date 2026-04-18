@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Alireza Toghiani - Senior iOS Engineer">
+    <meta name="description" content="Contact - Alireza Toghiani, Senior iOS Engineer">
     <meta name="keywords" content="iOS Developer, Swift, SwiftUI, Mobile Development, Software Engineer">
     <meta name="author" content="Alireza Toghiani Khorasgani">
-    <title>Alireza Toghiani | Senior iOS Engineer</title>
+    <title>Contact | Alireza Toghiani</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -26,12 +26,12 @@
                 </select>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html" class="active-link" data-i18n="nav_home">Home</a></li>
+                <li><a href="index.html" data-i18n="nav_home">Home</a></li>
                 <li><a href="about.html" data-i18n="nav_about">About</a></li>
                 <li><a href="experience.html" data-i18n="nav_experience">Experience</a></li>
                 <li><a href="projects.html" data-i18n="nav_projects">Projects</a></li>
                 <li><a href="skills.html" data-i18n="nav_skills">Skills</a></li>
-                <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="contact.html" class="active-link" data-i18n="nav_contact">Contact</a></li>
                 <li><a href="booking.html" data-i18n="nav_booking">Book a Call</a></li>
             </ul>
             <div class="hamburger">
@@ -42,29 +42,39 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title" data-i18n-html="hero_title">Hi, I'm <span class="highlight">Alireza Toghiani</span></h1>
-                <h2 class="hero-subtitle" data-i18n="hero_subtitle">Senior iOS Engineer</h2>
-                <p class="hero-description" data-i18n="hero_description">Passionate about creating innovative mobile solutions with 6+ years of experience in iOS development</p>
-                <div class="hero-buttons">
-                    <a href="booking.html" class="btn btn-primary" data-i18n="nav_booking"><i class="fas fa-calendar-alt"></i> Book a Call</a>
-                    <a href="contact.html" class="btn btn-secondary" data-i18n="hero_cta_primary">Get In Touch</a>
-                    <a href="projects.html" class="btn btn-secondary" data-i18n="hero_cta_secondary">View My Work</a>
-                </div>
-                <div class="social-links" aria-label="Social media links">
-                    <a href="https://linkedin.com/in/alireza12t" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/alireza12t" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://instagram.com/devmvrick" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <div class="page-content">
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title" data-i18n="contact_title">Get In Touch</h2>
+                <div class="contact-content">
+                    <p class="contact-description" data-i18n="contact_description">I'm always interested in hearing about new opportunities, collaborations, or just chatting about iOS development. Feel free to reach out!</p>
+                    <div class="contact-methods">
+                        <a href="https://linkedin.com/in/alireza12t" target="_blank" class="contact-card">
+                            <i class="fab fa-linkedin"></i>
+                            <h3>LinkedIn</h3>
+                            <p data-i18n="contact_linkedin">Connect with me professionally</p>
+                        </a>
+                        <a href="https://github.com/alireza12t" target="_blank" class="contact-card">
+                            <i class="fab fa-github"></i>
+                            <h3>GitHub</h3>
+                            <p data-i18n="contact_github">Check out my code</p>
+                        </a>
+                        <a href="mailto:alireza.toghiani@icloud.com" class="contact-card">
+                            <i class="fas fa-envelope"></i>
+                            <h3 data-i18n="contact_email_label">Email</h3>
+                            <p>alireza.toghiani@icloud.com</p>
+                        </a>
+                        <a href="tel:+15145180179" class="contact-card">
+                            <i class="fas fa-phone"></i>
+                            <h3 data-i18n="contact_phone_label">Phone</h3>
+                            <p>+1 (514) 518-0179</p>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <a href="about.html" class="scroll-indicator" aria-label="Go to About page">
-                <i class="fas fa-chevron-down"></i>
-            </a>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

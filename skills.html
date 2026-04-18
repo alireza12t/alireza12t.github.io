@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Skills - Alireza Toghiani, Senior iOS Engineer">
+    <meta name="keywords" content="iOS Developer, Swift, SwiftUI, Mobile Development, Software Engineer">
+    <meta name="author" content="Alireza Toghiani Khorasgani">
+    <title>Skills | Alireza Toghiani</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">AT</div>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <select class="lang-select" id="lang-select" aria-label="Select language">
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="fr">🇫🇷 FR</option>
+                    <option value="fa">🇮🇷 FA</option>
+                </select>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                <li><a href="about.html" data-i18n="nav_about">About</a></li>
+                <li><a href="experience.html" data-i18n="nav_experience">Experience</a></li>
+                <li><a href="projects.html" data-i18n="nav_projects">Projects</a></li>
+                <li><a href="skills.html" class="active-link" data-i18n="nav_skills">Skills</a></li>
+                <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="booking.html" data-i18n="nav_booking">Book a Call</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-content">
+        <!-- Skills Section -->
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2 class="section-title" data-i18n="skills_title">Skills & Technologies</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3 data-i18n-html="skills_languages"><i class="fas fa-code"></i> Languages & Frameworks</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Swift</span>
+                            <span class="skill-tag">SwiftUI</span>
+                            <span class="skill-tag">UIKit</span>
+                            <span class="skill-tag">RxSwift</span>
+                            <span class="skill-tag">Combine</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 data-i18n-html="skills_tools"><i class="fas fa-tools"></i> Tools & Platforms</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Xcode</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">REST APIs</span>
+                            <span class="skill-tag">Firebase</span>
+                            <span class="skill-tag">TestFlight</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 data-i18n-html="skills_design"><i class="fas fa-palette"></i> Design & Architecture</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">MVVM</span>
+                            <span class="skill-tag">Clean Architecture</span>
+                            <span class="skill-tag">UI/UX</span>
+                            <span class="skill-tag">Responsive Design</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 data-i18n-html="skills_spoken"><i class="fas fa-globe"></i> Languages</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag" data-i18n="lang_english">English (Professional)</span>
+                            <span class="skill-tag" data-i18n="lang_persian">Persian (Native)</span>
+                            <span class="skill-tag" data-i18n="lang_french">French (Basic)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="volunteer-section">
+                    <h3 data-i18n="community_title">Community Involvement</h3>
+                    <div class="volunteer-grid">
+                        <div class="volunteer-card">
+                            <i class="fas fa-users"></i>
+                            <h4 data-i18n="volunteer_vp">Vice President & Lead of App Developement</h4>
+                            <p data-i18n="volunteer_vp_org">AtHackCTF - Concordia Cyber Security Hackathon</p>
+                        </div>
+                        <div class="volunteer-card">
+                            <i class="fas fa-users"></i>
+                            <h4 data-i18n="volunteer_marketing">Lead of Marketing</h4>
+                            <p data-i18n="volunteer_marketing_org">AtHackCTF - Concordia Cyber Security Hackathon</p>
+                        </div>
+                        <div class="volunteer-card">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <h4 data-i18n="volunteer_instructor">iOS Instructor</h4>
+                            <p data-i18n="volunteer_instructor_org">CS50x Iran</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p data-i18n-html="footer_copyright">&copy; 2025 Alireza Toghiani Khorasgani. All rights reserved.</p>
+            <p data-i18n-html="footer_built">Built with <i class="fas fa-heart"></i> in Montreal</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

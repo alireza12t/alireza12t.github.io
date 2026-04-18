@@ -86,6 +86,9 @@ const translations = {
         booking_placeholder: 'Select a date to see available times',
         cal_sun: 'Sun', cal_mon: 'Mon', cal_tue: 'Tue', cal_wed: 'Wed',
         cal_thu: 'Thu', cal_fri: 'Fri', cal_sat: 'Sat',
+        booking_step_date: 'Select Date',
+        booking_step_time: 'Choose Time',
+        booking_step_confirm: 'Confirm',
         footer_copyright: '&copy; 2025 Alireza Toghiani Khorasgani. All rights reserved.',
         footer_built: 'Built with <i class="fas fa-heart"></i> in Montreal',
     },
@@ -150,8 +153,78 @@ const translations = {
         booking_placeholder: 'S\u00E9lectionnez une date pour voir les cr\u00E9neaux disponibles',
         cal_sun: 'Dim', cal_mon: 'Lun', cal_tue: 'Mar', cal_wed: 'Mer',
         cal_thu: 'Jeu', cal_fri: 'Ven', cal_sat: 'Sam',
+        booking_step_date: 'Choisir la date',
+        booking_step_time: 'Choisir l\u2019heure',
+        booking_step_confirm: 'Confirmer',
         footer_copyright: '&copy; 2025 Alireza Toghiani Khorasgani. Tous droits r\u00E9serv\u00E9s.',
         footer_built: 'Con\u00E7u avec <i class="fas fa-heart"></i> \u00E0 Montr\u00E9al',
+    },
+    fa: {
+        nav_home: '\u062E\u0627\u0646\u0647',
+        nav_about: '\u062F\u0631\u0628\u0627\u0631\u0647 \u0645\u0646',
+        nav_experience: '\u062A\u062C\u0631\u0628\u0647',
+        nav_education: '\u062A\u062D\u0635\u06CC\u0644\u0627\u062A',
+        nav_projects: '\u067E\u0631\u0648\u0698\u0647\u200C\u0647\u0627',
+        nav_skills: '\u0645\u0647\u0627\u0631\u062A\u200C\u0647\u0627',
+        nav_contact: '\u062A\u0645\u0627\u0633',
+        nav_booking: '\u0631\u0632\u0631\u0648 \u062A\u0645\u0627\u0633',
+        hero_title: '\u0633\u0644\u0627\u0645\u060C \u0645\u0646 <span class="highlight">\u0639\u0644\u06CC\u0631\u0636\u0627 \u062A\u0642\u06CC\u0627\u0646\u06CC</span> \u0647\u0633\u062A\u0645',
+        hero_subtitle: '\u0645\u0647\u0646\u062F\u0633 \u0627\u0631\u0634\u062F iOS',
+        hero_description: '\u0639\u0644\u0627\u0642\u0647\u200C\u0645\u0646\u062F \u0628\u0647 \u062E\u0644\u0642 \u0631\u0627\u0647\u200C\u062D\u0644\u200C\u0647\u0627\u06CC \u0646\u0648\u0622\u0648\u0631\u0627\u0646\u0647 \u0645\u0648\u0628\u0627\u06CC\u0644 \u0628\u0627 \u0628\u06CC\u0634 \u0627\u0632 \u06F6 \u0633\u0627\u0644 \u062A\u062C\u0631\u0628\u0647 \u062F\u0631 \u062A\u0648\u0633\u0639\u0647 iOS',
+        hero_cta_primary: '\u062A\u0645\u0627\u0633 \u0628\u0627 \u0645\u0646',
+        hero_cta_secondary: '\u0645\u0634\u0627\u0647\u062F\u0647 \u06A9\u0627\u0631\u0647\u0627\u06CC \u0645\u0646',
+        about_title: '\u062F\u0631\u0628\u0627\u0631\u0647 \u0645\u0646',
+        about_p1: '\u0645\u0647\u0646\u062F\u0633 iOS \u0628\u0627 \u0628\u06CC\u0634 \u0627\u0632 \u06F6 \u0633\u0627\u0644 \u062A\u062C\u0631\u0628\u0647\u060C \u0639\u0644\u0627\u0642\u0647\u200C\u0645\u0646\u062F \u0628\u0647 \u062A\u0628\u062F\u06CC\u0644 \u0627\u06CC\u062F\u0647\u200C\u0647\u0627\u06CC \u0627\u067E\u0644\u06CC\u06A9\u06CC\u0634\u0646 \u0628\u0647 \u0648\u0627\u0642\u0639\u06CC\u062A \u0628\u0631\u0627\u06CC \u0628\u0647\u0628\u0648\u062F \u0632\u0646\u062F\u06AF\u06CC \u0631\u0648\u0632\u0645\u0631\u0647.',
+        about_p2: '\u0631\u0647\u0628\u0631\u06CC \u062A\u06CC\u0645 \u062A\u0648\u0633\u0639\u0647 iOS \u0628\u0631\u0627\u06CC \u0627\u0646\u062A\u0634\u0627\u0631 \u06F7 \u0627\u067E\u0644\u06CC\u06A9\u06CC\u0634\u0646 \u0645\u0648\u0641\u0642 \u0628\u0627 \u0647\u0645\u06A9\u0627\u0631\u06CC \u062A\u06CC\u0645\u200C\u0647\u0627\u06CC \u062F\u0627\u062E\u0644\u06CC \u0648 \u0634\u0631\u06A9\u0627\u06CC \u062E\u0627\u0631\u062C\u06CC.',
+        about_p3: '\u067E\u0627\u06CC\u0647 \u0622\u06A9\u0627\u062F\u0645\u06CC\u06A9 \u062F\u0631 \u0627\u0635\u0648\u0644 \u0627\u0645\u0646\u06CC\u062A \u0648 \u0633\u06CC\u0633\u062A\u0645\u200C\u0647\u0627\u06CC \u0631\u0645\u0632\u0646\u06AF\u0627\u0631\u06CC \u0627\u0632 \u062F\u0648\u0631\u0647 \u06A9\u0627\u0631\u0634\u0646\u0627\u0633\u06CC \u0627\u0631\u0634\u062F.',
+        about_location: '\u0645\u0648\u0646\u062A\u0631\u0627\u0644\u060C \u06A9\u0628\u06A9\u060C \u06A9\u0627\u0646\u0627\u062F\u0627',
+        about_degree: '\u06A9\u0627\u0631\u0634\u0646\u0627\u0633\u06CC \u0627\u0631\u0634\u062F \u0627\u0645\u0646\u06CC\u062A \u0633\u06CC\u0633\u062A\u0645\u200C\u0647\u0627\u06CC \u0627\u0637\u0644\u0627\u0639\u0627\u062A\u06CC\u060C \u062F\u0627\u0646\u0634\u06AF\u0627\u0647 \u06A9\u0627\u0646\u06A9\u0648\u0631\u062F\u06CC\u0627',
+        about_role: '\u0645\u0647\u0646\u062F\u0633 \u0627\u0631\u0634\u062F iOS',
+        exp_title: '\u062A\u062C\u0631\u0628\u0647 \u06A9\u0627\u0631\u06CC',
+        achievements_title: '\u0627\u0641\u062A\u062E\u0627\u0631\u0627\u062A \u0648 \u062C\u0648\u0627\u06CC\u0632',
+        achievement_silver: '\u0645\u062F\u0627\u0644 \u0646\u0642\u0631\u0647',
+        achievement_silver_desc: '\u062A\u0648\u0633\u0639\u0647 \u0627\u067E\u0644\u06CC\u06A9\u06CC\u0634\u0646 \u0645\u0648\u0628\u0627\u06CC\u0644<br>WorldSkills Asia 2021',
+        achievement_clean: '\u0646\u0627\u0645\u0632\u062F \u062A\u0645\u06CC\u0632\u062A\u0631\u06CC\u0646 \u0631\u0627\u0647\u200C\u062D\u0644',
+        achievement_clean_desc: 'WorldSkills Asia 2021',
+        edu_title: '\u062A\u062D\u0635\u06CC\u0644\u0627\u062A',
+        projects_title: '\u067E\u0631\u0648\u0698\u0647\u200C\u0647\u0627\u06CC \u0628\u0631\u062C\u0633\u062A\u0647',
+        project_arscanner: 'ARScanner',
+        project_arscanner_desc: '\u0627\u067E\u0644\u06CC\u06A9\u06CC\u0634\u0646 \u0645\u062F\u0644\u200C\u0633\u0627\u0632\u06CC \u0633\u0647\u200C\u0628\u0639\u062F\u06CC AR \u0628\u0627 \u0627\u0633\u062A\u0641\u0627\u062F\u0647 \u0627\u0632 ARKit \u0628\u0631\u0627\u06CC \u062A\u062C\u0631\u0628\u0647\u200C\u0647\u0627\u06CC \u0648\u0627\u0642\u0639\u06CC\u062A \u0627\u0641\u0632\u0648\u062F\u0647.',
+        project_dailydiet: 'DailyDiet',
+        project_dailydiet_desc: '\u0627\u067E\u0644\u06CC\u06A9\u06CC\u0634\u0646 \u0628\u0631\u0646\u0627\u0645\u0647\u200C\u0631\u06CC\u0632\u06CC \u062A\u063A\u0630\u06CC\u0647 \u0628\u0631\u0627\u06CC \u06A9\u0645\u06A9 \u0628\u0647 \u06A9\u0627\u0631\u0628\u0631\u0627\u0646 \u062F\u0631 \u067E\u06CC\u06AF\u06CC\u0631\u06CC \u0631\u0698\u06CC\u0645 \u063A\u0630\u0627\u06CC\u06CC.',
+        project_tedx: '\u0627\u067E\u0644\u06CC\u06A9\u06CC\u0634\u0646 iOS TEDx\u062A\u0647\u0631\u0627\u0646',
+        project_tedx_desc: '\u0627\u067E\u0644\u06CC\u06A9\u06CC\u0634\u0646 \u0645\u062A\u0646\u200C\u0628\u0627\u0632 iOS \u0628\u0631\u0627\u06CC TEDx\u062A\u0647\u0631\u0627\u0646\u060C \u062F\u0633\u062A\u0631\u0633\u06CC \u0628\u0647 \u0633\u062E\u0646\u0631\u0627\u0646\u06CC\u200C\u0647\u0627 \u0648 \u0627\u0637\u0644\u0627\u0639\u0627\u062A \u0631\u0648\u06CC\u062F\u0627\u062F\u0647\u0627.',
+        skills_title: '\u0645\u0647\u0627\u0631\u062A\u200C\u0647\u0627 \u0648 \u062A\u06A9\u0646\u0648\u0644\u0648\u0698\u06CC\u200C\u0647\u0627',
+        skills_languages: '<i class="fas fa-code"></i> \u0632\u0628\u0627\u0646\u200C\u0647\u0627 \u0648 \u0641\u0631\u06CC\u0645\u0648\u0631\u06A9\u200C\u0647\u0627',
+        skills_tools: '<i class="fas fa-tools"></i> \u0627\u0628\u0632\u0627\u0631\u0647\u0627 \u0648 \u067E\u0644\u062A\u0641\u0631\u0645\u200C\u0647\u0627',
+        skills_design: '<i class="fas fa-palette"></i> \u0637\u0631\u0627\u062D\u06CC \u0648 \u0645\u0639\u0645\u0627\u0631\u06CC',
+        skills_spoken: '<i class="fas fa-globe"></i> \u0632\u0628\u0627\u0646\u200C\u0647\u0627',
+        lang_english: '\u0627\u0646\u06AF\u0644\u06CC\u0633\u06CC (\u062D\u0631\u0641\u0647\u200C\u0627\u06CC)',
+        lang_persian: '\u0641\u0627\u0631\u0633\u06CC (\u0632\u0628\u0627\u0646 \u0645\u0627\u062F\u0631\u06CC)',
+        lang_french: '\u0641\u0631\u0627\u0646\u0633\u0647 (\u0645\u0642\u062F\u0645\u0627\u062A\u06CC)',
+        community_title: '\u0641\u0639\u0627\u0644\u06CC\u062A\u200C\u0647\u0627\u06CC \u0627\u062C\u062A\u0645\u0627\u0639\u06CC',
+        volunteer_vp: '\u0646\u0627\u06CC\u0628 \u0631\u0626\u06CC\u0633 \u0648 \u0645\u0633\u0626\u0648\u0644 \u062A\u0648\u0633\u0639\u0647 \u0627\u067E\u0644\u06CC\u06A9\u06CC\u0634\u0646',
+        volunteer_vp_org: 'AtHackCTF - \u0647\u06A9\u0627\u062A\u0648\u0646 \u0627\u0645\u0646\u06CC\u062A \u0633\u0627\u06CC\u0628\u0631\u06CC \u06A9\u0627\u0646\u06A9\u0648\u0631\u062F\u06CC\u0627',
+        volunteer_marketing: '\u0645\u0633\u0626\u0648\u0644 \u0628\u0627\u0632\u0627\u0631\u06CC\u0627\u0628\u06CC',
+        volunteer_marketing_org: 'AtHackCTF - \u0647\u06A9\u0627\u062A\u0648\u0646 \u0627\u0645\u0646\u06CC\u062A \u0633\u0627\u06CC\u0628\u0631\u06CC \u06A9\u0627\u0646\u06A9\u0648\u0631\u062F\u06CC\u0627',
+        volunteer_instructor: '\u0645\u062F\u0631\u0633 iOS',
+        volunteer_instructor_org: 'CS50x \u0627\u06CC\u0631\u0627\u0646',
+        contact_title: '\u062A\u0645\u0627\u0633 \u0628\u0627 \u0645\u0646',
+        contact_description: '\u0647\u0645\u06CC\u0634\u0647 \u0639\u0644\u0627\u0642\u0647\u200C\u0645\u0646\u062F \u0628\u0647 \u0634\u0646\u06CC\u062F\u0646 \u0641\u0631\u0635\u062A\u200C\u0647\u0627\u06CC \u062C\u062F\u06CC\u062F\u060C \u0647\u0645\u06A9\u0627\u0631\u06CC\u200C\u0647\u0627 \u06CC\u0627 \u06AF\u0641\u062A\u06AF\u0648 \u062F\u0631\u0628\u0627\u0631\u0647 \u062A\u0648\u0633\u0639\u0647 iOS \u0647\u0633\u062A\u0645. \u062E\u0648\u0634\u062D\u0627\u0644 \u0645\u06CC\u200C\u0634\u0645 \u0628\u0627 \u0645\u0646 \u062A\u0645\u0627\u0633 \u0628\u06AF\u06CC\u0631\u06CC\u062F!',
+        contact_linkedin: '\u0627\u0631\u062A\u0628\u0627\u0637 \u062D\u0631\u0641\u0647\u200C\u0627\u06CC',
+        contact_github: '\u06A9\u062F\u0647\u0627\u06CC \u0645\u0646 \u0631\u0627 \u0628\u0628\u06CC\u0646\u06CC\u062F',
+        contact_email_label: '\u0627\u06CC\u0645\u06CC\u0644',
+        contact_phone_label: '\u062A\u0644\u0641\u0646',
+        booking_title: '\u0631\u0632\u0631\u0648 \u062A\u0645\u0627\u0633',
+        booking_description: '\u06CC\u06A9 \u0632\u0645\u0627\u0646 \u0645\u0646\u0627\u0633\u0628 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F \u0648 \u06AF\u0641\u062A\u06AF\u0648 \u06A9\u0646\u06CC\u0645!',
+        booking_placeholder: '\u06CC\u06A9 \u062A\u0627\u0631\u06CC\u062E \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F \u062A\u0627 \u0632\u0645\u0627\u0646\u200C\u0647\u0627\u06CC \u0645\u0648\u062C\u0648\u062F \u0631\u0627 \u0628\u0628\u06CC\u0646\u06CC\u062F',
+        cal_sun: '\u06CC\u06A9', cal_mon: '\u062F\u0648', cal_tue: '\u0633\u0647', cal_wed: '\u0686\u0647',
+        cal_thu: '\u067E\u0646', cal_fri: '\u062C\u0645', cal_sat: '\u0634\u0646',
+        booking_step_date: '\u0627\u0646\u062A\u062E\u0627\u0628 \u062A\u0627\u0631\u06CC\u062E',
+        booking_step_time: '\u0627\u0646\u062A\u062E\u0627\u0628 \u0633\u0627\u0639\u062A',
+        booking_step_confirm: '\u062A\u0623\u06CC\u06CC\u062F',
+        footer_copyright: '&copy; 2025 \u0639\u0644\u06CC\u0631\u0636\u0627 \u062A\u0642\u06CC\u0627\u0646\u06CC \u062E\u0631\u0627\u0633\u06AF\u0627\u0646\u06CC. \u062A\u0645\u0627\u0645 \u062D\u0642\u0648\u0642 \u0645\u062D\u0641\u0648\u0638 \u0627\u0633\u062A.',
+        footer_built: '\u0633\u0627\u062E\u062A\u0647 \u0634\u062F\u0647 \u0628\u0627 <i class="fas fa-heart"></i> \u062F\u0631 \u0645\u0648\u0646\u062A\u0631\u0627\u0644',
     }
 };
 
@@ -177,18 +250,17 @@ function applyTranslations(lang) {
         }
     });
 
-    // Update lang toggle button flag+text to show the OTHER language
-    const langBtn = document.getElementById('lang-toggle');
-    langBtn.innerHTML = lang === 'en' ? '<span class="flag-icon">🇫🇷</span> FR' : '<span class="flag-icon">🇺🇸</span> EN';
+    // Update lang selector to show current language
+    const langSelect = document.getElementById('lang-select');
+    if (langSelect) langSelect.value = lang;
 
     document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr');
 }
 
-document.getElementById('lang-toggle').addEventListener('click', () => {
-    const current = getCurrentLang();
-    const next = current === 'en' ? 'fr' : 'en';
-    localStorage.setItem('lang', next);
-    applyTranslations(next);
+document.getElementById('lang-select')?.addEventListener('change', (e) => {
+    localStorage.setItem('lang', e.target.value);
+    applyTranslations(e.target.value);
 });
 
 // Apply saved language on load
@@ -227,68 +299,88 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar scroll effect
+// Navbar hide-on-scroll-down, show-on-scroll-up
 let lastScroll = 0;
 const navbar = document.querySelector('.navbar');
+const SCROLL_THRESHOLD = 10;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
 
     if (currentScroll <= 0) {
+        navbar.classList.remove('nav-hidden');
         navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-    } else {
+    } else if (currentScroll > lastScroll + SCROLL_THRESHOLD && currentScroll > 80) {
+        // Scrolling down past threshold
+        navbar.classList.add('nav-hidden');
+    } else if (currentScroll < lastScroll - SCROLL_THRESHOLD) {
+        // Scrolling up past threshold
+        navbar.classList.remove('nav-hidden');
         navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
     }
 
     lastScroll = currentScroll;
 });
 
-// Intersection Observer for fade-in animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
+// ===== CSS class-based scroll-reveal system =====
+const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('revealed');
+            revealObserver.unobserve(entry.target);
         }
     });
-}, observerOptions);
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-// Observe elements for animation
-document.querySelectorAll('.project-card, .achievement-card, .volunteer-card, .skill-category, .timeline-item, .booking-widget').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
+// Mark grid containers for staggered children
+document.querySelectorAll('.projects-grid, .achievement-grid, .volunteer-grid, .skills-grid, .contact-methods').forEach(grid => {
+    grid.classList.add('reveal-stagger');
+    Array.from(grid.children).forEach((child, i) => {
+        child.classList.add('reveal');
+        child.style.setProperty('--reveal-i', i);
+        revealObserver.observe(child);
+    });
 });
 
-// Add active state to navigation links based on scroll position
-const sections = document.querySelectorAll('section[id]');
+// Timeline items: alternate slide-in-left / slide-in-right
+document.querySelectorAll('.timeline-item').forEach((item, i) => {
+    item.classList.add(i % 2 === 0 ? 'reveal-left' : 'reveal-right');
+    revealObserver.observe(item);
+});
 
-const navHighlighter = () => {
-    let scrollY = window.pageYOffset;
+// Section titles: reveal underline
+document.querySelectorAll('.section-title').forEach(title => {
+    revealObserver.observe(title);
+    // The .revealed class triggers the ::after width transition
+});
 
-    sections.forEach(current => {
-        const sectionHeight = current.offsetHeight;
-        const sectionTop = current.offsetTop - 100;
-        const sectionId = current.getAttribute('id');
+// Booking widget
+document.querySelectorAll('.booking-widget').forEach(el => {
+    el.classList.add('reveal');
+    revealObserver.observe(el);
+});
 
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            document.querySelector(`.nav-menu a[href*=${sectionId}]`)?.classList.add('active-link');
-        } else {
-            document.querySelector(`.nav-menu a[href*=${sectionId}]`)?.classList.remove('active-link');
-        }
-    });
-};
+// Skill tags: pop animation when visible
+document.querySelectorAll('.skill-tags').forEach(container => {
+    const tagObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.skill-tag').forEach((tag, i) => {
+                    tag.style.setProperty('--reveal-i', i);
+                    tag.classList.add('revealed');
+                });
+                tagObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    tagObserver.observe(container);
+});
 
-window.addEventListener('scroll', navHighlighter);
-
-// Booking Calendar with timezone support
+// Booking Calendar with timezone support (only runs on booking page)
 (async function initBooking() {
+    // Guard: only initialize if the booking widget is on this page
+    if (!document.getElementById('booking-slots')) return;
+
     const BOOKING_API_URL = 'https://r7n6gzfefcwld37lyjkabauqk40sqydj.lambda-url.us-east-1.on.aws/';
 
     let availData;
@@ -359,6 +451,7 @@ window.addEventListener('scroll', navHighlighter);
         visitorTz = tzSelect.value;
         selectedDate = null;
         selectedSlot = null;
+        updateBookingProgress(1);
         renderCalendar();
         slotsPanel.innerHTML = '<div class="slots-placeholder"><i class="fas fa-calendar-check"></i><p>Select a date to see available times</p></div>';
     });
@@ -481,6 +574,22 @@ window.addEventListener('scroll', navHighlighter);
         return getAvailableSlots(date).length > 0;
     }
 
+    // Booking progress indicator
+    function updateBookingProgress(step) {
+        const steps = document.querySelectorAll('.progress-step');
+        const lines = document.querySelectorAll('.progress-line');
+        steps.forEach((s, i) => {
+            const stepNum = i + 1;
+            s.classList.remove('active', 'completed');
+            if (stepNum < step) s.classList.add('completed');
+            else if (stepNum === step) s.classList.add('active');
+        });
+        lines.forEach((line, i) => {
+            if (i + 1 < step) line.classList.add('filled');
+            else line.classList.remove('filled');
+        });
+    }
+
     function renderCalendar() {
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'];
@@ -504,7 +613,17 @@ window.addEventListener('scroll', navHighlighter);
 
             if (isDayAvailable(date)) {
                 el.classList.add('available');
-                el.addEventListener('click', () => selectDate(date));
+                el.addEventListener('click', (e) => {
+                    // Ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.className = 'ripple';
+                    const rect = el.getBoundingClientRect();
+                    ripple.style.left = (e.clientX - rect.left - 5) + 'px';
+                    ripple.style.top = (e.clientY - rect.top - 5) + 'px';
+                    el.appendChild(ripple);
+                    ripple.addEventListener('animationend', () => ripple.remove());
+                    selectDate(date);
+                });
             }
 
             if (selectedDate && date.getTime() === selectedDate.getTime()) {
@@ -518,6 +637,7 @@ window.addEventListener('scroll', navHighlighter);
     function selectDate(date) {
         selectedDate = date;
         selectedSlot = null;
+        updateBookingProgress(2);
         renderCalendar();
         renderSlots(date);
     }
@@ -528,14 +648,16 @@ window.addEventListener('scroll', navHighlighter);
 
         if (slots.length === 0) {
             slotsPanel.innerHTML = '<div class="no-slots"><i class="fas fa-moon"></i>No available slots on this day</div>';
+            updateBookingProgress(2);
             return;
         }
 
         let html = `<div class="slots-header">${dateLabel}</div>`;
         for (let i = 0; i < slots.length; i++) {
-            html += `<button class="slot-btn" data-idx="${i}">${slots[i].label}</button>`;
+            html += `<button class="slot-btn" style="--slot-i:${i}" data-idx="${i}"><i class="fas fa-clock"></i> ${slots[i].label}</button>`;
         }
         slotsPanel.innerHTML = html;
+        updateBookingProgress(2);
 
         slotsPanel.querySelectorAll('.slot-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -546,8 +668,9 @@ window.addEventListener('scroll', navHighlighter);
     }
 
     function showConfirmForm(dateLabel) {
+        updateBookingProgress(3);
         slotsPanel.innerHTML = `
-            <div class="booking-confirm-view">
+            <div class="booking-confirm">
                 <button class="back-btn" id="booking-back"><i class="fas fa-arrow-left"></i> Change time</button>
                 <div class="selected-slot-summary">
                     <i class="fas fa-clock"></i>
@@ -556,8 +679,14 @@ window.addEventListener('scroll', navHighlighter);
                         <span>${selectedSlot.label}</span>
                     </div>
                 </div>
-                <input type="text" id="booking-name" class="booking-input" placeholder="Your name" required>
-                <input type="email" id="booking-email" class="booking-input" placeholder="Your email" required>
+                <div class="booking-input-group">
+                    <input type="text" id="booking-name" class="booking-input" placeholder=" " required>
+                    <label class="booking-label" for="booking-name">Your name</label>
+                </div>
+                <div class="booking-input-group">
+                    <input type="email" id="booking-email" class="booking-input" placeholder=" " required>
+                    <label class="booking-label" for="booking-email">Your email</label>
+                </div>
                 <button class="confirm-btn">Confirm & Send Invite</button>
             </div>`;
         slotsPanel.querySelector('#booking-back').addEventListener('click', () => {
@@ -601,9 +730,6 @@ window.addEventListener('scroll', navHighlighter);
             if (resp.status === 409) {
                 // Slot was taken — mark it booked and refresh
                 bookedSlots.add(selectedSlot.absStart.toISOString());
-                confirmBtn.disabled = false;
-                confirmBtn.textContent = 'Confirm & Send Invite';
-                slotsPanel.querySelector('.booking-confirm').remove();
                 selectedSlot = null;
                 renderSlots(selectedDate);
                 const errDiv = document.createElement('div');
