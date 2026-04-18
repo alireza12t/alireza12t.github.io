@@ -5,6 +5,13 @@
     box-sizing: border-box;
 }
 
+/* Global dark mode transition — applied to all elements at once */
+*,
+*::before,
+*::after {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
 :root {
     --primary-color: #1B3A6B;
     --secondary-color: #FDB813;
@@ -216,7 +223,6 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--bg-white);
-    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .container {
@@ -267,7 +273,6 @@ body {
     display: flex;
     list-style: none;
     gap: 2rem;
-    transition: background-color 0.4s ease;
 }
 
 .nav-menu a {
@@ -465,7 +470,6 @@ section {
 /* About Section */
 .about {
     background-color: var(--bg-light);
-    transition: background-color 0.4s ease;
 }
 
 .about-content {
@@ -495,7 +499,7 @@ section {
     background-color: var(--bg-white);
     border-radius: 10px;
     box-shadow: var(--shadow);
-    transition: background-color 0.4s ease, box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 .info-item i {
@@ -533,7 +537,7 @@ section {
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: var(--shadow);
-    transition: background-color 0.4s ease, box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 .timeline-content h3 {
@@ -650,7 +654,6 @@ section {
 /* Projects Section */
 .projects {
     background-color: var(--bg-light);
-    transition: background-color 0.4s ease;
 }
 
 .projects-grid {
@@ -706,7 +709,6 @@ section {
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 500;
-    transition: background-color 0.4s ease;
 }
 
 /* Skills Section */
@@ -819,7 +821,6 @@ section {
 /* Contact Section */
 .contact {
     background-color: var(--bg-light);
-    transition: background-color 0.4s ease;
 }
 
 .contact-content {
@@ -952,7 +953,6 @@ section {
     border-radius: 2px;
     position: relative;
     overflow: hidden;
-    transition: background-color 0.4s ease;
 }
 
 .progress-line.filled {
@@ -1005,7 +1005,6 @@ section {
     border-radius: 15px;
     box-shadow: var(--shadow);
     padding: 2rem;
-    transition: background-color 0.4s ease;
 }
 
 .calendar-header {
@@ -1114,7 +1113,6 @@ section {
     padding: 1.5rem;
     max-height: 420px;
     overflow-y: auto;
-    transition: background-color 0.4s ease;
 }
 
 .slots-placeholder {
@@ -1424,7 +1422,6 @@ section {
     color: white;
     text-align: center;
     padding: 2rem 0;
-    transition: background-color 0.4s ease;
 }
 
 .footer p {
