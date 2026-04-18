@@ -93,7 +93,7 @@ window.addEventListener('scroll', navHighlighter);
 
 // Booking Calendar with timezone support
 (async function initBooking() {
-    const BOOKING_API_URL = 'https://ijmmyxjtvlzcxnqe7cv6hpwwci0xlgps.lambda-url.us-east-1.on.aws/';
+    const BOOKING_API_URL = 'https://r7n6gzfefcwld37lyjkabauqk40sqydj.lambda-url.us-east-1.on.aws/';
 
     let availData;
     try {
