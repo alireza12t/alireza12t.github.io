@@ -74,6 +74,13 @@ aws lambda add-permission \
   --function-url-auth-type NONE \
   --region "$REGION" 2>/dev/null || true
 
+aws lambda add-permission \
+  --function-name "$FN" \
+  --statement-id FunctionURLAllowInvoke \
+  --action lambda:InvokeFunction \
+  --principal "*" \
+  --region "$REGION" 2>/dev/null || true
+
 FN_URL=$(aws lambda get-function-url-config --function-name "$FN" --region "$REGION" --query 'FunctionUrl' --output text)
 
 echo "[5/5] Done."
