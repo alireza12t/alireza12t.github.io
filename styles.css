@@ -1044,6 +1044,55 @@ section {
     cursor: not-allowed;
 }
 
+.booking-confirm-view {
+    animation: slideUpIn 0.3s ease;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+    color: var(--secondary-color);
+}
+
+.selected-slot-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-light);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.selected-slot-summary i {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+}
+
+.selected-slot-summary strong {
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.selected-slot-summary span {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
 .booking-error {
     background: #fff3f3;
     color: #c0392b;
