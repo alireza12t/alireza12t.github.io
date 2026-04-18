@@ -21,6 +21,98 @@
     --navy-dark: #0F1F3D;
 }
 
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+    --primary-color: #4A90D9;
+    --secondary-color: #FDB813;
+    --text-dark: #E8EDF5;
+    --text-light: #A0B1C5;
+    --bg-light: #1a2744;
+    --bg-white: #0F1F3D;
+    --accent-color: #FDB813;
+    --success-color: #34C759;
+    --border-color: #3A4F6E;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --yellow-light: #2A2510;
+    --navy-dark: #0A1628;
+}
+
+[data-theme="dark"] .navbar {
+    background-color: rgba(15, 31, 61, 0.95);
+}
+
+[data-theme="dark"] .hero {
+    background: linear-gradient(135deg, #0A1628 0%, #1a2744 50%, #0A1628 100%);
+}
+
+[data-theme="dark"] .nav-menu {
+    background-color: var(--bg-white);
+}
+
+[data-theme="dark"] .skill-tag {
+    background-color: #243352;
+    border-color: var(--secondary-color);
+}
+
+[data-theme="dark"] .tag {
+    background-color: #243352;
+}
+
+[data-theme="dark"] .booking-error {
+    background: #3D1F1F;
+    color: #E74C3C;
+}
+
+[data-theme="dark"] .booking-input {
+    background-color: #243352;
+    color: var(--text-dark);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .timezone-picker select {
+    background-color: #243352;
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .hamburger span {
+    background-color: var(--text-dark);
+}
+
+/* Nav Controls (theme + lang toggles) */
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.theme-toggle,
+.lang-toggle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    background-color: var(--bg-white);
+    color: var(--primary-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover,
+.lang-toggle:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-white);
+}
+
+.theme-toggle i {
+    font-size: 1rem;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -967,6 +1059,16 @@ section {
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
+    }
+
+    .nav-controls {
+        order: 1;
+        margin-left: auto;
+        margin-right: 1rem;
+    }
+
+    .hamburger {
+        order: 2;
     }
 
     .nav-menu {

@@ -1,3 +1,199 @@
+// ===== Dark Mode Toggle =====
+(function initTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+})();
+
+document.getElementById('theme-toggle').addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateThemeIcon();
+});
+
+function updateThemeIcon() {
+    const icon = document.querySelector('#theme-toggle i');
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+}
+updateThemeIcon();
+
+// ===== Multi-language (EN/FR) =====
+const translations = {
+    en: {
+        nav_home: 'Home',
+        nav_about: 'About',
+        nav_experience: 'Experience',
+        nav_education: 'Education',
+        nav_projects: 'Projects',
+        nav_skills: 'Skills',
+        nav_contact: 'Contact',
+        nav_booking: 'Book a Call',
+        hero_title: 'Hi, I\'m <span class="highlight">Alireza Toghiani</span>',
+        hero_subtitle: 'Senior iOS Engineer',
+        hero_description: 'Passionate about creating innovative mobile solutions with 6+ years of experience in iOS development',
+        hero_cta_primary: 'Get In Touch',
+        hero_cta_secondary: 'View My Work',
+        about_title: 'About Me',
+        about_p1: 'iOS Engineer with 6+ years of experience, passionate about transforming app ideas into reality for the betterment of daily life.',
+        about_p2: 'Led iOS development team to launch 7 successful apps while collaborating with internal team leads and external partners in fast-paced environments.',
+        about_p3: 'Academic foundation in security principles and cryptographic systems from master\'s studies.',
+        about_location: 'Montreal, QC, Canada',
+        about_degree: 'M.Sc. Information Systems Security, Concordia University',
+        about_role: 'Senior iOS Engineer',
+        exp_title: 'Experience',
+        achievements_title: 'Achievements & Honors',
+        achievement_silver: 'Silver Medal',
+        achievement_silver_desc: 'Mobile Application Development<br>WorldSkills Asia 2021',
+        achievement_clean: 'Clean Solution Nomination',
+        achievement_clean_desc: 'WorldSkills Asia 2021',
+        edu_title: 'Education',
+        projects_title: 'Featured Projects',
+        project_arscanner: 'ARScanner',
+        project_arscanner_desc: 'AR 3D modeling application leveraging ARKit to create immersive augmented reality experiences.',
+        project_dailydiet: 'DailyDiet',
+        project_dailydiet_desc: 'Nutrition planning iOS app helping users track their diet and achieve their health goals.',
+        project_tedx: 'TEDxTehran iOS App',
+        project_tedx_desc: 'Open-source iOS application for TEDxTehran, providing access to talks and event information.',
+        skills_title: 'Skills & Technologies',
+        skills_languages: '<i class="fas fa-code"></i> Languages & Frameworks',
+        skills_tools: '<i class="fas fa-tools"></i> Tools & Platforms',
+        skills_design: '<i class="fas fa-palette"></i> Design & Architecture',
+        skills_spoken: '<i class="fas fa-globe"></i> Languages',
+        lang_english: 'English (Professional)',
+        lang_persian: 'Persian (Native)',
+        lang_french: 'French (Basic)',
+        community_title: 'Community Involvement',
+        volunteer_vp: 'Vice President & Lead of App Developement',
+        volunteer_vp_org: 'AtHackCTF - Concordia Cyber Security Hackathon',
+        volunteer_marketing: 'Lead of Marketing',
+        volunteer_marketing_org: 'AtHackCTF - Concordia Cyber Security Hackathon',
+        volunteer_instructor: 'iOS Instructor',
+        volunteer_instructor_org: 'CS50x Iran',
+        contact_title: 'Get In Touch',
+        contact_description: 'I\'m always interested in hearing about new opportunities, collaborations, or just chatting about iOS development. Feel free to reach out!',
+        contact_linkedin: 'Connect with me professionally',
+        contact_github: 'Check out my code',
+        contact_email_label: 'Email',
+        contact_phone_label: 'Phone',
+        booking_title: 'Book a Call',
+        booking_description: 'Pick a time that works for you and let\'s chat!',
+        booking_placeholder: 'Select a date to see available times',
+        cal_sun: 'Sun', cal_mon: 'Mon', cal_tue: 'Tue', cal_wed: 'Wed',
+        cal_thu: 'Thu', cal_fri: 'Fri', cal_sat: 'Sat',
+        footer_copyright: '&copy; 2025 Alireza Toghiani Khorasgani. All rights reserved.',
+        footer_built: 'Built with <i class="fas fa-heart"></i> in Montreal',
+    },
+    fr: {
+        nav_home: 'Accueil',
+        nav_about: '\u00C0 propos',
+        nav_experience: 'Exp\u00E9rience',
+        nav_education: 'Formation',
+        nav_projects: 'Projets',
+        nav_skills: 'Comp\u00E9tences',
+        nav_contact: 'Contact',
+        nav_booking: 'R\u00E9server un appel',
+        hero_title: 'Bonjour, je suis <span class="highlight">Alireza Toghiani</span>',
+        hero_subtitle: 'Ing\u00E9nieur iOS Senior',
+        hero_description: 'Passionn\u00E9 par la cr\u00E9ation de solutions mobiles innovantes avec plus de 6 ans d\u2019exp\u00E9rience en d\u00E9veloppement iOS',
+        hero_cta_primary: 'Me contacter',
+        hero_cta_secondary: 'Voir mes projets',
+        about_title: '\u00C0 propos de moi',
+        about_p1: 'Ing\u00E9nieur iOS avec plus de 6 ans d\u2019exp\u00E9rience, passionn\u00E9 par la transformation d\u2019id\u00E9es d\u2019applications en r\u00E9alit\u00E9 pour am\u00E9liorer le quotidien.',
+        about_p2: 'J\u2019ai dirig\u00E9 une \u00E9quipe de d\u00E9veloppement iOS pour lancer 7 applications r\u00E9ussies en collaborant avec des responsables internes et des partenaires externes dans des environnements dynamiques.',
+        about_p3: 'Formation acad\u00E9mique en principes de s\u00E9curit\u00E9 et syst\u00E8mes cryptographiques acquise lors de mes \u00E9tudes de ma\u00EEtrise.',
+        about_location: 'Montr\u00E9al, QC, Canada',
+        about_degree: 'M.Sc. S\u00E9curit\u00E9 des syst\u00E8mes d\u2019information, Universit\u00E9 Concordia',
+        about_role: 'Ing\u00E9nieur iOS Senior',
+        exp_title: 'Exp\u00E9rience',
+        achievements_title: 'Distinctions et r\u00E9compenses',
+        achievement_silver: 'M\u00E9daille d\u2019argent',
+        achievement_silver_desc: 'D\u00E9veloppement d\u2019applications mobiles<br>WorldSkills Asia 2021',
+        achievement_clean: 'Nomination pour la solution la plus propre',
+        achievement_clean_desc: 'WorldSkills Asia 2021',
+        edu_title: 'Formation',
+        projects_title: 'Projets en vedette',
+        project_arscanner: 'ARScanner',
+        project_arscanner_desc: 'Application de mod\u00E9lisation 3D en r\u00E9alit\u00E9 augment\u00E9e utilisant ARKit pour cr\u00E9er des exp\u00E9riences immersives.',
+        project_dailydiet: 'DailyDiet',
+        project_dailydiet_desc: 'Application iOS de planification nutritionnelle aidant les utilisateurs \u00E0 suivre leur alimentation et atteindre leurs objectifs de sant\u00E9.',
+        project_tedx: 'Application iOS TEDxTehran',
+        project_tedx_desc: 'Application iOS open source pour TEDxTehran, offrant un acc\u00E8s aux conf\u00E9rences et aux informations sur les \u00E9v\u00E9nements.',
+        skills_title: 'Comp\u00E9tences et technologies',
+        skills_languages: '<i class="fas fa-code"></i> Langages et frameworks',
+        skills_tools: '<i class="fas fa-tools"></i> Outils et plateformes',
+        skills_design: '<i class="fas fa-palette"></i> Design et architecture',
+        skills_spoken: '<i class="fas fa-globe"></i> Langues',
+        lang_english: 'Anglais (professionnel)',
+        lang_persian: 'Persan (langue maternelle)',
+        lang_french: 'Fran\u00E7ais (notions)',
+        community_title: 'Implication communautaire',
+        volunteer_vp: 'Vice-pr\u00E9sident et responsable du d\u00E9veloppement d\u2019applications',
+        volunteer_vp_org: 'AtHackCTF - Hackathon de cybers\u00E9curit\u00E9 de Concordia',
+        volunteer_marketing: 'Responsable du marketing',
+        volunteer_marketing_org: 'AtHackCTF - Hackathon de cybers\u00E9curit\u00E9 de Concordia',
+        volunteer_instructor: 'Instructeur iOS',
+        volunteer_instructor_org: 'CS50x Iran',
+        contact_title: 'Me contacter',
+        contact_description: 'Je suis toujours ouvert aux nouvelles opportunit\u00E9s, collaborations ou simplement \u00E0 discuter de d\u00E9veloppement iOS. N\u2019h\u00E9sitez pas \u00E0 me contacter\u00A0!',
+        contact_linkedin: 'Connectez-vous avec moi',
+        contact_github: 'D\u00E9couvrez mon code',
+        contact_email_label: 'Courriel',
+        contact_phone_label: 'T\u00E9l\u00E9phone',
+        booking_title: 'R\u00E9server un appel',
+        booking_description: 'Choisissez un cr\u00E9neau qui vous convient et discutons\u00A0!',
+        booking_placeholder: 'S\u00E9lectionnez une date pour voir les cr\u00E9neaux disponibles',
+        cal_sun: 'Dim', cal_mon: 'Lun', cal_tue: 'Mar', cal_wed: 'Mer',
+        cal_thu: 'Jeu', cal_fri: 'Ven', cal_sat: 'Sam',
+        footer_copyright: '&copy; 2025 Alireza Toghiani Khorasgani. Tous droits r\u00E9serv\u00E9s.',
+        footer_built: 'Con\u00E7u avec <i class="fas fa-heart"></i> \u00E0 Montr\u00E9al',
+    }
+};
+
+function getCurrentLang() {
+    return localStorage.getItem('lang') || 'en';
+}
+
+function applyTranslations(lang) {
+    const t = translations[lang];
+    if (!t) return;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) {
+            el.textContent = t[key];
+        }
+    });
+
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) {
+            el.innerHTML = t[key];
+        }
+    });
+
+    // Update lang toggle button text to show the OTHER language
+    const langBtn = document.getElementById('lang-toggle');
+    langBtn.textContent = lang === 'en' ? 'FR' : 'EN';
+
+    document.documentElement.setAttribute('lang', lang);
+}
+
+document.getElementById('lang-toggle').addEventListener('click', () => {
+    const current = getCurrentLang();
+    const next = current === 'en' ? 'fr' : 'en';
+    localStorage.setItem('lang', next);
+    applyTranslations(next);
+});
+
+// Apply saved language on load
+applyTranslations(getCurrentLang());
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
