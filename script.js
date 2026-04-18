@@ -177,9 +177,9 @@ function applyTranslations(lang) {
         }
     });
 
-    // Update lang toggle button text to show the OTHER language
+    // Update lang toggle button flag+text to show the OTHER language
     const langBtn = document.getElementById('lang-toggle');
-    langBtn.textContent = lang === 'en' ? 'FR' : 'EN';
+    langBtn.innerHTML = lang === 'en' ? '<span class="flag-icon">🇫🇷</span> FR' : '<span class="flag-icon">🇬🇧</span> EN';
 
     document.documentElement.setAttribute('lang', lang);
 }
