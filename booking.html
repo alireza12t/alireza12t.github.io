@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book a Call - Alireza Toghiani, Senior iOS Engineer">
+    <meta name="keywords" content="iOS Developer, Swift, SwiftUI, Mobile Development, Software Engineer">
+    <meta name="author" content="Alireza Toghiani Khorasgani">
+    <title>Book a Call | Alireza Toghiani</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">AT</div>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <select class="lang-select" id="lang-select" aria-label="Select language">
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="fr">🇫🇷 FR</option>
+                    <option value="fa">🇮🇷 FA</option>
+                </select>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                <li><a href="about.html" data-i18n="nav_about">About</a></li>
+                <li><a href="experience.html" data-i18n="nav_experience">Experience</a></li>
+                <li><a href="projects.html" data-i18n="nav_projects">Projects</a></li>
+                <li><a href="skills.html" data-i18n="nav_skills">Skills</a></li>
+                <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="booking.html" class="active-link" data-i18n="nav_booking">Book a Call</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-content">
+        <!-- Booking Section -->
+        <section id="booking" class="booking">
+            <div class="container">
+                <h2 class="section-title" data-i18n="booking_title">Book a Call</h2>
+                <p class="booking-description" data-i18n="booking_description">Pick a time that works for you and let's chat!</p>
+                <div class="timezone-picker">
+                    <i class="fas fa-globe-americas"></i>
+                    <select id="tz-select"></select>
+                </div>
+                <div class="booking-progress">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <span data-i18n="booking_step_date">Select Date</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-number">2</div>
+                        <span data-i18n="booking_step_time">Choose Time</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-number">3</div>
+                        <span data-i18n="booking_step_confirm">Confirm</span>
+                    </div>
+                </div>
+                <div class="booking-widget">
+                    <div class="booking-calendar">
+                        <div class="calendar-header">
+                            <button class="cal-nav-btn" id="cal-prev"><i class="fas fa-chevron-left"></i></button>
+                            <h3 id="cal-month-year"></h3>
+                            <button class="cal-nav-btn" id="cal-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar-weekdays">
+                            <span data-i18n="cal_sun">Sun</span><span data-i18n="cal_mon">Mon</span><span data-i18n="cal_tue">Tue</span><span data-i18n="cal_wed">Wed</span><span data-i18n="cal_thu">Thu</span><span data-i18n="cal_fri">Fri</span><span data-i18n="cal_sat">Sat</span>
+                        </div>
+                        <div class="calendar-days" id="cal-days"></div>
+                    </div>
+                    <div class="booking-slots" id="booking-slots">
+                        <div class="slots-placeholder">
+                            <i class="fas fa-calendar-check"></i>
+                            <p data-i18n="booking_placeholder">Select a date to see available times</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p data-i18n-html="footer_copyright">&copy; 2025 Alireza Toghiani Khorasgani. All rights reserved.</p>
+            <p data-i18n-html="footer_built">Built with <i class="fas fa-heart"></i> in Montreal</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
