@@ -539,23 +539,31 @@ window.addEventListener('scroll', navHighlighter);
 
         slotsPanel.querySelectorAll('.slot-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                slotsPanel.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
                 selectedSlot = slots[+btn.dataset.idx];
-
-                let confirmDiv = slotsPanel.querySelector('.booking-confirm');
-                if (!confirmDiv) {
-                    confirmDiv = document.createElement('div');
-                    confirmDiv.className = 'booking-confirm';
-                    confirmDiv.innerHTML = `
-                        <input type="text" id="booking-name" class="booking-input" placeholder="Your name" required>
-                        <input type="email" id="booking-email" class="booking-input" placeholder="Your email" required>
-                        <button class="confirm-btn">Confirm & Send Invite</button>`;
-                    slotsPanel.appendChild(confirmDiv);
-                    confirmDiv.querySelector('.confirm-btn').addEventListener('click', confirmBooking);
-                }
+                showConfirmForm(dateLabel);
             });
         });
+    }
+
+    function showConfirmForm(dateLabel) {
+        slotsPanel.innerHTML = `
+            <div class="booking-confirm-view">
+                <button class="back-btn" id="booking-back"><i class="fas fa-arrow-left"></i> Change time</button>
+                <div class="selected-slot-summary">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <strong>${dateLabel}</strong><br>
+                        <span>${selectedSlot.label}</span>
+                    </div>
+                </div>
+                <input type="text" id="booking-name" class="booking-input" placeholder="Your name" required>
+                <input type="email" id="booking-email" class="booking-input" placeholder="Your email" required>
+                <button class="confirm-btn">Confirm & Send Invite</button>
+            </div>`;
+        slotsPanel.querySelector('#booking-back').addEventListener('click', () => {
+            renderSlots(selectedDate);
+        });
+        slotsPanel.querySelector('.confirm-btn').addEventListener('click', confirmBooking);
     }
 
     async function confirmBooking() {
