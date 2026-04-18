@@ -88,9 +88,8 @@
 
 .theme-toggle,
 .lang-toggle {
-    width: 38px;
     height: 38px;
-    border-radius: 50%;
+    border-radius: 50px;
     border: none;
     background-color: var(--primary-color);
     color: var(--secondary-color);
@@ -119,6 +118,20 @@
 
 .theme-toggle i {
     font-size: 1.1rem;
+}
+
+.theme-toggle {
+    width: 38px;
+}
+
+.lang-toggle {
+    padding: 0 0.75rem;
+    gap: 0.35rem;
+}
+
+.flag-icon {
+    font-size: 1.15rem;
+    line-height: 1;
 }
 
 html {
