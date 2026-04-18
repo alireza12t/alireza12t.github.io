@@ -322,6 +322,41 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
+// ===== Scroll past bottom → navigate to next page =====
+(function initPageScroll() {
+    const pageOrder = ['index.html', 'about.html', 'experience.html', 'projects.html', 'skills.html', 'contact.html', 'booking.html'];
+    const currentPage = location.pathname.split('/').pop() || 'index.html';
+    const currentIdx = pageOrder.indexOf(currentPage);
+    const prevPage = currentIdx > 0 ? pageOrder[currentIdx - 1] : null;
+    const nextPage = currentIdx >= 0 && currentIdx < pageOrder.length - 1 ? pageOrder[currentIdx + 1] : null;
+
+    let overscrollAccum = 0;
+    const OVERSCROLL_TRIGGER = 150;
+    let navigating = false;
+
+    window.addEventListener('wheel', (e) => {
+        if (navigating) return;
+        const atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 5;
+        const atTop = window.scrollY <= 0;
+
+        if (atBottom && e.deltaY > 0 && nextPage) {
+            overscrollAccum += e.deltaY;
+            if (overscrollAccum > OVERSCROLL_TRIGGER) {
+                navigating = true;
+                window.location.href = nextPage;
+            }
+        } else if (atTop && e.deltaY < 0 && prevPage) {
+            overscrollAccum += Math.abs(e.deltaY);
+            if (overscrollAccum > OVERSCROLL_TRIGGER) {
+                navigating = true;
+                window.location.href = prevPage;
+            }
+        } else {
+            overscrollAccum = 0;
+        }
+    }, { passive: true });
+})();
+
 // ===== CSS class-based scroll-reveal system =====
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
