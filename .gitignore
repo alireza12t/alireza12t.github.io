@@ -3,4 +3,19 @@ _site/
 **/.DS_Store
 SECRETS.md
 .venv/
+.env
+.env.*
+!.env.example
+
+# Python build artifacts
+__pycache__/
+*.pyc
+*.pyo
+
+# Lambda build artifacts — re-created by deploy.sh
+lambda/handler.zip
+lambda/*.zip
+
+# Claude/Cowork scratch
+.claude/
 
