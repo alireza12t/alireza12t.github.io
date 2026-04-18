@@ -227,10 +227,12 @@ def lambda_handler(event, context):
         or event.get("httpMethod")
         or ""
     ).upper()
+    print(f"[booking] method={method}")
     if method == "OPTIONS":
         return {"statusCode": 204, "headers": _cors_headers(), "body": ""}
     if method == "GET":
         slots = _get_booked_slots()
+        print(f"[booking] GET returning {len(slots)} booked slots")
         return _response(200, {"booked_slots": slots})
     if method != "POST":
         return _response(405, {"error": "method not allowed"})
@@ -242,27 +244,34 @@ def lambda_handler(event, context):
     try:
         payload = json.loads(raw)
     except json.JSONDecodeError:
+        print(f"[booking] invalid JSON body: {raw[:200]}")
         return _response(400, {"error": "invalid JSON"})
 
+    print(f"[booking] POST payload: slot_iso={payload.get('slot_iso')} name={payload.get('name')} email={payload.get('email')}")
     parsed, err = _validate(payload)
     if err:
+        print(f"[booking] validation error: {err}")
         return _response(400, {"error": err})
 
     slot_iso = parsed["slot_iso"]
 
     # 1. reserve slot
     if not _reserve_slot(slot_iso, parsed["name"], parsed["email"]):
+        print(f"[booking] slot already taken: {slot_iso}")
         return _response(409, {"error": "slot_taken"})
+    print(f"[booking] slot reserved: {slot_iso}")
 
     # 2. create calendar event — release reservation on failure
     try:
         access_token = _get_access_token()
+        print("[booking] got access token, creating calendar event...")
         ev = _create_calendar_event(
             access_token, slot_iso, parsed["end_iso"], parsed["name"], parsed["email"]
         )
+        print(f"[booking] calendar event created: id={ev.get('id')}")
     except Exception as e:
         _release_slot(slot_iso)
-        print(f"calendar error: {e!r}")
+        print(f"[booking] calendar error: {e!r}")
         return _response(502, {"error": "calendar_error"})
 
     event_id = ev.get("id")
