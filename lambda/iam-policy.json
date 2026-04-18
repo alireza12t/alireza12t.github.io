@@ -8,7 +8,8 @@
         "dynamodb:PutItem",
         "dynamodb:GetItem",
         "dynamodb:UpdateItem",
-        "dynamodb:DeleteItem"
+        "dynamodb:DeleteItem",
+        "dynamodb:Scan"
       ],
       "Resource": "arn:aws:dynamodb:us-east-1:*:table/bookings"
     },
