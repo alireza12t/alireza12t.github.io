@@ -1,0 +1,43 @@
+name: Update Running Dashboard
+
+on:
+  schedule:
+    - cron: '0 10 * * *'   # 6am ET (UTC-4) every day
+  workflow_dispatch:         # manual trigger from the Actions tab
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch Strava data and rebuild dashboard
+        env:
+          STRAVA_CLIENT_ID:     ${{ secrets.STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
+          STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
+        run: |
+          # Run analyser — it writes race_data.json and patches misfit/index.html
+          cd .run-tools
+          python analyse_runs.py
+          # Ensure the patched index is in the right place
+          cp index.html ../misfit/index.html
+
+      - name: Commit and push if changed
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name  "github-actions[bot]"
+          git add misfit/index.html
+          git diff --staged --quiet && echo "No changes, skipping commit" || (
+            git commit -m "chore: update running dashboard $(date -u +%Y-%m-%d)"
+            git push
+          )

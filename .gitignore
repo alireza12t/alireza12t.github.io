@@ -18,4 +18,5 @@ lambda/*.zip
 
 # Claude/Cowork scratch
 .claude/
+CLAUDE.md
 

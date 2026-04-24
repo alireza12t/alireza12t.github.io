@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marathon Prep — Alireza Toghiani</title>
+<style>
+  :root {
+    --orange: #FC4C02;
+    --orange-dim: #d94002;
+    --bg: #111113;
+    --surface: #1c1c1e;
+    --surface2: #2c2c2e;
+    --surface3: #3a3a3c;
+    --text: #f5f5f7;
+    --text-dim: #98989d;
+    --green: #30D158;
+    --yellow: #FFD60A;
+    --red: #FF453A;
+    --blue: #0A84FF;
+    --purple: #BF5AF2;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  a { color: var(--orange); text-decoration: none; }
+
+  /* ── Layout ── */
+  .shell { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 28px 0 24px;
+    border-bottom: 1px solid var(--surface3);
+    margin-bottom: 28px;
+  }
+  .header-left h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .header-left h1 span { color: var(--orange); }
+  .header-left p { color: var(--text-dim); font-size: 13px; margin-top: 4px; }
+  .countdown {
+    background: var(--surface);
+    border: 1px solid var(--surface3);
+    border-radius: 14px;
+    padding: 16px 22px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .countdown .days {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .countdown .label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  /* ── Section ── */
+  .section { margin-bottom: 36px; }
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+
+  /* ── Stat Cards ── */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--surface3);
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+  .card .card-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .card .card-value { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+  .card .card-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+  .card.flag .card-value { color: var(--red); }
+  .card.warn .card-value { color: var(--yellow); }
+  .card.ok   .card-value { color: var(--green); }
+  .card.key  .card-value { color: var(--orange); }
+
+  /* ── Verdict Banner ── */
+  .verdict {
+    background: var(--surface);
+    border: 1px solid var(--surface3);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 36px;
+  }
+  .verdict h2 { font-size: 15px; font-weight: 700; margin-bottom: 14px; color: var(--orange); }
+  .verdict-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .verdict-item { }
+  .verdict-item .v-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-dim); margin-bottom: 5px; }
+  .verdict-item .v-body { font-size: 13px; line-height: 1.6; }
+  .v-body .flag { color: var(--red); }
+  .v-body .warn { color: var(--yellow); }
+  .v-body .ok   { color: var(--green); }
+
+  /* ── Chart ── */
+  .chart-wrap {
+    background: var(--surface);
+    border: 1px solid var(--surface3);
+    border-radius: 14px;
+    padding: 20px 20px 16px;
+    overflow-x: auto;
+  }
+  .chart-inner { display: flex; align-items: flex-end; gap: 8px; min-width: 600px; height: 160px; }
+  .bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; }
+  .bar-col .bar-val { font-size: 10px; color: var(--text-dim); margin-bottom: 4px; }
+  .bar-col .bar {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    min-height: 3px;
+    transition: opacity 0.2s;
+  }
+  .bar-col .bar:hover { opacity: 0.8; }
+  .bar-col .bar-label { font-size: 10px; color: var(--text-dim); margin-top: 6px; text-align: center; white-space: nowrap; }
+  .chart-legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-dim); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  /* ── Run Table ── */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--surface3);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    background: var(--surface2);
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+  tbody tr { border-top: 1px solid var(--surface3); }
+  tbody tr:hover { background: var(--surface2); }
+  tbody td { padding: 9px 12px; white-space: nowrap; color: var(--text); }
+  td.name { max-width: 180px; overflow: hidden; text-overflow: ellipsis; color: var(--text-dim); }
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-recovery  { background: #2c2c2e; color: #98989d; }
+  .badge-easy      { background: #1a3a1a; color: var(--green); }
+  .badge-tempo     { background: #3a2c00; color: var(--yellow); }
+  .badge-intervals { background: #3a1a00; color: var(--orange); }
+  .badge-long      { background: #1a1a3a; color: var(--blue); }
+  .hr-bar { display: inline-block; width: 48px; height: 6px; border-radius: 3px; vertical-align: middle; background: var(--surface3); position: relative; }
+  .hr-fill { height: 100%; border-radius: 3px; }
+
+  /* ── Plan Table ── */
+  .plan-table tbody td { vertical-align: top; }
+  .plan-km { font-weight: 700; font-size: 15px; }
+  .plan-km.race { color: var(--orange); }
+  .plan-km.rest { color: var(--text-dim); font-size: 13px; font-weight: 400; }
+  .plan-note { color: var(--text-dim); font-size: 12px; }
+  .plan-date { font-weight: 600; }
+  .plan-day  { color: var(--text-dim); }
+  tr.race-row { background: rgba(252,76,2,0.07); }
+
+  /* ── Flags ── */
+  .flags-list { display: flex; flex-direction: column; gap: 8px; }
+  .flag-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--surface3);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+  .flag-item .icon { font-size: 16px; flex-shrink: 0; line-height: 1.4; }
+  .flag-item.red   { border-left: 3px solid var(--red); }
+  .flag-item.green { border-left: 3px solid var(--green); }
+  .flag-item.yellow{ border-left: 3px solid var(--yellow); }
+
+  /* ── Race Morning ── */
+  .tips { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .tip {
+    background: var(--surface);
+    border: 1px solid var(--surface3);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .tip .tip-icon { font-size: 24px; margin-bottom: 8px; }
+  .tip .tip-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; color: var(--orange); }
+  .tip .tip-body { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+
+  /* ── Footer ── */
+  .footer { text-align: center; color: var(--text-dim); font-size: 11px; padding-top: 32px; border-top: 1px solid var(--surface3); margin-top: 40px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .header { flex-direction: column; }
+    .countdown { align-self: flex-start; }
+    .cards { grid-template-columns: 1fr 1fr; }
+    thead th:nth-child(n+6) { display: none; }
+    tbody td:nth-child(n+6) { display: none; }
+  }
+
+  /* ── Route section ── */
+  .route-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .route-stat { background: var(--surface); border: 1px solid var(--surface3); border-radius: 12px; padding: 14px 16px; }
+  .route-stat .rs-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+  .route-stat .rs-val { font-size: 20px; font-weight: 700; }
+  #map { height: 460px; border-radius: 14px; border: 1px solid var(--surface3); margin-bottom: 14px; }
+  .segments-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 14px; }
+  .segment { background: var(--surface); border-radius: 12px; padding: 14px 16px; border-left: 4px solid; }
+  .seg-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+  .seg-detail { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+  .sched-wrap { background: var(--surface); border: 1px solid var(--surface3); border-radius: 14px; padding: 4px 20px 4px; margin-bottom: 14px; }
+  .sched-row { display: grid; grid-template-columns: 90px 80px 1fr; gap: 14px; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--surface3); font-size: 13px; }
+  .sched-row:first-child { border-top: none; }
+  .sched-time { font-weight: 700; color: var(--orange); }
+  .sched-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-dim); }
+  .sched-note { color: var(--text-dim); }
+  .sched-row.highlight .sched-time { color: var(--green); }
+  .sched-row.highlight .sched-note { color: var(--text); }
+  .warning-box { background: rgba(255,69,58,0.08); border: 1px solid rgba(255,69,58,0.3); border-radius: 12px; padding: 12px 16px; font-size: 13px; color: var(--red); margin-bottom: 14px; }
+
+  /* ── Password Gate ── */
+  #gate {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .gate-box {
+    background: var(--surface);
+    border: 1px solid var(--surface3);
+    border-radius: 18px;
+    padding: 40px 48px;
+    text-align: center;
+    max-width: 360px; width: 90%;
+  }
+  .gate-box h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .gate-box p  { color: var(--text-dim); font-size: 13px; margin-bottom: 24px; }
+  .gate-box input {
+    width: 100%; padding: 12px 14px; border-radius: 10px;
+    border: 1px solid var(--surface3);
+    background: var(--surface2); color: var(--text);
+    font-size: 15px; letter-spacing: 2px; margin-bottom: 12px;
+    outline: none;
+  }
+  .gate-box input:focus { border-color: var(--orange); }
+  .gate-box button {
+    width: 100%; padding: 13px; border-radius: 10px;
+    background: var(--orange); color: #fff; border: none;
+    font-size: 15px; font-weight: 700; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .gate-box button:hover { background: var(--orange-dim); }
+  #pw-error { color: var(--red); font-size: 13px; margin-top: 10px; display: none; }
+
+  /* ── Tab Nav ── */
+  .tab-nav {
+    display: flex; gap: 0; border-bottom: 1px solid var(--surface3);
+    margin-bottom: 28px; margin-top: -8px;
+  }
+  .tab-btn {
+    background: none; border: none; color: var(--text-dim);
+    font-size: 13px; font-weight: 600; padding: 12px 22px;
+    cursor: pointer; position: relative; transition: color 0.15s;
+    letter-spacing: 0.3px;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--orange); }
+  .tab-btn.active::after {
+    content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+    height: 2px; background: var(--orange); border-radius: 2px 2px 0 0;
+  }
+
+  /* ── Tab Panels ── */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-box">
+    <h2>Training Dashboard</h2>
+    <p>Alireza Toghiani &bull; Personal data</p>
+    <input id="pw-input" type="password" placeholder="Password" autocomplete="off">
+    <button onclick="checkPw()">Enter</button>
+    <div id="pw-error">Wrong password — try again</div>
+  </div>
+</div>
+
+<div class="shell" id="app" style="display:none">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Alireza Toghiani &mdash; <span>Toronto Marathon</span></h1>
+      <p>90-day training analysis &bull; Race day: Sunday May 3, 2026 &bull; Generated Apr 24, 2026</p>
+    </div>
+    <div class="countdown">
+      <div class="days" id="days-left">9</div>
+      <div class="label">Days to Race</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;justify-content:center">
+      <button id="refresh-btn" onclick="triggerRefresh()" style="background:var(--surface);border:1px solid var(--surface3);color:var(--text-dim);border-radius:10px;padding:10px 18px;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.4px;transition:border-color 0.15s,color 0.15s" onmouseover="this.style.borderColor='var(--orange)';this.style.color='var(--orange)'" onmouseout="this.style.borderColor='var(--surface3)';this.style.color='var(--text-dim)'">Refresh Data</button>
+      <span id="last-gen" style="font-size:10px;color:var(--text-dim)">Generated Apr 24, 2026</span>
+    </div>
+  </div>
+
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('longrun',this)">Sat Long Run</button>
+    <button class="tab-btn" onclick="showTab('marathon',this)">Marathon</button>
+    <button class="tab-btn" onclick="showTab('history',this)">History</button>
+  </nav>
+
+  <!-- Tab: Long Run -->
+  <div class="tab-panel active" id="tab-longrun">
+  <!-- Route Plan -->
+  <div class="section">
+    <div class="section-title">Saturday Route Plan — 4h Running, ~26 km Total</div>
+
+    <div class="warning-box">
+      ⚠ Your longest run in 90 days is 8.2 km. Today you're targeting ~25 km. That's 3× your longest run in one session — run the solo portion at a genuinely easy effort (HR &lt;150, fully conversational). Walk uphills. Do not race. The route ends naturally at your meetup spot (124 Rue Saint-Viateur O) — no need to double back to Cedar.
+    </div>
+
+    <!-- Day schedule -->
+    <div class="sched-wrap">
+      <div class="sched-row"><span class="sched-time">5:30 am</span><span class="sched-tag">Wake + Eat</span><span class="sched-note">Donut + coffee at home. Eat it NOW, not during the run — fat slows digestion mid-effort.</span></div>
+      <div class="sched-row"><span class="sched-time">5:50 am</span><span class="sched-tag">Solo Start</span><span class="sched-note">Leave from 1745 Cedar Ave. Head east through downtown toward Jacques-Cartier Bridge.</span></div>
+      <div class="sched-row"><span class="sched-time">~6:50 am</span><span class="sched-tag">Circuit Entry</span><span class="sched-note">~6 km in. Cross Jacques-Cartier Bridge pedestrian path → Île Notre-Dame. First caffeine gel here.</span></div>
+      <div class="sched-row"><span class="sched-time">~6:50–7:35 am</span><span class="sched-tag">F1 Lap 1</span><span class="sched-note">4.36 km lap of Circuit Gilles Villeneuve. Completely flat. This is your marathon-pace section. Run 8:30–9:00/km here.</span></div>
+      <div class="sched-row"><span class="sched-time">~7:35–8:20 am</span><span class="sched-tag">F1 Lap 2</span><span class="sched-note">Second lap. ~14.7 km total done. Non-caffeine gel at start of this lap. Hold the same pace — no speeding up.</span></div>
+      <div class="sched-row"><span class="sched-time">~8:20 am</span><span class="sched-tag">Head North</span><span class="sched-note">Leave circuit, head northwest through Plateau toward Mile End. ~7 km left. Water stop at a café on Laurier or Saint-Denis.</span></div>
+      <div class="sched-row highlight"><span class="sched-time">~9:15 am</span><span class="sched-tag">Arrive Meetup</span><span class="sched-note">~21 km solo done. You're at 124 Rue Saint-Viateur O — already at the finish. Keep moving, don't sit down.</span></div>
+      <div class="sched-row highlight"><span class="sched-time">9:30 am</span><span class="sched-tag">EBC Gathers</span><span class="sched-note">Chat, stretch, eat the gel or banana you saved. Hydrate. Let your legs know there's 5 more km coming.</span></div>
+      <div class="sched-row highlight"><span class="sched-time">10:00 am</span><span class="sched-tag">Group Run</span><span class="sched-note">EBC × Café Olimpico 5 km community run. You're already at 21 km — just survive and enjoy it.</span></div>
+      <div class="sched-row highlight"><span class="sched-time">~10:50 am</span><span class="sched-tag">Done ✓</span><span class="sched-note">~26 km total. Longest run of your life. Eat a real meal within 30 min. Protein + carbs.</span></div>
+    </div>
+
+    <!-- Map -->
+    <div id="map"></div>
+
+    <!-- Segment breakdown -->
+    <div class="segments-grid">
+      <div class="segment" style="border-color:#FC4C02">
+        <div class="seg-title">① City Run — Cedar → Jacques-Cartier Bridge</div>
+        <div class="seg-detail">~6 km · flat city roads · ~58 min<br>East through downtown. Easy warm-up pace. Enjoy waking up Montreal. Caffeine gel at the bridge approach.</div>
+      </div>
+      <div class="segment" style="border-color:#30D158">
+        <div class="seg-title">② F1 Lap 1 — Circuit Gilles Villeneuve</div>
+        <div class="seg-detail">4.36 km · completely flat · ~42 min<br>Open April 15 – Nov 15 for public running. Run 8:30–9:00/km. Feel like Hamilton. This is your marathon-pace drill.</div>
+      </div>
+      <div class="segment" style="border-color:#30D158; opacity:0.8">
+        <div class="seg-title">③ F1 Lap 2 — Circuit Gilles Villeneuve</div>
+        <div class="seg-detail">4.36 km · completely flat · ~42 min<br>Non-caffeine gel at start. Hold exact same pace as lap 1 — if you slow down, that's okay. No ego. Second gel here.</div>
+      </div>
+      <div class="segment" style="border-color:#0A84FF">
+        <div class="seg-title">④ North — Circuit → Plateau → Mile End</div>
+        <div class="seg-detail">~7 km · flat to slight uphill · ~68 min<br>Head northwest through the Plateau. Water stop at a café on Laurier or Saint-Denis (~halfway). Last gel at km 18.</div>
+      </div>
+      <div class="segment" style="border-color:#FFD60A">
+        <div class="seg-title">⑤ Arrive — 124 Rue Saint-Viateur O</div>
+        <div class="seg-detail">Destination = meetup spot · ~21 km solo done<br>You arrive at the EBC gathering point already warmed up, already heroic. Don't sit — walk it off.</div>
+      </div>
+      <div class="segment" style="border-color:#BF5AF2">
+        <div class="seg-title">⑥ EBC × Café Olimpico Community Run</div>
+        <div class="seg-detail">5 km · 10:00 am · ~47 min<br>You're at 21 km on your legs. Run with the group, let someone else set the pace. You just ran an F1 track twice.</div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- Tab: Marathon -->
+  <div class="tab-panel" id="tab-marathon">
+  <!-- Toronto Marathon Course Map -->
+  <div class="section" style="margin-bottom:24px">
+    <div class="section-title">Toronto Marathon Course — May 3, 2026 (Approximate)</div>
+    <div class="warning-box" style="color:var(--green);border-color:rgba(48,209,88,0.3);background:rgba(48,209,88,0.06);margin-bottom:12px">
+      ✓ Exact 2026 course GPS data from racepoint.ca · 520 GPS points · 16 aid stations marked · Elevation: 193m→77m (net downhill)
+    </div>
+    <div class="route-stats">
+      <div class="route-stat"><div class="rs-label">Distance</div><div class="rs-val" style="color:var(--orange)">42.2 km</div></div>
+      <div class="route-stat"><div class="rs-label">Start</div><div class="rs-val" style="font-size:14px">Mel Lastman Square</div></div>
+      <div class="route-stat"><div class="rs-label">Finish</div><div class="rs-val" style="font-size:14px">Yonge St, Downtown</div></div>
+      <div class="route-stat"><div class="rs-label">Net Elevation</div><div class="rs-val" style="color:var(--green)">−116m net ↘</div></div>
+      <div class="route-stat"><div class="rs-label">Gun Time</div><div class="rs-val">~7:00 AM</div></div>
+      <div class="route-stat"><div class="rs-label">Weather</div><div class="rs-val" style="font-size:14px">5–12°C, rain possible</div></div>
+    </div>
+    <div id="toronto-map" style="height:420px;border-radius:14px;border:1px solid var(--surface3);margin-bottom:14px"></div>
+    <div class="segments-grid">
+      <div class="segment" style="border-color:#FC4C02">
+        <div class="seg-title">① km 0–10: Yonge St south — 180m → 140m</div>
+        <div class="seg-detail">Fast downhill start through North York. The elevation drop makes it feel easy — <strong>that's the trap.</strong> Everyone runs too fast. Lock into 8:30/km even if it feels embarrassingly slow. Crowd energy is huge here.</div>
+      </div>
+      <div class="segment" style="border-color:#FFD60A">
+        <div class="seg-title">② km 10–21: Midtown loop — rolling 140m→80m</div>
+        <div class="seg-detail">Yonge through Davisville, Rosedale. Rolling terrain with net descent. Bloor/Yorkville area has gentle climbs. Hit the km 21 mat at 2h58 or slower — if you're ahead of that, slow down immediately.</div>
+      </div>
+      <div class="segment" style="border-color:#0A84FF">
+        <div class="seg-title">③ km 21–32: Downtown → Lake Shore W — flat, 80m</div>
+        <div class="seg-detail">Past downtown, south to Queens Quay, west along Lake Shore to the turn-around (~km 29). Flat and exposed — wind off the lake can be cold. Walk every aid station. This is where the marathon is won or lost mentally.</div>
+      </div>
+      <div class="segment" style="border-color:#30D158">
+        <div class="seg-title">④ km 32–42.2: Return east → Finish — flat, 78m</div>
+        <div class="seg-detail"><strong>The wall zone.</strong> Entirely uncharted territory for your legs. Head back east along the waterfront, finish on Yonge. Short steps, high cadence, walk aid stations. The net-flat terrain here is your friend — no hills left. Just keep moving.</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;background:var(--surface);border:1px solid var(--surface3);border-radius:14px;padding:18px 20px">
+      <div class="section-title" style="margin-bottom:10px">How Saturday's Run Prepares You for This</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;font-size:13px">
+        <div><span style="color:var(--green);font-weight:700">✓ Time on feet</span><br><span style="color:var(--text-dim)">4 hours Saturday = your legs know what 4-hour fatigue feels like. The marathon will take 5h30+. You'll have experienced km 0–26 for real, which covers you to km 26 on May 3.</span></div>
+        <div><span style="color:var(--green);font-weight:700">✓ Mont-Royal climb at km 17</span><br><span style="color:var(--text-dim)">~150m gain when already fatigued trains eccentric quad strength and cardiovascular reserve. Toronto has nothing this steep. You'll feel strong on every hill May 3.</span></div>
+        <div><span style="color:var(--green);font-weight:700">✓ Flat F1 circuit = marathon pace</span><br><span style="color:var(--text-dim)">Two flat 4.36 km laps at 8:30–9:00/km is exactly marathon-pace rehearsal. Your body will remember that tempo on May 3.</span></div>
+        <div><span style="color:var(--orange);font-weight:700">⚠ Uphill concern</span><br><span style="color:var(--text-dim)">The Beaver Lake climb at km 17–20 gains ~150m. At that point you'll have 2 F1 laps in your legs. <strong>Walk it.</strong> This is training, not racing. The hill is 2–3 km — power-hike at 7:00 effort, no shame.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TL;DR Cards -->
+  <div class="section">
+    <div class="section-title">TL;DR</div>
+    <div class="cards">
+      <div class="card key">
+        <div class="card-label">Predicted Finish</div>
+        <div class="card-value">5:31 – 5:56</div>
+        <div class="card-sub">MP target: 7:50/km &bull; Riegel projection</div>
+      </div>
+      <div class="card warn">
+        <div class="card-label">Longest Run (90 days)</div>
+        <div class="card-value">8.2 km</div>
+        <div class="card-sub">Apr 5 &bull; Marathon prep expects ≥28 km ⚠</div>
+      </div>
+      <div class="card ok">
+        <div class="card-label">Peak Week</div>
+        <div class="card-value">33.8 km</div>
+        <div class="card-sub">Apr 6 week &bull; 9 runs</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Total Volume (90 days)</div>
+        <div class="card-value">141.9 km</div>
+        <div class="card-sub">43 runs &bull; 11 km/week avg</div>
+      </div>
+      <div class="card warn">
+        <div class="card-label">Taper</div>
+        <div class="card-value">Partial</div>
+        <div class="card-sub">Current week 53% of previous</div>
+      </div>
+      <div class="card ok">
+        <div class="card-label">HR Data</div>
+        <div class="card-value">Present</div>
+        <div class="card-sub">All 43 runs have HR &bull; Max 191 bpm</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Race-Readiness Verdict -->
+  <div class="verdict">
+    <h2>Race-Readiness Verdict</h2>
+    <div class="verdict-grid">
+      <div class="verdict-item">
+        <div class="v-title">1. Fitness &amp; Predicted Time</div>
+        <div class="v-body">
+          <strong>5h31 – 5h56</strong> based on your Apr 18 effort (5.7 km @ 6:41/km, HR 167) via Riegel extrapolation.
+          That projects a marathon pace of <strong>~7:50/km</strong>. Your Misfits run (6:54/km @ HR 173)
+          corroborates this. Treat the lower end as a stretch goal — you haven't raced anything longer than 8 km in 90 days.
+          <br><br>
+          <span class="warn">⚠ Confidence is low.</span> No race, no time trial, no run over 8.2 km. The Riegel formula assumes you're trained to that distance — you're projecting from 5.7 km with a training HR, not a race. Add 10–20 min conservatively.
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-title">2. Taper</div>
+        <div class="v-body">
+          <span class="warn">PARTIAL.</span> Current week (Apr 20) is 5.8 km vs 11 km last week — 53%.
+          Taper is happening by accident more than design (fewer runs, not a planned peak then drop).
+          Your build peaked at 33.8 km/wk (Apr 6) then dropped sharply. That's the right direction but
+          the base was modest to begin with.
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-title">3. Longest Run</div>
+        <div class="v-body">
+          <span class="flag">8.2 km on Apr 5 — 19 days ago. ⚠⚠</span><br>
+          Standard marathon prep expects a long run of 28–32 km within 3–4 weeks of race day.
+          Your longest is 8.2 km. This is the single biggest risk on May 3: miles 28–42 will be
+          entirely uncharted territory for your legs. The wall is very likely. Plan for it.
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-title">4. Red Flags</div>
+        <div class="v-body">
+          <span class="flag">⚠ HR drift +11.2 bpm</span> first→second half on your 8.2 km run —
+          significant cardiac drift even on a short effort.<br><br>
+          <span class="warn">⚠ Training gaps</span> of 6–10 days in Jan–Mar suggest interrupted buildup
+          (illness, life, injury?). No back-to-back hard days — consistent.<br><br>
+          <span class="ok">✓ Recent pace trend improving</span> — Apr 18 (6:41/km) and Apr 23 (6:54/km)
+          are your two fastest logged runs. Legs are fresher going in.
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-title">5. Strengths</div>
+        <div class="v-body">
+          <span class="ok">✓ Running every single day</span> in your peak weeks — 43 runs in 90 days shows discipline.<br>
+          <span class="ok">✓ HR data is clean</span> — you're monitoring effort, not just logging.<br>
+          <span class="ok">✓ Recent speed</span> — 6:41/km at HR 167 is legitimate aerobic pace.
+          There's fitness here.<br>
+          <span class="ok">✓ Taper is underway</span> — you arrive fresh. Probably your biggest advantage.
+        </div>
+      </div>
+      <div class="verdict-item">
+        <div class="v-title">Coach's Bottom Line</div>
+        <div class="v-body">
+          You can finish this race. You should <strong>not</strong> try to race it. The long run gap is too large —
+          treat km 0–30 as a victory lap and km 30–42 as survival mode.
+          Start at <strong>8:30/km</strong> (slower than your MP target), walk every aid station from km 20,
+          and save energy for the back half. A 5:45–6:15 conservative finish beats a DNF by miles.
+          <br><br>
+          If your goal is completion &gt; time: <span class="ok">you're fine.</span><br>
+          If your goal is a time PR: <span class="warn">reassess at the start line.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final 9-Day Plan -->
+  <div class="section">
+    <div class="section-title">Final 9-Day Plan (Apr 25 – May 3)</div>
+    <div class="table-wrap">
+      <table class="plan-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Day</th>
+            <th>km</th>
+            <th>Plan</th>
+          </tr>
+        </thead>
+        <tbody id="plan-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Race Morning -->
+  <div class="section">
+    <div class="section-title">Race Morning — Toronto, May 3 (5–12°C, possible rain)</div>
+    <div class="tips">
+      <div class="tip">
+        <div class="tip-icon">👕</div>
+        <div class="tip-title">Dress</div>
+        <div class="tip-body">Singlet + arm warmers. Light throwaway layer at the start. Bin it at km 5. Don't overdress — you'll warm up fast.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">🍌</div>
+        <div class="tip-title">Fuel (Morning)</div>
+        <div class="tip-body">2h before gun: bagel + peanut butter + banana + coffee. Carb-load Thu–Sat. Morning of: nothing heavy after 90 min to gun.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">💧</div>
+        <div class="tip-title">Hydration</div>
+        <div class="tip-body">500 mL water + electrolytes the night before. 300–400 mL morning of. Sip on the start line. Walk every aid station.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">🍬</div>
+        <div class="tip-title">Gels</div>
+        <div class="tip-body">Every 30–35 min from km 8 onward. Target 40–60 g carbs/hr. Wash with water, not sports drink (doubles up carbs → gut issues).</div>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">🌧</div>
+        <div class="tip-title">Rain Plan</div>
+        <div class="tip-body">Vaseline on inner thighs, nipples, armpits before the race. Body Glide if you have it. Waterproof shoe covers optional.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">🏁</div>
+        <div class="tip-title">Pacing</div>
+        <div class="tip-body">Start at 8:30/km. It will feel embarrassingly slow. That's correct. Walk km 30+ aid stations. Negative-split the back half if you have legs.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Tab: History -->
+  <div class="tab-panel" id="tab-history">
+  <!-- Weekly Mileage Chart -->
+  <div class="section">
+    <div class="section-title">Weekly Mileage (90 days)</div>
+    <div class="chart-wrap">
+      <div class="chart-inner" id="chart"></div>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#FC4C02"></div> Peak week</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#0A84FF"></div> Normal weeks</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#30D158"></div> Taper weeks</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Per-Run Log -->
+  <div class="section">
+    <div class="section-title">Per-Run Log — 43 Runs</div>
+    <div class="table-wrap" style="max-height:480px; overflow-y:auto;">
+      <table id="run-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Day</th>
+            <th>km</th>
+            <th>Pace</th>
+            <th>Avg HR</th>
+            <th>Max HR</th>
+            <th>Elev</th>
+            <th>Type</th>
+            <th class="name">Name</th>
+          </tr>
+        </thead>
+        <tbody id="run-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Red Flags -->
+  <div class="section">
+    <div class="section-title">Flags &amp; Notes</div>
+    <div class="flags-list" id="flags"></div>
+  </div>
+
+  </div>
+
+
+  <div class="footer">
+    Data from Strava API &bull; Analysis generated 2026-04-24 16:10 &bull; Scope: activity:read_all
+  </div>
+</div>
+</div>
+
+<script>
+const DATA = {"athlete":"Alireza Toghiani","race_date":"2026-05-03","race_name":"Toronto Marathon","generated":"2026-04-24T16:10:18.761967","predicted_lo":"5h31m00s","predicted_hi":"5h56m28s","mp_pace":"7:50/km","peak_week_km":33.8,"total_km_90d":141.9,"longest_run_km":8.24,"longest_run_date":"2026-04-05","taper_note":"PARTIAL — current week is 53% of previous (6 vs 11 km)","lr_summary":"8.2 km on 2026-04-05 (19 days ago) ⚠⚠ ONLY 8.2 km — marathon prep expects ≥28–32 km","weeks":[{"label":"Jan 26","n_runs":1,"total_km":3.7,"longest_km":3.7,"total_time_s":2457,"med_easy_pace_s":656},{"label":"Feb 02","n_runs":3,"total_km":5.6,"longest_km":4.5,"total_time_s":3944,"med_easy_pace_s":842},{"label":"Feb 09","n_runs":2,"total_km":4.1,"longest_km":2.9,"total_time_s":3601,"med_easy_pace_s":921},{"label":"Feb 16","n_runs":3,"total_km":5.1,"longest_km":3.0,"total_time_s":3832,"med_easy_pace_s":1015},{"label":"Feb 23","n_runs":2,"total_km":11.8,"longest_km":7.0,"total_time_s":8896,"med_easy_pace_s":810},{"label":"Mar 02","n_runs":2,"total_km":9.1,"longest_km":6.2,"total_time_s":6316,"med_easy_pace_s":700},{"label":"Mar 09","n_runs":1,"total_km":3.5,"longest_km":3.5,"total_time_s":2538,"med_easy_pace_s":733},{"label":"Mar 16","n_runs":3,"total_km":7.3,"longest_km":3.6,"total_time_s":4352,"med_easy_pace_s":556},{"label":"Mar 23","n_runs":5,"total_km":9.7,"longest_km":4.8,"total_time_s":6456,"med_easy_pace_s":681},{"label":"Mar 30","n_runs":7,"total_km":31.3,"longest_km":8.2,"total_time_s":17247,"med_easy_pace_s":575},{"label":"Apr 06","n_runs":9,"total_km":33.8,"longest_km":7.4,"total_time_s":19279,"med_easy_pace_s":549},{"label":"Apr 13","n_runs":3,"total_km":11.0,"longest_km":5.7,"total_time_s":5163,"med_easy_pace_s":498},{"label":"Apr 20","n_runs":2,"total_km":5.8,"longest_km":4.5,"total_time_s":2459,"med_easy_pace_s":453}],"runs":[{"date":"2026-01-27","dow":"Tue","name":"Afternoon Run","dist_km":3.74,"duration_s":2457,"pace":"10:56/km","avg_hr":136.4,"max_hr":153.0,"elev_m":0,"type":"recovery"},{"date":"2026-02-02","dow":"Mon","name":"Evening Run","dist_km":4.5,"duration_s":2768,"pace":"10:15/km","avg_hr":138.6,"max_hr":154.0,"elev_m":0,"type":"recovery"},{"date":"2026-02-04","dow":"Wed","name":"Evening Run","dist_km":0.36,"duration_s":577,"pace":"26:45/km","avg_hr":108.1,"max_hr":124.0,"elev_m":0,"type":"recovery"},{"date":"2026-02-04","dow":"Wed","name":"Evening Run","dist_km":0.71,"duration_s":599,"pace":"14:02/km","avg_hr":135.2,"max_hr":153.0,"elev_m":0,"type":"recovery"},{"date":"2026-02-10","dow":"Tue","name":"Afternoon Run","dist_km":1.23,"duration_s":914,"pace":"12:22/km","avg_hr":137.0,"max_hr":158.0,"elev_m":0,"type":"recovery"},{"date":"2026-02-11","dow":"Wed","name":"Evening Run","dist_km":2.92,"duration_s":2687,"pace":"15:20/km","avg_hr":134.9,"max_hr":160.0,"elev_m":0,"type":"recovery"},{"date":"2026-02-17","dow":"Tue","name":"Morning Run","dist_km":1.48,"duration_s":1506,"pace":"16:55/km","avg_hr":140.8,"max_hr":169.0,"elev_m":8,"type":"recovery"},{"date":"2026-02-17","dow":"Tue","name":"Morning Run","dist_km":2.98,"duration_s":1622,"pace":"9:04/km","avg_hr":139.8,"max_hr":169.0,"elev_m":132,"type":"recovery"},{"date":"2026-02-17","dow":"Tue","name":"Morning Run","dist_km":0.68,"duration_s":704,"pace":"17:18/km","avg_hr":149.5,"max_hr":170.0,"elev_m":0,"type":"recovery"},{"date":"2026-02-24","dow":"Tue","name":"Run 1 - Feb week 4","dist_km":4.83,"duration_s":3912,"pace":"13:30/km","avg_hr":156.4,"max_hr":188.0,"elev_m":21,"type":"recovery"},{"date":"2026-02-28","dow":"Sat","name":"Run 2 - Feb week 4","dist_km":6.98,"duration_s":4984,"pace":"11:54/km","avg_hr":143.9,"max_hr":183.0,"elev_m":72,"type":"recovery"},{"date":"2026-03-03","dow":"Tue","name":"Run 1 - Mar week 1","dist_km":6.24,"duration_s":4369,"pace":"11:39/km","avg_hr":142.9,"max_hr":168.0,"elev_m":118,"type":"recovery"},{"date":"2026-03-04","dow":"Wed","name":"Afternoon Run","dist_km":2.86,"duration_s":1947,"pace":"11:21/km","avg_hr":136.0,"max_hr":161.0,"elev_m":32,"type":"recovery"},{"date":"2026-03-14","dow":"Sat","name":"Afternoon Run","dist_km":3.46,"duration_s":2538,"pace":"12:12/km","avg_hr":133.5,"max_hr":154.0,"elev_m":0,"type":"recovery"},{"date":"2026-03-18","dow":"Wed","name":"Afternoon Run","dist_km":0.63,"duration_s":345,"pace":"9:06/km","avg_hr":135.3,"max_hr":150.0,"elev_m":12,"type":"recovery"},{"date":"2026-03-20","dow":"Fri","name":"Morning Run","dist_km":3.62,"duration_s":2010,"pace":"9:15/km","avg_hr":143.6,"max_hr":172.0,"elev_m":0,"type":"recovery"},{"date":"2026-03-20","dow":"Fri","name":"Afternoon Run","dist_km":3.09,"duration_s":1997,"pace":"10:45/km","avg_hr":136.3,"max_hr":166.0,"elev_m":0,"type":"recovery"},{"date":"2026-03-24","dow":"Tue","name":"Evening Run","dist_km":1.16,"duration_s":652,"pace":"9:20/km","avg_hr":138.9,"max_hr":155.0,"elev_m":0,"type":"recovery"},{"date":"2026-03-27","dow":"Fri","name":"Afternoon Run","dist_km":4.76,"duration_s":3244,"pace":"11:21/km","avg_hr":138.8,"max_hr":176.0,"elev_m":32,"type":"recovery"},{"date":"2026-03-28","dow":"Sat","name":"Morning Run","dist_km":1.35,"duration_s":595,"pace":"7:19/km","avg_hr":137.3,"max_hr":160.0,"elev_m":33,"type":"recovery"},{"date":"2026-03-28","dow":"Sat","name":"Lunch Run","dist_km":1.58,"duration_s":1282,"pace":"13:33/km","avg_hr":133.3,"max_hr":156.0,"elev_m":0,"type":"recovery"},{"date":"2026-03-29","dow":"Sun","name":"Night Run","dist_km":0.86,"duration_s":683,"pace":"13:16/km","avg_hr":132.2,"max_hr":147.0,"elev_m":0,"type":"recovery"},{"date":"2026-03-30","dow":"Mon","name":"Morning Run","dist_km":4.45,"duration_s":2449,"pace":"9:10/km","avg_hr":146.4,"max_hr":175.0,"elev_m":27,"type":"recovery"},{"date":"2026-03-30","dow":"Mon","name":"Afternoon Run","dist_km":1.04,"duration_s":425,"pace":"6:49/km","avg_hr":143.5,"max_hr":162.0,"elev_m":0,"type":"recovery"},{"date":"2026-03-31","dow":"Tue","name":"Morning Run","dist_km":2.16,"duration_s":1245,"pace":"9:35/km","avg_hr":129.4,"max_hr":145.0,"elev_m":0,"type":"recovery"},{"date":"2026-04-01","dow":"Wed","name":"Morning Run","dist_km":4.9,"duration_s":2781,"pace":"9:27/km","avg_hr":149.3,"max_hr":186.0,"elev_m":62,"type":"recovery"},{"date":"2026-04-02","dow":"Thu","name":"Afternoon Run","dist_km":2.72,"duration_s":1713,"pace":"10:29/km","avg_hr":129.0,"max_hr":175.0,"elev_m":21,"type":"recovery"},{"date":"2026-04-03","dow":"Fri","name":"Afternoon Run","dist_km":7.78,"duration_s":4539,"pace":"9:43/km","avg_hr":149.8,"max_hr":181.0,"elev_m":128,"type":"recovery"},{"date":"2026-04-05","dow":"Sun","name":"Morning Run","dist_km":8.24,"duration_s":4095,"pace":"8:17/km","avg_hr":163.3,"max_hr":186.0,"elev_m":40,"type":"intervals"},{"date":"2026-04-07","dow":"Tue","name":"Afternoon Run","dist_km":1.41,"duration_s":914,"pace":"10:48/km","avg_hr":126.6,"max_hr":159.0,"elev_m":0,"type":"recovery"},{"date":"2026-04-07","dow":"Tue","name":"Evening Run","dist_km":0.52,"duration_s":636,"pace":"20:19/km","avg_hr":124.1,"max_hr":150.0,"elev_m":0,"type":"recovery"},{"date":"2026-04-08","dow":"Wed","name":"Evening Run","dist_km":2.36,"duration_s":1800,"pace":"12:42/km","avg_hr":132.7,"max_hr":177.0,"elev_m":66,"type":"recovery"},{"date":"2026-04-09","dow":"Thu","name":"Morning Run","dist_km":4.0,"duration_s":2141,"pace":"8:55/km","avg_hr":156.0,"max_hr":178.0,"elev_m":65,"type":"recovery"},{"date":"2026-04-09","dow":"Thu","name":"Afternoon Run","dist_km":2.82,"duration_s":1547,"pace":"9:09/km","avg_hr":147.7,"max_hr":168.0,"elev_m":29,"type":"recovery"},{"date":"2026-04-10","dow":"Fri","name":"Morning Run","dist_km":4.97,"duration_s":2721,"pace":"9:07/km","avg_hr":145.4,"max_hr":168.0,"elev_m":53,"type":"recovery"},{"date":"2026-04-10","dow":"Fri","name":"Lunch Run","dist_km":7.42,"duration_s":4401,"pace":"9:52/km","avg_hr":145.5,"max_hr":171.0,"elev_m":154,"type":"recovery"},{"date":"2026-04-11","dow":"Sat","name":"Morning Run","dist_km":3.02,"duration_s":1453,"pace":"8:00/km","avg_hr":131.4,"max_hr":153.0,"elev_m":47,"type":"recovery"},{"date":"2026-04-12","dow":"Sun","name":"Morning Run","dist_km":7.24,"duration_s":3666,"pace":"8:26/km","avg_hr":162.1,"max_hr":184.0,"elev_m":36,"type":"recovery"},{"date":"2026-04-13","dow":"Mon","name":"Morning Run","dist_km":2.01,"duration_s":1000,"pace":"8:17/km","avg_hr":144.5,"max_hr":162.0,"elev_m":22,"type":"recovery"},{"date":"2026-04-15","dow":"Wed","name":"Morning Run","dist_km":3.3,"duration_s":1868,"pace":"9:26/km","avg_hr":139.8,"max_hr":156.0,"elev_m":16,"type":"recovery"},{"date":"2026-04-18","dow":"Sat","name":"Morning Run","dist_km":5.72,"duration_s":2295,"pace":"6:41/km","avg_hr":167.2,"max_hr":180.0,"elev_m":44,"type":"recovery"},{"date":"2026-04-22","dow":"Wed","name":"Morning Run","dist_km":1.29,"duration_s":583,"pace":"7:32/km","avg_hr":130.7,"max_hr":158.0,"elev_m":20,"type":"recovery"},{"date":"2026-04-23","dow":"Thu","name":"Run with friends (Misfits)","dist_km":4.53,"duration_s":1876,"pace":"6:54/km","avg_hr":173.4,"max_hr":191.0,"elev_m":25,"type":"recovery"}],"plan":[{"date":"Apr 25","day":"Sat","km":"10","note":"Easy 10:15/km — first day of taper"},{"date":"Apr 26","day":"Sun","km":"6","note":"Easy 10:15/km — short shakeout"},{"date":"Apr 27","day":"Mon","km":"REST","note":"Full rest or 20 min walk. No running."},{"date":"Apr 28","day":"Tue","km":"10","note":"Tune-up: 2 km easy + 3×1 km @ 6:54/km (90s recovery) + 2 km easy"},{"date":"Apr 29","day":"Wed","km":"6","note":"Easy 10:15/km — keep it honest"},{"date":"Apr 30","day":"Thu","km":"REST","note":"Full rest. Legs up. Hydrate aggressively."},{"date":"May 1","day":"Fri","km":"5","note":"Easy 10:15/km — shakeout, stop before you feel tired"},{"date":"May 2","day":"Sat","km":"4","note":"Shake-out: 3 km easy + 4×80 m strides @ 10K effort"},{"date":"May 3","day":"Sun","km":"42.2","note":"RACE — Toronto Marathon. Start @ 7:50/km. Do NOT go out faster."}],"red_flags":["HR drift +11.2 bpm on long run","Gap: 2026-01-27 → 2026-02-02 (6 days)","Gap: 2026-02-04 → 2026-02-10 (6 days)","Gap: 2026-02-11 → 2026-02-17 (6 days)","Gap: 2026-02-17 → 2026-02-24 (7 days)","Gap: 2026-03-04 → 2026-03-14 (10 days)"],"strengths":["taper underway"]};
+
+// ── Countdown ──
+(function() {
+  const race = new Date('2026-05-03T00:00:00');
+  const now = new Date();
+  const days = Math.ceil((race - now) / 86400000);
+  document.getElementById('days-left').textContent = Math.max(0, days);
+})();
+
+// ── Weekly Chart ──
+(function() {
+  const weeks = DATA.weeks;
+  const maxKm = Math.max(...weeks.map(w => w.total_km));
+  const chartEl = document.getElementById('chart');
+  const chartH = 140;
+  const peakIdx = weeks.findIndex(w => w.total_km === maxKm);
+
+  weeks.forEach((w, i) => {
+    const pct = w.total_km / maxKm;
+    const h = Math.max(3, Math.round(pct * chartH));
+    let color = '#0A84FF';
+    if (i === peakIdx) color = '#FC4C02';
+    else if (i >= weeks.length - 2) color = '#30D158';
+
+    const col = document.createElement('div');
+    col.className = 'bar-col';
+    col.title = `${w.label}: ${w.total_km} km (${w.n_runs} runs)`;
+    col.innerHTML = `
+      <div class="bar-val">${w.total_km}</div>
+      <div class="bar" style="height:${h}px;background:${color}"></div>
+      <div class="bar-label">${w.label}</div>
+    `;
+    chartEl.appendChild(col);
+  });
+})();
+
+// ── Run Table ──
+(function() {
+  const tbody = document.getElementById('run-tbody');
+  const runs = [...DATA.runs].reverse();
+  runs.forEach(r => {
+    const hr = r.avg_hr ? r.avg_hr.toFixed(0) : '—';
+    const maxhr = r.max_hr ? r.max_hr.toFixed(0) : '—';
+    const hrPct = r.avg_hr ? Math.min(100, ((r.avg_hr - 100) / 100) * 100) : 0;
+    const hrColor = r.avg_hr > 170 ? '#FF453A' : r.avg_hr > 155 ? '#FFD60A' : '#30D158';
+    const badge = `<span class="badge badge-${r.type}">${r.type}</span>`;
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${r.date}</td>
+      <td>${r.dow}</td>
+      <td><strong>${r.dist_km.toFixed(2)}</strong></td>
+      <td>${r.pace}</td>
+      <td>${hr} <span class="hr-bar"><span class="hr-fill" style="width:${hrPct}%;background:${hrColor}"></span></span></td>
+      <td>${maxhr}</td>
+      <td>${r.elev_m}m</td>
+      <td>${badge}</td>
+      <td class="name" title="${r.name}">${r.name}</td>
+    `;
+    tbody.appendChild(row);
+  });
+})();
+
+// ── Flags ──
+(function() {
+  const el = document.getElementById('flags');
+  const items = [
+    { cls: 'red',    icon: '🚨', text: 'Longest run only 8.2 km — marathon prep expects ≥28 km. Biggest risk on May 3.' },
+    { cls: 'red',    icon: '⚠️', text: 'HR drift +11.2 bpm first→second half on your 8.2 km run — cardiac stress on a short effort.' },
+    { cls: 'yellow', icon: '⚠️', text: 'Training gaps of 6–10 days in Jan–Mar (illness/life). Interrupted buildup.' },
+    { cls: 'yellow', icon: '⚠️', text: 'Taper partial only — current week 53% of previous, not a deliberate taper plan.' },
+    { cls: 'green',  icon: '✓',  text: 'Recent pace improving: 6:41/km (Apr 18) and 6:54/km (Apr 23) are fastest logged runs.' },
+    { cls: 'green',  icon: '✓',  text: 'No back-to-back hard days. No suspicious injury pattern.' },
+    { cls: 'green',  icon: '✓',  text: 'HR data present on all 43 runs — reliable training effort monitoring.' },
+  ];
+  items.forEach(it => {
+    const div = document.createElement('div');
+    div.className = `flag-item ${it.cls}`;
+    div.innerHTML = `<span class="icon">${it.icon}</span><span>${it.text}</span>`;
+    el.appendChild(div);
+  });
+})();
+
+// ── Plan Table ──
+(function() {
+  const tbody = document.getElementById('plan-tbody');
+  DATA.plan.forEach(p => {
+    const isRace = p.km === '42.2';
+    const isRest = p.km === 'REST';
+    const row = document.createElement('tr');
+    if (isRace) row.className = 'race-row';
+    const kmClass = isRace ? 'plan-km race' : isRest ? 'plan-km rest' : 'plan-km';
+    row.innerHTML = `
+      <td class="plan-date">${p.date}</td>
+      <td class="plan-day">${p.day}</td>
+      <td><span class="${kmClass}">${p.km}</span></td>
+      <td class="plan-note">${p.note}</td>
+    `;
+    tbody.appendChild(row);
+  });
+})();
+
+// ── GitHub Actions config ──
+const GH_OWNER = 'alireza12t';
+const GH_REPO  = 'alireza12t.github.io';
+const GH_WORKFLOW = 'update-running-dashboard.yml';
+// PAT is stored in sessionStorage only — never hardcoded (GitHub auto-revokes hardcoded tokens)
+function getGhPat() { return sessionStorage.getItem('gh_pat') || ''; }
+
+// ── Password Gate ──
+const PW_HASH = '4eed7e4819d12d57bc5c053c291cd8ecebfc2b4b0b834d127e39bdad25e12e4d';
+
+function revealApp() {
+  document.getElementById('gate').remove();
+  document.getElementById('app').style.display = '';
+  // Map was initialized while hidden — fix dimensions after reflow
+  setTimeout(() => {
+    if (window._leafletMap) {
+      window._leafletMap.invalidateSize();
+      if (window._leafletBounds) window._leafletMap.fitBounds(window._leafletBounds, {padding:[30,30]});
+    }
+  }, 120);
+}
+
+async function checkPw() {
+  const v = document.getElementById('pw-input').value;
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(v));
+  const hex = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  if (hex === PW_HASH) {
+    sessionStorage.setItem('at','1');
+    revealApp();
+  } else {
+    document.getElementById('pw-error').style.display = 'block';
+    document.getElementById('pw-input').value = '';
+  }
+}
+document.getElementById('pw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkPw();
+});
+if (sessionStorage.getItem('at') === '1') revealApp();
+
+// ── Tab Switching ──
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'longrun' && window._leafletMap) {
+    setTimeout(() => window._leafletMap.invalidateSize(), 80);
+  }
+}
+
+// ── Refresh button ──
+async function triggerRefresh() {
+  const btn = document.getElementById('refresh-btn');
+  let pat = getGhPat();
+
+  // Prompt for PAT if not in session — stored in sessionStorage only, never in code
+  if (!pat) {
+    pat = window.prompt('GitHub PAT (workflow scope)\nStored in this browser session only — never saved to code:');
+    if (!pat) return;
+    if (!pat.startsWith('ghp_') && !pat.startsWith('github_pat_')) {
+      alert('That doesn\'t look like a GitHub token (should start with ghp_ or github_pat_)');
+      return;
+    }
+    sessionStorage.setItem('gh_pat', pat);
+  }
+
+  btn.textContent = 'Triggering…';
+  btn.disabled = true;
+  try {
+    const r = await fetch(
+      `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW}/dispatches`,
+      { method:'POST',
+        headers:{ Authorization:`Bearer ${pat}`, Accept:'application/vnd.github.v3+json', 'Content-Type':'application/json' },
+        body: JSON.stringify({ ref:'main' }) }
+    );
+    if (r.status === 204) {
+      btn.textContent = 'Running… auto-reload in 2 min';
+      btn.style.color = 'var(--green)';
+      setTimeout(() => location.reload(), 130000);
+    } else if (r.status === 401) {
+      sessionStorage.removeItem('gh_pat'); // clear bad token
+      btn.textContent = '401 — bad token, cleared';
+      btn.style.color = 'var(--red)';
+      btn.disabled = false;
+      setTimeout(() => { btn.textContent = 'Refresh Data'; btn.style.color = ''; }, 3000);
+    } else {
+      btn.textContent = `Error ${r.status}`;
+      btn.style.color = 'var(--red)';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    btn.textContent = 'Network error';
+    btn.style.color = 'var(--red)';
+    btn.disabled = false;
+  }
+}
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ── Route Map: Cedar → F1 Circuit (2 laps) → Saint-Viateur O ──
+(function() {
+  const map = L.map('map', { zoomControl: true }); window._leafletMap = map;
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap © CARTO',
+    subdomains: 'abcd', maxZoom: 19
+  }).addTo(map);
+
+  const phases = [
+    {
+      label: '① City run: 1745 Cedar Ave → Jacques-Cartier Bridge → Circuit',
+      color: '#FC4C02', weight: 6,
+      coords: [
+        [45.495791,-73.591048],[45.495575,-73.591238],[45.495359,-73.591428],[45.495299,-73.591481],[45.495258,-73.591516],[45.495217,-73.591552],
+        [45.495184,-73.591578],[45.495134,-73.591618],[45.495114,-73.591630],[45.495056,-73.591667],[45.494943,-73.591733],[45.494934,-73.591520],
+        [45.494925,-73.591335],[45.494921,-73.591243],[45.494920,-73.591198],[45.494919,-73.591141],[45.494918,-73.591092],[45.494919,-73.591044],
+        [45.494920,-73.590977],[45.494922,-73.590911],[45.494930,-73.590614],[45.494938,-73.590539],[45.494944,-73.590485],[45.494948,-73.590450],
+        [45.494960,-73.590364],[45.494974,-73.590259],[45.495000,-73.590101],[45.495063,-73.589707],[45.495068,-73.589670],[45.495084,-73.589575],
+        [45.495113,-73.589404],[45.495143,-73.589227],[45.495168,-73.589087],[45.495178,-73.589029],[45.495193,-73.588956],[45.495208,-73.588897],
+        [45.495222,-73.588836],[45.495241,-73.588766],[45.495265,-73.588685],[45.495285,-73.588617],[45.495305,-73.588545],[45.495334,-73.588458],
+        [45.495367,-73.588369],[45.495412,-73.588252],[45.495453,-73.588147],[45.495490,-73.588058],[45.495519,-73.587989],[45.495522,-73.587983],
+        [45.495557,-73.587905],[45.495596,-73.587824],[45.495637,-73.587745],[45.495682,-73.587663],[45.495725,-73.587588],[45.495731,-73.587577],
+        [45.495772,-73.587509],[45.495821,-73.587433],[45.495868,-73.587365],[45.495919,-73.587293],[45.495984,-73.587202],[45.496030,-73.587141],
+        [45.496085,-73.587062],[45.496130,-73.586874],[45.496147,-73.586821],[45.496158,-73.586779],[45.496167,-73.586740],[45.496176,-73.586693],
+        [45.496183,-73.586653],[45.496186,-73.586624],[45.496191,-73.586578],[45.496196,-73.586517],[45.496198,-73.586491],[45.496203,-73.586417],
+        [45.496210,-73.586316],[45.496260,-73.586104],[45.496266,-73.585994],[45.496274,-73.585880],[45.496283,-73.585748],[45.496289,-73.585655],
+        [45.496293,-73.585597],[45.496297,-73.585543],[45.496306,-73.585413],[45.496337,-73.584981],[45.496345,-73.584867],[45.496354,-73.584739],
+        [45.496362,-73.584620],[45.496366,-73.584566],[45.496379,-73.584363],[45.496383,-73.584319],[45.496393,-73.584184],[45.496400,-73.584072],
+        [45.496403,-73.584033],[45.496421,-73.583743],[45.496425,-73.583682],[45.496431,-73.583598],[45.496452,-73.583294],[45.496467,-73.583055],
+        [45.496472,-73.582979],[45.496478,-73.582892],[45.496492,-73.582662],[45.496508,-73.582416],[45.496523,-73.582194],[45.496537,-73.581995],
+        [45.496537,-73.581967],[45.496538,-73.581921],[45.496539,-73.581864],[45.496538,-73.581813],[45.496536,-73.581761],[45.496531,-73.581713],
+        [45.496524,-73.581665],[45.496518,-73.581630],[45.496508,-73.581594],[45.496443,-73.581397],[45.496391,-73.581238],[45.496275,-73.580888],
+        [45.496232,-73.580755],[45.496150,-73.580504],[45.496104,-73.580367],[45.496083,-73.580307],[45.496063,-73.580249],[45.496041,-73.580187],
+        [45.496016,-73.580115],[45.495985,-73.580030],[45.495957,-73.579957],[45.495937,-73.579907],[45.495917,-73.579856],[45.495892,-73.579798],
+        [45.495863,-73.579732],[45.495732,-73.579440],[45.495718,-73.579406],[45.495681,-73.579323],[45.495648,-73.579247],[45.495634,-73.579219],
+        [45.495621,-73.579189],[45.495510,-73.578934],[45.495435,-73.578763],[45.495260,-73.578358],[45.495096,-73.577976],[45.495079,-73.577937],
+        [45.495037,-73.577838],[45.494999,-73.577748],[45.494985,-73.577713],[45.494908,-73.577538],[45.494831,-73.577364],[45.494768,-73.577221],
+        [45.494716,-73.577100],[45.494645,-73.576940],[45.494520,-73.576654],[45.494369,-73.576310],[45.494308,-73.576171],[45.494139,-73.575851],
+        [45.494042,-73.575666],[45.493881,-73.575293],[45.493864,-73.575253],[45.493849,-73.575219],[45.493854,-73.575083],[45.493792,-73.574945],
+        [45.493872,-73.574867],[45.494146,-73.574604],[45.494420,-73.574340],[45.494443,-73.574316],[45.494497,-73.574263],[45.494548,-73.574215],
+        [45.495168,-73.573614],[45.495216,-73.573568],[45.495261,-73.573524],[45.495328,-73.573457],[45.495384,-73.573402],[45.495621,-73.573167],
+        [45.495696,-73.573096],[45.495740,-73.573053],[45.495880,-73.572922],[45.496056,-73.572749],[45.496248,-73.572567],[45.496484,-73.572343],
+        [45.496505,-73.572323],[45.496561,-73.572267],[45.496620,-73.572211],[45.496951,-73.571896],[45.496979,-73.571870],[45.497245,-73.571623],
+        [45.497267,-73.571600],[45.497323,-73.571547],[45.497377,-73.571496],[45.497632,-73.571258],[45.497931,-73.570974],[45.497958,-73.570948],
+        [45.498007,-73.570902],[45.498061,-73.570850],[45.498216,-73.570706],[45.498355,-73.570579],[45.498523,-73.570424],[45.498553,-73.570397],
+        [45.498673,-73.570284],[45.498762,-73.570199],[45.498813,-73.570150],[45.498849,-73.570117],[45.499004,-73.569971],[45.499087,-73.569894],
+        [45.499250,-73.569740],[45.499274,-73.569719],[45.499334,-73.569664],[45.499467,-73.569539],[45.499517,-73.569490],[45.499785,-73.569244],
+        [45.499860,-73.569170],[45.499990,-73.569046],[45.500011,-73.569027],[45.500073,-73.568971],[45.500131,-73.568916],[45.500144,-73.568903],
+        [45.500536,-73.568534],[45.500966,-73.568133],[45.501026,-73.568076],[45.501291,-73.567829],[45.501639,-73.567507],[45.501698,-73.567451],
+        [45.501720,-73.567428],[45.501796,-73.567354],[45.501928,-73.567236],[45.501997,-73.567174],[45.502223,-73.566956],[45.502408,-73.566784],
+        [45.502425,-73.566768],[45.502473,-73.566724],[45.502519,-73.566681],[45.502535,-73.566667],[45.502565,-73.566643],[45.502648,-73.566585],
+        [45.502711,-73.566541],[45.502899,-73.566415],[45.502923,-73.566399],[45.503032,-73.566333],[45.503121,-73.566277],[45.503142,-73.566261],
+        [45.503170,-73.566239],[45.503614,-73.565884],[45.504158,-73.565422],[45.504180,-73.565407],[45.504224,-73.565374],[45.504269,-73.565338],
+        [45.505101,-73.564677],[45.505124,-73.564658],[45.505195,-73.564599],[45.505245,-73.564560],[45.505710,-73.564206],[45.506056,-73.563945],
+        [45.506084,-73.563924],[45.506123,-73.563890],[45.506171,-73.563851],[45.507580,-73.562561],[45.507596,-73.562548],[45.507671,-73.562494],
+        [45.507722,-73.562454],[45.508177,-73.562043],[45.508394,-73.561827],[45.508707,-73.561562],[45.508733,-73.561542],[45.508794,-73.561497],
+        [45.508855,-73.561448],[45.509264,-73.561093],[45.510074,-73.560377],[45.510191,-73.560292],[45.510402,-73.560138],[45.510612,-73.559983],
+        [45.510637,-73.559965],[45.510681,-73.559931],[45.510726,-73.559891],[45.511146,-73.559506],[45.511644,-73.559103],[45.511665,-73.559080],
+        [45.511675,-73.559067],[45.511696,-73.559034],[45.511709,-73.559016],[45.511739,-73.558980],[45.511754,-73.558963],[45.511770,-73.558948],
+        [45.512578,-73.558226],[45.512604,-73.558203],[45.512670,-73.558145],[45.512734,-73.558088],[45.512963,-73.557867],[45.512999,-73.557836],
+        [45.513331,-73.557535],[45.513448,-73.557433],[45.513463,-73.557420],[45.513497,-73.557390],[45.513573,-73.557324],[45.513542,-73.557260],
+        [45.513524,-73.557220],[45.513508,-73.557191],[45.513069,-73.556245],[45.513056,-73.556216],[45.513030,-73.556155],[45.513002,-73.556090],
+        [45.512981,-73.556046],[45.512784,-73.555609],[45.512763,-73.555560],[45.512677,-73.555474],[45.512524,-73.555140],[45.512520,-73.555105],
+        [45.512515,-73.554987],[45.512475,-73.554891],[45.512465,-73.554867],[45.512151,-73.553972],[45.512139,-73.553942],[45.512100,-73.553815],
+        [45.512186,-73.553765],[45.512594,-73.553527],[45.512911,-73.553340],[45.512930,-73.553328],[45.513006,-73.553278],[45.513076,-73.553230],
+        [45.513257,-73.553096],[45.513573,-73.552861],[45.514009,-73.552525],[45.514024,-73.552513],[45.514075,-73.552470],[45.514127,-73.552425],
+        [45.514506,-73.552127],[45.514926,-73.551818],[45.514942,-73.551806],[45.515005,-73.551760],[45.515077,-73.551704],[45.515242,-73.551577],
+        [45.515473,-73.551339],[45.515704,-73.551101],[45.515884,-73.550881],[45.516072,-73.550566],[45.516201,-73.550324],[45.516246,-73.550225],
+        [45.516293,-73.550111],[45.516327,-73.550006],[45.516354,-73.549880],[45.516375,-73.549726],[45.516379,-73.549561],[45.516360,-73.549377],
+        [45.516349,-73.549313],[45.516313,-73.549177],[45.516890,-73.548885],[45.517017,-73.548821],[45.517039,-73.548811],[45.517143,-73.548764],
+        [45.517658,-73.548478],[45.517796,-73.548401],[45.517893,-73.548347],[45.518909,-73.547831],[45.518952,-73.547807],[45.519595,-73.547459],
+        [45.519674,-73.547420],[45.520074,-73.547205],[45.520109,-73.547189],[45.520147,-73.547168],[45.520192,-73.547144],[45.520252,-73.547116],
+        [45.520298,-73.547223],[45.520424,-73.547505],[45.520440,-73.547539],[45.520490,-73.547633],[45.520643,-73.547892],[45.520703,-73.547986],
+        [45.521007,-73.548506],[45.521276,-73.549072],[45.521349,-73.549523],[45.521352,-73.549543],[45.521362,-73.549602],[45.521381,-73.549715],
+        [45.521444,-73.549876],[45.521499,-73.550003],[45.521508,-73.550026],[45.521982,-73.551056],[45.521999,-73.551095],[45.522029,-73.551160],
+        [45.522056,-73.551216],[45.522074,-73.551251],[45.522538,-73.552249],[45.522556,-73.552289],[45.522589,-73.552359],[45.522629,-73.552443],
+        [45.522657,-73.552502],[45.522802,-73.552817],[45.522946,-73.553127],[45.522984,-73.553211],[45.523202,-73.553674],[45.523215,-73.553702],
+        [45.523230,-73.553734],[45.523262,-73.553801],[45.523291,-73.553864],[45.523310,-73.553907],[45.523345,-73.553984],[45.523526,-73.554378],
+        [45.523567,-73.554467],[45.523897,-73.555189],[45.524300,-73.556063],[45.524470,-73.556228],[45.524498,-73.556251],[45.524606,-73.556334],
+        [45.524710,-73.556381],[45.524838,-73.556374],[45.524868,-73.556369],[45.524956,-73.556357],[45.525073,-73.556318],[45.525253,-73.556228],
+        [45.525445,-73.556071],[45.525546,-73.555972],[45.525611,-73.555872],[45.525667,-73.555774],[45.525711,-73.555644],[45.525736,-73.555510],
+        [45.525746,-73.555407],[45.525751,-73.555313],[45.525755,-73.555144],[45.525757,-73.555002],[45.525749,-73.554881],[45.525729,-73.554754],
+        [45.525682,-73.554466],[45.525485,-73.554029],[45.525450,-73.553947],[45.525418,-73.553864],[45.525388,-73.553778],[45.525360,-73.553691],
+        [45.525335,-73.553602],[45.525310,-73.553505],[45.524898,-73.551941],[45.524757,-73.551408],[45.524727,-73.551295],[45.524704,-73.551214],
+        [45.524680,-73.551132],[45.524659,-73.551063],[45.524630,-73.550987],[45.524592,-73.550904],[45.524559,-73.550830],[45.524229,-73.550130],
+        [45.523713,-73.549026],[45.522876,-73.547240],[45.522840,-73.547159],[45.522806,-73.547077],[45.522774,-73.546992],[45.522745,-73.546906],
+        [45.522718,-73.546819],[45.522693,-73.546730],[45.522671,-73.546640],[45.522651,-73.546548],[45.522638,-73.546483],[45.522628,-73.546422],
+        [45.522352,-73.544898],[45.521686,-73.541275],[45.521132,-73.538054],[45.520898,-73.536748],[45.520831,-73.536370],[45.520801,-73.536204],
+        [45.520777,-73.536060],[45.520760,-73.535942],[45.520745,-73.535832],[45.520734,-73.535742],[45.520726,-73.535663],[45.520718,-73.535583],
+        [45.520604,-73.535283],[45.520600,-73.535247],[45.520595,-73.535212],[45.520586,-73.535180],[45.520573,-73.535146],[45.520554,-73.535124],
+        [45.520531,-73.535111],[45.520503,-73.535100],[45.520421,-73.535050],[45.519837,-73.534869],[45.519403,-73.534755],[45.519262,-73.534741],
+        [45.519210,-73.534700],[45.519176,-73.534658],[45.519149,-73.534604],[45.519130,-73.534543],[45.519121,-73.534454],[45.519121,-73.534380],
+        [45.519127,-73.534354],[45.519140,-73.534297],[45.519159,-73.534245],[45.519202,-73.534202],[45.519298,-73.534035],[45.519434,-73.533799],
+        [45.519510,-73.533652],[45.519553,-73.533469],[45.519571,-73.533348],[45.519579,-73.533232],[45.519582,-73.533126],[45.519556,-73.533015],
+        [45.519528,-73.532903],[45.519438,-73.532693],[45.519309,-73.532405],[45.519258,-73.532266],[45.519213,-73.532117],[45.519190,-73.531983],
+        [45.519174,-73.531846],[45.519164,-73.531646],[45.519162,-73.531590],[45.519182,-73.531475],[45.519047,-73.531421],[45.518985,-73.531389],
+        [45.518941,-73.531351],[45.518864,-73.531264],[45.518684,-73.531077],[45.518492,-73.530978],[45.518303,-73.530882],[45.518131,-73.530810],
+        [45.518125,-73.530808],[45.518068,-73.530790],[45.518007,-73.530772],[45.517859,-73.530742],[45.516346,-73.530454],[45.516284,-73.530443],
+        [45.515836,-73.530358],[45.515653,-73.530333],[45.515218,-73.530186],[45.515103,-73.530148],[45.515023,-73.530133],[45.514802,-73.530121],
+        [45.514677,-73.530131],[45.514539,-73.530150],[45.514456,-73.530165],[45.514214,-73.530228],[45.514123,-73.530262],[45.514015,-73.530315],
+        [45.513698,-73.530495],[45.513508,-73.530603],[45.513420,-73.530633],[45.513341,-73.530656],[45.513141,-73.530710],[45.512975,-73.530744],
+        [45.512971,-73.530618],[45.512965,-73.527990],[45.512967,-73.527882],[45.512933,-73.527845],[45.512913,-73.527823],[45.512892,-73.527752],
+        [45.512885,-73.527640],[45.512894,-73.527567],[45.512940,-73.527473],[45.513005,-73.527401],[45.513027,-73.527376],[45.513076,-73.527088],
+        [45.513074,-73.527039],[45.513067,-73.527004],[45.513039,-73.526969],[45.512687,-73.526706],[45.512437,-73.526553],[45.512319,-73.526487],
+        [45.511522,-73.526044],[45.510326,-73.525412],[45.510167,-73.525328],[45.509926,-73.525239],[45.509583,-73.525140],[45.509012,-73.524976],
+        [45.507875,-73.524641],[45.507733,-73.524598],[45.507531,-73.524536],[45.506206,-73.524134],[45.505601,-73.523954],[45.505387,-73.523890],
+        [45.504322,-73.523573],[45.504078,-73.523504],[45.504012,-73.523498],[45.503963,-73.523531],[45.503935,-73.523581],[45.503894,-73.523704],
+        [45.503868,-73.523759],[45.503834,-73.523796],[45.503789,-73.523831],[45.503753,-73.523844],[45.503685,-73.523839],[45.502982,-73.523624],
+        [45.499777,-73.522664],[45.499568,-73.522627],[45.499365,-73.522616],[45.499303,-73.522611],[45.499213,-73.522608],[45.499015,-73.522616],
+        [45.498987,-73.522621],[45.498905,-73.522635],[45.498717,-73.522672],[45.498659,-73.522683],[45.498322,-73.522745],[45.498026,-73.522800],
+        [45.497908,-73.522820],[45.497808,-73.522786],[45.497750,-73.522728],[45.497708,-73.522657],[45.497597,-73.522301],[45.497529,-73.522119],
+        [45.497478,-73.522053],[45.497432,-73.522022],[45.497407,-73.522006],[45.497361,-73.522000],[45.497307,-73.522009],[45.497234,-73.522059],
+        [45.497183,-73.522131],[45.497137,-73.522213],[45.497102,-73.522338],[45.497088,-73.522503],[45.497099,-73.522649],[45.497115,-73.522779],
+        [45.497216,-73.523272],[45.497293,-73.523635],[45.497300,-73.523661],[45.497335,-73.523796],[45.497397,-73.523989],[45.497465,-73.524163],
+        [45.497526,-73.524298],[45.497562,-73.524365],[45.497685,-73.524600],[45.498491,-73.525918],[45.498560,-73.526001],[45.498606,-73.526022],
+        [45.498660,-73.526020],[45.498934,-73.525896],[45.499016,-73.525876],[45.499087,-73.525885],[45.499170,-73.525919],[45.499233,-73.525974],
+        [45.500106,-73.526988],[45.500171,-73.527081],[45.500223,-73.527182],[45.500356,-73.527479],[45.500480,-73.527672],[45.500585,-73.527784],
+        [45.500698,-73.527869],[45.500826,-73.527950],[45.500959,-73.528007],[45.501103,-73.528043],[45.501240,-73.528060],[45.501987,-73.528040]
+      ]
+    },
+    {
+      label: '② + ③ Circuit Gilles Villeneuve — 2 laps × 4.36 km',
+      color: '#30D158', weight: 7,
+      coords: [
+        [45.501987,-73.528040],[45.502460,-73.528027],[45.502560,-73.528030],[45.502640,-73.528056],[45.502704,-73.528104],[45.502740,-73.528144],
+        [45.502779,-73.528207],[45.502813,-73.528304],[45.502826,-73.528379],[45.502834,-73.528461],[45.502830,-73.528552],[45.502789,-73.528718],
+        [45.502771,-73.528847],[45.502776,-73.528984],[45.502805,-73.529087],[45.502849,-73.529205],[45.502910,-73.529310],[45.503002,-73.529431],
+        [45.503097,-73.529523],[45.503179,-73.529571],[45.503243,-73.529608],[45.503376,-73.529656],[45.503679,-73.529736],[45.503916,-73.529783],
+        [45.504131,-73.529816],[45.505088,-73.529889],[45.505379,-73.529902],[45.505646,-73.529896],[45.506121,-73.529857],[45.506491,-73.529810],
+        [45.506916,-73.529727],[45.507100,-73.529678],[45.507310,-73.529613],[45.507609,-73.529497],[45.508460,-73.529165],[45.508615,-73.529103],
+        [45.508649,-73.529080],[45.508668,-73.529062],[45.508678,-73.529042],[45.508692,-73.528994],[45.508693,-73.528943],[45.508691,-73.528785],
+        [45.508708,-73.528627],[45.508761,-73.528474],[45.508800,-73.528401],[45.508666,-73.528293],[45.508652,-73.528240],[45.508586,-73.527782],
+        [45.508532,-73.527397],[45.508432,-73.526700],[45.508367,-73.526250],[45.508353,-73.526166],[45.508326,-73.525973],[45.508301,-73.525901],
+        [45.508260,-73.525829],[45.508151,-73.525654],[45.508120,-73.525605],[45.508067,-73.525650],[45.508029,-73.525602],[45.507962,-73.525507],
+        [45.507798,-73.525421],[45.507760,-73.525443],[45.507732,-73.525454],[45.507517,-73.525846],[45.507509,-73.525887],[45.507497,-73.525963],
+        [45.507479,-73.526119],[45.507473,-73.526264],[45.507475,-73.526430],[45.507492,-73.526565],[45.507540,-73.526901],[45.507573,-73.527127],
+        [45.507714,-73.528097],[45.507769,-73.528488],[45.507865,-73.529166],[45.507918,-73.529525],[45.508045,-73.530302],[45.508100,-73.530653],
+        [45.508266,-73.531778],[45.508356,-73.532194],[45.508374,-73.532432],[45.508375,-73.532587],[45.508299,-73.532592],[45.508284,-73.532593],
+        [45.507862,-73.532617],[45.507799,-73.532631],[45.507740,-73.532674],[45.507694,-73.532735],[45.507664,-73.532804],[45.507644,-73.532882],
+        [45.507637,-73.532955],[45.507641,-73.533018],[45.507652,-73.533082],[45.507671,-73.533141],[45.507698,-73.533192],[45.507739,-73.533236],
+        [45.507788,-73.533267],[45.507838,-73.533285],[45.507887,-73.533290],[45.507941,-73.533275],[45.508017,-73.533220],[45.508066,-73.533138],
+        [45.508092,-73.533082],[45.508107,-73.533026],[45.508106,-73.532901],[45.508094,-73.532717],[45.508090,-73.532522],[45.508098,-73.532453],
+        [45.508118,-73.532389],[45.508144,-73.532342],[45.508171,-73.532319],[45.508217,-73.532291],[45.508466,-73.532205],[45.508571,-73.532171],
+        [45.508712,-73.532131],[45.508816,-73.532110],[45.508958,-73.532059],[45.509246,-73.532590],[45.509270,-73.532635],[45.509394,-73.532560],
+        [45.509485,-73.532485],[45.509523,-73.532434],[45.509587,-73.532341],[45.509642,-73.532238],[45.509662,-73.532190],[45.509690,-73.532100],
+        [45.509699,-73.531998],[45.509668,-73.531766],[45.509632,-73.531781],[45.509008,-73.532038],[45.508958,-73.532059],[45.508816,-73.532110],
+        [45.508754,-73.532167],[45.508705,-73.532202],[45.508673,-73.532227],[45.508628,-73.532273],[45.508544,-73.532349],[45.508481,-73.532379],
+        [45.508328,-73.532418],[45.508253,-73.532450],[45.508219,-73.532496],[45.508186,-73.532555],[45.508167,-73.532629],[45.508153,-73.532733],
+        [45.508137,-73.532856],[45.508107,-73.533026],[45.508092,-73.533082],[45.508066,-73.533138],[45.508017,-73.533220],[45.507941,-73.533275],
+        [45.507887,-73.533290],[45.507838,-73.533285],[45.507788,-73.533267],[45.507739,-73.533236],[45.507698,-73.533192],[45.507671,-73.533141],
+        [45.507652,-73.533082],[45.507641,-73.533018],[45.507637,-73.532955],[45.507644,-73.532882],[45.507664,-73.532804],[45.507694,-73.532735],
+        [45.507740,-73.532674],[45.507799,-73.532631],[45.507862,-73.532617],[45.508284,-73.532593],[45.508299,-73.532592],[45.508375,-73.532587],
+        [45.508367,-73.532718],[45.508351,-73.532853],[45.508327,-73.533033],[45.508269,-73.533241],[45.508146,-73.533603],[45.504651,-73.543113],
+        [45.504560,-73.543338],[45.504468,-73.543537],[45.504356,-73.543701],[45.504258,-73.543808],[45.504146,-73.543896],[45.504014,-73.543969],
+        [45.503853,-73.544021],[45.503679,-73.544052],[45.502941,-73.544104],[45.502794,-73.544093],[45.502693,-73.544069],[45.502797,-73.544010],
+        [45.502953,-73.543983],[45.503647,-73.543920],[45.503824,-73.543892],[45.503994,-73.543844],[45.504116,-73.543773],[45.504224,-73.543682],
+        [45.504324,-73.543562],[45.504415,-73.543408],[45.504573,-73.543010],[45.506331,-73.538249],[45.507499,-73.535084],[45.507549,-73.534946],
+        [45.508164,-73.533263],[45.508227,-73.533059],[45.508270,-73.532853],[45.508299,-73.532592],[45.508375,-73.532587],[45.508367,-73.532718],
+        [45.508351,-73.532853],[45.508327,-73.533033],[45.508269,-73.533241],[45.508146,-73.533603],[45.504651,-73.543113],[45.504560,-73.543338],
+        [45.504468,-73.543537],[45.504356,-73.543701],[45.504258,-73.543808],[45.504146,-73.543896],[45.504014,-73.543969],[45.503853,-73.544021],
+        [45.503679,-73.544052],[45.502941,-73.544104],[45.502794,-73.544093],[45.502693,-73.544069],[45.502797,-73.544010],[45.502953,-73.543983],
+        [45.503647,-73.543920],[45.503824,-73.543892],[45.503994,-73.543844],[45.504116,-73.543773],[45.504224,-73.543682],[45.504324,-73.543562],
+        [45.504415,-73.543408],[45.504573,-73.543010],[45.506040,-73.539036],[45.507499,-73.535084],[45.507549,-73.534946],[45.508164,-73.533263],
+        [45.508227,-73.533059],[45.508270,-73.532853],[45.508299,-73.532592],[45.508284,-73.532593],[45.507862,-73.532617],[45.507799,-73.532631],
+        [45.507740,-73.532674],[45.507694,-73.532735],[45.507664,-73.532804],[45.507644,-73.532882],[45.507637,-73.532955],[45.507641,-73.533018],
+        [45.507652,-73.533082],[45.507671,-73.533141],[45.507698,-73.533192],[45.507739,-73.533236],[45.507788,-73.533267],[45.507838,-73.533285],
+        [45.507887,-73.533290],[45.507941,-73.533275],[45.508017,-73.533220],[45.508066,-73.533138],[45.508092,-73.533082],[45.508107,-73.533026],
+        [45.508106,-73.532901],[45.508094,-73.532717],[45.508090,-73.532522],[45.508098,-73.532453],[45.508118,-73.532389],[45.508144,-73.532342],
+        [45.508171,-73.532319],[45.508217,-73.532291],[45.508466,-73.532205],[45.508571,-73.532171],[45.508712,-73.532131],[45.508816,-73.532110],
+        [45.508958,-73.532059],[45.509632,-73.531781],[45.509668,-73.531766],[45.510782,-73.531312],[45.511813,-73.530991],[45.512330,-73.530913],
+        [45.512342,-73.530911],[45.512851,-73.530793],[45.512931,-73.530761],[45.512975,-73.530744],[45.512971,-73.530618],[45.512965,-73.527990],
+        [45.512967,-73.527882],[45.512933,-73.527845],[45.512913,-73.527823],[45.512892,-73.527752],[45.512885,-73.527640],[45.512894,-73.527567],
+        [45.512940,-73.527473],[45.513005,-73.527401],[45.513027,-73.527376],[45.513076,-73.527088],[45.513074,-73.527039],[45.513067,-73.527004],
+        [45.513039,-73.526969],[45.512687,-73.526706],[45.512437,-73.526553],[45.512319,-73.526487],[45.511522,-73.526044],[45.510326,-73.525412],
+        [45.510167,-73.525328],[45.509926,-73.525239],[45.509583,-73.525140],[45.509012,-73.524976],[45.507875,-73.524641],[45.507733,-73.524598],
+        [45.507531,-73.524536],[45.506206,-73.524134],[45.505601,-73.523954],[45.505387,-73.523890],[45.504322,-73.523573],[45.504078,-73.523504],
+        [45.504012,-73.523498],[45.503963,-73.523531],[45.503935,-73.523581],[45.503894,-73.523704],[45.503868,-73.523759],[45.503834,-73.523796],
+        [45.503789,-73.523831],[45.503753,-73.523844],[45.503685,-73.523839],[45.502982,-73.523624],[45.499777,-73.522664],[45.499568,-73.522627],
+        [45.499365,-73.522616],[45.499303,-73.522611],[45.499213,-73.522608],[45.499015,-73.522616],[45.498987,-73.522621],[45.498905,-73.522635],
+        [45.498717,-73.522672],[45.498659,-73.522683],[45.498322,-73.522745],[45.498026,-73.522800],[45.497908,-73.522820],[45.497808,-73.522786],
+        [45.497750,-73.522728],[45.497708,-73.522657],[45.497597,-73.522301],[45.497529,-73.522119],[45.497478,-73.522053],[45.497432,-73.522022],
+        [45.497407,-73.522006],[45.497361,-73.522000],[45.497307,-73.522009],[45.497234,-73.522059],[45.497183,-73.522131],[45.497137,-73.522213],
+        [45.497102,-73.522338],[45.497088,-73.522503],[45.497099,-73.522649],[45.497115,-73.522779],[45.497216,-73.523272],[45.497293,-73.523635],
+        [45.497300,-73.523661],[45.497335,-73.523796],[45.497397,-73.523989],[45.497465,-73.524163],[45.497526,-73.524298],[45.497562,-73.524365],
+        [45.497685,-73.524600],[45.498491,-73.525918],[45.498560,-73.526001],[45.498606,-73.526022],[45.498660,-73.526020],[45.498934,-73.525896],
+        [45.499016,-73.525876],[45.499087,-73.525885],[45.499170,-73.525919],[45.499233,-73.525974],[45.500106,-73.526988],[45.500171,-73.527081],
+        [45.500223,-73.527182],[45.500356,-73.527479],[45.500480,-73.527672],[45.500585,-73.527784],[45.500698,-73.527869],[45.500826,-73.527950],
+        [45.500826,-73.527950],[45.500959,-73.528007],[45.501103,-73.528043],[45.501240,-73.528060],[45.501987,-73.528040],
+        [45.501987,-73.528040],[45.502460,-73.528027],[45.502560,-73.528030],[45.502640,-73.528056],[45.502704,-73.528104],[45.502740,-73.528144],
+        [45.502779,-73.528207],[45.502813,-73.528304],[45.502826,-73.528379],[45.502834,-73.528461],[45.502830,-73.528552],[45.502789,-73.528718],
+        [45.502771,-73.528847],[45.502776,-73.528984],[45.502805,-73.529087],[45.502849,-73.529205],[45.502910,-73.529310],[45.503002,-73.529431],
+        [45.503097,-73.529523],[45.503179,-73.529571],[45.503243,-73.529608],[45.503376,-73.529656],[45.503679,-73.529736],[45.503916,-73.529783],
+        [45.504131,-73.529816],[45.505088,-73.529889],[45.505379,-73.529902],[45.505646,-73.529896],[45.506121,-73.529857],[45.506491,-73.529810],
+        [45.506916,-73.529727],[45.507100,-73.529678],[45.507310,-73.529613],[45.507609,-73.529497],[45.508460,-73.529165],[45.508615,-73.529103],
+        [45.508649,-73.529080],[45.508668,-73.529062],[45.508678,-73.529042],[45.508692,-73.528994],[45.508693,-73.528943],[45.508691,-73.528785],
+        [45.508708,-73.528627],[45.508761,-73.528474],[45.508800,-73.528401],[45.508666,-73.528293],[45.508652,-73.528240],[45.508586,-73.527782],
+        [45.508532,-73.527397],[45.508432,-73.526700],[45.508367,-73.526250],[45.508353,-73.526166],[45.508326,-73.525973],[45.508301,-73.525901],
+        [45.508260,-73.525829],[45.508151,-73.525654],[45.508120,-73.525605],[45.508067,-73.525650],[45.508029,-73.525602],[45.507962,-73.525507],
+        [45.507798,-73.525421],[45.507760,-73.525443],[45.507732,-73.525454],[45.507517,-73.525846],[45.507509,-73.525887],[45.507497,-73.525963],
+        [45.507479,-73.526119],[45.507473,-73.526264],[45.507475,-73.526430],[45.507492,-73.526565],[45.507540,-73.526901],[45.507573,-73.527127],
+        [45.507714,-73.528097],[45.507769,-73.528488],[45.507865,-73.529166],[45.507918,-73.529525],[45.508045,-73.530302],[45.508100,-73.530653],
+        [45.508266,-73.531778],[45.508356,-73.532194],[45.508374,-73.532432],[45.508375,-73.532587],[45.508299,-73.532592],[45.508284,-73.532593],
+        [45.507862,-73.532617],[45.507799,-73.532631],[45.507740,-73.532674],[45.507694,-73.532735],[45.507664,-73.532804],[45.507644,-73.532882],
+        [45.507637,-73.532955],[45.507641,-73.533018],[45.507652,-73.533082],[45.507671,-73.533141],[45.507698,-73.533192],[45.507739,-73.533236],
+        [45.507788,-73.533267],[45.507838,-73.533285],[45.507887,-73.533290],[45.507941,-73.533275],[45.508017,-73.533220],[45.508066,-73.533138],
+        [45.508092,-73.533082],[45.508107,-73.533026],[45.508106,-73.532901],[45.508094,-73.532717],[45.508090,-73.532522],[45.508098,-73.532453],
+        [45.508118,-73.532389],[45.508144,-73.532342],[45.508171,-73.532319],[45.508217,-73.532291],[45.508466,-73.532205],[45.508571,-73.532171],
+        [45.508712,-73.532131],[45.508816,-73.532110],[45.508958,-73.532059],[45.509246,-73.532590],[45.509270,-73.532635],[45.509394,-73.532560],
+        [45.509485,-73.532485],[45.509523,-73.532434],[45.509587,-73.532341],[45.509642,-73.532238],[45.509662,-73.532190],[45.509690,-73.532100],
+        [45.509699,-73.531998],[45.509668,-73.531766],[45.509632,-73.531781],[45.509008,-73.532038],[45.508958,-73.532059],[45.508816,-73.532110],
+        [45.508754,-73.532167],[45.508705,-73.532202],[45.508673,-73.532227],[45.508628,-73.532273],[45.508544,-73.532349],[45.508481,-73.532379],
+        [45.508328,-73.532418],[45.508253,-73.532450],[45.508219,-73.532496],[45.508186,-73.532555],[45.508167,-73.532629],[45.508153,-73.532733],
+        [45.508137,-73.532856],[45.508107,-73.533026],[45.508092,-73.533082],[45.508066,-73.533138],[45.508017,-73.533220],[45.507941,-73.533275],
+        [45.507887,-73.533290],[45.507838,-73.533285],[45.507788,-73.533267],[45.507739,-73.533236],[45.507698,-73.533192],[45.507671,-73.533141],
+        [45.507652,-73.533082],[45.507641,-73.533018],[45.507637,-73.532955],[45.507644,-73.532882],[45.507664,-73.532804],[45.507694,-73.532735],
+        [45.507740,-73.532674],[45.507799,-73.532631],[45.507862,-73.532617],[45.508284,-73.532593],[45.508299,-73.532592],[45.508375,-73.532587],
+        [45.508367,-73.532718],[45.508351,-73.532853],[45.508327,-73.533033],[45.508269,-73.533241],[45.508146,-73.533603],[45.504651,-73.543113],
+        [45.504560,-73.543338],[45.504468,-73.543537],[45.504356,-73.543701],[45.504258,-73.543808],[45.504146,-73.543896],[45.504014,-73.543969],
+        [45.503853,-73.544021],[45.503679,-73.544052],[45.502941,-73.544104],[45.502794,-73.544093],[45.502693,-73.544069],[45.502797,-73.544010],
+        [45.502953,-73.543983],[45.503647,-73.543920],[45.503824,-73.543892],[45.503994,-73.543844],[45.504116,-73.543773],[45.504224,-73.543682],
+        [45.504324,-73.543562],[45.504415,-73.543408],[45.504573,-73.543010],[45.506331,-73.538249],[45.507499,-73.535084],[45.507549,-73.534946],
+        [45.508164,-73.533263],[45.508227,-73.533059],[45.508270,-73.532853],[45.508299,-73.532592],[45.508375,-73.532587],[45.508367,-73.532718],
+        [45.508351,-73.532853],[45.508327,-73.533033],[45.508269,-73.533241],[45.508146,-73.533603],[45.504651,-73.543113],[45.504560,-73.543338],
+        [45.504468,-73.543537],[45.504356,-73.543701],[45.504258,-73.543808],[45.504146,-73.543896],[45.504014,-73.543969],[45.503853,-73.544021],
+        [45.503679,-73.544052],[45.502941,-73.544104],[45.502794,-73.544093],[45.502693,-73.544069],[45.502797,-73.544010],[45.502953,-73.543983],
+        [45.503647,-73.543920],[45.503824,-73.543892],[45.503994,-73.543844],[45.504116,-73.543773],[45.504224,-73.543682],[45.504324,-73.543562],
+        [45.504415,-73.543408],[45.504573,-73.543010],[45.506040,-73.539036],[45.507499,-73.535084],[45.507549,-73.534946],[45.508164,-73.533263],
+        [45.508227,-73.533059],[45.508270,-73.532853],[45.508299,-73.532592],[45.508284,-73.532593],[45.507862,-73.532617],[45.507799,-73.532631],
+        [45.507740,-73.532674],[45.507694,-73.532735],[45.507664,-73.532804],[45.507644,-73.532882],[45.507637,-73.532955],[45.507641,-73.533018],
+        [45.507652,-73.533082],[45.507671,-73.533141],[45.507698,-73.533192],[45.507739,-73.533236],[45.507788,-73.533267],[45.507838,-73.533285],
+        [45.507887,-73.533290],[45.507941,-73.533275],[45.508017,-73.533220],[45.508066,-73.533138],[45.508092,-73.533082],[45.508107,-73.533026],
+        [45.508106,-73.532901],[45.508094,-73.532717],[45.508090,-73.532522],[45.508098,-73.532453],[45.508118,-73.532389],[45.508144,-73.532342],
+        [45.508171,-73.532319],[45.508217,-73.532291],[45.508466,-73.532205],[45.508571,-73.532171],[45.508712,-73.532131],[45.508816,-73.532110],
+        [45.508958,-73.532059],[45.509632,-73.531781],[45.509668,-73.531766],[45.510782,-73.531312],[45.511813,-73.530991],[45.512330,-73.530913],
+        [45.512342,-73.530911],[45.512851,-73.530793],[45.512931,-73.530761],[45.512975,-73.530744],[45.512971,-73.530618],[45.512965,-73.527990],
+        [45.512967,-73.527882],[45.512933,-73.527845],[45.512913,-73.527823],[45.512892,-73.527752],[45.512885,-73.527640],[45.512894,-73.527567],
+        [45.512940,-73.527473],[45.513005,-73.527401],[45.513027,-73.527376],[45.513076,-73.527088],[45.513074,-73.527039],[45.513067,-73.527004],
+        [45.513039,-73.526969],[45.512687,-73.526706],[45.512437,-73.526553],[45.512319,-73.526487],[45.511522,-73.526044],[45.510326,-73.525412],
+        [45.510167,-73.525328],[45.509926,-73.525239],[45.509583,-73.525140],[45.509012,-73.524976],[45.507875,-73.524641],[45.507733,-73.524598],
+        [45.507531,-73.524536],[45.506206,-73.524134],[45.505601,-73.523954],[45.505387,-73.523890],[45.504322,-73.523573],[45.504078,-73.523504],
+        [45.504012,-73.523498],[45.503963,-73.523531],[45.503935,-73.523581],[45.503894,-73.523704],[45.503868,-73.523759],[45.503834,-73.523796],
+        [45.503789,-73.523831],[45.503753,-73.523844],[45.503685,-73.523839],[45.502982,-73.523624],[45.499777,-73.522664],[45.499568,-73.522627],
+        [45.499365,-73.522616],[45.499303,-73.522611],[45.499213,-73.522608],[45.499015,-73.522616],[45.498987,-73.522621],[45.498905,-73.522635],
+        [45.498717,-73.522672],[45.498659,-73.522683],[45.498322,-73.522745],[45.498026,-73.522800],[45.497908,-73.522820],[45.497808,-73.522786],
+        [45.497750,-73.522728],[45.497708,-73.522657],[45.497597,-73.522301],[45.497529,-73.522119],[45.497478,-73.522053],[45.497432,-73.522022],
+        [45.497407,-73.522006],[45.497361,-73.522000],[45.497307,-73.522009],[45.497234,-73.522059],[45.497183,-73.522131],[45.497137,-73.522213],
+        [45.497102,-73.522338],[45.497088,-73.522503],[45.497099,-73.522649],[45.497115,-73.522779],[45.497216,-73.523272],[45.497293,-73.523635],
+        [45.497300,-73.523661],[45.497335,-73.523796],[45.497397,-73.523989],[45.497465,-73.524163],[45.497526,-73.524298],[45.497562,-73.524365],
+        [45.497685,-73.524600],[45.498491,-73.525918],[45.498560,-73.526001],[45.498606,-73.526022],[45.498660,-73.526020],[45.498934,-73.525896],
+        [45.499016,-73.525876],[45.499087,-73.525885],[45.499170,-73.525919],[45.499233,-73.525974],[45.500106,-73.526988],[45.500171,-73.527081],
+        [45.500223,-73.527182],[45.500356,-73.527479],[45.500480,-73.527672],[45.500585,-73.527784],[45.500698,-73.527869],[45.500826,-73.527950],
+        [45.500826,-73.527950],[45.500959,-73.528007],[45.501103,-73.528043],[45.501240,-73.528060],[45.501987,-73.528040]
+      ]
+    },
+    {
+      label: '④ North: Circuit → Mont-Royal (uphill) → Mile End → 124 Saint-Viateur O',
+      color: '#0A84FF', weight: 6,
+      coords: [
+        [45.501987,-73.528040],[45.502460,-73.528027],[45.502560,-73.528030],[45.502640,-73.528056],[45.502704,-73.528104],[45.502740,-73.528144],
+        [45.502779,-73.528207],[45.502813,-73.528304],[45.502826,-73.528379],[45.502834,-73.528461],[45.502830,-73.528552],[45.502789,-73.528718],
+        [45.502771,-73.528847],[45.502776,-73.528984],[45.502805,-73.529087],[45.502849,-73.529205],[45.502910,-73.529310],[45.503002,-73.529431],
+        [45.503097,-73.529523],[45.503179,-73.529571],[45.503243,-73.529608],[45.503376,-73.529656],[45.503679,-73.529736],[45.503916,-73.529783],
+        [45.504131,-73.529816],[45.505088,-73.529889],[45.505379,-73.529902],[45.505646,-73.529896],[45.506121,-73.529857],[45.506491,-73.529810],
+        [45.506916,-73.529727],[45.507100,-73.529678],[45.507310,-73.529613],[45.507609,-73.529497],[45.508460,-73.529165],[45.508498,-73.529107],
+        [45.508526,-73.529041],[45.508537,-73.528994],[45.508542,-73.528942],[45.508539,-73.528887],[45.508531,-73.528838],[45.508517,-73.528789],
+        [45.508499,-73.528749],[45.508475,-73.528717],[45.508441,-73.528682],[45.508410,-73.528663],[45.508378,-73.528652],[45.508344,-73.528649],
+        [45.508309,-73.528654],[45.508157,-73.528701],[45.508087,-73.528728],[45.508051,-73.528752],[45.508021,-73.528783],[45.507993,-73.528829],
+        [45.507971,-73.528875],[45.507955,-73.528943],[45.507948,-73.528988],[45.507946,-73.529051],[45.507952,-73.529140],[45.507995,-73.529497],
+        [45.508096,-73.530271],[45.508100,-73.530653],[45.508266,-73.531778],[45.508356,-73.532194],[45.508374,-73.532432],[45.508375,-73.532587],
+        [45.508367,-73.532718],[45.508351,-73.532853],[45.508327,-73.533033],[45.508269,-73.533241],[45.508146,-73.533603],[45.504651,-73.543113],
+        [45.504560,-73.543338],[45.504468,-73.543537],[45.504356,-73.543701],[45.504258,-73.543808],[45.504146,-73.543896],[45.504014,-73.543969],
+        [45.503853,-73.544021],[45.503679,-73.544052],[45.502941,-73.544104],[45.502794,-73.544093],[45.502693,-73.544069],[45.502149,-73.544122],
+        [45.501646,-73.544178],[45.501575,-73.544186],[45.501428,-73.544202],[45.498234,-73.544575],[45.498147,-73.544585],[45.497948,-73.544610],
+        [45.497904,-73.544615],[45.497446,-73.544673],[45.496987,-73.544728],[45.496858,-73.544740],[45.496008,-73.544833],[45.495436,-73.544893],
+        [45.494742,-73.544947],[45.494380,-73.544985],[45.494158,-73.545014],[45.494040,-73.545028],[45.493838,-73.545052],[45.493298,-73.545116],
+        [45.493139,-73.545131],[45.493067,-73.545135],[45.492879,-73.545136],[45.492743,-73.545129],[45.492607,-73.545117],[45.492445,-73.545095],
+        [45.492295,-73.545066],[45.492127,-73.545028],[45.491986,-73.544981],[45.491886,-73.544944],[45.491746,-73.544894],[45.491314,-73.544733],
+        [45.491010,-73.544620],[45.490668,-73.544486],[45.490430,-73.544404],[45.490323,-73.544355],[45.490255,-73.544330],[45.490061,-73.544257],
+        [45.489674,-73.544119],[45.489627,-73.544121],[45.489568,-73.544239],[45.489554,-73.544266],[45.489540,-73.544292],[45.489530,-73.544315],
+        [45.489493,-73.544412],[45.489661,-73.545313],[45.489666,-73.545342],[45.489715,-73.545593],[45.489749,-73.545785],[45.489769,-73.545921],
+        [45.489733,-73.546112],[45.489723,-73.546169],[45.489713,-73.546231],[45.489700,-73.546290],[45.489686,-73.546345],[45.489677,-73.546389],
+        [45.489672,-73.546433],[45.489670,-73.546478],[45.489672,-73.546526],[45.489678,-73.546587],[45.489689,-73.546653],[45.489702,-73.546721],
+        [45.489927,-73.547926],[45.489963,-73.548123],[45.489975,-73.548186],[45.489987,-73.548258],[45.489998,-73.548350],[45.489994,-73.548843],
+        [45.490056,-73.549161],[45.490101,-73.549382],[45.490146,-73.549584],[45.490182,-73.549739],[45.490215,-73.549872],[45.490242,-73.549976],
+        [45.490268,-73.550065],[45.490295,-73.550158],[45.490339,-73.550297],[45.490386,-73.550438],[45.490439,-73.550586],[45.490493,-73.550726],
+        [45.490556,-73.550881],[45.490607,-73.550997],[45.490666,-73.551127],[45.490719,-73.551237],[45.490765,-73.551331],[45.490805,-73.551405],
+        [45.490845,-73.551478],[45.490889,-73.551557],[45.490938,-73.551644],[45.490990,-73.551736],[45.491041,-73.551820],[45.491090,-73.551899],
+        [45.491140,-73.551978],[45.491190,-73.552054],[45.491236,-73.552121],[45.491281,-73.552183],[45.491333,-73.552254],[45.491389,-73.552329],
+        [45.491444,-73.552399],[45.491496,-73.552463],[45.491546,-73.552524],[45.491597,-73.552582],[45.491655,-73.552648],[45.491719,-73.552718],
+        [45.491779,-73.552780],[45.491838,-73.552838],[45.491901,-73.552899],[45.491968,-73.552960],[45.492036,-73.553020],[45.492107,-73.553078],
+        [45.492177,-73.553134],[45.492246,-73.553189],[45.492319,-73.553244],[45.492392,-73.553299],[45.492462,-73.553349],[45.492529,-73.553395],
+        [45.492594,-73.553437],[45.492659,-73.553478],[45.492723,-73.553517],[45.492787,-73.553555],[45.492858,-73.553594],[45.492934,-73.553634],
+        [45.493011,-73.553672],[45.493090,-73.553708],[45.493163,-73.553741],[45.493231,-73.553770],[45.493289,-73.553794],[45.493365,-73.553823],
+        [45.493902,-73.554008],[45.493980,-73.554035],[45.494071,-73.554069],[45.494163,-73.554103],[45.494265,-73.554138],[45.494372,-73.554176],
+        [45.494476,-73.554215],[45.494580,-73.554255],[45.494690,-73.554298],[45.494812,-73.554343],[45.494964,-73.554406],[45.495127,-73.554472],
+        [45.495218,-73.554510],[45.495287,-73.554541],[45.495348,-73.554571],[45.495406,-73.554601],[45.495461,-73.554634],[45.495517,-73.554671],
+        [45.495570,-73.554709],[45.495629,-73.554757],[45.495688,-73.554810],[45.495751,-73.554872],[45.495819,-73.554951],[45.495876,-73.555021],
+        [45.495931,-73.555097],[45.495973,-73.555166],[45.496019,-73.555243],[45.496058,-73.555317],[45.496095,-73.555392],[45.496117,-73.555438],
+        [45.496137,-73.555484],[45.496167,-73.555557],[45.496184,-73.555599],[45.496224,-73.555695],[45.496261,-73.555784],[45.496655,-73.556836],
+        [45.496784,-73.557181],[45.496795,-73.557210],[45.496819,-73.557273],[45.496847,-73.557347],[45.496965,-73.557665],[45.497083,-73.557979],
+        [45.497140,-73.558130],[45.497196,-73.558279],[45.497262,-73.558447],[45.497328,-73.558617],[45.497344,-73.558658],[45.497374,-73.558733],
+        [45.497410,-73.558817],[45.497548,-73.559125],[45.497738,-73.559551],[45.497768,-73.559611],[45.497804,-73.559685],[45.497869,-73.559818],
+        [45.498076,-73.560230],[45.498245,-73.560568],[45.498316,-73.560717],[45.498360,-73.560811],[45.498406,-73.560910],[45.498507,-73.561144],
+        [45.498520,-73.561178],[45.498555,-73.561265],[45.498587,-73.561344],[45.498682,-73.561584],[45.498729,-73.561701],[45.498763,-73.561783],
+        [45.498798,-73.561867],[45.498825,-73.561929],[45.498882,-73.562057],[45.498900,-73.562094],[45.498917,-73.562132],[45.498959,-73.562218],
+        [45.499008,-73.562312],[45.499069,-73.562424],[45.499129,-73.562531],[45.499189,-73.562630],[45.499583,-73.563220],[45.499606,-73.563253],
+        [45.499657,-73.563326],[45.499703,-73.563394],[45.499758,-73.563472],[45.500308,-73.564265],[45.500398,-73.564397],[45.500448,-73.564470],
+        [45.500504,-73.564553],[45.500582,-73.564674],[45.500647,-73.564776],[45.500701,-73.564865],[45.500746,-73.564945],[45.500819,-73.565076],
+        [45.500832,-73.565103],[45.500879,-73.565197],[45.500933,-73.565295],[45.500970,-73.565362],[45.501265,-73.565905],[45.501288,-73.565944],
+        [45.501331,-73.566019],[45.501374,-73.566095],[45.501508,-73.566372],[45.501722,-73.566815],[45.501866,-73.567113],[45.501881,-73.567142],
+        [45.501928,-73.567236],[45.501994,-73.567365],[45.501880,-73.567469],[45.501822,-73.567525],[45.501706,-73.567635],[45.501157,-73.568153],
+        [45.501093,-73.568215],[45.500919,-73.568374],[45.500710,-73.568567],[45.500566,-73.568701],[45.500490,-73.568771],[45.500225,-73.569022],
+        [45.500209,-73.569037],[45.500194,-73.569052],[45.500130,-73.569109],[45.500073,-73.569160],[45.499791,-73.569423],[45.499565,-73.569633],
+        [45.499541,-73.569656],[45.499457,-73.569734],[45.499396,-73.569790],[45.499103,-73.570070],[45.498876,-73.570290],[45.498853,-73.570312],
+        [45.498777,-73.570384],[45.498681,-73.570475],[45.498161,-73.570971],[45.498137,-73.570994],[45.498079,-73.571049],[45.498031,-73.571094],
+        [45.497751,-73.571351],[45.497463,-73.571615],[45.497444,-73.571631],[45.497389,-73.571683],[45.497436,-73.571761],[45.497584,-73.572073],
+        [45.497619,-73.572146],[45.497702,-73.572322],[45.497899,-73.572735],[45.497971,-73.572883],[45.498124,-73.573202],[45.498063,-73.573258],
+        [45.497732,-73.573583],[45.497715,-73.573517],[45.497688,-73.573533],[45.497611,-73.573608],[45.497595,-73.573685],[45.497575,-73.573765],
+        [45.497492,-73.573850],[45.497543,-73.573959],[45.497650,-73.574190],[45.497492,-73.573850],[45.497575,-73.573765],[45.497595,-73.573685],
+        [45.497611,-73.573608],[45.497688,-73.573533],[45.497715,-73.573517],[45.497732,-73.573583],[45.498063,-73.573258],[45.498124,-73.573202],
+        [45.498419,-73.573812],[45.498586,-73.574160],[45.498599,-73.574187],[45.498639,-73.574275],[45.498679,-73.574366],[45.498897,-73.574815],
+        [45.499162,-73.575362],[45.499478,-73.576018],[45.499494,-73.576047],[45.499510,-73.576082],[45.499540,-73.576144],[45.499583,-73.576230],
+        [45.499805,-73.576694],[45.500001,-73.577104],[45.500102,-73.577316],[45.500120,-73.577349],[45.500158,-73.577419],[45.500176,-73.577452],
+        [45.500360,-73.577834],[45.500373,-73.577862],[45.500417,-73.577971],[45.500464,-73.578067],[45.500478,-73.578099],[45.500726,-73.578618],
+        [45.500883,-73.578942],[45.500914,-73.579007],[45.500986,-73.579161],[45.500989,-73.579167],[45.501003,-73.579196],[45.501080,-73.579355],
+        [45.501144,-73.579488],[45.501301,-73.579815],[45.501516,-73.580264],[45.501888,-73.581044],[45.501904,-73.581079],[45.501949,-73.581171],
+        [45.501977,-73.581139],[45.502008,-73.581105],[45.502041,-73.581071],[45.502098,-73.581014],[45.502128,-73.580984],[45.502177,-73.580936],
+        [45.502206,-73.580909],[45.502234,-73.580878],[45.502275,-73.580835],[45.502317,-73.580785],[45.502380,-73.580708],[45.502439,-73.580636],
+        [45.502465,-73.580602],[45.502479,-73.580585],[45.502523,-73.580530],[45.502571,-73.580469],[45.502612,-73.580418],[45.502665,-73.580353],
+        [45.502729,-73.580274],[45.502842,-73.580131],[45.502912,-73.580042],[45.502951,-73.579993],[45.503050,-73.579870],[45.503085,-73.579826],
+        [45.503287,-73.579575],[45.503305,-73.579553],[45.503345,-73.579505],[45.503377,-73.579572],[45.503423,-73.579659],[45.503452,-73.579716],
+        [45.503499,-73.579811],[45.503610,-73.580034],[45.503630,-73.580077],[45.503733,-73.580288],[45.504077,-73.580999],[45.504101,-73.581049],
+        [45.504140,-73.581127],[45.504433,-73.581729],[45.504473,-73.581810],[45.504512,-73.581891],[45.504544,-73.581955],[45.504506,-73.581995],
+        [45.504477,-73.582028],[45.504452,-73.582053],[45.504325,-73.582176],[45.504255,-73.582241],[45.504185,-73.582305],[45.504082,-73.582398],
+        [45.503780,-73.582669],[45.503738,-73.582705],[45.503621,-73.582807],[45.503573,-73.582848],[45.503316,-73.583068],[45.503105,-73.583248],
+        [45.502993,-73.583344],[45.502967,-73.583366],[45.502941,-73.583388],[45.502908,-73.583415],[45.502855,-73.583457],[45.502772,-73.583522],
+        [45.502670,-73.583600],[45.502644,-73.583623],[45.502566,-73.583691],[45.502589,-73.583749],[45.502601,-73.583780],[45.502616,-73.583797],
+        [45.502629,-73.583807],[45.502646,-73.583815],[45.502662,-73.583819],[45.502685,-73.583819],[45.502706,-73.583815],[45.502738,-73.583808],
+        [45.502777,-73.583794],[45.502994,-73.583681],[45.503242,-73.583558],[45.503364,-73.583497],[45.503380,-73.583489],[45.503416,-73.583475],
+        [45.503435,-73.583471],[45.503455,-73.583473],[45.503483,-73.583486],[45.503509,-73.583505],[45.503536,-73.583529],[45.503559,-73.583550],
+        [45.503579,-73.583574],[45.503595,-73.583600],[45.503613,-73.583631],[45.503628,-73.583669],[45.503639,-73.583710],[45.503648,-73.583754],
+        [45.503651,-73.583784],[45.503653,-73.583802],[45.503653,-73.583835],[45.503650,-73.583867],[45.503643,-73.583903],[45.503634,-73.583935],
+        [45.503622,-73.583968],[45.503609,-73.583997],[45.503593,-73.584020],[45.503577,-73.584037],[45.503560,-73.584050],[45.503540,-73.584061],
+        [45.503499,-73.584080],[45.503393,-73.584120],[45.503312,-73.584154],[45.503258,-73.584179],[45.503194,-73.584212],[45.503143,-73.584241],
+        [45.503094,-73.584272],[45.503020,-73.584324],[45.502983,-73.584354],[45.502960,-73.584373],[45.502937,-73.584394],[45.502916,-73.584413],
+        [45.502896,-73.584432],[45.502872,-73.584454],[45.502848,-73.584478],[45.502826,-73.584500],[45.502806,-73.584520],[45.502783,-73.584546],
+        [45.502758,-73.584575],[45.502737,-73.584609],[45.502720,-73.584636],[45.502698,-73.584677],[45.502677,-73.584724],[45.502655,-73.584778],
+        [45.502634,-73.584827],[45.502623,-73.584856],[45.502615,-73.584876],[45.502596,-73.584928],[45.502571,-73.584996],[45.502552,-73.585045],
+        [45.502531,-73.585095],[45.502499,-73.585217],[45.502464,-73.585317],[45.502435,-73.585396],[45.502413,-73.585454],[45.502392,-73.585505],
+        [45.502372,-73.585551],[45.502351,-73.585597],[45.502329,-73.585643],[45.502307,-73.585688],[45.502282,-73.585738],[45.502241,-73.585810],
+        [45.502192,-73.585894],[45.502153,-73.585961],[45.502122,-73.586015],[45.502090,-73.586068],[45.502055,-73.586121],[45.502016,-73.586176],
+        [45.501977,-73.586227],[45.501974,-73.586232],[45.501930,-73.586289],[45.501889,-73.586342],[45.501831,-73.586413],[45.501776,-73.586476],
+        [45.501738,-73.586516],[45.501704,-73.586548],[45.501671,-73.586576],[45.501637,-73.586602],[45.501606,-73.586625],[45.501577,-73.586645],
+        [45.501560,-73.586655],[45.501550,-73.586661],[45.501539,-73.586666],[45.501525,-73.586673],[45.501501,-73.586683],[45.501477,-73.586690],
+        [45.501451,-73.586694],[45.501451,-73.586694],[45.501425,-73.586694],[45.501398,-73.586690],[45.501372,-73.586683],[45.501348,-73.586672],
+        [45.501337,-73.586666],[45.501325,-73.586658],[45.501306,-73.586644],[45.501302,-73.586641],[45.501279,-73.586620],[45.501258,-73.586595],
+        [45.501238,-73.586569],[45.501220,-73.586540],[45.501204,-73.586510],[45.501191,-73.586480],[45.501180,-73.586451],[45.501172,-73.586419],
+        [45.501165,-73.586386],[45.501160,-73.586350],[45.501159,-73.586333],[45.501157,-73.586311],[45.501158,-73.586271],[45.501161,-73.586230],
+        [45.501166,-73.586184],[45.501173,-73.586136],[45.501180,-73.586090],[45.501188,-73.586049],[45.501201,-73.585999],[45.501213,-73.585956],
+        [45.501230,-73.585908],[45.501247,-73.585871],[45.501251,-73.585863],[45.501265,-73.585838],[45.501287,-73.585805],[45.501317,-73.585764],
+        [45.501347,-73.585724],[45.501353,-73.585716],[45.501388,-73.585672],[45.501422,-73.585631],[45.501457,-73.585591],[45.501492,-73.585552],
+        [45.501527,-73.585516],[45.501562,-73.585484],[45.501597,-73.585452],[45.501633,-73.585421],[45.501670,-73.585392],[45.501707,-73.585364],
+        [45.501746,-73.585336],[45.501785,-73.585308],[45.501825,-73.585282],[45.501865,-73.585258],[45.501905,-73.585235],[45.501946,-73.585215],
+        [45.501988,-73.585195],[45.502030,-73.585178],[45.502069,-73.585163],[45.502108,-73.585151],[45.502150,-73.585139],[45.502195,-73.585127],
+        [45.502243,-73.585117],[45.502252,-73.585115],[45.502288,-73.585108],[45.502347,-73.585101],[45.502424,-73.585093],[45.502475,-73.585094],
+        [45.502531,-73.585095],[45.502552,-73.585045],[45.502571,-73.584996],[45.502596,-73.584928],[45.502615,-73.584876],[45.502623,-73.584856],
+        [45.502634,-73.584827],[45.502655,-73.584778],[45.502677,-73.584724],[45.502698,-73.584677],[45.502720,-73.584636],[45.502737,-73.584609],
+        [45.502758,-73.584575],[45.502783,-73.584546],[45.502806,-73.584520],[45.502826,-73.584500],[45.502848,-73.584478],[45.502872,-73.584454],
+        [45.502896,-73.584432],[45.502916,-73.584413],[45.502937,-73.584394],[45.502960,-73.584373],[45.502983,-73.584354],[45.503020,-73.584324],
+        [45.503094,-73.584272],[45.503143,-73.584241],[45.503194,-73.584212],[45.503258,-73.584179],[45.503312,-73.584154],[45.503393,-73.584120],
+        [45.503499,-73.584080],[45.503540,-73.584061],[45.503560,-73.584050],[45.503577,-73.584037],[45.503593,-73.584020],[45.503609,-73.583997],
+        [45.503622,-73.583968],[45.503634,-73.583935],[45.503643,-73.583903],[45.503650,-73.583867],[45.503653,-73.583835],[45.503653,-73.583802],
+        [45.503651,-73.583784],[45.503648,-73.583754],[45.503639,-73.583710],[45.503628,-73.583669],[45.503613,-73.583631],[45.503595,-73.583600],
+        [45.503579,-73.583574],[45.503559,-73.583550],[45.503536,-73.583529],[45.503509,-73.583505],[45.503483,-73.583486],[45.503455,-73.583473],
+        [45.503435,-73.583471],[45.503416,-73.583475],[45.503380,-73.583489],[45.503364,-73.583497],[45.503242,-73.583558],[45.502994,-73.583681],
+        [45.502777,-73.583794],[45.502738,-73.583808],[45.502706,-73.583815],[45.502685,-73.583819],[45.502662,-73.583819],[45.502646,-73.583815],
+        [45.502629,-73.583807],[45.502616,-73.583797],[45.502601,-73.583780],[45.502589,-73.583749],[45.502566,-73.583691],[45.502484,-73.583761],
+        [45.502455,-73.583786],[45.502295,-73.583917],[45.502159,-73.584025],[45.501984,-73.584158],[45.501812,-73.584287],[45.501635,-73.584419],
+        [45.501448,-73.584562],[45.501247,-73.584712],[45.501031,-73.584877],[45.500897,-73.584980],[45.500811,-73.585045],[45.500721,-73.585109],
+        [45.500658,-73.585151],[45.500570,-73.585211],[45.500388,-73.585326],[45.500356,-73.585346],[45.500307,-73.585445],[45.500295,-73.585474],
+        [45.500274,-73.585529],[45.500241,-73.585594],[45.500210,-73.585656],[45.500087,-73.585946],[45.499791,-73.586640],[45.499761,-73.586710],
+        [45.499720,-73.586804],[45.499648,-73.586973],[45.499585,-73.587115],[45.499534,-73.587228],[45.499487,-73.587324],[45.499461,-73.587375],
+        [45.499430,-73.587434],[45.499393,-73.587502],[45.499346,-73.587585],[45.499316,-73.587635],[45.499297,-73.587667],[45.499284,-73.587687],
+        [45.499249,-73.587744],[45.499235,-73.587766],[45.499168,-73.587870],[45.499098,-73.587976],[45.499042,-73.588057],[45.499000,-73.588115],
+        [45.498959,-73.588167],[45.498913,-73.588223],[45.498728,-73.588441],[45.498652,-73.588527],[45.498549,-73.588643],[45.498428,-73.588782],
+        [45.498392,-73.588823],[45.498351,-73.588868],[45.498285,-73.588942],[45.498216,-73.589021],[45.498171,-73.589069],[45.498125,-73.589121],
+        [45.498089,-73.589159],[45.498047,-73.589201],[45.497990,-73.589258],[45.497923,-73.589325],[45.497872,-73.589373],[45.497830,-73.589410],
+        [45.497706,-73.589509],[45.497613,-73.589584],[45.497519,-73.589657],[45.497347,-73.589789],[45.497293,-73.589830],[45.497244,-73.589868],
+        [45.497145,-73.589944],[45.496878,-73.590147],[45.496611,-73.590353],[45.496529,-73.590417],[45.496473,-73.590462],[45.496410,-73.590513],
+        [45.496307,-73.590600],[45.496057,-73.590817],[45.495822,-73.591021],[45.495575,-73.591238],[45.495359,-73.591428],[45.495299,-73.591481],
+        [45.495258,-73.591516],[45.495199,-73.591691],[45.495145,-73.591763],[45.495123,-73.591789],[45.495063,-73.591853],[45.495070,-73.592001],
+        [45.495091,-73.592458],[45.495098,-73.592604],[45.495104,-73.592742],[45.495112,-73.592885],[45.495120,-73.593025],[45.495126,-73.593127],
+        [45.495134,-73.593221],[45.495144,-73.593330],[45.495149,-73.593382],[45.495154,-73.593434],[45.495164,-73.593528],[45.495178,-73.593637],
+        [45.495193,-73.593752],[45.495206,-73.593846],[45.495220,-73.593936],[45.495288,-73.594376],[45.495345,-73.594753],[45.495361,-73.594866],
+        [45.495373,-73.594962],[45.495379,-73.595035],[45.495384,-73.595106],[45.495386,-73.595180],[45.495387,-73.595199],[45.495387,-73.595258],
+        [45.495386,-73.595350],[45.495384,-73.595428],[45.495382,-73.595498],[45.495381,-73.595550],[45.495375,-73.595800],[45.495374,-73.595844],
+        [45.495370,-73.596028],[45.495369,-73.596065],[45.495370,-73.596130],[45.495375,-73.596260],[45.495385,-73.596455],[45.495405,-73.596813],
+        [45.495424,-73.597137],[45.495455,-73.597665],[45.495465,-73.597830],[45.495486,-73.598159],[45.495495,-73.598300],[45.495510,-73.598516],
+        [45.495523,-73.598692],[45.495525,-73.598721],[45.495530,-73.598784],[45.495534,-73.598844],[45.495544,-73.599000],[45.495549,-73.599097],
+        [45.495553,-73.599186],[45.495556,-73.599273],[45.495560,-73.599363],[45.495563,-73.599465],[45.495581,-73.600338],[45.495583,-73.600427],
+        [45.495585,-73.600513],[45.495587,-73.600599],[45.495589,-73.600731],[45.495587,-73.600852],[45.495584,-73.600939],[45.495581,-73.601020],
+        [45.495578,-73.601077],[45.495574,-73.601118],[45.495571,-73.601175],[45.495565,-73.601241],[45.495559,-73.601303],[45.495544,-73.601423],
+        [45.495525,-73.601545],[45.495506,-73.601665],[45.495485,-73.601769],[45.495457,-73.601891],[45.495419,-73.602040],[45.495384,-73.602174],
+        [45.495305,-73.602462],[45.495261,-73.602620],[45.495198,-73.602851],[45.495189,-73.602885],[45.495160,-73.602988],[45.495130,-73.603109],
+        [45.495115,-73.603177],[45.495098,-73.603268],[45.495077,-73.603388],[45.495058,-73.603519],[45.495044,-73.603624],[45.495032,-73.603737],
+        [45.495023,-73.603852],[45.495015,-73.603978],[45.495012,-73.604105],[45.495011,-73.604208],[45.495013,-73.604324],[45.495017,-73.604442],
+        [45.495024,-73.604551],[45.495028,-73.604603],[45.495036,-73.604691],[45.495049,-73.604795],[45.495061,-73.604888],[45.495073,-73.604965],
+        [45.495079,-73.605003],[45.495101,-73.605128],[45.495160,-73.605070],[45.495195,-73.605039],[45.495224,-73.605011],[45.495282,-73.604954],
+        [45.495346,-73.604892],[45.495408,-73.604829],[45.495626,-73.604601],[45.497814,-73.602377],[45.498373,-73.601774],[45.498483,-73.601646],
+        [45.498530,-73.601594],[45.498805,-73.601279],[45.499266,-73.600777],[45.499519,-73.600477],[45.499560,-73.600435],[45.500198,-73.599710],
+        [45.500341,-73.599537],[45.500484,-73.599367],[45.501064,-73.598647],[45.501263,-73.598367],[45.501405,-73.598147],[45.501449,-73.598078],
+        [45.501548,-73.597910],[45.501636,-73.597751],[45.501868,-73.597302],[45.502026,-73.596946],[45.502210,-73.596474],[45.502264,-73.596317],
+        [45.502313,-73.596169],[45.502318,-73.596153],[45.502337,-73.596092],[45.502456,-73.595699],[45.502519,-73.595495],[45.502565,-73.595354],
+        [45.502605,-73.595249],[45.502687,-73.595028],[45.502807,-73.594788],[45.502961,-73.594542],[45.503127,-73.594340],[45.503206,-73.594242],
+        [45.503244,-73.594195],[45.503294,-73.594149],[45.503351,-73.594095],[45.503438,-73.594013],[45.503531,-73.593934],[45.503590,-73.593888],
+        [45.503634,-73.593855],[45.503700,-73.593780],[45.503754,-73.593743],[45.503778,-73.593730],[45.503821,-73.593709],[45.503865,-73.593687],
+        [45.503939,-73.593653],[45.504000,-73.593628],[45.504011,-73.593624],[45.504154,-73.593572],[45.504232,-73.593549],[45.504302,-73.593533],
+        [45.504378,-73.593520],[45.504479,-73.593513],[45.504712,-73.593496],[45.504825,-73.593487],[45.504935,-73.593476],[45.505052,-73.593458],
+        [45.505168,-73.593431],[45.505237,-73.593413],[45.505332,-73.593383],[45.505392,-73.593361],[45.505474,-73.593331],[45.505578,-73.593287],
+        [45.505638,-73.593257],[45.505704,-73.593223],[45.505775,-73.593181],[45.505882,-73.593115],[45.505965,-73.593060],[45.506045,-73.593005],
+        [45.506176,-73.592905],[45.506254,-73.592838],[45.506358,-73.592742],[45.507464,-73.591716],[45.507500,-73.591683],[45.507733,-73.591475],
+        [45.507806,-73.591418],[45.507947,-73.591315],[45.508059,-73.591252],[45.508130,-73.591212],[45.508197,-73.591183],[45.508215,-73.591175],
+        [45.508256,-73.591157],[45.508256,-73.591157],[45.508403,-73.591100],[45.508525,-73.591071],[45.508626,-73.591059],[45.508706,-73.591055],
+        [45.508787,-73.591055],[45.508871,-73.591054],[45.508936,-73.591057],[45.509051,-73.591066],[45.509152,-73.591083],[45.509229,-73.591096],
+        [45.509319,-73.591117],[45.509391,-73.591144],[45.509465,-73.591183],[45.509506,-73.591215],[45.509562,-73.591259],[45.509607,-73.591310],
+        [45.509644,-73.591359],[45.509686,-73.591422],[45.509730,-73.591501],[45.509816,-73.591669],[45.509858,-73.591752],[45.509917,-73.591878],
+        [45.510032,-73.592121],[45.510185,-73.592424],[45.510502,-73.593032],[45.510528,-73.593059],[45.510629,-73.593250],[45.510705,-73.593393],
+        [45.510766,-73.593516],[45.510788,-73.593576],[45.510946,-73.593880],[45.510985,-73.593966],[45.511023,-73.594068],[45.511051,-73.594193],
+        [45.511073,-73.594326],[45.511101,-73.594514],[45.511117,-73.594679],[45.511129,-73.594789],[45.511142,-73.594921],[45.511154,-73.595011],
+        [45.511172,-73.595114],[45.511193,-73.595215],[45.511214,-73.595313],[45.511240,-73.595410],[45.511268,-73.595508],[45.511298,-73.595602],
+        [45.511342,-73.595735],[45.511406,-73.595912],[45.511473,-73.596089],[45.511546,-73.596264],[45.511580,-73.596338],[45.511618,-73.596409],
+        [45.511659,-73.596467],[45.511744,-73.596559],[45.511793,-73.596608],[45.511836,-73.596630],[45.511895,-73.596655],[45.511962,-73.596666],
+        [45.512017,-73.596669],[45.512051,-73.596667],[45.512106,-73.596657],[45.512145,-73.596646],[45.512235,-73.596603],[45.512303,-73.596542],
+        [45.512355,-73.596467],[45.512391,-73.596400],[45.512436,-73.596312],[45.512550,-73.596077],[45.512629,-73.595910],[45.512723,-73.595712],
+        [45.512733,-73.595690],[45.512813,-73.595520],[45.512854,-73.595435],[45.512950,-73.595238],[45.513028,-73.595063],[45.513080,-73.594941],
+        [45.513144,-73.594791],[45.513187,-73.594686],[45.513227,-73.594577],[45.513263,-73.594470],[45.513282,-73.594407],[45.513307,-73.594323],
+        [45.513330,-73.594231],[45.513353,-73.594137],[45.513380,-73.593996],[45.513405,-73.593849],[45.513422,-73.593713],[45.513435,-73.593592],
+        [45.513443,-73.593491],[45.513452,-73.593387],[45.513457,-73.593235],[45.513457,-73.593090],[45.513452,-73.592884],[45.513446,-73.592785],
+        [45.513441,-73.592730],[45.513435,-73.592667],[45.513426,-73.592598],[45.513391,-73.592373],[45.513362,-73.592199],[45.513266,-73.591631],
+        [45.513126,-73.590797],[45.513068,-73.590497],[45.512959,-73.589957],[45.512948,-73.589895],[45.512942,-73.589847],[45.512936,-73.589800],
+        [45.512933,-73.589756],[45.512932,-73.589711],[45.512933,-73.589673],[45.512937,-73.589633],[45.512942,-73.589592],[45.512950,-73.589544],
+        [45.512959,-73.589502],[45.512982,-73.589427],[45.513004,-73.589369],[45.513029,-73.589312],[45.513054,-73.589263],[45.513087,-73.589213],
+        [45.513109,-73.589184],[45.513136,-73.589153],[45.513158,-73.589131],[45.513192,-73.589105],[45.513219,-73.589089],[45.513264,-73.589066],
+        [45.513308,-73.589046],[45.513363,-73.589034],[45.513415,-73.589029],[45.513460,-73.589030],[45.513506,-73.589038],[45.513555,-73.589054],
+        [45.513597,-73.589080],[45.513640,-73.589109],[45.513676,-73.589136],[45.513725,-73.589181],[45.513780,-73.589252],[45.513871,-73.589387],
+        [45.513966,-73.589532],[45.514423,-73.590228],[45.514562,-73.590414],[45.514651,-73.590521],[45.514729,-73.590597],[45.514796,-73.590645],
+        [45.514842,-73.590668],[45.514886,-73.590686],[45.514936,-73.590691],[45.514987,-73.590696],[45.515040,-73.590693],[45.515070,-73.590689],
+        [45.515227,-73.590667],[45.515580,-73.590389],[45.515675,-73.590325],[45.515696,-73.590311],[45.515788,-73.590266],[45.515858,-73.590199],
+        [45.515884,-73.590176],[45.515912,-73.590148],[45.516161,-73.589911],[45.516260,-73.589819],[45.516658,-73.589438],[45.516671,-73.589418],
+        [45.516786,-73.589316],[45.516885,-73.589228],[45.516904,-73.589211],[45.517465,-73.588715],[45.517490,-73.588693],[45.517532,-73.588659],
+        [45.517583,-73.588619],[45.517603,-73.588606],[45.517906,-73.588338],[45.518124,-73.588142],[45.518197,-73.588072],[45.518259,-73.588021],
+        [45.518372,-73.587932],[45.518833,-73.587528],[45.518852,-73.587511],[45.518883,-73.587483],[45.518927,-73.587443],[45.518892,-73.587362],
+        [45.518654,-73.586832],[45.518605,-73.586726],[45.518061,-73.585538],[45.517928,-73.585248],[45.517913,-73.585216],[45.517889,-73.585162],
+        [45.517869,-73.585117],[45.517063,-73.583328],[45.517023,-73.583241],[45.516881,-73.582926],[45.516866,-73.582896],[45.516851,-73.582864],
+        [45.516826,-73.582815],[45.516796,-73.582851],[45.516768,-73.582886],[45.516317,-73.583286],[45.516274,-73.583323],[45.516296,-73.583371],
+        [45.516309,-73.583400],[45.517329,-73.585681],[45.517654,-73.586381],[45.518039,-73.587210],[45.518263,-73.587701],[45.518310,-73.587797],
+        [45.518330,-73.587841],[45.518352,-73.587889],[45.518372,-73.587932],[45.518833,-73.587528],[45.518852,-73.587511],[45.518883,-73.587483],
+        [45.518927,-73.587443],[45.518986,-73.587386],[45.519012,-73.587361],[45.519534,-73.586885],[45.519581,-73.586842],[45.519625,-73.586803],
+        [45.520025,-73.586441],[45.520048,-73.586420],[45.520109,-73.586370],[45.520145,-73.586449],[45.520332,-73.586863],[45.520648,-73.587530],
+        [45.521031,-73.588381],[45.521420,-73.589248],[45.521433,-73.589277],[45.521463,-73.589345],[45.521497,-73.589419],[45.522308,-73.591191],
+        [45.522322,-73.591220],[45.522354,-73.591289],[45.522409,-73.591409],[45.522442,-73.591485],[45.522673,-73.591992],[45.522989,-73.592687],
+        [45.523002,-73.592716],[45.523040,-73.592797],[45.523105,-73.592937],[45.523266,-73.593291],[45.523775,-73.594408],[45.523796,-73.594454],
+        [45.523835,-73.594540],[45.523771,-73.594596],[45.523748,-73.594615],[45.523571,-73.594778],[45.523398,-73.594932],[45.523370,-73.594960],
+        [45.523342,-73.594987],[45.523319,-73.595009],[45.523273,-73.595055],[45.523239,-73.595088],[45.523214,-73.595112],[45.523195,-73.595131],
+        [45.522994,-73.595314],[45.522758,-73.595534],[45.522737,-73.595554],[45.522678,-73.595609],[45.522644,-73.595640],[45.522609,-73.595672],
+        [45.522587,-73.595693],[45.522353,-73.595908],[45.522135,-73.596109],[45.522062,-73.596174],[45.522097,-73.596254],[45.522445,-73.597048],
+        [45.522918,-73.598091]
+      ]
+    },
+  ];
+
+  const bounds = [];
+  phases.forEach(p => {
+    L.polyline(p.coords, {color: p.color, weight: p.weight, opacity: 0.92, lineJoin: 'round'})
+      .addTo(map).bindPopup(`<b>${p.label}</b>`);
+    p.coords.forEach(c => bounds.push(c));
+  });
+  window._leafletBounds = bounds;
+
+  function mkIcon(color, label, size) {
+    const s = size || 30;
+    return L.divIcon({
+      html: `<div style="background:${color};color:#fff;border-radius:50%;width:${s}px;height:${s}px;display:flex;align-items:center;justify-content:center;font-size:${s<28?10:13}px;font-weight:800;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.7)">${label}</div>`,
+      iconSize: [s,s], iconAnchor: [s/2,s/2], className: ''
+    });
+  }
+
+  L.marker([45.4959, -73.5913], {icon: mkIcon('#FC4C02','🏠',34)}).addTo(map)
+    .bindPopup('<b>Start — 1745 Cedar Ave</b><br>H3G 1A7 · 5:50 am · Your home');
+
+  L.marker([45.5175, -73.5480], {icon: mkIcon('#FC4C02','🌉',28)}).addTo(map)
+    .bindPopup('<b>Pont Jacques-Cartier — pedestrian lane</b><br>~km 5 · Caffeine gel here · ~6:50 am<br>Cross to Île Sainte-Hélène then Île Notre-Dame');
+
+  L.marker([45.5022, -73.5268], {icon: mkIcon('#30D158','F1',34)}).addTo(map)
+    .bindPopup('<b>Circuit Gilles Villeneuve</b><br>45.5017, -73.5281 · Open Apr 15–Nov 15<br>2 laps = 8.72 km flat · ~km 6 · ~6:50 am<br>F1 Canadian GP: May 22–24 (after your race ✓)');
+
+  L.marker([45.5042, -73.5352], {icon: mkIcon('#30D158','🏎',28)}).addTo(map)
+    .bindPopup('<b>Casino Hairpin</b><br>Tightest corner. Slow down. No shame.<br>Non-caffeine gel at start of lap 2');
+
+  L.marker([45.5150, -73.5848], {icon: mkIcon('#0A84FF','💧',28)}).addTo(map)
+    .bindPopup('<b>Water stop — Plateau café</b><br>~km 19 · Laurier or Saint-Denis strip<br>Last gel here if needed');
+
+  L.marker([45.5228, -73.5982], {icon: mkIcon('#BF5AF2','🎯',36)}).addTo(map)
+    .bindPopup('<b>MEETUP — 124 Rue Saint-Viateur O</b><br>EBC × Café Olimpico · Gather 9:30 am · Run 10:00 am<br>~21 km solo · You made it');
+
+  map.fitBounds(bounds, {padding: [30, 30]});
+})();
+</script>
+
+
+<script>
+// ── Toronto Marathon Course Map (real GPS from racepoint.ca 2026) ──
+(function() {
+  if (!document.getElementById('toronto-map')) return;
+  const tmap = L.map('toronto-map', {zoomControl:true});
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap © CARTO', subdomains:'abcd', maxZoom:19
+  }).addTo(tmap);
+
+  // Real 520-point GPS course from racepoint.ca official 2026 data
+  const tcourse = [
+          [43.766931,-79.412404],[43.773599,-79.414077],[43.773899,-79.414150],[43.779139,-79.415480],[43.779163,-79.415318],
+          [43.773908,-79.413998],[43.773613,-79.413925],[43.767301,-79.412326],[43.766628,-79.412175],[43.766427,-79.412291],
+          [43.762493,-79.411283],[43.761697,-79.411065],[43.759715,-79.410569],[43.756635,-79.409802],[43.754404,-79.408675],
+          [43.752408,-79.408209],[43.750203,-79.408182],[43.732406,-79.404169],[43.727507,-79.402893],[43.725026,-79.402217],
+          [43.721001,-79.401444],[43.715907,-79.400369],[43.712937,-79.399749],[43.710114,-79.399127],[43.708509,-79.398773],
+          [43.707400,-79.398472],[43.702203,-79.397475],[43.699698,-79.396906],[43.698366,-79.396689],[43.698319,-79.396707],
+          [43.698288,-79.396761],[43.697958,-79.398373],[43.697970,-79.398698],[43.698156,-79.399481],[43.698170,-79.399711],
+          [43.698063,-79.400983],[43.697954,-79.401643],[43.697910,-79.401919],[43.697881,-79.402474],[43.697890,-79.403070],
+          [43.697846,-79.403158],[43.697790,-79.403209],[43.697726,-79.403214],[43.696564,-79.402767],[43.695957,-79.402571],
+          [43.695013,-79.402399],[43.692020,-79.401283],[43.691807,-79.401219],[43.691623,-79.401216],[43.691473,-79.401275],
+          [43.691285,-79.401415],[43.691155,-79.401578],[43.691072,-79.401798],[43.690496,-79.404810],[43.690490,-79.404861],
+          [43.690513,-79.404899],[43.694572,-79.406640],[43.694586,-79.406699],[43.694576,-79.406763],[43.694289,-79.408163],
+          [43.693853,-79.409453],[43.693789,-79.409566],[43.693719,-79.409579],[43.689966,-79.408013],[43.689831,-79.407978],
+          [43.689778,-79.407997],[43.689755,-79.408067],[43.689444,-79.409390],[43.689373,-79.409522],[43.688673,-79.412511],
+          [43.688630,-79.412578],[43.688587,-79.412610],[43.688537,-79.412629],[43.688124,-79.412591],[43.684819,-79.411242],
+          [43.684553,-79.411114],[43.683667,-79.410722],[43.678955,-79.408767],[43.678866,-79.408791],[43.678817,-79.408842],
+          [43.678332,-79.410671],[43.678299,-79.410730],[43.678257,-79.410784],[43.678173,-79.410808],[43.675465,-79.409821],
+          [43.675428,-79.409751],[43.675418,-79.409657],[43.675967,-79.406878],[43.676068,-79.406519],[43.676736,-79.403212],
+          [43.676728,-79.403080],[43.676672,-79.402981],[43.675954,-79.402659],[43.675731,-79.402378],[43.674656,-79.400784],
+          [43.674545,-79.400548],[43.674468,-79.400240],[43.674410,-79.399862],[43.674381,-79.399317],[43.674373,-79.398513],
+          [43.674394,-79.398360],[43.675145,-79.394269],[43.675135,-79.394020],[43.675077,-79.393717],[43.674794,-79.393003],
+          [43.674772,-79.392845],[43.675583,-79.389015],[43.675758,-79.388261],[43.675773,-79.387856],[43.675742,-79.387716],
+          [43.675688,-79.387593],[43.674573,-79.387199],[43.674349,-79.387076],[43.674161,-79.386888],[43.673971,-79.386625],
+          [43.673824,-79.386287],[43.673709,-79.385844],[43.673632,-79.385388],[43.673513,-79.383790],[43.673203,-79.379895],
+          [43.673176,-79.378935],[43.673195,-79.377594],[43.673195,-79.376800],[43.673125,-79.375926],[43.673063,-79.375336],
+          [43.673071,-79.374697],[43.672982,-79.373968],[43.672691,-79.370518],[43.672644,-79.370210],[43.672584,-79.369893],
+          [43.672472,-79.369529],[43.672276,-79.369070],[43.671876,-79.368356],[43.671736,-79.367863],[43.671688,-79.367584],
+          [43.671703,-79.366101],[43.671649,-79.365859],[43.671069,-79.364135],[43.670212,-79.361581],[43.670136,-79.361259],
+          [43.670072,-79.360795],[43.670083,-79.360433],[43.670157,-79.360256],[43.669878,-79.359784],[43.669435,-79.359183],
+          [43.668987,-79.358666],[43.668570,-79.358341],[43.668027,-79.358062],[43.664705,-79.357000],[43.662551,-79.356378],
+          [43.661306,-79.356018],[43.659928,-79.355536],[43.658345,-79.355090],[43.657774,-79.354817],[43.657207,-79.354382],
+          [43.656885,-79.354055],[43.656563,-79.353755],[43.656047,-79.353063],[43.654689,-79.351598],[43.654425,-79.351378],
+          [43.654152,-79.351248],[43.653772,-79.351200],[43.653497,-79.351238],[43.653300,-79.351357],[43.653098,-79.351591],
+          [43.652891,-79.352052],[43.652682,-79.352592],[43.652687,-79.352714],[43.653142,-79.353297],[43.653458,-79.353586],
+          [43.653936,-79.353771],[43.654366,-79.353725],[43.654983,-79.353663],[43.655220,-79.354382],[43.655294,-79.354535],
+          [43.656792,-79.356152],[43.656749,-79.356383],[43.655554,-79.358342],[43.655135,-79.358411],[43.654778,-79.358518],
+          [43.654363,-79.358676],[43.654155,-79.358706],[43.653920,-79.358687],[43.653816,-79.358722],[43.652748,-79.360444],
+          [43.652585,-79.360578],[43.652112,-79.361011],[43.652008,-79.361140],[43.651921,-79.361345],[43.649874,-79.370253],
+          [43.649558,-79.371226],[43.649208,-79.372085],[43.648763,-79.373241],[43.648672,-79.373635],[43.647358,-79.379614],
+          [43.647261,-79.379665],[43.643254,-79.377957],[43.643150,-79.378050],[43.640526,-79.383507],[43.638638,-79.394736],
+          [43.638348,-79.395589],[43.637491,-79.397169],[43.636920,-79.398551],[43.636300,-79.400291],[43.636132,-79.400837],
+          [43.636020,-79.401321],[43.635936,-79.401794],[43.635786,-79.403391],[43.635577,-79.406388],[43.635395,-79.406879],
+          [43.635215,-79.407575],[43.634877,-79.408200],[43.634590,-79.408539],[43.634351,-79.408734],[43.633301,-79.409421],
+          [43.633109,-79.409563],[43.632946,-79.409711],[43.632782,-79.409916],[43.632656,-79.410153],[43.632550,-79.410411],
+          [43.632426,-79.410747],[43.631305,-79.414404],[43.631173,-79.414862],[43.631084,-79.415281],[43.630426,-79.419585],
+          [43.630342,-79.419817],[43.630246,-79.420084],[43.629902,-79.424673],[43.629893,-79.425180],[43.629789,-79.425616],
+          [43.629762,-79.425895],[43.629842,-79.427204],[43.630108,-79.429283],[43.630525,-79.431514],[43.630665,-79.432185],
+          [43.630956,-79.433540],[43.631379,-79.434355],[43.631517,-79.434704],[43.631672,-79.435098],[43.631876,-79.435439],
+          [43.631989,-79.435524],[43.632259,-79.435669],[43.632348,-79.435927],[43.632398,-79.436050],[43.632464,-79.436190],
+          [43.632662,-79.436458],[43.632886,-79.436696],[43.633297,-79.437249],[43.633414,-79.437351],[43.633536,-79.437541],
+          [43.633920,-79.438241],[43.634070,-79.438515],[43.634194,-79.438705],[43.634295,-79.438899],[43.634380,-79.439081],
+          [43.635336,-79.441278],[43.635419,-79.441487],[43.635701,-79.442294],[43.635786,-79.442616],[43.635776,-79.442691],
+          [43.635751,-79.442823],[43.635768,-79.442900],[43.635879,-79.443169],[43.635926,-79.443204],[43.635984,-79.443244],
+          [43.636770,-79.445167],[43.636852,-79.445384],[43.636912,-79.445575],[43.636937,-79.445738],[43.636943,-79.445931],
+          [43.636953,-79.446124],[43.636931,-79.446352],[43.636898,-79.446696],[43.636871,-79.447085],[43.636908,-79.447685],
+          [43.637032,-79.448399],[43.637137,-79.448930],[43.637682,-79.452063],[43.637723,-79.452355],[43.637756,-79.452578],
+          [43.637758,-79.452693],[43.637729,-79.452795],[43.637692,-79.452881],[43.637671,-79.452986],[43.637679,-79.453098],
+          [43.637706,-79.453205],[43.637813,-79.453388],[43.637846,-79.453506],[43.637859,-79.453669],[43.637946,-79.454799],
+          [43.637958,-79.455335],[43.637954,-79.455906],[43.637915,-79.456666],[43.637877,-79.457121],[43.637834,-79.457518],
+          [43.637772,-79.457889],[43.637477,-79.459353],[43.637434,-79.459525],[43.637279,-79.459745],[43.637205,-79.459884],
+          [43.637131,-79.460040],[43.637046,-79.460211],[43.636970,-79.460413],[43.636898,-79.460662],[43.636865,-79.460984],
+          [43.636801,-79.461257],[43.636689,-79.461456],[43.636615,-79.461638],[43.636566,-79.461794],[43.636456,-79.462089],
+          [43.636394,-79.462336],[43.636355,-79.462497],[43.636300,-79.462727],[43.636225,-79.463046],[43.636213,-79.463218],
+          [43.636232,-79.463435],[43.636262,-79.463682],[43.636265,-79.463924],[43.636242,-79.464203],[43.636184,-79.464444],
+          [43.635640,-79.466092],[43.635585,-79.466209],[43.635533,-79.466257],[43.635456,-79.466293],[43.635323,-79.466339],
+          [43.635234,-79.466383],[43.635158,-79.466453],[43.635116,-79.466519],[43.635028,-79.466710],[43.634782,-79.467381],
+          [43.634650,-79.467714],[43.634138,-79.468679],[43.633949,-79.468941],[43.633778,-79.469022],[43.633594,-79.469159],
+          [43.633322,-79.469299],[43.633190,-79.469358],[43.632995,-79.469516],[43.632910,-79.469627],[43.632849,-79.469782],
+          [43.632696,-79.470358],[43.632651,-79.470502],[43.632591,-79.470630],[43.632515,-79.470728],[43.632305,-79.470885],
+          [43.631508,-79.471556],[43.630953,-79.472041],[43.630694,-79.472421],[43.630596,-79.472536],[43.630145,-79.472725],
+          [43.630025,-79.472772],[43.629968,-79.472835],[43.629933,-79.472957],[43.629939,-79.473116],[43.629990,-79.473284],
+          [43.630125,-79.473543],[43.630154,-79.473660],[43.630156,-79.473794],[43.630059,-79.474162],[43.629989,-79.474289],
+          [43.629894,-79.474390],[43.629433,-79.474778],[43.629248,-79.474984],[43.629114,-79.475197],[43.629009,-79.475302],
+          [43.628951,-79.475340],[43.628828,-79.475387],[43.628772,-79.475437],[43.628648,-79.475591],[43.628562,-79.475715],
+          [43.628472,-79.475804],[43.628380,-79.475869],[43.627885,-79.476180],[43.627735,-79.476267],[43.627591,-79.476331],
+          [43.626980,-79.476535],[43.625323,-79.477054],[43.624695,-79.477265],[43.624194,-79.477555],[43.624046,-79.477490],
+          [43.623918,-79.477458],[43.623804,-79.477478],[43.623488,-79.477872],[43.623253,-79.478059],[43.622848,-79.478306],
+          [43.622572,-79.478570],[43.622462,-79.478787],[43.622399,-79.479008],[43.622351,-79.479522],[43.622314,-79.479572],
+          [43.622185,-79.479549],[43.622050,-79.479472],[43.621951,-79.479370],[43.621863,-79.479215],[43.621834,-79.479246],
+          [43.621923,-79.479419],[43.622028,-79.479531],[43.622171,-79.479649],[43.622374,-79.479661],[43.622465,-79.479413],
+          [43.622537,-79.479083],[43.622639,-79.478861],[43.622743,-79.478727],[43.622817,-79.478614],[43.622938,-79.478467],
+          [43.623085,-79.478359],[43.624302,-79.477665],[43.624718,-79.477396],[43.625768,-79.477037],[43.626217,-79.476905],
+          [43.627675,-79.476428],[43.628267,-79.476106],[43.628772,-79.475827],[43.629032,-79.475715],[43.629180,-79.475666],
+          [43.629273,-79.475605],[43.629331,-79.475473],[43.629496,-79.475186],[43.630010,-79.474542],[43.630506,-79.474124],
+          [43.630542,-79.473987],[43.630249,-79.473264],[43.630214,-79.473012],[43.630160,-79.472863],[43.630193,-79.472843],
+          [43.630190,-79.472776],[43.630615,-79.472595],[43.630714,-79.472469],[43.630978,-79.472086],[43.631527,-79.471605],
+          [43.632325,-79.470927],[43.632527,-79.470765],[43.632614,-79.470660],[43.632682,-79.470520],[43.632729,-79.470382],
+          [43.632876,-79.469799],[43.632936,-79.469669],[43.633021,-79.469563],[43.633195,-79.469407],[43.633337,-79.469343],
+          [43.633602,-79.469213],[43.633785,-79.469080],[43.633880,-79.469095],[43.634035,-79.469151],[43.634138,-79.469358],
+          [43.634210,-79.469344],[43.634413,-79.468942],[43.634617,-79.468583],[43.635025,-79.467802],[43.635260,-79.467311],
+          [43.635489,-79.466780],[43.635726,-79.466190],[43.636378,-79.464232],[43.636518,-79.463894],[43.637028,-79.463006],
+          [43.637207,-79.462540],[43.637321,-79.462143],[43.637415,-79.461606],[43.637438,-79.460930],[43.637434,-79.460552],
+          [43.637463,-79.460091],[43.637529,-79.459702],[43.637913,-79.457773],[43.637987,-79.457234],[43.638034,-79.456700],
+          [43.638073,-79.455850],[43.638057,-79.454879],[43.638005,-79.454093],[43.637962,-79.453554],[43.637906,-79.453002],
+          [43.637791,-79.452100],[43.637024,-79.447753],[43.636994,-79.447372],[43.636989,-79.447023],[43.637026,-79.446436],
+          [43.637048,-79.446033],[43.637042,-79.445762],[43.636995,-79.445497],[43.636916,-79.445258],[43.636357,-79.443944],
+          [43.635982,-79.443024],[43.635677,-79.442058],[43.635601,-79.441822],[43.634907,-79.440148],[43.634225,-79.438598],
+          [43.633973,-79.438024],[43.633790,-79.437681],[43.633538,-79.437295],[43.633239,-79.436916],[43.632792,-79.436337],
+          [43.632639,-79.436031],[43.632379,-79.435390],[43.632210,-79.434875],[43.632002,-79.434012],[43.631843,-79.433151],
+          [43.631696,-79.431831],[43.631529,-79.430637],[43.631368,-79.429897],[43.631125,-79.428964],[43.630057,-79.425850],
+          [43.629993,-79.425522],[43.629958,-79.424978],[43.630341,-79.420316],[43.630554,-79.419658],[43.631191,-79.415321],
+          [43.631291,-79.414894],[43.631414,-79.414426],[43.632118,-79.412251],[43.632556,-79.410845],[43.632669,-79.410502],
+          [43.632774,-79.410223],[43.632898,-79.410014],[43.633018,-79.409826],[43.633174,-79.409697],[43.633352,-79.409544],
+          [43.634470,-79.408933],[43.634573,-79.408935],[43.634662,-79.409000],[43.634757,-79.409059],[43.634844,-79.409120]
+  ];
+
+  // Color the course by phase
+  const seg1 = tcourse.slice(0, Math.floor(tcourse.length * 0.25));   // km 0-10: orange
+  const seg2 = tcourse.slice(Math.floor(tcourse.length * 0.25), Math.floor(tcourse.length * 0.5)); // km 10-21: yellow
+  const seg3 = tcourse.slice(Math.floor(tcourse.length * 0.5), Math.floor(tcourse.length * 0.75)); // km 21-32: blue
+  const seg4 = tcourse.slice(Math.floor(tcourse.length * 0.75)); // km 32-42: green
+
+  [
+    [seg1,'#FC4C02','km 0–10: North York south on Yonge'],
+    [seg2,'#FFD60A','km 10–21: Midtown loop → Rosedale'],
+    [seg3,'#0A84FF','km 21–32: Downtown → Waterfront → West'],
+    [seg4,'#30D158','km 32–42.2: Return east → Finish'],
+  ].forEach(([pts,col,lbl]) => {
+    L.polyline(pts, {color:col, weight:5, opacity:0.9, lineJoin:'round'})
+      .addTo(tmap).bindPopup(`<b>${lbl}</b>`);
+  });
+
+  // Water stations
+  const waterStations = [
+          {lat:43.768029,lng:-79.412773},
+          {lat:43.758292,lng:-79.410338},
+          {lat:43.733858,lng:-79.404568},
+          {lat:43.709284,lng:-79.398973},
+          {lat:43.698716,lng:-79.396836},
+          {lat:43.675748,lng:-79.402281},
+          {lat:43.673516,lng:-79.384948},
+          {lat:43.657413,lng:-79.354671},
+          {lat:43.646452,lng:-79.379391},
+          {lat:43.630476,lng:-79.419739},
+          {lat:43.633291,lng:-79.437113},
+          {lat:43.630041,lng:-79.472892},
+          {lat:43.636832,lng:-79.398930},
+          {lat:43.637796,lng:-79.453032},
+          {lat:43.688447,lng:-79.412680},
+          {lat:43.635886,lng:-79.409534}
+  ];
+  waterStations.forEach((w,i) => {
+    L.circleMarker([w.lat,w.lng], {radius:6,color:'#0A84FF',fillColor:'#0A84FF',fillOpacity:0.9,weight:2,stroke:true})
+      .addTo(tmap).bindPopup(`<b>Aid Station ${i+1}</b><br>💧 Water + Gatorade`);
+  });
+
+  // Timing mats
+  const timingMats = [
+          {lat:43.654463,lng:-79.351411,desc:"Timing Mat - Marathon 21 k"},
+          {lat:43.621838,lng:-79.479248,desc:"Timing Mat - Marathon Turn Around"},
+          {lat:43.632981,lng:-79.436683,desc:"Timing Mat - 5 km Turn Around"},
+          {lat:43.635984,lng:-79.465318,desc:"Timing Mat - 10 k Turn Around"}
+  ];
+  timingMats.forEach(t => {
+    L.circleMarker([t.lat,t.lng], {radius:8,color:'#BF5AF2',fillColor:'#BF5AF2',fillOpacity:0.9,weight:2})
+      .addTo(tmap).bindPopup(`<b>${t.desc}</b>`);
+  });
+
+  function mk(color,label,size) {
+    const s=size||30;
+    return L.divIcon({html:`<div style="background:${color};color:#fff;border-radius:50%;width:${s}px;height:${s}px;display:flex;align-items:center;justify-content:center;font-size:${s<28?10:12}px;font-weight:800;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.7)">${label}</div>`,iconSize:[s,s],iconAnchor:[s/2,s/2],className:''})
+  }
+
+  L.marker([43.76689,-79.41241],{icon:mk('#FC4C02','GO',36)}).addTo(tmap)
+    .bindPopup('<b>Start — Yonge St, North York</b><br>~7:00 AM gun time<br>Start in your corral — for 5h30 expect D/E');
+  L.marker([43.65446,-79.35141],{icon:mk('#BF5AF2','21K',30)}).addTo(tmap)
+    .bindPopup('<b>Half Marathon Mat — km 21</b><br>Target: ~2h58 or slower<br>If faster → you went out too hard');
+  L.marker([43.62184,-79.47925],{icon:mk('#0A84FF','↩',30)}).addTo(tmap)
+    .bindPopup('<b>Turn-Around — km ~29</b><br>Lake Shore Blvd West<br>Now head back east. Dig in.');
+  L.marker([43.63485,-79.40912],{icon:mk('#30D158','FIN',36)}).addTo(tmap)
+    .bindPopup('<b>FINISH — km 42.2</b><br>Target: 5h31–5h56<br>Eat immediately. Sit. You did it.');
+
+  tmap.fitBounds(tcourse, {padding:[24,24]});
+  window._torontoMap = tmap;
+
+  // Fix size if initialized while tab is hidden
+  window._origShowTab = window.showTab;
+  window.showTab = function(name, btn) {
+    (window._origShowTab || window.showTab)(name, btn);
+    if (name === 'marathon' && window._torontoMap) {
+      setTimeout(() => window._torontoMap.invalidateSize(), 80);
+    }
+  };
+})();
+</script>
+</body>
+</html>
