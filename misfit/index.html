@@ -436,629 +436,43 @@
   <!-- Elevation Profile Section -->
   <div class="section" id="elev-section" style="margin-top:20px">
     <div class="section-title">Course Elevation — Km by Km</div>
-
-    <!-- SVG chart -->
-    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:14px;padding:16px 20px 12px;margin-bottom:12px">
-      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px;font-size:11px;color:var(--text-dim)">
-        <span><span style="color:#FC4C02">■</span> km 1–10</span>
-        <span><span style="color:#FFD60A">■</span> km 10–21</span>
-        <span><span style="color:#0A84FF">■</span> km 21–32</span>
-        <span><span style="color:#30D158">■</span> km 32–42</span>
-        <span style="margin-left:auto;color:#FF453A">● km 6 biggest climb &nbsp; ● km 5,15,18 steep descents</span>
-      </div>
-      <svg viewBox="0 0 900 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:180px;display:block">
-  <defs>
-    <linearGradient id="eg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FC4C02" stop-opacity="0.35"/>
-      <stop offset="100%" stop-color="#FC4C02" stop-opacity="0.03"/>
-    </linearGradient>
-  </defs>
-  <rect x="40.0" y="16" width="200.0" height="134" fill="#FC4C02" opacity="0.07"/>
-  <rect x="240.0" y="16" width="220.0" height="134" fill="#FFD60A" opacity="0.07"/>
-  <rect x="460.0" y="16" width="220.0" height="134" fill="#0A84FF" opacity="0.07"/>
-  <rect x="680.0" y="16" width="220.0" height="134" fill="#30D158" opacity="0.07"/>
-  <line x1="36" y1="141.6" x2="880" y2="141.6" stroke="#333" stroke-width="0.5" stroke-dasharray="3,4"/><text x="34" y="144.6" text-anchor="end" font-size="9" fill="#666">80m</text><line x1="36" y1="120.7" x2="880" y2="120.7" stroke="#333" stroke-width="0.5" stroke-dasharray="3,4"/><text x="34" y="123.7" text-anchor="end" font-size="9" fill="#666">100m</text><line x1="36" y1="99.8" x2="880" y2="99.8" stroke="#333" stroke-width="0.5" stroke-dasharray="3,4"/><text x="34" y="102.8" text-anchor="end" font-size="9" fill="#666">120m</text><line x1="36" y1="78.8" x2="880" y2="78.8" stroke="#333" stroke-width="0.5" stroke-dasharray="3,4"/><text x="34" y="81.8" text-anchor="end" font-size="9" fill="#666">140m</text><line x1="36" y1="57.9" x2="880" y2="57.9" stroke="#333" stroke-width="0.5" stroke-dasharray="3,4"/><text x="34" y="60.9" text-anchor="end" font-size="9" fill="#666">160m</text><line x1="36" y1="36.9" x2="880" y2="36.9" stroke="#333" stroke-width="0.5" stroke-dasharray="3,4"/><text x="34" y="39.9" text-anchor="end" font-size="9" fill="#666">180m</text><line x1="36" y1="16.0" x2="880" y2="16.0" stroke="#333" stroke-width="0.5" stroke-dasharray="3,4"/><text x="34" y="19.0" text-anchor="end" font-size="9" fill="#666">200m</text>
-  <path d="M 40.0,25.1 L 60.0,42.0 L 80.0,39.1 L 100.0,56.2 L 120.0,85.3 L 140.0,51.7 L 160.0,58.6 L 180.0,53.7 L 200.0,52.3 L 220.0,64.3 L 240.0,55.2 L 260.0,42.7 L 280.0,50.7 L 300.0,64.5 L 320.0,94.7 L 340.0,99.5 L 360.0,106.7 L 380.0,130.1 L 400.0,138.6 L 420.0,143.5 L 440.0,143.4 L 460.0,141.6 L 480.0,141.3 L 500.0,140.2 L 520.0,144.2 L 540.0,141.7 L 560.0,144.3 L 580.0,145.1 L 600.0,144.8 L 620.0,141.3 L 640.0,144.2 L 660.0,142.6 L 680.0,144.5 L 700.0,142.8 L 720.0,141.2 L 740.0,142.5 L 760.0,143.5 L 780.0,143.1 L 800.0,144.3 L 820.0,139.1 L 840.0,144.1 L 860.0,145.4 L 880.0,142.8 L 880.0,150.0 L 40.0,150.0 Z" fill="url(#eg)"/>
-  <path d="M 40.0,25.1 L 60.0,42.0 L 80.0,39.1 L 100.0,56.2 L 120.0,85.3 L 140.0,51.7 L 160.0,58.6 L 180.0,53.7 L 200.0,52.3 L 220.0,64.3 L 240.0,55.2 L 260.0,42.7 L 280.0,50.7 L 300.0,64.5 L 320.0,94.7 L 340.0,99.5 L 360.0,106.7 L 380.0,130.1 L 400.0,138.6 L 420.0,143.5 L 440.0,143.4 L 460.0,141.6 L 480.0,141.3 L 500.0,140.2 L 520.0,144.2 L 540.0,141.7 L 560.0,144.3 L 580.0,145.1 L 600.0,144.8 L 620.0,141.3 L 640.0,144.2 L 660.0,142.6 L 680.0,144.5 L 700.0,142.8 L 720.0,141.2 L 740.0,142.5 L 760.0,143.5 L 780.0,143.1 L 800.0,144.3 L 820.0,139.1 L 840.0,144.1 L 860.0,145.4 L 880.0,142.8" fill="none" stroke="#FC4C02" stroke-width="2" stroke-linejoin="round"/>
-  <line x1="40.0" y1="150" x2="40.0" y2="154" stroke="#555" stroke-width="1"/><text x="40.0" y="164" text-anchor="middle" font-size="9" fill="#666">0</text><line x1="140.0" y1="150" x2="140.0" y2="154" stroke="#555" stroke-width="1"/><text x="140.0" y="164" text-anchor="middle" font-size="9" fill="#666">5</text><line x1="240.0" y1="150" x2="240.0" y2="154" stroke="#555" stroke-width="1"/><text x="240.0" y="164" text-anchor="middle" font-size="9" fill="#666">10</text><line x1="340.0" y1="150" x2="340.0" y2="154" stroke="#555" stroke-width="1"/><text x="340.0" y="164" text-anchor="middle" font-size="9" fill="#666">15</text><line x1="440.0" y1="150" x2="440.0" y2="154" stroke="#555" stroke-width="1"/><text x="440.0" y="164" text-anchor="middle" font-size="9" fill="#666">20</text><line x1="540.0" y1="150" x2="540.0" y2="154" stroke="#555" stroke-width="1"/><text x="540.0" y="164" text-anchor="middle" font-size="9" fill="#666">25</text><line x1="640.0" y1="150" x2="640.0" y2="154" stroke="#555" stroke-width="1"/><text x="640.0" y="164" text-anchor="middle" font-size="9" fill="#666">30</text><line x1="740.0" y1="150" x2="740.0" y2="154" stroke="#555" stroke-width="1"/><text x="740.0" y="164" text-anchor="middle" font-size="9" fill="#666">35</text><line x1="840.0" y1="150" x2="840.0" y2="154" stroke="#555" stroke-width="1"/><text x="840.0" y="164" text-anchor="middle" font-size="9" fill="#666">40</text>
-  <circle cx="120.0" cy="85.3" r="4" fill="#0A84FF" opacity="0.9"/><text x="120.0" y="99.3" text-anchor="middle" font-size="8.5" font-weight="700" fill="#0A84FF">km5 -28m↓</text><circle cx="140.0" cy="51.7" r="4" fill="#FF453A" opacity="0.9"/><text x="140.0" y="31.7" text-anchor="middle" font-size="8.5" font-weight="700" fill="#FF453A">km6 +32m↑</text><circle cx="320.0" cy="94.7" r="4" fill="#0A84FF" opacity="0.9"/><text x="320.0" y="108.7" text-anchor="middle" font-size="8.5" font-weight="700" fill="#0A84FF">km15 -29m↓</text><circle cx="380.0" cy="130.1" r="4" fill="#0A84FF" opacity="0.9"/><text x="380.0" y="144.1" text-anchor="middle" font-size="8.5" font-weight="700" fill="#0A84FF">km18 -22m↓</text>
-  <text x="40" y="178" font-size="8" fill="#555">km</text>
-  <text x="20.0" y="90" font-size="8" fill="#555" transform="rotate(-90,20,90)">m</text>
-</svg>
-      <div style="display:grid;grid-template-columns:1fr 1fr;text-align:center;font-size:11px;color:var(--text-dim);margin-top:4px">
-        <span>← downhill</span><span>uphill →</span>
+    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:14px;padding:16px 20px 14px;margin-bottom:12px">
+      <canvas id="elev-canvas" style="width:100%;display:block"></canvas>
+      <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--text-dim)">
+        <span><span style="color:#FC4C02">■</span> km 1–10 North York</span>
+        <span><span style="color:#FFD60A">■</span> km 10–21 Midtown</span>
+        <span><span style="color:#0A84FF">■</span> km 21–32 Downtown/West</span>
+        <span><span style="color:#30D158">■</span> km 32–42 Waterfront back</span>
       </div>
     </div>
-
-    <!-- Per-km bar chart -->
-    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:14px;overflow:hidden;margin-bottom:12px">
-      <div style="display:grid;grid-template-columns:28px 1fr 48px auto;gap:8px;padding:8px 12px;background:var(--surface2);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-dim)">
-        <div>Km</div><div style="text-align:center">Profile</div><div style="text-align:right">Gain</div><div>Type</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:16px;font-size:12px">
+      <div style="background:var(--surface);border:1px solid rgba(255,69,58,0.3);border-radius:10px;padding:12px 14px">
+        <div style="font-weight:700;color:#FF453A;margin-bottom:4px">km 1 &nbsp;+11m ↑</div>
+        <div style="color:var(--text-dim)">Short opener hill. Feels easy on adrenaline — don't go with it.</div>
       </div>
-      <div style="max-height:500px;overflow-y:auto">
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:700;color:var(--text)">1</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:16%;background:#FFD60A;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:700;color:#FFD60A;text-align:right;white-space:nowrap">+11m</div>
-      <div style="min-width:120px"><span style="font-size:10px;color:#FFD60A;margin-left:4px">uphill</span></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:700;color:var(--text)">2</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:23%;background:#30D158;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:700;color:#30D158;text-align:right;white-space:nowrap">-16m</div>
-      <div style="min-width:120px"><span style="font-size:10px;color:#30D158;margin-left:4px">downhill</span></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">3</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:4%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+3m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:700;color:var(--text)">4</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:23%;background:#30D158;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:700;color:#30D158;text-align:right;white-space:nowrap">-16m</div>
-      <div style="min-width:120px"><span style="font-size:10px;color:#30D158;margin-left:4px">downhill</span></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:700;color:var(--text)">5</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:40%;background:#0A84FF;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:700;color:#0A84FF;text-align:right;white-space:nowrap">-28m</div>
-      <div style="min-width:120px"><span style="font-size:10px;color:#0A84FF;margin-left:4px">steep descent</span><span style="font-size:10px;color:#FF453A;font-weight:600">← watch quads</span></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:700;color:var(--text)">6</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:46%;background:#FF453A;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:700;color:#FF453A;text-align:right;white-space:nowrap">+32m</div>
-      <div style="min-width:120px"><span style="font-size:10px;color:#FF453A;margin-left:4px">steep climb</span><span style="font-size:10px;color:#FF453A;font-weight:600">← hardest km</span></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">7</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:9%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-7m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">8</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:7%;background:#8e8e93;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">+5m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">9</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+1m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:700;color:var(--text)">10</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:16%;background:#30D158;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:700;color:#30D158;text-align:right;white-space:nowrap">-11m</div>
-      <div style="min-width:120px"><span style="font-size:10px;color:#30D158;margin-left:4px">downhill</span></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">11</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:12%;background:#8e8e93;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">+9m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:700;color:var(--text)">12</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:17%;background:#FFD60A;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:700;color:#FFD60A;text-align:right;white-space:nowrap">+12m</div>
-      <div style="min-width:120px"><span style="font-size:10px;color:#FFD60A;margin-left:4px">uphill</span><span style="font-size:10px;color:#FF453A;font-weight:600">← notable</span></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">13</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:11%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-8m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:700;color:var(--text)">14</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:19%;background:#30D158;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:700;color:#30D158;text-align:right;white-space:nowrap">-13m</div>
-      <div style="min-width:120px"><span style="font-size:10px;color:#30D158;margin-left:4px">downhill</span></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:700;color:var(--text)">15</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:41%;background:#0A84FF;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:700;color:#0A84FF;text-align:right;white-space:nowrap">-29m</div>
-      <div style="min-width:120px"><span style="font-size:10px;color:#0A84FF;margin-left:4px">steep descent</span><span style="font-size:10px;color:#FF453A;font-weight:600">← watch quads</span></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">16</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:6%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-4m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">17</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:10%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-7m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:700;color:var(--text)">18</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:32%;background:#0A84FF;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:700;color:#0A84FF;text-align:right;white-space:nowrap">-22m</div>
-      <div style="min-width:120px"><span style="font-size:10px;color:#0A84FF;margin-left:4px">steep descent</span><span style="font-size:10px;color:#FF453A;font-weight:600">← watch quads</span></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">19</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:12%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-8m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">20</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:7%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-5m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">21</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:0%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+0m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">22</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:3%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+2m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">23</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:0%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+0m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">24</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+1m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">25</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:6%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-4m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">26</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:3%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+2m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">27</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:4%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-2m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">28</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:1%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-1m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">29</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:0%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+0m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">30</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:5%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+3m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">31</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:4%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-3m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">32</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+2m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">33</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:3%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-2m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">34</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+2m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">35</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+2m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">36</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-1m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">37</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:1%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-1m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">38</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:1%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+0m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">39</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-1m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">40</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end"></div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%;display:flex;align-items:center">
-            <div style="height:8px;width:7%;background:#8e8e93;border-radius:0 3px 3px 0;min-width:2px"></div>
-          </div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">+5m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">41</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:7%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-5m</div>
-      <div style="min-width:120px"></div>
-    </div>
-<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
-      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">42</div>
-      <div style="display:flex;align-items:center;gap:0;width:100%">
-          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
-            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
-          </div>
-          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
-          <div style="width:50%"></div>
-        </div>
-      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-1m</div>
-      <div style="min-width:120px"></div>
-    </div>
+      <div style="background:var(--surface);border:1px solid rgba(255,69,58,0.5);border-radius:10px;padding:12px 14px">
+        <div style="font-weight:700;color:#FF453A;margin-bottom:4px">km 5–6 &nbsp;−28m then +32m ↓↑</div>
+        <div style="color:var(--text-dim)">Valley trap. Control the descent, then power through the climb — don't let km 6 surprise you.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid rgba(255,214,10,0.3);border-radius:10px;padding:12px 14px">
+        <div style="font-weight:700;color:#FFD60A;margin-bottom:4px">km 12 &nbsp;+12m ↑</div>
+        <div style="color:var(--text-dim)">Last real climb before the long descents. Ease off, keep HR steady.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid rgba(10,132,255,0.3);border-radius:10px;padding:12px 14px">
+        <div style="font-weight:700;color:#0A84FF;margin-bottom:4px">km 15 &nbsp;−29m ↓↓</div>
+        <div style="color:var(--text-dim)">Steepest descent. Shorten stride, high cadence — don't brake with your quads.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid rgba(10,132,255,0.3);border-radius:10px;padding:12px 14px">
+        <div style="font-weight:700;color:#0A84FF;margin-bottom:4px">km 18 &nbsp;−22m ↓↓</div>
+        <div style="color:var(--text-dim)">Second quad-killer approaching the waterfront. Stay relaxed, don't reach.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid rgba(48,209,88,0.3);border-radius:10px;padding:12px 14px">
+        <div style="font-weight:700;color:#30D158;margin-bottom:4px">km 21–42 &nbsp;flat →</div>
+        <div style="color:var(--text-dim)">Waterfront to finish — max ±5m per km. No more hills. Survive here with legs intact.</div>
       </div>
     </div>
+  </div>
 
-    <!-- Key callout cards -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:20px;font-size:12px">
-      <div style="background:rgba(255,69,58,0.08);border:1px solid rgba(255,69,58,0.25);border-radius:10px;padding:12px 14px">
-        <strong style="color:#FF453A">⚠ km 5–6: The valley trap</strong><br>
-        <span style="color:var(--text-dim)">−28m drop then immediately +32m climb. Most runners bomb km 5 and blow up on km 6. Control the descent — shorten stride, don't let gravity set the pace.</span>
-      </div>
-      <div style="background:rgba(255,69,58,0.08);border:1px solid rgba(255,69,58,0.25);border-radius:10px;padding:12px 14px">
-        <strong style="color:#FF453A">⚠ km 15 & 18: Quad killers</strong><br>
-        <span style="color:var(--text-dim)">Two steep descents (−29m, −22m) back-to-back. By km 20 your quads will have absorbed ~100m of braking load. These hurt late in the race if you let yourself loose on them here.</span>
-      </div>
-      <div style="background:rgba(48,209,88,0.08);border:1px solid rgba(48,209,88,0.25);border-radius:10px;padding:12px 14px">
-        <strong style="color:#30D158">✓ km 21–42: Genuinely flat</strong><br>
-        <span style="color:var(--text-dim)">Once you hit km 21, no hill exceeds ±5m per km. Waterfront all the way. If your legs are intact here, you can run your own race to the finish.</span>
-      </div>
-    </div>
-
-    <!-- Montreal vs Toronto comparison -->
-    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:14px;padding:18px 20px;margin-bottom:20px">
-
-    <div class="section-title" style="margin-bottom:14px">Toronto Hills vs Your Montreal Training Ground</div>
-    <div style="font-size:12px;color:var(--text-dim);margin-bottom:14px">
-      You've run these Montreal hills. Here's how Toronto's course compares — and what you already know how to handle.
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px">
-
-      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #FF453A">
-        <div style="font-weight:700;font-size:13px;margin-bottom:6px">km 6 Toronto: +32m in 1 km <span style="color:#FF453A">↑↑</span></div>
-        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
-          <strong style="color:var(--text)">Equivalent to:</strong> The Peel St ramp from Sherbrooke up toward the mountain entrance (~2–3 min of sustained effort). Not the mountain itself — just the approach ramp.<br><br>
-          <strong style="color:#30D158">You know this.</strong> Keep effort steady, shorten stride slightly, don't overstride at the top.
-        </div>
-      </div>
-
-      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #FFD60A">
-        <div style="font-weight:700;font-size:13px;margin-bottom:6px">km 12 Toronto: +12m in 1 km <span style="color:#FFD60A">↑</span></div>
-        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
-          <strong style="color:var(--text)">Equivalent to:</strong> Cedar Ave going east toward Guy St — the gentle slope you run every morning leaving home. This is nothing.<br><br>
-          <strong style="color:#30D158">You won't even notice it.</strong> Just keep breathing steady.
-        </div>
-      </div>
-
-      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #0A84FF">
-        <div style="font-weight:700;font-size:13px;margin-bottom:6px">km 5 Toronto: −28m in 1 km <span style="color:#0A84FF">↓↓</span></div>
-        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
-          <strong style="color:var(--text)">Equivalent to:</strong> The north-side descent from the Mont-Royal summit toward Avenue du Parc — but in 1 km instead of 2. Steep, quad-heavy descent.<br><br>
-          <strong style="color:#FFD60A">Saturday's descent from Beaver Lake</strong> is harder and longer. If you walked it, you still trained the eccentric load.
-        </div>
-      </div>
-
-      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #0A84FF">
-        <div style="font-weight:700;font-size:13px;margin-bottom:6px">km 15 Toronto: −29m in 1 km <span style="color:#0A84FF">↓↓</span></div>
-        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
-          <strong style="color:var(--text)">Equivalent to:</strong> The steepest section of Olmsted Rd descending toward the lower Beaver Lake parking lot. Same grade, same quad burn.<br><br>
-          <strong style="color:#30D158">At km 15 you're still fresh</strong> — this is manageable. Shorten your stride and let gravity do the work without pounding.
-        </div>
-      </div>
-
-      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #30D158">
-        <div style="font-weight:700;font-size:13px;margin-bottom:6px">km 21–42 Toronto: Dead flat <span style="color:#30D158">→</span></div>
-        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
-          <strong style="color:var(--text)">Equivalent to:</strong> The F1 circuit — flat island roads with nothing but distance. You ran 2 laps of that on Saturday.<br><br>
-          <strong style="color:#30D158">You've rehearsed exactly this.</strong> The only difference: you'll have 21 km already in your legs instead of 6.
-        </div>
-      </div>
-
-      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #BF5AF2">
-        <div style="font-weight:700;font-size:13px;margin-bottom:6px">Sat Beaver Lake climb: +150m over 3 km <span style="color:#BF5AF2">↑↑↑</span></div>
-        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
-          <strong style="color:var(--text)">Toronto comparison:</strong> Nothing on the Toronto course comes close to this. The hardest Toronto km is +32m. Beaver Lake does +50m/km sustained.<br><br>
-          <strong style="color:#30D158">If you survived Beaver Lake</strong> (even walking it), every Toronto hill will feel like a speed bump.
-        </div>
-      </div>
-
-    </div>
-
-    </div>
   </div>
 
     <div style="margin-top:14px;background:var(--surface);border:1px solid var(--surface3);border-radius:14px;padding:18px 20px">
@@ -1276,9 +690,6 @@
     <div class="section-title">Flags &amp; Notes</div>
     <div class="flags-list" id="flags"></div>
   </div>
-
-  </div>
-
 
   <div class="footer">
     Data from Strava API &bull; Analysis generated 2026-04-24 16:10 &bull; Scope: activity:read_all
@@ -1999,6 +1410,79 @@ async function triggerRefresh() {
 
 
 <script>
+// ── Elevation Chart ──
+window.drawElevationChart = function() {
+  const canvas = document.getElementById('elev-canvas');
+  if (!canvas) return;
+  const data = [[1, 191.3, 10.9], [2, 175.2, -16.1], [3, 177.9, 2.7], [4, 161.6, -16.3], [5, 133.8, -27.8], [6, 165.9, 32.1], [7, 159.3, -6.6], [8, 164.0, 4.7], [9, 165.3, 1.3], [10, 153.9, -11.4], [11, 162.6, 8.7], [12, 174.5, 11.9], [13, 166.9, -7.6], [14, 153.7, -13.2], [15, 124.8, -28.9], [16, 120.2, -4.5], [17, 113.4, -6.8], [18, 91.0, -22.4], [19, 82.9, -8.1], [20, 78.2, -4.7], [21, 78.3, 0.1], [22, 80.0, 1.8], [23, 80.3, 0.2], [24, 81.4, 1.2], [25, 77.5, -3.9], [26, 79.9, 2.3], [27, 77.4, -2.5], [28, 76.7, -0.7], [29, 77.0, 0.3], [30, 80.3, 3.3], [31, 77.5, -2.8], [32, 79.1, 1.7], [33, 77.3, -1.8], [34, 78.9, 1.5], [35, 80.4, 1.6], [36, 79.2, -1.2], [37, 78.2, -1.0], [38, 78.6, 0.4], [39, 77.4, -1.3], [40, 82.4, 5.0], [41, 77.6, -4.7], [42, 76.4, -1.2]];
+  const DPR = window.devicePixelRatio || 1;
+  const W = Math.max(300, canvas.parentElement.clientWidth - 40);
+  const H = 160;
+  canvas.width = W*DPR; canvas.height = H*DPR;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(DPR,DPR);
+  const PL=36,PR=10,PT=20,PB=28;
+  const CW=W-PL-PR, CH=H-PT-PB;
+  const EMIN=70, EMAX=200, N=data.length;
+  const px = i => PL+(i/(N-1))*CW;
+  const py = e => PT+(1-(e-EMIN)/(EMAX-EMIN))*CH;
+  const zc = km => km<=10?'#FC4C02':km<=21?'#FFD60A':km<=32?'#0A84FF':'#30D158';
+
+  ctx.clearRect(0,0,W,H);
+
+  // Gridlines + y labels
+  ctx.font='9px -apple-system,sans-serif'; ctx.textAlign='right'; ctx.fillStyle='#555';
+  [100,130,160,190].forEach(e=>{
+    const y=py(e); if(y<PT||y>PT+CH) return;
+    ctx.strokeStyle='#222'; ctx.lineWidth=0.5;
+    ctx.beginPath(); ctx.moveTo(PL,y); ctx.lineTo(PL+CW,y); ctx.stroke();
+    ctx.fillStyle='#555'; ctx.fillText(e+'m',PL-3,y+3);
+  });
+
+  // X labels
+  ctx.textAlign='center'; ctx.fillStyle='#555';
+  [0,10,20,30,33,36,39,42].forEach(km=>{
+    const i=Math.min(km,N-1);
+    ctx.fillText(km, px(i), PT+CH+14);
+  });
+  ctx.textAlign='left'; ctx.fillText('km',PL,PT+CH+14);
+
+  // Gradient fill
+  ctx.beginPath();
+  ctx.moveTo(px(0),py(data[0][1]));
+  data.forEach(([km,e],i)=>{ if(i>0) ctx.lineTo(px(i),py(e)); });
+  ctx.lineTo(px(N-1),PT+CH); ctx.lineTo(px(0),PT+CH); ctx.closePath();
+  const g=ctx.createLinearGradient(0,PT,0,PT+CH);
+  g.addColorStop(0,'rgba(252,76,2,0.2)'); g.addColorStop(1,'rgba(252,76,2,0.01)');
+  ctx.fillStyle=g; ctx.fill();
+
+  // Colored stroke by zone
+  ctx.lineWidth=2.5; ctx.lineJoin='round';
+  data.forEach(([km,e],i)=>{
+    if(!i) return;
+    ctx.strokeStyle=zc(km);
+    ctx.beginPath(); ctx.moveTo(px(i-1),py(data[i-1][1])); ctx.lineTo(px(i),py(e)); ctx.stroke();
+  });
+
+  // Dot + label for key hills
+  const notable=[
+    [4,'−28m',false,'#0A84FF'],[5,'+32m',true,'#FF453A'],
+    [11,'+12m',true,'#FFD60A'],[14,'−29m',false,'#0A84FF'],[17,'−22m',false,'#0A84FF']
+  ];
+  ctx.font='bold 9px -apple-system,sans-serif';
+  notable.forEach(([i,lbl,above,col])=>{
+    const x=px(i),y=py(data[i][1]);
+    ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2);
+    ctx.fillStyle=col; ctx.fill();
+    ctx.fillStyle=col; ctx.textAlign='center';
+    ctx.fillText(lbl,x,above?y-8:y+16);
+  });
+};
+drawElevationChart();
+</script>
+
+<script>
 // ── Toronto Marathon Course Map (real GPS from racepoint.ca 2026) ──
 (function() {
   if (!document.getElementById('toronto-map')) return;
@@ -2181,6 +1665,17 @@ async function triggerRefresh() {
   L.marker([43.63485,-79.40912],{icon:mk('#30D158','FIN',36)}).addTo(tmap)
     .bindPopup('<b>FINISH — km 42.2</b><br>Target: 5h31–5h56<br>Eat immediately. Sit. You did it.');
 
+  const kmMarks = [{km:10,lat:43.70220,lng:-79.39747}, {km:20,lat:43.66803,lng:-79.35806}, {km:30,lat:43.63066,lng:-79.43218}, {km:33,lat:43.63564,lng:-79.46609}, {km:36,lat:43.62877,lng:-79.47583}, {km:39,lat:43.63692,lng:-79.44526}, {km:42,lat:43.63256,lng:-79.41085}];
+  kmMarks.forEach(m => {
+    const isKey = m.km % 10 === 0;
+    const s = isKey ? 28 : 22;
+    const col = m.km>=30?'#30D158':m.km>=21?'#0A84FF':m.km>=10?'#FFD60A':'#FC4C02';
+    const ic = L.divIcon({
+      html:`<div style="background:#1c1c1e;color:${col};border:1.5px solid ${col};border-radius:50%;width:${s}px;height:${s}px;display:flex;align-items:center;justify-content:center;font-size:${isKey?11:9}px;font-weight:800">${m.km}</div>`,
+      iconSize:[s,s],iconAnchor:[s/2,s/2],className:''
+    });
+    L.marker([m.lat,m.lng],{icon:ic}).addTo(tmap).bindPopup(`<b>km ${m.km}</b>`);
+  });
   tmap.fitBounds(tcourse, {padding:[24,24]});
   window._torontoMap = tmap;
 
@@ -2188,8 +1683,9 @@ async function triggerRefresh() {
   window._origShowTab = window.showTab;
   window.showTab = function(name, btn) {
     (window._origShowTab || window.showTab)(name, btn);
-    if (name === 'marathon' && window._torontoMap) {
-      setTimeout(() => window._torontoMap.invalidateSize(), 80);
+    if (name === 'marathon') {
+      if (window._torontoMap) setTimeout(() => window._torontoMap.invalidateSize(), 80);
+      setTimeout(() => { if (window.drawElevationChart) window.drawElevationChart(); }, 80);
     }
   };
 })();
