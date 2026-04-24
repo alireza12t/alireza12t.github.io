@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trips — Alireza Toghiani</title>
+<style>
+  :root {
+    --bg: #111113;
+    --surface: #1c1c1e;
+    --surface2: #2c2c2e;
+    --surface3: #3a3a3c;
+    --text: #f5f5f7;
+    --text-dim: #98989d;
+    --green: #30D158;
+    --yellow: #FFD60A;
+    --red: #FF453A;
+    --blue: #0A84FF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; font-size: 14px; line-height: 1.5;
+  }
+
+  .shell { max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  .page-header { margin-bottom: 48px; }
+  .page-header h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .page-header p { color: var(--text-dim); font-size: 14px; }
+
+  /* Trip cards */
+  .trips-grid { display: flex; flex-direction: column; gap: 16px; }
+
+  .trip-card {
+    display: flex; align-items: center; gap: 20px;
+    background: var(--surface); border: 1px solid var(--surface3);
+    border-radius: 16px; padding: 22px 24px;
+    text-decoration: none; color: var(--text);
+    transition: border-color 0.15s, background 0.15s;
+    position: relative; overflow: hidden;
+  }
+  .trip-card:hover { border-color: var(--surface2); background: #222224; text-decoration: none; }
+  .trip-card::after {
+    content: '→';
+    position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+    color: var(--text-dim); font-size: 18px; transition: right 0.15s, color 0.15s;
+  }
+  .trip-card:hover::after { right: 20px; color: var(--text); }
+
+  .trip-flag { font-size: 40px; flex-shrink: 0; line-height: 1; }
+
+  .trip-info { flex: 1; min-width: 0; padding-right: 32px; }
+  .trip-name { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .trip-sub { color: var(--text-dim); font-size: 13px; margin-bottom: 8px; }
+  .trip-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag {
+    display: inline-block; padding: 3px 9px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tag-upcoming { background: rgba(10,132,255,0.15); color: var(--blue); }
+  .tag-active   { background: rgba(48,209,88,0.15);  color: var(--green); }
+  .tag-done     { background: rgba(58,58,60,0.8);    color: var(--text-dim); }
+  .tag-solo     { background: rgba(58,58,60,0.5);    color: var(--text-dim); }
+  .tag-16days   { background: rgba(58,58,60,0.5);    color: var(--text-dim); }
+
+  .trip-meta {
+    flex-shrink: 0; text-align: right; padding-right: 32px;
+  }
+  .trip-dates { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; }
+  .trip-countdown { font-size: 11px; color: var(--text-dim); margin-top: 3px; white-space: nowrap; }
+  .trip-countdown.soon { color: var(--yellow); }
+  .trip-countdown.active { color: var(--green); }
+
+  /* Section label */
+  .section-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1.2px; color: var(--text-dim); margin-bottom: 14px; margin-top: 36px;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* Footer */
+  .footer { text-align: center; color: var(--text-dim); font-size: 11px; padding-top: 40px; border-top: 1px solid var(--surface3); margin-top: 60px; }
+  .footer a { color: var(--text-dim); }
+
+  @media (max-width: 600px) {
+    .trip-meta { display: none; }
+    .trip-card::after { display: none; }
+    .trip-info { padding-right: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <div class="page-header">
+    <h1>Trips</h1>
+    <p>Travel logs &bull; Alireza Toghiani</p>
+  </div>
+
+  <div class="section-label">Upcoming</div>
+  <div class="trips-grid">
+
+    <a class="trip-card" href="spain-may-2026/">
+      <div class="trip-flag">🇪🇸</div>
+      <div class="trip-info">
+        <div class="trip-name">Spain — Andalusia, Valencia & Barcelona</div>
+        <div class="trip-sub">Montreal → Tarifa → Granada → Córdoba → Valencia → Barcelona → Montreal</div>
+        <div class="trip-tags">
+          <span class="tag tag-upcoming">Upcoming</span>
+          <span class="tag tag-solo">Solo</span>
+          <span class="tag tag-16days">16 days</span>
+        </div>
+      </div>
+      <div class="trip-meta">
+        <div class="trip-dates">May 6 – 22, 2026</div>
+        <div class="trip-countdown soon" id="spain-countdown">Loading…</div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="footer">
+    <a href="/">&larr; Home</a>
+  </div>
+
+</div>
+
+<script>
+function updateCountdowns() {
+  const dep  = new Date('2026-05-06T23:00:00-04:00');
+  const land = new Date('2026-05-22T11:15:00-04:00');
+  const now  = Date.now();
+  const el   = document.getElementById('spain-countdown');
+  if (!el) return;
+
+  if (now >= land.getTime()) {
+    el.textContent = 'Completed';
+    el.className = 'trip-countdown';
+    // Also update tag
+    document.querySelector('.tag-upcoming').textContent = 'Completed';
+    document.querySelector('.tag-upcoming').className = 'tag tag-done';
+  } else if (now >= dep.getTime()) {
+    const daysIn = Math.ceil((now - dep.getTime()) / 86400000);
+    el.textContent = `Day ${daysIn} of 16`;
+    el.className = 'trip-countdown active';
+    document.querySelector('.tag-upcoming').textContent = 'In Progress';
+    document.querySelector('.tag-upcoming').className = 'tag tag-active';
+  } else {
+    const days = Math.ceil((dep.getTime() - now) / 86400000);
+    el.textContent = days === 1 ? 'Tomorrow' : `In ${days} days`;
+    el.className = days <= 7 ? 'trip-countdown soon' : 'trip-countdown';
+  }
+}
+updateCountdowns();
+</script>
+</body>
+</html>
