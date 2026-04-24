@@ -436,13 +436,15 @@
   <!-- Elevation Profile Section -->
   <div class="section" id="elev-section" style="margin-top:20px">
     <div class="section-title">Course Elevation — Km by Km</div>
-    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:14px;padding:16px 20px 12px;margin-bottom:14px">
-      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px;font-size:11px;color:var(--text-dim)">
-        <span><span style="color:#FC4C02">■</span> km 0–10: North York</span>
-        <span><span style="color:#FFD60A">■</span> km 10–21: Midtown</span>
-        <span><span style="color:#0A84FF">■</span> km 21–32: Downtown/West</span>
-        <span><span style="color:#30D158">■</span> km 32–42: Waterfront back</span>
-        <span style="margin-left:auto">↑ km5→km6: biggest swing (+60m net) &nbsp; ↓ km15: steepest drop (−29m)</span>
+
+    <!-- SVG chart -->
+    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:14px;padding:16px 20px 12px;margin-bottom:12px">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px;font-size:11px;color:var(--text-dim)">
+        <span><span style="color:#FC4C02">■</span> km 1–10</span>
+        <span><span style="color:#FFD60A">■</span> km 10–21</span>
+        <span><span style="color:#0A84FF">■</span> km 21–32</span>
+        <span><span style="color:#30D158">■</span> km 32–42</span>
+        <span style="margin-left:auto;color:#FF453A">● km 6 biggest climb &nbsp; ● km 5,15,18 steep descents</span>
       </div>
       <svg viewBox="0 0 900 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:180px;display:block">
   <defs>
@@ -463,290 +465,602 @@
   <text x="40" y="178" font-size="8" fill="#555">km</text>
   <text x="20.0" y="90" font-size="8" fill="#555" transform="rotate(-90,20,90)">m</text>
 </svg>
+      <div style="display:grid;grid-template-columns:1fr 1fr;text-align:center;font-size:11px;color:var(--text-dim);margin-top:4px">
+        <span>← downhill</span><span>uphill →</span>
+      </div>
     </div>
-    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:14px;overflow:hidden;max-height:420px;overflow-y:auto">
-      <table style="width:100%;border-collapse:collapse;font-size:12px">
-        <thead style="position:sticky;top:0;background:var(--surface2)">
-          <tr>
-            <th style="padding:8px 10px;text-align:left;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.8px;white-space:nowrap">Km</th>
-            <th style="padding:8px 4px;text-align:left;font-size:10px;color:var(--text-dim);text-transform:uppercase"></th>
-            <th style="padding:8px 6px;text-align:left;font-size:10px;color:var(--text-dim);text-transform:uppercase;white-space:nowrap">Gain</th>
-            <th style="padding:8px 10px;text-align:left;font-size:10px;color:var(--text-dim);text-transform:uppercase">What it means</th>
-          </tr>
-        </thead>
-        <tbody>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">1</td>
-      <td style="padding:6px 4px;font-size:11px;color:#FFD60A;font-weight:700;white-space:nowrap">↑</td>
-      <td style="padding:6px 6px;font-size:11px;color:#FFD60A;white-space:nowrap">+11m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">+11m uphill — ease off, don't fight it</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">2</td>
-      <td style="padding:6px 4px;font-size:11px;color:#30D158;font-weight:700;white-space:nowrap">↓</td>
-      <td style="padding:6px 6px;font-size:11px;color:#30D158;white-space:nowrap">-16m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-16m downhill — relax, don't brake hard</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">3</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+3m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">4</td>
-      <td style="padding:6px 4px;font-size:11px;color:#30D158;font-weight:700;white-space:nowrap">↓</td>
-      <td style="padding:6px 6px;font-size:11px;color:#30D158;white-space:nowrap">-16m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-16m downhill — relax, don't brake hard</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">5</td>
-      <td style="padding:6px 4px;font-size:11px;color:#0A84FF;font-weight:700;white-space:nowrap">↓↓</td>
-      <td style="padding:6px 6px;font-size:11px;color:#0A84FF;white-space:nowrap">-28m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-28m steep descent — shorten stride, protect quads</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">6</td>
-      <td style="padding:6px 4px;font-size:11px;color:#FF453A;font-weight:700;white-space:nowrap">↑↑</td>
-      <td style="padding:6px 6px;font-size:11px;color:#FF453A;white-space:nowrap">+32m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">+32m steep climb — walk/power-hike</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">7</td>
-      <td style="padding:6px 4px;font-size:11px;color:#98989d;font-weight:700;white-space:nowrap">↘</td>
-      <td style="padding:6px 6px;font-size:11px;color:#98989d;white-space:nowrap">-7m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-7m slight descent</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">8</td>
-      <td style="padding:6px 4px;font-size:11px;color:#98989d;font-weight:700;white-space:nowrap">↗</td>
-      <td style="padding:6px 6px;font-size:11px;color:#98989d;white-space:nowrap">+5m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">+5m slight rise</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">9</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+1m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">10</td>
-      <td style="padding:6px 4px;font-size:11px;color:#30D158;font-weight:700;white-space:nowrap">↓</td>
-      <td style="padding:6px 6px;font-size:11px;color:#30D158;white-space:nowrap">-11m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-11m downhill — relax, don't brake hard</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">11</td>
-      <td style="padding:6px 4px;font-size:11px;color:#98989d;font-weight:700;white-space:nowrap">↗</td>
-      <td style="padding:6px 6px;font-size:11px;color:#98989d;white-space:nowrap">+9m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">+9m slight rise</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">12</td>
-      <td style="padding:6px 4px;font-size:11px;color:#FFD60A;font-weight:700;white-space:nowrap">↑</td>
-      <td style="padding:6px 6px;font-size:11px;color:#FFD60A;white-space:nowrap">+12m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">+12m uphill — ease off, don't fight it</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">13</td>
-      <td style="padding:6px 4px;font-size:11px;color:#98989d;font-weight:700;white-space:nowrap">↘</td>
-      <td style="padding:6px 6px;font-size:11px;color:#98989d;white-space:nowrap">-8m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-8m slight descent</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">14</td>
-      <td style="padding:6px 4px;font-size:11px;color:#30D158;font-weight:700;white-space:nowrap">↓</td>
-      <td style="padding:6px 6px;font-size:11px;color:#30D158;white-space:nowrap">-13m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-13m downhill — relax, don't brake hard</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">15</td>
-      <td style="padding:6px 4px;font-size:11px;color:#0A84FF;font-weight:700;white-space:nowrap">↓↓</td>
-      <td style="padding:6px 6px;font-size:11px;color:#0A84FF;white-space:nowrap">-29m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-29m steep descent — shorten stride, protect quads</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">16</td>
-      <td style="padding:6px 4px;font-size:11px;color:#98989d;font-weight:700;white-space:nowrap">↘</td>
-      <td style="padding:6px 6px;font-size:11px;color:#98989d;white-space:nowrap">-4m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-4m slight descent</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">17</td>
-      <td style="padding:6px 4px;font-size:11px;color:#98989d;font-weight:700;white-space:nowrap">↘</td>
-      <td style="padding:6px 6px;font-size:11px;color:#98989d;white-space:nowrap">-7m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-7m slight descent</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">18</td>
-      <td style="padding:6px 4px;font-size:11px;color:#0A84FF;font-weight:700;white-space:nowrap">↓↓</td>
-      <td style="padding:6px 6px;font-size:11px;color:#0A84FF;white-space:nowrap">-22m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-22m steep descent — shorten stride, protect quads</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">19</td>
-      <td style="padding:6px 4px;font-size:11px;color:#98989d;font-weight:700;white-space:nowrap">↘</td>
-      <td style="padding:6px 6px;font-size:11px;color:#98989d;white-space:nowrap">-8m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-8m slight descent</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">20</td>
-      <td style="padding:6px 4px;font-size:11px;color:#98989d;font-weight:700;white-space:nowrap">↘</td>
-      <td style="padding:6px 6px;font-size:11px;color:#98989d;white-space:nowrap">-5m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-5m slight descent</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">21</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+0m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">22</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+2m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">23</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+0m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">24</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+1m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">25</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">-4m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">26</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+2m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">27</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">-2m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">28</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">-1m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">29</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+0m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">30</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+3m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">31</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">-3m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">32</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+2m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">33</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">-2m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">34</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+2m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">35</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+2m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">36</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">-1m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">37</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">-1m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">38</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">+0m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">39</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">-1m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">40</td>
-      <td style="padding:6px 4px;font-size:11px;color:#98989d;font-weight:700;white-space:nowrap">↗</td>
-      <td style="padding:6px 6px;font-size:11px;color:#98989d;white-space:nowrap">+5m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">+5m slight rise</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">41</td>
-      <td style="padding:6px 4px;font-size:11px;color:#98989d;font-weight:700;white-space:nowrap">↘</td>
-      <td style="padding:6px 6px;font-size:11px;color:#98989d;white-space:nowrap">-5m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">-5m slight descent</td>
-    </tr>
-<tr style="border-top:1px solid var(--surface3)">
-      <td style="padding:6px 10px;font-weight:700;color:var(--text-dim);font-size:12px;white-space:nowrap">42</td>
-      <td style="padding:6px 4px;font-size:11px;color:#3a3a3c;font-weight:700;white-space:nowrap">→</td>
-      <td style="padding:6px 6px;font-size:11px;color:#3a3a3c;white-space:nowrap">-1m</td>
-      <td style="padding:6px 10px;font-size:11px;color:var(--text-dim)">flat</td>
-    </tr>
-        </tbody>
-      </table>
+
+    <!-- Per-km bar chart -->
+    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:14px;overflow:hidden;margin-bottom:12px">
+      <div style="display:grid;grid-template-columns:28px 1fr 48px auto;gap:8px;padding:8px 12px;background:var(--surface2);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-dim)">
+        <div>Km</div><div style="text-align:center">Profile</div><div style="text-align:right">Gain</div><div>Type</div>
+      </div>
+      <div style="max-height:500px;overflow-y:auto">
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:700;color:var(--text)">1</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:16%;background:#FFD60A;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:700;color:#FFD60A;text-align:right;white-space:nowrap">+11m</div>
+      <div style="min-width:120px"><span style="font-size:10px;color:#FFD60A;margin-left:4px">uphill</span></div>
     </div>
-    <div style="margin-top:10px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;font-size:12px">
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:700;color:var(--text)">2</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:23%;background:#30D158;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:700;color:#30D158;text-align:right;white-space:nowrap">-16m</div>
+      <div style="min-width:120px"><span style="font-size:10px;color:#30D158;margin-left:4px">downhill</span></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">3</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:4%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+3m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:700;color:var(--text)">4</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:23%;background:#30D158;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:700;color:#30D158;text-align:right;white-space:nowrap">-16m</div>
+      <div style="min-width:120px"><span style="font-size:10px;color:#30D158;margin-left:4px">downhill</span></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:700;color:var(--text)">5</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:40%;background:#0A84FF;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:700;color:#0A84FF;text-align:right;white-space:nowrap">-28m</div>
+      <div style="min-width:120px"><span style="font-size:10px;color:#0A84FF;margin-left:4px">steep descent</span><span style="font-size:10px;color:#FF453A;font-weight:600">← watch quads</span></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:700;color:var(--text)">6</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:46%;background:#FF453A;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:700;color:#FF453A;text-align:right;white-space:nowrap">+32m</div>
+      <div style="min-width:120px"><span style="font-size:10px;color:#FF453A;margin-left:4px">steep climb</span><span style="font-size:10px;color:#FF453A;font-weight:600">← hardest km</span></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">7</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:9%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-7m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">8</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:7%;background:#8e8e93;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">+5m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">9</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+1m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:700;color:var(--text)">10</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:16%;background:#30D158;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:700;color:#30D158;text-align:right;white-space:nowrap">-11m</div>
+      <div style="min-width:120px"><span style="font-size:10px;color:#30D158;margin-left:4px">downhill</span></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">11</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:12%;background:#8e8e93;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">+9m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:700;color:var(--text)">12</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:17%;background:#FFD60A;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:700;color:#FFD60A;text-align:right;white-space:nowrap">+12m</div>
+      <div style="min-width:120px"><span style="font-size:10px;color:#FFD60A;margin-left:4px">uphill</span><span style="font-size:10px;color:#FF453A;font-weight:600">← notable</span></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">13</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:11%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-8m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:700;color:var(--text)">14</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:19%;background:#30D158;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:700;color:#30D158;text-align:right;white-space:nowrap">-13m</div>
+      <div style="min-width:120px"><span style="font-size:10px;color:#30D158;margin-left:4px">downhill</span></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:700;color:var(--text)">15</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:41%;background:#0A84FF;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:700;color:#0A84FF;text-align:right;white-space:nowrap">-29m</div>
+      <div style="min-width:120px"><span style="font-size:10px;color:#0A84FF;margin-left:4px">steep descent</span><span style="font-size:10px;color:#FF453A;font-weight:600">← watch quads</span></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">16</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:6%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-4m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">17</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:10%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-7m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:700;color:var(--text)">18</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:32%;background:#0A84FF;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:700;color:#0A84FF;text-align:right;white-space:nowrap">-22m</div>
+      <div style="min-width:120px"><span style="font-size:10px;color:#0A84FF;margin-left:4px">steep descent</span><span style="font-size:10px;color:#FF453A;font-weight:600">← watch quads</span></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">19</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:12%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-8m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">20</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:7%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-5m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">21</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:0%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+0m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">22</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:3%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+2m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">23</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:0%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+0m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">24</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+1m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">25</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:6%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-4m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">26</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:3%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+2m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">27</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:4%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-2m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">28</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:1%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-1m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">29</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:0%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+0m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">30</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:5%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+3m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">31</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:4%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-3m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">32</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+2m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">33</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:3%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-2m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">34</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+2m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">35</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+2m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">36</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-1m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">37</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:1%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-1m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">38</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:1%;background:#3a3a3c;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">+0m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">39</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-1m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">40</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end"></div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%;display:flex;align-items:center">
+            <div style="height:8px;width:7%;background:#8e8e93;border-radius:0 3px 3px 0;min-width:2px"></div>
+          </div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">+5m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">41</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:7%;background:#8e8e93;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#8e8e93;text-align:right;white-space:nowrap">-5m</div>
+      <div style="min-width:120px"></div>
+    </div>
+<div style="display:grid;grid-template-columns:28px 1fr 48px auto;align-items:center;gap:8px;padding:5px 12px;border-top:1px solid #222">
+      <div style="font-size:12px;font-weight:400;color:var(--text-dim)">42</div>
+      <div style="display:flex;align-items:center;gap:0;width:100%">
+          <div style="width:50%;display:flex;justify-content:flex-end;align-items:center">
+            <div style="height:8px;width:2%;background:#3a3a3c;border-radius:3px 0 0 3px;min-width:2px"></div>
+          </div>
+          <div style="width:1px;height:14px;background:#3a3a3c;flex-shrink:0"></div>
+          <div style="width:50%"></div>
+        </div>
+      <div style="font-size:12px;font-weight:400;color:#3a3a3c;text-align:right;white-space:nowrap">-1m</div>
+      <div style="min-width:120px"></div>
+    </div>
+      </div>
+    </div>
+
+    <!-- Key callout cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:20px;font-size:12px">
       <div style="background:rgba(255,69,58,0.08);border:1px solid rgba(255,69,58,0.25);border-radius:10px;padding:12px 14px">
-        <strong style="color:#FF453A">⚠ km 5–6: Valley trap</strong><br>
-        <span style="color:var(--text-dim)">−28m drop into a steep +32m climb in back-to-back kms. Most runners bomb the descent at km 5 then blow up on km 6. Keep the descent controlled — shorten stride, don't let gravity dictate pace.</span>
+        <strong style="color:#FF453A">⚠ km 5–6: The valley trap</strong><br>
+        <span style="color:var(--text-dim)">−28m drop then immediately +32m climb. Most runners bomb km 5 and blow up on km 6. Control the descent — shorten stride, don't let gravity set the pace.</span>
       </div>
       <div style="background:rgba(255,69,58,0.08);border:1px solid rgba(255,69,58,0.25);border-radius:10px;padding:12px 14px">
-        <strong style="color:#FF453A">⚠ km 15 and 18: Quad killers</strong><br>
-        <span style="color:var(--text-dim)">Two long steep descents (−29m and −22m) in the second half of the first half. By km 20 your quads will have absorbed ~100m of braking. Saturday's Beaver Lake descent trains exactly this. Run these downhills at the same effort level, slower pace.</span>
+        <strong style="color:#FF453A">⚠ km 15 & 18: Quad killers</strong><br>
+        <span style="color:var(--text-dim)">Two steep descents (−29m, −22m) back-to-back. By km 20 your quads will have absorbed ~100m of braking load. These hurt late in the race if you let yourself loose on them here.</span>
       </div>
       <div style="background:rgba(48,209,88,0.08);border:1px solid rgba(48,209,88,0.25);border-radius:10px;padding:12px 14px">
-        <strong style="color:#30D158">✓ km 21–42: Dead flat</strong><br>
-        <span style="color:var(--text-dim)">Once you hit km 21 the course is essentially flat (±5m per km) along the waterfront all the way to the finish. No more hills. If you survived the first half with legs intact, this is where you can run your own race.</span>
+        <strong style="color:#30D158">✓ km 21–42: Genuinely flat</strong><br>
+        <span style="color:var(--text-dim)">Once you hit km 21, no hill exceeds ±5m per km. Waterfront all the way. If your legs are intact here, you can run your own race to the finish.</span>
       </div>
+    </div>
+
+    <!-- Montreal vs Toronto comparison -->
+    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:14px;padding:18px 20px;margin-bottom:20px">
+
+    <div class="section-title" style="margin-bottom:14px">Toronto Hills vs Your Montreal Training Ground</div>
+    <div style="font-size:12px;color:var(--text-dim);margin-bottom:14px">
+      You've run these Montreal hills. Here's how Toronto's course compares — and what you already know how to handle.
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px">
+
+      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #FF453A">
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px">km 6 Toronto: +32m in 1 km <span style="color:#FF453A">↑↑</span></div>
+        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
+          <strong style="color:var(--text)">Equivalent to:</strong> The Peel St ramp from Sherbrooke up toward the mountain entrance (~2–3 min of sustained effort). Not the mountain itself — just the approach ramp.<br><br>
+          <strong style="color:#30D158">You know this.</strong> Keep effort steady, shorten stride slightly, don't overstride at the top.
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #FFD60A">
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px">km 12 Toronto: +12m in 1 km <span style="color:#FFD60A">↑</span></div>
+        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
+          <strong style="color:var(--text)">Equivalent to:</strong> Cedar Ave going east toward Guy St — the gentle slope you run every morning leaving home. This is nothing.<br><br>
+          <strong style="color:#30D158">You won't even notice it.</strong> Just keep breathing steady.
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #0A84FF">
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px">km 5 Toronto: −28m in 1 km <span style="color:#0A84FF">↓↓</span></div>
+        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
+          <strong style="color:var(--text)">Equivalent to:</strong> The north-side descent from the Mont-Royal summit toward Avenue du Parc — but in 1 km instead of 2. Steep, quad-heavy descent.<br><br>
+          <strong style="color:#FFD60A">Saturday's descent from Beaver Lake</strong> is harder and longer. If you walked it, you still trained the eccentric load.
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #0A84FF">
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px">km 15 Toronto: −29m in 1 km <span style="color:#0A84FF">↓↓</span></div>
+        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
+          <strong style="color:var(--text)">Equivalent to:</strong> The steepest section of Olmsted Rd descending toward the lower Beaver Lake parking lot. Same grade, same quad burn.<br><br>
+          <strong style="color:#30D158">At km 15 you're still fresh</strong> — this is manageable. Shorten your stride and let gravity do the work without pounding.
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #30D158">
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px">km 21–42 Toronto: Dead flat <span style="color:#30D158">→</span></div>
+        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
+          <strong style="color:var(--text)">Equivalent to:</strong> The F1 circuit — flat island roads with nothing but distance. You ran 2 laps of that on Saturday.<br><br>
+          <strong style="color:#30D158">You've rehearsed exactly this.</strong> The only difference: you'll have 21 km already in your legs instead of 6.
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;border-left:3px solid #BF5AF2">
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px">Sat Beaver Lake climb: +150m over 3 km <span style="color:#BF5AF2">↑↑↑</span></div>
+        <div style="font-size:12px;color:var(--text-dim);line-height:1.6">
+          <strong style="color:var(--text)">Toronto comparison:</strong> Nothing on the Toronto course comes close to this. The hardest Toronto km is +32m. Beaver Lake does +50m/km sustained.<br><br>
+          <strong style="color:#30D158">If you survived Beaver Lake</strong> (even walking it), every Toronto hill will feel like a speed bump.
+        </div>
+      </div>
+
+    </div>
+
     </div>
   </div>
 
-    </div>
     <div style="margin-top:14px;background:var(--surface);border:1px solid var(--surface3);border-radius:14px;padding:18px 20px">
       <div class="section-title" style="margin-bottom:10px">How Saturday's Run Prepares You for This</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;font-size:13px">
