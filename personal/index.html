@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal — Alireza Toghiani</title>
+<style>
+  :root {
+    --orange: #FC4C02;
+    --bg: #111113;
+    --surface: #1c1c1e;
+    --surface2: #2c2c2e;
+    --surface3: #3a3a3c;
+    --text: #f5f5f7;
+    --text-dim: #98989d;
+    --green: #30D158;
+    --yellow: #FFD60A;
+    --red: #FF453A;
+    --blue: #0A84FF;
+    --purple: #BF5AF2;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; font-size: 14px; line-height: 1.5;
+  }
+  a { color: var(--orange); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Top nav ── */
+  .topnav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px; border-bottom: 1px solid var(--surface3);
+    background: rgba(17,17,19,0.85); backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .topnav-brand { font-size: 16px; font-weight: 700; color: var(--text); }
+  .topnav-back { font-size: 13px; color: var(--text-dim); display: flex; align-items: center; gap: 6px; }
+  .topnav-back:hover { color: var(--text); text-decoration: none; }
+
+  .shell { max-width: 960px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  /* ── Page header ── */
+  .page-header { margin-bottom: 32px; }
+  .page-header h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
+  .page-header p { color: var(--text-dim); font-size: 13px; margin-top: 4px; }
+
+  /* ── Tabs ── */
+  .tabs { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 1px solid var(--surface3); padding-bottom: 0; }
+  .tab-btn {
+    background: none; border: none; color: var(--text-dim);
+    font-size: 14px; font-weight: 500; padding: 10px 16px; cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1.2px; color: var(--text-dim); margin-bottom: 14px; margin-top: 32px;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ── Race cards ── */
+  .race-card {
+    background: var(--surface); border: 1px solid var(--surface3);
+    border-radius: 16px; padding: 22px 24px; margin-bottom: 12px;
+    position: relative;
+  }
+  .race-card.upcoming { border-color: rgba(252,76,2,0.35); }
+  .race-card.completed { border-color: rgba(48,209,88,0.3); }
+
+  .race-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
+  .race-title { font-size: 17px; font-weight: 700; }
+  .race-meta { font-size: 12px; color: var(--text-dim); margin-top: 3px; }
+  .race-badge {
+    display: inline-block; padding: 4px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0;
+  }
+  .badge-upcoming { background: rgba(252,76,2,0.15); color: var(--orange); }
+  .badge-done     { background: rgba(48,209,88,0.15); color: var(--green); }
+  .badge-dns      { background: rgba(58,58,60,0.8);   color: var(--text-dim); }
+
+  /* Stats row */
+  .race-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px,1fr)); gap: 10px; margin-bottom: 12px; }
+  .race-stat { background: var(--surface2); border-radius: 10px; padding: 10px 12px; }
+  .rs-label { font-size: 10px; text-transform: uppercase; letter-spacing: .7px; color: var(--text-dim); margin-bottom: 4px; }
+  .rs-val { font-size: 18px; font-weight: 700; }
+  .rs-val.orange { color: var(--orange); }
+  .rs-val.green  { color: var(--green); }
+  .rs-val.blue   { color: var(--blue); }
+
+  /* Countdown block */
+  .countdown-block {
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    background: rgba(252,76,2,0.06); border-radius: 12px; padding: 16px 18px; margin-bottom: 14px;
+  }
+  .countdown-num { font-size: 48px; font-weight: 800; color: var(--orange); line-height: 1; }
+  .countdown-lbl { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .8px; margin-top: 2px; }
+  .countdown-detail { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+  .countdown-detail strong { color: var(--text); }
+
+  .race-notes { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+  .race-links { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .race-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface2); border: 1px solid var(--surface3);
+    border-radius: 8px; padding: 6px 12px; font-size: 12px; color: var(--text-dim);
+    transition: border-color .15s, color .15s;
+  }
+  .race-link:hover { border-color: var(--orange); color: var(--text); text-decoration: none; }
+
+  /* Race history table */
+  .table-wrap { background: var(--surface); border: 1px solid var(--surface3); border-radius: 14px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    background: var(--surface2); padding: 10px 14px; text-align: left;
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .8px;
+    color: var(--text-dim); white-space: nowrap; position: sticky; top: 0;
+  }
+  tbody tr { border-top: 1px solid var(--surface3); }
+  tbody tr:hover { background: var(--surface2); }
+  tbody td { padding: 10px 14px; color: var(--text); white-space: nowrap; }
+  .empty-row td { text-align: center; color: var(--text-dim); padding: 28px; font-style: italic; }
+
+  /* Refresh button */
+  .refresh-btn {
+    background: var(--surface); border: 1px solid var(--surface3);
+    color: var(--text-dim); border-radius: 10px; padding: 8px 16px;
+    font-size: 12px; font-weight: 600; cursor: pointer; letter-spacing: .4px;
+    transition: border-color .15s, color .15s;
+  }
+  .refresh-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+  /* Club card */
+  .club-card {
+    background: var(--surface); border: 1px solid var(--surface3);
+    border-radius: 16px; padding: 22px 24px; display: flex;
+    align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .club-icon { font-size: 48px; flex-shrink: 0; }
+  .club-info { flex: 1; min-width: 180px; }
+  .club-name { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .club-sub  { font-size: 13px; color: var(--text-dim); margin-bottom: 10px; line-height: 1.6; }
+  .club-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* Trip card (inline) */
+  .trip-card {
+    display: flex; align-items: center; gap: 18px;
+    background: var(--surface); border: 1px solid var(--surface3);
+    border-radius: 16px; padding: 20px 22px; margin-bottom: 12px;
+    text-decoration: none; color: var(--text); transition: border-color .15s;
+    position: relative; overflow: hidden;
+  }
+  .trip-card:hover { border-color: var(--surface2); text-decoration: none; }
+  .trip-card::after { content: '→'; position: absolute; right: 22px; top: 50%; transform: translateY(-50%); color: var(--text-dim); font-size: 18px; }
+  .trip-flag { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .trip-info { flex: 1; min-width: 0; padding-right: 28px; }
+  .trip-name { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+  .trip-sub  { font-size: 12px; color: var(--text-dim); margin-bottom: 7px; }
+  .trip-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+  .tag-upcoming { background: rgba(10,132,255,.15); color: var(--blue); }
+  .tag-done     { background: rgba(58,58,60,.8);   color: var(--text-dim); }
+  .tag-active   { background: rgba(48,209,88,.15); color: var(--green); }
+  .tag-solo     { background: rgba(58,58,60,.5);   color: var(--text-dim); }
+  .trip-dates { font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .trip-countdown { font-size: 11px; color: var(--text-dim); margin-top: 3px; white-space: nowrap; }
+  .trip-countdown.soon   { color: var(--yellow); }
+  .trip-countdown.active { color: var(--green); }
+
+  /* Footer */
+  .footer { text-align: center; color: var(--text-dim); font-size: 11px; padding-top: 32px; border-top: 1px solid var(--surface3); margin-top: 48px; }
+
+  @media (max-width: 600px) {
+    .trip-dates, .trip-countdown { display: none; }
+    .trip-card::after { display: none; }
+    .trip-info { padding-right: 0; }
+    .countdown-num { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="topnav-back" href="/">← alireza12t.github.io</a>
+  <span class="topnav-brand">Personal</span>
+  <span style="width:120px"></span>
+</nav>
+
+<div class="shell">
+
+  <div class="page-header">
+    <h1>Personal</h1>
+    <p>Races · Trips · Club — Alireza Toghiani</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('races',this)">🏃 Races</button>
+    <button class="tab-btn" onclick="showTab('trips',this)">✈️ Trips</button>
+    <button class="tab-btn" onclick="showTab('club',this)">👟 MISFITRUNCLUB</button>
+  </div>
+
+  <!-- ── RACES TAB ── -->
+  <div class="tab-panel active" id="tab-races">
+
+    <div id="race-upcoming-section">
+      <div class="section-label">Upcoming</div>
+      <div id="upcoming-races"></div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:32px;margin-bottom:14px">
+      <div class="section-label" style="margin:0">Race History</div>
+      <button class="refresh-btn" id="race-refresh-btn" onclick="refreshRaceData()">↻ Refresh</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th><th>Race</th><th>Distance</th><th>Finish Time</th>
+            <th>Pace</th><th>Overall</th><th>AG Place</th><th>Location</th>
+          </tr>
+        </thead>
+        <tbody id="race-history-tbody">
+          <tr class="empty-row"><td colspan="8">No completed races yet</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ── TRIPS TAB ── -->
+  <div class="tab-panel" id="tab-trips">
+
+    <div class="section-label">Upcoming</div>
+    <a class="trip-card" href="/trips/spain-may-2026/">
+      <div class="trip-flag">🇪🇸</div>
+      <div class="trip-info">
+        <div class="trip-name">Spain — Andalusia, Valencia &amp; Barcelona</div>
+        <div class="trip-sub">Tarifa · Granada · Córdoba · Valencia · Barcelona</div>
+        <div class="trip-tags">
+          <span class="tag tag-upcoming" id="spain-tag">Upcoming</span>
+          <span class="tag tag-solo">Solo</span>
+          <span class="tag tag-solo">16 days</span>
+        </div>
+      </div>
+      <div>
+        <div class="trip-dates">May 6 – 22, 2026</div>
+        <div class="trip-countdown" id="spain-countdown">Loading…</div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ── CLUB TAB ── -->
+  <div class="tab-panel" id="tab-club">
+
+    <div class="section-label">Running Club</div>
+    <div class="club-card">
+      <div class="club-icon">🏃</div>
+      <div class="club-info">
+        <div class="club-name">MISFITRUNCLUB — Montreal</div>
+        <div class="club-sub">
+          A Montreal running community. Weekly group runs, long runs, intervals, and social events.
+          I'm a regular member and train with the club for races including the Toronto Marathon 2026.
+          <br>If you're in Montreal and want to run — this is the club.
+        </div>
+        <div class="club-links">
+          <a class="race-link" href="https://www.instagram.com/misfitrunclub" target="_blank" rel="noopener">
+            📸 Instagram @misfitrunclub
+          </a>
+          <a class="race-link" href="https://www.strava.com/clubs/misfitrunclub" target="_blank" rel="noopener">
+            🟠 Strava Club
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:28px">My Training</div>
+    <div class="race-card" style="border-color:rgba(252,76,2,0.2)">
+      <div class="race-notes" style="line-height:1.8">
+        Joined MISFITRUNCLUB in early 2026 as part of my Toronto Marathon build.
+        The club's long runs on Saturday mornings through Montreal (Mont-Royal, Plateau, Mile End)
+        became the backbone of my training. The Apr 25 long run — Cedar → F1 Circuit → Mont-Royal →
+        Saint-Viateur — was a club-influenced route with 290m of elevation gain, significantly harder
+        than Toronto's course.<br><br>
+        Training dashboard: <a href="/misfit/">misfit/</a> (password protected · club members only)
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <a href="/">← Home</a>
+  </div>
+
+</div>
+
+<script>
+// ── Tab switching ──
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── Race data ──
+const RACE_DAY = new Date('2026-05-03T07:00:00-04:00');
+
+function pad(n) { return String(n).padStart(2,'0'); }
+
+function renderRaces(data) {
+  // Upcoming
+  const upcomingEl = document.getElementById('upcoming-races');
+  const upcomingSection = document.getElementById('race-upcoming-section');
+  const now = Date.now();
+  const raceOver = now >= RACE_DAY.getTime() + 8*3600*1000; // 8h after gun = race over
+
+  if (data.upcoming && data.upcoming.length > 0) {
+    upcomingEl.innerHTML = data.upcoming.map(r => {
+      const rDate = new Date(r.date + 'T07:00:00-04:00');
+      const daysTo = Math.ceil((rDate - now) / 86400000);
+
+      if (raceOver && r.status === 'upcoming') {
+        // Race happened — show result placeholder until manual data update
+        return `
+        <div class="race-card upcoming">
+          <div class="race-header">
+            <div>
+              <div class="race-title">${r.name}</div>
+              <div class="race-meta">${r.date} · ${r.location} · ${r.distance_km} km</div>
+            </div>
+            <span class="race-badge badge-done">Completed</span>
+          </div>
+          <div class="race-notes">
+            Race completed. Official results pending — hit Refresh to load finishing time and splits.
+            ${r.notes ? '<br><br>' + r.notes : ''}
+          </div>
+          <div class="race-links">
+            <a class="race-link" href="https://www.sportstats.ca" target="_blank" rel="noopener">🏅 Official Results (Sportstats)</a>
+            <a class="race-link" href="https://www.strava.com/athletes/alireza12t" target="_blank" rel="noopener">🟠 Strava</a>
+          </div>
+        </div>`;
+      }
+
+      // Pre-race: countdown
+      return `
+      <div class="race-card upcoming">
+        <div class="race-header">
+          <div>
+            <div class="race-title">${r.name}</div>
+            <div class="race-meta">${r.date} · ${r.location} · ${r.distance_km} km</div>
+          </div>
+          <span class="race-badge badge-upcoming">Race Day</span>
+        </div>
+        <div class="countdown-block">
+          <div>
+            <div class="countdown-num" id="cd-days">${daysTo}</div>
+            <div class="countdown-lbl">Days to go</div>
+          </div>
+          <div class="countdown-detail">
+            <strong>Toronto Waterfront Marathon</strong> — May 3, 2026<br>
+            Gun time: ~7:00 AM · Start: Mel Lastman Square<br>
+            Target: 5h31–5h56 · Pace: 8:30/km<br>
+            Training: 166.9 km in 90 days · Longest run: 23.7 km
+          </div>
+        </div>
+        ${r.notes ? `<div class="race-notes">${r.notes}</div>` : ''}
+        <div class="race-links">
+          <a class="race-link" href="https://torontowaterfrontmarathon.com" target="_blank" rel="noopener">🏁 Race Website</a>
+          <a class="race-link" href="/misfit/">📊 Training Dashboard</a>
+          <a class="race-link" href="https://www.strava.com/athletes/alireza12t" target="_blank" rel="noopener">🟠 Strava</a>
+        </div>
+      </div>`;
+    }).join('');
+  } else {
+    upcomingSection.style.display = 'none';
+  }
+
+  // Completed
+  const tbody = document.getElementById('race-history-tbody');
+  if (data.completed && data.completed.length > 0) {
+    tbody.innerHTML = data.completed.map(r => `
+      <tr>
+        <td>${r.date}</td>
+        <td style="font-weight:600">${r.name}</td>
+        <td>${r.distance_km} km</td>
+        <td style="color:var(--orange);font-weight:700">${r.finish_time || '—'}</td>
+        <td>${r.pace || '—'}</td>
+        <td>${r.overall_place || '—'}</td>
+        <td>${r.age_group_place || '—'}</td>
+        <td style="color:var(--text-dim)">${r.location}</td>
+      </tr>`).join('');
+  } else {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No completed races yet</td></tr>';
+  }
+}
+
+// Load race data from JSON
+async function loadRaceData() {
+  try {
+    const r = await fetch('/personal/races.json?t=' + Date.now());
+    const data = await r.json();
+    renderRaces(data);
+  } catch(e) {
+    console.error('Could not load races.json', e);
+  }
+}
+
+// Manual refresh — triggers Lambda to re-fetch Strava data, then reloads
+async function refreshRaceData() {
+  const btn = document.getElementById('race-refresh-btn');
+  btn.textContent = 'Refreshing…';
+  btn.disabled = true;
+
+  const WORKER_URL = 'https://r7n6gzfefcwld37lyjkabauqk40sqydj.lambda-url.us-east-1.on.aws/run-refresh';
+  const REFRESH_KEY = 'misfit2026';
+
+  try {
+    const r = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'X-Refresh-Key': REFRESH_KEY, 'Content-Type': 'application/json' },
+    });
+    const json = await r.json().catch(() => ({}));
+    if (json.ok) {
+      btn.textContent = '✓ Triggered — reloading in 2 min';
+      btn.style.color = 'var(--green)';
+      setTimeout(() => {
+        loadRaceData();
+        btn.textContent = '↻ Refresh';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 120000);
+    } else {
+      btn.textContent = 'Error — try again';
+      btn.style.color = 'var(--red)';
+      btn.disabled = false;
+      setTimeout(() => { btn.textContent = '↻ Refresh'; btn.style.color = ''; }, 3000);
+    }
+  } catch(e) {
+    btn.textContent = '↻ Refresh';
+    btn.disabled = false;
+  }
+}
+
+// ── Spain trip countdown ──
+function updateSpainCountdown() {
+  const dep  = new Date('2026-05-06T23:00:00-04:00');
+  const land = new Date('2026-05-22T11:15:00-04:00');
+  const now  = Date.now();
+  const el   = document.getElementById('spain-countdown');
+  const tag  = document.getElementById('spain-tag');
+  if (!el) return;
+  if (now >= land.getTime()) {
+    el.textContent = 'Completed'; tag.textContent = 'Done'; tag.className = 'tag tag-done';
+  } else if (now >= dep.getTime()) {
+    const d = Math.ceil((now - dep.getTime()) / 86400000);
+    el.textContent = `Day ${d} of 16`; el.className = 'trip-countdown active';
+    tag.textContent = 'In Progress'; tag.className = 'tag tag-active';
+  } else {
+    const d = Math.ceil((dep.getTime() - now) / 86400000);
+    el.textContent = d === 1 ? 'Tomorrow' : `In ${d} days`;
+    el.className = d <= 7 ? 'trip-countdown soon' : 'trip-countdown';
+  }
+}
+
+loadRaceData();
+updateSpainCountdown();
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "updated": "2026-04-25",
+  "upcoming": [
+    {
+      "id": "toronto-2026",
+      "name": "Toronto Waterfront Marathon",
+      "date": "2026-05-03",
+      "location": "Toronto, ON",
+      "distance_km": 42.2,
+      "status": "upcoming",
+      "bib": null,
+      "finish_time": null,
+      "finish_chip": null,
+      "pace": null,
+      "overall_place": null,
+      "age_group_place": null,
+      "notes": "First marathon. Training with MISFITRUNCLUB Montreal.",
+      "strava_activity_id": null
+    }
+  ],
+  "completed": []
+}
