@@ -140,7 +140,8 @@
     background: var(--surface);
     border: 1px solid var(--surface3);
     border-radius: 14px;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead th {
@@ -342,56 +343,84 @@
 
   <!-- Tab: Long Run -->
   <div class="tab-panel active" id="tab-longrun">
-  <!-- Route Plan -->
+
+  <!-- Run summary strip -->
+  <div id="run-summary-strip" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:20px"></div>
+
+  <!-- Map: real GPS + planned overlay -->
   <div class="section">
-    <div class="section-title">Saturday Route Plan — 4h Running, ~26 km Total</div>
-
-    <div class="warning-box">
-      ⚠ Your longest run in 90 days is 8.2 km. Today you're targeting ~25 km. That's 3× your longest run in one session — run the solo portion at a genuinely easy effort (HR &lt;150, fully conversational). Walk uphills. Do not race. The route ends naturally at your meetup spot (124 Rue Saint-Viateur O) — no need to double back to Cedar.
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+      <div class="section-title" style="margin-bottom:0">Your Actual Route vs Planned — Apr 25, 2026</div>
+      <button id="toggle-planned-btn" onclick="window.togglePlanned && window.togglePlanned()" style="background:var(--surface);border:1px solid var(--surface3);color:var(--text-dim);border-radius:8px;padding:6px 14px;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:0.4px">Hide Planned</button>
     </div>
-
-    <!-- Day schedule -->
-    <div class="sched-wrap">
-      <div class="sched-row"><span class="sched-time">5:30 am</span><span class="sched-tag">Wake + Eat</span><span class="sched-note">Donut + coffee at home. Eat it NOW, not during the run — fat slows digestion mid-effort.</span></div>
-      <div class="sched-row"><span class="sched-time">5:50 am</span><span class="sched-tag">Solo Start</span><span class="sched-note">Leave from 1745 Cedar Ave. Head east through downtown toward Jacques-Cartier Bridge.</span></div>
-      <div class="sched-row"><span class="sched-time">~6:50 am</span><span class="sched-tag">Circuit Entry</span><span class="sched-note">~6 km in. Cross Jacques-Cartier Bridge pedestrian path → Île Notre-Dame. First caffeine gel here.</span></div>
-      <div class="sched-row"><span class="sched-time">~6:50–7:35 am</span><span class="sched-tag">F1 Lap 1</span><span class="sched-note">4.36 km lap of Circuit Gilles Villeneuve. Completely flat. This is your marathon-pace section. Run 8:30–9:00/km here.</span></div>
-      <div class="sched-row"><span class="sched-time">~7:35–8:20 am</span><span class="sched-tag">F1 Lap 2</span><span class="sched-note">Second lap. ~14.7 km total done. Non-caffeine gel at start of this lap. Hold the same pace — no speeding up.</span></div>
-      <div class="sched-row"><span class="sched-time">~8:20 am</span><span class="sched-tag">Head North</span><span class="sched-note">Leave circuit, head northwest through Plateau toward Mile End. ~7 km left. Water stop at a café on Laurier or Saint-Denis.</span></div>
-      <div class="sched-row highlight"><span class="sched-time">~9:15 am</span><span class="sched-tag">Arrive Meetup</span><span class="sched-note">~21 km solo done. You're at 124 Rue Saint-Viateur O — already at the finish. Keep moving, don't sit down.</span></div>
-      <div class="sched-row highlight"><span class="sched-time">9:30 am</span><span class="sched-tag">EBC Gathers</span><span class="sched-note">Chat, stretch, eat the gel or banana you saved. Hydrate. Let your legs know there's 5 more km coming.</span></div>
-      <div class="sched-row highlight"><span class="sched-time">10:00 am</span><span class="sched-tag">Group Run</span><span class="sched-note">EBC × Café Olimpico 5 km community run. You're already at 21 km — just survive and enjoy it.</span></div>
-      <div class="sched-row highlight"><span class="sched-time">~10:50 am</span><span class="sched-tag">Done ✓</span><span class="sched-note">~26 km total. Longest run of your life. Eat a real meal within 30 min. Protein + carbs.</span></div>
+    <div style="display:flex;gap:18px;margin-bottom:10px;font-size:11px;color:var(--text-dim);flex-wrap:wrap">
+      <span><span style="color:#FC4C02;font-weight:700">——</span> Real GPS path (Strava)</span>
+      <span style="opacity:0.6"><span style="border-bottom:2px dashed #888;display:inline-block;width:24px;vertical-align:middle"></span> Planned route</span>
     </div>
-
-    <!-- Map -->
     <div id="map"></div>
+  </div>
 
-    <!-- Segment breakdown -->
+  <!-- Per-km uphill chart -->
+  <div class="section">
+    <div class="section-title">Km-by-Km: Elevation · Pace · HR</div>
+    <div class="chart-wrap" style="padding-bottom:20px">
+      <canvas id="longrun-chart" style="width:100%;display:block"></canvas>
+      <div class="chart-legend" style="margin-top:14px">
+        <div class="legend-item"><div class="legend-dot" style="background:#FF453A"></div> Steep climb ≥15m</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#FFD60A"></div> Moderate 8–14m</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#30D158"></div> Flat &lt;8m</div>
+        <div class="legend-item"><div style="width:22px;height:2px;background:#0A84FF;display:inline-block;margin-right:6px;vertical-align:middle"></div> Pace</div>
+        <div class="legend-item"><div style="width:22px;height:2px;background:#BF5AF2;display:inline-block;margin-right:6px;vertical-align:middle;border-top:2px dashed #BF5AF2"></div> HR</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Uphill analysis cards -->
+  <div class="section">
+    <div class="section-title">Uphill Analysis — What Today's Climbs Tell You for May 3</div>
+    <div class="segments-grid" id="uphill-cards"></div>
+  </div>
+
+  <!-- Marathon implication -->
+  <div class="section">
+    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:14px;padding:18px 20px">
+      <div class="section-title" style="margin-bottom:10px">How Today Prepares You for Toronto</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;font-size:13px">
+        <div><span style="color:var(--green);font-weight:700">✓ 23.7 km done</span><br><span style="color:var(--text-dim)">You've now experienced what 3h30+ of running fatigue feels like. Toronto will take 5h30+. You know how your body handles the first 24 km — that's most of the race solved.</span></div>
+        <div><span style="color:var(--green);font-weight:700">✓ Uphill walking strategy works</span><br><span style="color:var(--text-dim)">Today's data proves it: you walked the 36m Beaver Lake climb at HR 117, then recovered to 7:11/km in one kilometre. Toronto has no climbs this steep — you'll run everything there.</span></div>
+        <div><span style="color:var(--green);font-weight:700">✓ 290m gain vs Toronto's 116m</span><br><span style="color:var(--text-dim)">You trained on harder terrain than the race. Toronto's course is nearly twice as flat as today. Your legs have already done the harder work.</span></div>
+        <div><span style="color:var(--orange);font-weight:700">⚠ Start Toronto at 8:30/km</span><br><span style="color:var(--text-dim)">Today's km 20–22 (6:22–6:53/km at HR 164) shows you have a finishing gear. Save it. Lock into 8:30 from gun — that gear is your weapon for km 32+.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Planned route reference -->
+  <div class="section">
+    <div class="section-title">Planned Route Reference (Cedar → F1 → Mont-Royal → Saint-Viateur)</div>
     <div class="segments-grid">
       <div class="segment" style="border-color:#FC4C02">
         <div class="seg-title">① City Run — Cedar → Jacques-Cartier Bridge</div>
-        <div class="seg-detail">~6 km · flat city roads · ~58 min<br>East through downtown. Easy warm-up pace. Enjoy waking up Montreal. Caffeine gel at the bridge approach.</div>
+        <div class="seg-detail">~6 km · flat city roads · warm-up pace<br>East through downtown. Caffeine gel at the bridge approach.</div>
       </div>
       <div class="segment" style="border-color:#30D158">
         <div class="seg-title">② F1 Lap 1 — Circuit Gilles Villeneuve</div>
-        <div class="seg-detail">4.36 km · completely flat · ~42 min<br>Open April 15 – Nov 15 for public running. Run 8:30–9:00/km. Feel like Hamilton. This is your marathon-pace drill.</div>
+        <div class="seg-detail">4.36 km · completely flat · marathon-pace drill<br>Open April 15 – Nov 15. Run 8:30–9:00/km.</div>
       </div>
-      <div class="segment" style="border-color:#30D158; opacity:0.8">
+      <div class="segment" style="border-color:#30D158;opacity:0.8">
         <div class="seg-title">③ F1 Lap 2 — Circuit Gilles Villeneuve</div>
-        <div class="seg-detail">4.36 km · completely flat · ~42 min<br>Non-caffeine gel at start. Hold exact same pace as lap 1 — if you slow down, that's okay. No ego. Second gel here.</div>
+        <div class="seg-detail">4.36 km · completely flat · hold lap 1 pace<br>Non-caffeine gel at start. No ego.</div>
       </div>
       <div class="segment" style="border-color:#0A84FF">
-        <div class="seg-title">④ North — Circuit → Plateau → Mile End</div>
-        <div class="seg-detail">~7 km · flat to slight uphill · ~68 min<br>Head northwest through the Plateau. Water stop at a café on Laurier or Saint-Denis (~halfway). Last gel at km 18.</div>
+        <div class="seg-title">④ North — Plateau → Mont-Royal → Mile End</div>
+        <div class="seg-detail">~7 km · hills including Beaver Lake (+150m)<br>Walk the Beaver Lake climb. Water stop at Laurier or Saint-Denis.</div>
       </div>
       <div class="segment" style="border-color:#FFD60A">
         <div class="seg-title">⑤ Arrive — 124 Rue Saint-Viateur O</div>
-        <div class="seg-detail">Destination = meetup spot · ~21 km solo done<br>You arrive at the EBC gathering point already warmed up, already heroic. Don't sit — walk it off.</div>
+        <div class="seg-detail">EBC gathering point · ~21 km solo done<br>Don't sit — walk it off. You earned it.</div>
       </div>
       <div class="segment" style="border-color:#BF5AF2">
         <div class="seg-title">⑥ EBC × Café Olimpico Community Run</div>
-        <div class="seg-detail">5 km · 10:00 am · ~47 min<br>You're at 21 km on your legs. Run with the group, let someone else set the pace. You just ran an F1 track twice.</div>
+        <div class="seg-detail">5 km · 10:00 am start<br>You're at 21+ km on your legs. Let someone else set the pace.</div>
       </div>
     </div>
   </div>
@@ -400,9 +429,16 @@
 
   <!-- Tab: Marathon -->
   <div class="tab-panel" id="tab-marathon">
+
+  <!-- Pacing strategy banner (unique to Marathon tab — informed by long run data) -->
+  <div style="background:rgba(252,76,2,0.08);border:1px solid rgba(252,76,2,0.3);border-radius:12px;padding:14px 18px;margin-bottom:20px;font-size:13px">
+    <span style="color:var(--orange);font-weight:700">Your long run verdict for May 3:</span>
+    <span style="color:var(--text-dim)"> km 20–22 today ran at 6:22–6:53/km (HR 164–166) after 3h on your feet — you have a finishing gear. Lock into <strong style="color:var(--text)">8:30/km</strong> from the gun and save it for km 32+. Toronto's hardest hill (+32m at km 5–6) is easier than what you walked today at km 17 (+36.6m). Run everything on race day.</span>
+  </div>
+
   <!-- Toronto Marathon Course Map -->
   <div class="section" style="margin-bottom:24px">
-    <div class="section-title">Toronto Marathon Course — May 3, 2026 (Approximate)</div>
+    <div class="section-title">Toronto Marathon Course — May 3, 2026</div>
     <div class="warning-box" style="color:var(--green);border-color:rgba(48,209,88,0.3);background:rgba(48,209,88,0.06);margin-bottom:12px">
       ✓ Exact 2026 course GPS data from racepoint.ca · 520 GPS points · 16 aid stations marked · Elevation: 193m→77m (net downhill)
     </div>
@@ -476,141 +512,9 @@
 
   </div>
 
-    <div style="margin-top:14px;background:var(--surface);border:1px solid var(--surface3);border-radius:14px;padding:18px 20px">
-      <div class="section-title" style="margin-bottom:10px">How Saturday's Run Prepares You for This</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;font-size:13px">
-        <div><span style="color:var(--green);font-weight:700">✓ Time on feet</span><br><span style="color:var(--text-dim)">4 hours Saturday = your legs know what 4-hour fatigue feels like. The marathon will take 5h30+. You'll have experienced km 0–26 for real, which covers you to km 26 on May 3.</span></div>
-        <div><span style="color:var(--green);font-weight:700">✓ Mont-Royal climb at km 17</span><br><span style="color:var(--text-dim)">~150m gain when already fatigued trains eccentric quad strength and cardiovascular reserve. Toronto has nothing this steep. You'll feel strong on every hill May 3.</span></div>
-        <div><span style="color:var(--green);font-weight:700">✓ Flat F1 circuit = marathon pace</span><br><span style="color:var(--text-dim)">Two flat 4.36 km laps at 8:30–9:00/km is exactly marathon-pace rehearsal. Your body will remember that tempo on May 3.</span></div>
-        <div><span style="color:var(--orange);font-weight:700">⚠ Uphill concern</span><br><span style="color:var(--text-dim)">The Beaver Lake climb at km 17–20 gains ~150m. At that point you'll have 2 F1 laps in your legs. <strong>Walk it.</strong> This is training, not racing. The hill is 2–3 km — power-hike at 7:00 effort, no shame.</span></div>
-      </div>
-    </div>
   </div>
 
-  <!-- TL;DR Cards -->
-  <div class="section">
-    <div class="section-title">TL;DR</div>
-    <div class="cards">
-      <div class="card key">
-        <div class="card-label">Predicted Finish</div>
-        <div class="card-value">5:31 – 5:56</div>
-        <div class="card-sub">MP target: 7:50/km &bull; Riegel projection</div>
-      </div>
-      <div class="card warn">
-        <div class="card-label">Longest Run (90 days)</div>
-        <div class="card-value">8.2 km</div>
-        <div class="card-sub">Apr 5 &bull; Marathon prep expects ≥28 km ⚠</div>
-      </div>
-      <div class="card ok">
-        <div class="card-label">Peak Week</div>
-        <div class="card-value">33.8 km</div>
-        <div class="card-sub">Apr 6 week &bull; 9 runs</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Total Volume (90 days)</div>
-        <div class="card-value">141.9 km</div>
-        <div class="card-sub">43 runs &bull; 11 km/week avg</div>
-      </div>
-      <div class="card warn">
-        <div class="card-label">Taper</div>
-        <div class="card-value">Partial</div>
-        <div class="card-sub">Current week 53% of previous</div>
-      </div>
-      <div class="card ok">
-        <div class="card-label">HR Data</div>
-        <div class="card-value">Present</div>
-        <div class="card-sub">All 43 runs have HR &bull; Max 191 bpm</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Race-Readiness Verdict -->
-  <div class="verdict">
-    <h2>Race-Readiness Verdict</h2>
-    <div class="verdict-grid">
-      <div class="verdict-item">
-        <div class="v-title">1. Fitness &amp; Predicted Time</div>
-        <div class="v-body">
-          <strong>5h31 – 5h56</strong> based on your Apr 18 effort (5.7 km @ 6:41/km, HR 167) via Riegel extrapolation.
-          That projects a marathon pace of <strong>~7:50/km</strong>. Your Misfits run (6:54/km @ HR 173)
-          corroborates this. Treat the lower end as a stretch goal — you haven't raced anything longer than 8 km in 90 days.
-          <br><br>
-          <span class="warn">⚠ Confidence is low.</span> No race, no time trial, no run over 8.2 km. The Riegel formula assumes you're trained to that distance — you're projecting from 5.7 km with a training HR, not a race. Add 10–20 min conservatively.
-        </div>
-      </div>
-      <div class="verdict-item">
-        <div class="v-title">2. Taper</div>
-        <div class="v-body">
-          <span class="warn">PARTIAL.</span> Current week (Apr 20) is 5.8 km vs 11 km last week — 53%.
-          Taper is happening by accident more than design (fewer runs, not a planned peak then drop).
-          Your build peaked at 33.8 km/wk (Apr 6) then dropped sharply. That's the right direction but
-          the base was modest to begin with.
-        </div>
-      </div>
-      <div class="verdict-item">
-        <div class="v-title">3. Longest Run</div>
-        <div class="v-body">
-          <span class="flag">8.2 km on Apr 5 — 19 days ago. ⚠⚠</span><br>
-          Standard marathon prep expects a long run of 28–32 km within 3–4 weeks of race day.
-          Your longest is 8.2 km. This is the single biggest risk on May 3: miles 28–42 will be
-          entirely uncharted territory for your legs. The wall is very likely. Plan for it.
-        </div>
-      </div>
-      <div class="verdict-item">
-        <div class="v-title">4. Red Flags</div>
-        <div class="v-body">
-          <span class="flag">⚠ HR drift +11.2 bpm</span> first→second half on your 8.2 km run —
-          significant cardiac drift even on a short effort.<br><br>
-          <span class="warn">⚠ Training gaps</span> of 6–10 days in Jan–Mar suggest interrupted buildup
-          (illness, life, injury?). No back-to-back hard days — consistent.<br><br>
-          <span class="ok">✓ Recent pace trend improving</span> — Apr 18 (6:41/km) and Apr 23 (6:54/km)
-          are your two fastest logged runs. Legs are fresher going in.
-        </div>
-      </div>
-      <div class="verdict-item">
-        <div class="v-title">5. Strengths</div>
-        <div class="v-body">
-          <span class="ok">✓ Running every single day</span> in your peak weeks — 43 runs in 90 days shows discipline.<br>
-          <span class="ok">✓ HR data is clean</span> — you're monitoring effort, not just logging.<br>
-          <span class="ok">✓ Recent speed</span> — 6:41/km at HR 167 is legitimate aerobic pace.
-          There's fitness here.<br>
-          <span class="ok">✓ Taper is underway</span> — you arrive fresh. Probably your biggest advantage.
-        </div>
-      </div>
-      <div class="verdict-item">
-        <div class="v-title">Coach's Bottom Line</div>
-        <div class="v-body">
-          You can finish this race. You should <strong>not</strong> try to race it. The long run gap is too large —
-          treat km 0–30 as a victory lap and km 30–42 as survival mode.
-          Start at <strong>8:30/km</strong> (slower than your MP target), walk every aid station from km 20,
-          and save energy for the back half. A 5:45–6:15 conservative finish beats a DNF by miles.
-          <br><br>
-          If your goal is completion &gt; time: <span class="ok">you're fine.</span><br>
-          If your goal is a time PR: <span class="warn">reassess at the start line.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Final 9-Day Plan -->
-  <div class="section">
-    <div class="section-title">Final 9-Day Plan (Apr 25 – May 3)</div>
-    <div class="table-wrap">
-      <table class="plan-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Day</th>
-            <th>km</th>
-            <th>Plan</th>
-          </tr>
-        </thead>
-        <tbody id="plan-tbody"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Race Morning -->
+  <!-- Race Morning — unique to Marathon tab (race-day logistics) -->
   <div class="section">
     <div class="section-title">Race Morning — Toronto, May 3 (5–12°C, possible rain)</div>
     <div class="tips">
@@ -622,7 +526,7 @@
       <div class="tip">
         <div class="tip-icon">🍌</div>
         <div class="tip-title">Fuel (Morning)</div>
-        <div class="tip-body">2h before gun: bagel + peanut butter + banana + coffee. Carb-load Thu–Sat. Morning of: nothing heavy after 90 min to gun.</div>
+        <div class="tip-body">2h before gun: bagel + peanut butter + banana + coffee. Carb-load now through Sat. Morning of: nothing heavy after 90 min to gun.</div>
       </div>
       <div class="tip">
         <div class="tip-icon">💧</div>
@@ -642,13 +546,45 @@
       <div class="tip">
         <div class="tip-icon">🏁</div>
         <div class="tip-title">Pacing</div>
-        <div class="tip-body">Start at 8:30/km. It will feel embarrassingly slow. That's correct. Walk km 30+ aid stations. Negative-split the back half if you have legs.</div>
+        <div class="tip-body">Start at 8:30/km. It will feel embarrassingly slow. That's correct. Walk km 30+ aid stations. Save your km 20–22 finishing gear for the back half.</div>
       </div>
     </div>
   </div>
 
+  </div>
+
   <!-- Tab: History -->
   <div class="tab-panel" id="tab-history">
+
+  <!-- TL;DR Cards — updated with today's 23.7 km long run -->
+  <div class="section">
+    <div class="section-title">Training Summary</div>
+    <div class="cards" id="tldr-cards">
+      <!-- filled by JS from DATA -->
+    </div>
+  </div>
+
+  <!-- Race-Readiness Verdict -->
+  <div class="verdict" id="verdict-box">
+    <h2>Race-Readiness Verdict</h2>
+    <div class="verdict-grid" id="verdict-grid">
+      <!-- filled by JS from DATA -->
+    </div>
+  </div>
+
+  <!-- 9-Day Plan (Apr 25 DONE → May 3) -->
+  <div class="section">
+    <div class="section-title">Taper Plan (Apr 25 – May 3)</div>
+    <div class="table-wrap">
+      <table class="plan-table">
+        <thead>
+          <tr><th>Date</th><th>Day</th><th>km</th><th>Plan</th></tr>
+        </thead>
+        <tbody id="plan-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- Weekly Mileage Chart -->
   <div class="section">
     <div class="section-title">Weekly Mileage (90 days)</div>
@@ -664,7 +600,7 @@
 
   <!-- Per-Run Log -->
   <div class="section">
-    <div class="section-title">Per-Run Log — 43 Runs</div>
+    <div class="section-title" id="run-log-title">Per-Run Log</div>
     <div class="table-wrap" style="max-height:480px; overflow-y:auto;">
       <table id="run-table">
         <thead>
@@ -738,7 +674,9 @@ const DATA = {"athlete": "Alireza Toghiani", "race_date": "2026-05-03", "race_na
 // ── Run Table ──
 (function() {
   const tbody = document.getElementById('run-tbody');
+  const titleEl = document.getElementById('run-log-title');
   const runs = [...DATA.runs].reverse();
+  if (titleEl) titleEl.textContent = `Per-Run Log — ${runs.length} Runs`;
   runs.forEach(r => {
     const hr = r.avg_hr ? r.avg_hr.toFixed(0) : '—';
     const maxhr = r.max_hr ? r.max_hr.toFixed(0) : '—';
@@ -761,18 +699,44 @@ const DATA = {"athlete": "Alireza Toghiani", "race_date": "2026-05-03", "race_na
   });
 })();
 
-// ── Flags ──
+// ── Flags (dynamic from DATA) ──
 (function() {
   const el = document.getElementById('flags');
-  const items = [
-    { cls: 'red',    icon: '🚨', text: 'Longest run only 8.2 km — marathon prep expects ≥28 km. Biggest risk on May 3.' },
-    { cls: 'red',    icon: '⚠️', text: 'HR drift +11.2 bpm first→second half on your 8.2 km run — cardiac stress on a short effort.' },
-    { cls: 'yellow', icon: '⚠️', text: 'Training gaps of 6–10 days in Jan–Mar (illness/life). Interrupted buildup.' },
-    { cls: 'yellow', icon: '⚠️', text: 'Taper partial only — current week 53% of previous, not a deliberate taper plan.' },
-    { cls: 'green',  icon: '✓',  text: 'Recent pace improving: 6:41/km (Apr 18) and 6:54/km (Apr 23) are fastest logged runs.' },
-    { cls: 'green',  icon: '✓',  text: 'No back-to-back hard days. No suspicious injury pattern.' },
-    { cls: 'green',  icon: '✓',  text: 'HR data present on all 43 runs — reliable training effort monitoring.' },
-  ];
+  const lr = DATA.longest_run_km || 0;
+  const lrDate = DATA.longest_run_date || '';
+  const daysToRace = Math.ceil((new Date('2026-05-03') - new Date()) / 86400000);
+  const items = [];
+
+  // Longest run assessment (updated)
+  if (lr >= 20) {
+    items.push({ cls: 'green', icon: '✓', text: `Longest run ${lr.toFixed(1)} km on ${lrDate} — biggest in 90 days. Covered ~${Math.round(lr/42.2*100)}% of race distance in training.` });
+  } else if (lr >= 12) {
+    items.push({ cls: 'yellow', icon: '⚠️', text: `Longest run ${lr.toFixed(1)} km — better than before but still well short of marathon distance.` });
+  } else {
+    items.push({ cls: 'red', icon: '🚨', text: `Longest run only ${lr.toFixed(1)} km — marathon prep expects ≥28 km. Biggest risk on May 3.` });
+  }
+
+  // HR drift
+  const drift = DATA.red_flags && DATA.red_flags.find(f => f.includes('HR drift'));
+  if (drift) {
+    const driftVal = parseFloat(drift.match(/[+-]?\d+\.?\d*/)?.[0] || 0);
+    if (Math.abs(driftVal) <= 5) {
+      items.push({ cls: 'green', icon: '✓', text: `HR drift on long run: ${drift.replace('HR drift ', '')} — cardiac response is controlled.` });
+    } else {
+      items.push({ cls: 'yellow', icon: '⚠️', text: `HR drift on long run: ${drift.replace('HR drift ', '')} — some cardiac stress, monitor fueling.` });
+    }
+  }
+
+  // Gaps
+  const gaps = (DATA.red_flags || []).filter(f => f.startsWith('Gap:'));
+  if (gaps.length > 0) {
+    items.push({ cls: 'yellow', icon: '⚠️', text: `Training gaps of 6–10 days in Jan–Mar (illness/life). Interrupted early buildup — common.` });
+  }
+
+  items.push({ cls: 'green', icon: '✓', text: 'Recent pace improving: 6:41/km (Apr 18) and 6:54/km (Apr 23) are fastest logged runs. Legs are sharp.' });
+  items.push({ cls: 'green', icon: '✓', text: 'No back-to-back hard days. No suspicious injury pattern.' });
+  items.push({ cls: 'green', icon: '✓', text: `HR data present on all ${DATA.runs.length} runs — reliable training effort monitoring. Max HR 191 bpm.` });
+
   items.forEach(it => {
     const div = document.createElement('div');
     div.className = `flag-item ${it.cls}`;
@@ -781,19 +745,73 @@ const DATA = {"athlete": "Alireza Toghiani", "race_date": "2026-05-03", "race_na
   });
 })();
 
+// ── TL;DR Cards (History tab) ──
+(function() {
+  const el = document.getElementById('tldr-cards');
+  if (!el) return;
+  const lr = DATA.longest_run_km || 0;
+  const lrFlag = lr >= 20 ? 'ok' : lr >= 10 ? 'warn' : 'flag';
+  const lrSub = lr >= 20 ? `${DATA.longest_run_date} · Ready` : `${DATA.longest_run_date || '—'} · Short of 28 km goal`;
+  const taperWord = DATA.taper_note.includes('NOT YET') ? 'Not Yet' : DATA.taper_note.includes('PARTIAL') ? 'Partial' : 'Yes';
+  const taperCls = DATA.taper_note.includes('NOT YET') ? 'warn' : 'ok';
+  const cards = [
+    { cls: 'key', label: 'Predicted Finish', value: `${DATA.predicted_lo||'?'} – ${(DATA.predicted_hi||'?').replace('h','h').replace('m','m').split('s')[0]}`, sub: `MP target: ${DATA.mp_pace||'?'} · Riegel` },
+    { cls: lrFlag, label: 'Longest Run (90d)', value: `${lr.toFixed(1)} km`, sub: lrSub },
+    { cls: 'ok',   label: 'Peak Week', value: `${DATA.peak_week_km} km`, sub: 'Apr 6 week · 9 runs' },
+    { cls: '',     label: 'Total Volume (90d)', value: `${DATA.total_km_90d} km`, sub: `${DATA.runs.length} runs · ${(DATA.total_km_90d/90*7).toFixed(1)} km/wk avg` },
+    { cls: taperCls, label: 'Taper', value: taperWord, sub: DATA.taper_note.split(' — ')[1] || '' },
+    { cls: 'ok',   label: 'HR Data', value: 'Present', sub: `All ${DATA.runs.length} runs have HR · Max 191 bpm` },
+  ];
+  cards.forEach(c => {
+    const d = document.createElement('div');
+    d.className = `card ${c.cls}`;
+    d.innerHTML = `<div class="card-label">${c.label}</div><div class="card-value">${c.value}</div><div class="card-sub">${c.sub}</div>`;
+    el.appendChild(d);
+  });
+})();
+
+// ── Race Readiness Verdict (History tab) ──
+(function() {
+  const grid = document.getElementById('verdict-grid');
+  if (!grid) return;
+  const lr = DATA.longest_run_km || 0;
+  const lrDate = DATA.longest_run_date || '';
+  const lrDays = Math.round((new Date('2026-05-03') - new Date(lrDate)) / 86400000);
+  const lrAssess = lr >= 20
+    ? `<span class="ok">${lr.toFixed(1)} km on ${lrDate} — ${lrDays} days before race. ✓</span>`
+    : `<span class="flag">${lr.toFixed(1)} km on ${lrDate} — ${lrDays} days ago. ⚠⚠</span>`;
+  const items = [
+    { t: '1. Fitness &amp; Predicted Time', b: `<strong>5h31 – 5h56</strong> based on Apr 18 effort (5.7 km @ 6:41/km, HR 167) via Riegel extrapolation. MP target <strong>~7:50/km</strong>. Misfits run (6:54/km @ HR 173) corroborates. <br><br><span class="warn">⚠ Note:</span> Riegel projects from training runs, not a race. Add 10–15 min conservatively for first marathon.` },
+    { t: '2. Taper', b: `<span class="warn">${DATA.taper_note}</span><br>Today's 23.7 km was your peak — now the body adapts. Rest aggressively this week.` },
+    { t: '3. Longest Run', b: `${lrAssess}<br>You closed the long-run gap significantly. The remaining unknown is km 24–42 on race day — plan for the wall and walk early aid stations.` },
+    { t: '4. Red Flags', b: `<span class="ok">✓ HR drift on long run: minimal (±2 bpm)</span> — cardiac response is controlled.<br><br><span class="warn">⚠ Training gaps</span> of 6–10 days in Jan–Mar — interrupted early buildup.<br><br><span class="ok">✓ Recent pace trend</span>: 6:41 → 6:54 → 8:59 (long run) — fitness is there.` },
+    { t: '5. Strengths', b: `<span class="ok">✓ 23.7 km long run done</span> — longest in 90 days, done today with 290m elevation gain.<br><span class="ok">✓ Strong finish km 20–22</span>: 6:22/km at HR 164 after 3h on feet.<br><span class="ok">✓ Uphill walking strategy works</span>: HR 117 on 36m climb = legs saved.<br><span class="ok">✓ 45 runs in 90 days</span> — consistent effort across the full window.` },
+    { t: "Coach's Bottom Line", b: `Today's run changed the picture. You went from <em>8.2 km longest</em> to <em>23.7 km</em>. You know what 3h30 of running fatigue feels like. The wall will still be real at km 30–35 — but now you have a reference point and a strategy.<br><br>Start at <strong>8:30/km</strong>. Walk aid stations from km 20. Save your km 20–22 finishing gear (6:22/km) for the back half. A 5:40–6:00 finish is realistic if you don't go out too fast.` },
+  ];
+  items.forEach(it => {
+    const d = document.createElement('div');
+    d.className = 'verdict-item';
+    d.innerHTML = `<div class="v-title">${it.t}</div><div class="v-body">${it.b}</div>`;
+    grid.appendChild(d);
+  });
+})();
+
 // ── Plan Table ──
 (function() {
   const tbody = document.getElementById('plan-tbody');
   DATA.plan.forEach(p => {
     const isRace = p.km === '42.2';
+    const isDone = p.km === 'DONE';
     const isRest = p.km === 'REST';
     const row = document.createElement('tr');
     if (isRace) row.className = 'race-row';
-    const kmClass = isRace ? 'plan-km race' : isRest ? 'plan-km rest' : 'plan-km';
+    if (isDone) row.style.opacity = '0.6';
+    const kmClass = isRace ? 'plan-km race' : (isRest || isDone) ? 'plan-km rest' : 'plan-km';
+    const kmLabel = isDone ? '✓ DONE' : p.km;
     row.innerHTML = `
-      <td class="plan-date">${p.date}</td>
+      <td class="plan-date" style="${isDone ? 'text-decoration:line-through;color:var(--text-dim)' : ''}">${p.date}</td>
       <td class="plan-day">${p.day}</td>
-      <td><span class="${kmClass}">${p.km}</span></td>
+      <td><span class="${kmClass}">${kmLabel}</span></td>
       <td class="plan-note">${p.note}</td>
     `;
     tbody.appendChild(row);
@@ -809,18 +827,6 @@ function getGhPat() { return sessionStorage.getItem('gh_pat') || ''; }
 
 // ── Password Gate ──
 const PW_HASH = '4eed7e4819d12d57bc5c053c291cd8ecebfc2b4b0b834d127e39bdad25e12e4d';
-
-function revealApp() {
-  document.getElementById('gate').remove();
-  document.getElementById('app').style.display = '';
-  // Map was initialized while hidden — fix dimensions after reflow
-  setTimeout(() => {
-    if (window._leafletMap) {
-      window._leafletMap.invalidateSize();
-      if (window._leafletBounds) window._leafletMap.fitBounds(window._leafletBounds, {padding:[30,30]});
-    }
-  }, 120);
-}
 
 async function checkPw() {
   const v = document.getElementById('pw-input').value;
@@ -845,10 +851,237 @@ function showTab(name, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   btn.classList.add('active');
-  if (name === 'longrun' && window._leafletMap) {
-    setTimeout(() => window._leafletMap.invalidateSize(), 80);
+  if (name === 'longrun') {
+    setTimeout(() => {
+      if (window._leafletMap) {
+        window._leafletMap.invalidateSize();
+        if (!window._gpxDrawn) { window.drawRealGpsPath && window.drawRealGpsPath(); window._gpxDrawn = true; }
+        else if (window._realGpsBounds) window._leafletMap.fitBounds(window._realGpsBounds, {padding:[30,30]});
+      }
+      drawLongRunChart();
+    }, 80);
+  }
+  if (name === 'marathon') {
+    setTimeout(() => {
+      if (window._torontoMap) {
+        window._torontoMap.invalidateSize();
+        if (window._tcourse) window._torontoMap.fitBounds(window._tcourse, {padding:[24,24]});
+      }
+      if (window.drawElevationChart) window.drawElevationChart();
+    }, 80);
   }
 }
+
+// ── revealApp: fix maps after gate removal ──
+function revealApp() {
+  document.getElementById('gate').remove();
+  document.getElementById('app').style.display = '';
+  setTimeout(() => {
+    if (window._leafletMap) {
+      window._leafletMap.invalidateSize();
+      window.drawRealGpsPath && window.drawRealGpsPath();
+      window._gpxDrawn = true;
+    }
+    drawLongRunChart();
+    renderRunSummary();
+  }, 150);
+}
+
+// ── Long Run Summary Strip ──
+function renderRunSummary() {
+  const el = document.getElementById('run-summary-strip');
+  if (!el) return;
+  const gpsRun = DATA.gps_runs && DATA.gps_runs[0];
+  // Fall back to finding the longest run in DATA.runs
+  const lr = gpsRun || DATA.runs.reduce((a,b) => b.dist_km > a.dist_km ? b : a, DATA.runs[0] || {});
+  if (!lr) return;
+  const fmt = s => { const m=Math.floor(s/60), sec=s%60; return m+':'+(sec<10?'0':'')+sec; };
+  const dur = lr.duration_s ? (() => {
+    const h=Math.floor(lr.duration_s/3600), m=Math.floor((lr.duration_s%3600)/60);
+    return h+'h '+m+'m';
+  })() : '3h33m';
+  const stats = [
+    { label:'Distance', value: (lr.dist_km||23.7).toFixed(1)+' km', color:'var(--orange)' },
+    { label:'Duration',  value: dur, color:'var(--text)' },
+    { label:'Avg Pace',  value: lr.pace || '8:59/km', color:'var(--text)' },
+    { label:'Avg HR',    value: lr.avg_hr ? Math.round(lr.avg_hr)+' bpm' : '142 bpm', color:'#FFD60A' },
+    { label:'Max HR',    value: lr.max_hr ? Math.round(lr.max_hr)+' bpm' : '176 bpm', color:'#FF453A' },
+    { label:'Elevation', value: (lr.total_elev_gain||lr.elev_m||290)+'m ↑', color:'var(--blue)' },
+    { label:'Date',      value: lr.date || '2026-04-25', color:'var(--text-dim)' },
+  ];
+  el.innerHTML = stats.map(s => `
+    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:12px;padding:12px 14px">
+      <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">${s.label}</div>
+      <div style="font-size:20px;font-weight:700;color:${s.color}">${s.value}</div>
+    </div>
+  `).join('');
+}
+
+// ── Long Run Per-km Chart ──
+function drawLongRunChart() {
+  const canvas = document.getElementById('longrun-chart');
+  if (!canvas) return;
+  const gpsRun = DATA.gps_runs && DATA.gps_runs[0];
+  const kmData = (gpsRun && gpsRun.km_analysis) || [];
+  if (!kmData.length) return;
+
+  const DPR = window.devicePixelRatio || 1;
+  const W = Math.max(300, canvas.parentElement.clientWidth - 40);
+  const H = 200;
+  canvas.width = W*DPR; canvas.height = H*DPR;
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(DPR, DPR);
+
+  const PL=42, PR=44, PT=18, PB=28;
+  const CW=W-PL-PR, CH=H-PT-PB;
+  const N=kmData.length;
+  const barW = Math.max(2, CW/N*0.6);
+  const barGap = CW/N;
+
+  const maxElev = Math.max(...kmData.map(k=>k.elev_gain_m||0), 20);
+  const paces = kmData.filter(k=>k.pace_s).map(k=>k.pace_s);
+  const hrs = kmData.filter(k=>k.avg_hr).map(k=>k.avg_hr);
+  const maxPace = paces.length ? Math.max(...paces, 900) : 900;
+  const minPace = paces.length ? Math.min(...paces, 380) : 380;
+  const maxHR = hrs.length ? Math.max(...hrs, 180) : 180;
+  const minHR = hrs.length ? Math.min(...hrs, 110) : 110;
+
+  const barMaxH = CH * 0.55;
+  const lineZone = { top: PT + CH*0.58, bottom: PT+CH };
+  const lineH = lineZone.bottom - lineZone.top;
+
+  // Draw bars (elevation gain)
+  kmData.forEach((km, i) => {
+    const elev = km.elev_gain_m || 0;
+    const x = PL + i*barGap + barGap*0.2;
+    const barH = Math.max(1, (elev/maxElev)*barMaxH);
+    const y = PT + barMaxH - barH;
+    let color = '#30D158';
+    if (elev >= 15) color = '#FF453A';
+    else if (elev >= 8) color = '#FFD60A';
+    ctx.fillStyle = color+'cc';
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(x,y,barW,barH,2) : ctx.rect(x,y,barW,barH);
+    ctx.fill();
+    if (elev >= 15) {
+      ctx.fillStyle = color;
+      ctx.font = 'bold 8px -apple-system,sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('+'+elev+'m', x+barW/2, y-4);
+    }
+  });
+
+  // Pace line
+  if (paces.length) {
+    ctx.strokeStyle = '#0A84FF';
+    ctx.lineWidth = 2;
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    let first = true;
+    kmData.forEach((km, i) => {
+      if (!km.pace_s) return;
+      const x = PL + i*barGap + barGap*0.5;
+      const pct = (km.pace_s - minPace) / (maxPace - minPace);
+      const y = lineZone.top + pct*lineH;
+      if (first) { ctx.moveTo(x,y); first=false; } else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+    // Pace axis label (right)
+    ctx.fillStyle = '#0A84FF';
+    ctx.font = '8px -apple-system,sans-serif';
+    ctx.textAlign = 'right';
+    const fmt = s => Math.floor(s/60)+':'+(s%60<10?'0':'')+Math.floor(s%60);
+    ctx.fillText(fmt(minPace), W-PR+2, lineZone.top+8);
+    ctx.fillText(fmt(maxPace), W-PR+2, lineZone.bottom);
+  }
+
+  // HR line (dashed)
+  if (hrs.length) {
+    ctx.strokeStyle = '#BF5AF2';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([4,3]);
+    ctx.beginPath();
+    let first = true;
+    kmData.forEach((km, i) => {
+      if (!km.avg_hr) return;
+      const x = PL + i*barGap + barGap*0.5;
+      const pct = (km.avg_hr - minHR) / (maxHR - minHR);
+      const y = lineZone.top + (1-pct)*lineH;
+      if (first) { ctx.moveTo(x,y); first=false; } else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // X-axis labels
+  ctx.fillStyle = '#555';
+  ctx.font = '9px -apple-system,sans-serif';
+  ctx.textAlign = 'center';
+  kmData.forEach((km, i) => {
+    if (i%2===0 || i===N-1) {
+      ctx.fillText(km.km, PL+i*barGap+barGap*0.5, PT+CH+14);
+    }
+  });
+  // Y-axis elevation label
+  ctx.fillStyle = '#555';
+  ctx.textAlign = 'left';
+  ctx.font = '8px -apple-system,sans-serif';
+  ctx.fillText('elev', 2, PT+8);
+  ctx.fillText(maxElev+'m', 2, PT+20);
+}
+
+// ── Uphill Analysis Cards (Long Run tab) ──
+(function() {
+  const el = document.getElementById('uphill-cards');
+  if (!el) return;
+  const gpsRun = DATA.gps_runs && DATA.gps_runs[0];
+  if (!gpsRun || !gpsRun.km_analysis) {
+    el.innerHTML = '<div class="segment" style="border-color:#555"><div class="seg-detail">GPS analysis data not yet loaded. Refresh data to see km-by-km breakdown.</div></div>';
+    return;
+  }
+  const km = gpsRun.km_analysis;
+  const fmt = s => s ? Math.floor(s/60)+':'+(Math.floor(s%60)<10?'0':'')+Math.floor(s%60)+'/km' : '—';
+
+  const cards = [];
+
+  // Opening kms (1-5)
+  const open = km.filter(k=>k.km<=5);
+  const openPace = open.filter(k=>k.pace_s).map(k=>k.pace_s);
+  const openAvgPace = openPace.length ? Math.round(openPace.reduce((a,b)=>a+b)/openPace.length) : null;
+  cards.push({ color:'#30D158', title:'km 1–5: Controlled Start', detail:`Avg pace ${fmt(openAvgPace)} · HR ~${Math.round(open.filter(k=>k.avg_hr).reduce((a,k)=>a+k.avg_hr,0)/open.filter(k=>k.avg_hr).length||145)}<br>Steady aerobic opening. Good discipline — no blowout.` });
+
+  // Find notable uphill kms
+  const uphills = km.filter(k => k.elev_gain_m >= 8).sort((a,b) => b.elev_gain_m - a.elev_gain_m);
+  uphills.slice(0,3).forEach(k => {
+    const prevKm = km.find(x=>x.km===k.km+1);
+    const recovery = prevKm ? `→ recovered to ${fmt(prevKm.pace_s)} next km` : '';
+    const flag = k.elev_gain_m >= 25 ? '🔴' : k.elev_gain_m >= 12 ? '🟡' : '🟢';
+    const color = k.elev_gain_m >= 25 ? '#FF453A' : k.elev_gain_m >= 12 ? '#FFD60A' : '#30D158';
+    const hrNote = k.avg_hr < 130 ? ' — walked it (HR low = smart)' : k.avg_hr < 150 ? ' — controlled' : ' — pushed too hard';
+    cards.push({ color, title:`${flag} km ${k.km}: +${k.elev_gain_m}m climb`, detail:`Pace ${fmt(k.pace_s)} · HR ${k.avg_hr||'—'}${hrNote}<br>${recovery}<br><span style="color:#888;font-size:11px">Toronto's hardest hill is +32m — ${k.elev_gain_m>=30 ? 'harder than today' : 'similar to today'}. You know how to handle it.</span>` });
+  });
+
+  // Walk sections
+  const walks = km.filter(k=>k.pace_s&&k.pace_s>630);
+  if (walks.length) {
+    cards.push({ color:'#0A84FF', title:`Walk breaks: ${walks.length} km`, detail:`km ${walks.map(k=>k.km).join(', ')} — pace ${walks.map(k=>fmt(k.pace_s)).join(', ')}<br>Walk breaks are strategy, not failure. They kept HR low and saved legs for the finish. Use the same approach at every aid station May 3.` });
+  }
+
+  // Strong finish
+  const finish = km.filter(k=>k.km>=20&&k.pace_s&&k.pace_s<450);
+  if (finish.length) {
+    const bestFinish = finish.reduce((a,b)=>b.pace_s<a.pace_s?b:a);
+    cards.push({ color:'#30D158', title:'Strong Negative Split Finish', detail:`km ${finish.map(k=>k.km).join(', ')}: ${finish.map(k=>fmt(k.pace_s)).join(' → ')}<br>Best: ${fmt(bestFinish.pace_s)} at HR ${bestFinish.avg_hr} — after 3h+ on your feet.<br><span style="color:var(--green);font-size:11px">This gear is your weapon for Toronto km 32+. Save it.</span>` });
+  }
+
+  el.innerHTML = cards.map(c => `
+    <div class="segment" style="border-color:${c.color}">
+      <div class="seg-title">${c.title}</div>
+      <div class="seg-detail">${c.detail}</div>
+    </div>
+  `).join('');
+})();
 
 // ── Refresh button ──
 async function triggerRefresh() {
@@ -899,7 +1132,7 @@ async function triggerRefresh() {
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// ── Route Map: Cedar → F1 Circuit (2 laps) → Saint-Viateur O ──
+// ── Route Map: Real GPS path (primary) + Planned route (dimmed background) ──
 (function() {
   const map = L.map('map', { zoomControl: true }); window._leafletMap = map;
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -1370,13 +1603,31 @@ async function triggerRefresh() {
     },
   ];
 
-  const bounds = [];
+  // Planned route: dimmed background with dashed lines
+  window._plannedLayer = L.layerGroup();
+  const allPlannedCoords = [];
   phases.forEach(p => {
-    L.polyline(p.coords, {color: p.color, weight: p.weight, opacity: 0.92, lineJoin: 'round'})
-      .addTo(map).bindPopup(`<b>${p.label}</b>`);
-    p.coords.forEach(c => bounds.push(c));
+    L.polyline(p.coords, {color: p.color, weight: 3, opacity: 0.3, dashArray: '7,6', lineJoin: 'round'})
+      .addTo(window._plannedLayer).bindPopup(`<b>Planned: ${p.label}</b>`);
+    p.coords.forEach(c => allPlannedCoords.push(c));
   });
-  window._leafletBounds = bounds;
+  window._plannedLayer.addTo(map);
+  window._plannedLayerVisible = true;
+  window._leafletBounds = allPlannedCoords;
+
+  // Toggle planned route overlay
+  window.togglePlanned = function() {
+    const btn = document.getElementById('toggle-planned-btn');
+    if (window._plannedLayerVisible) {
+      map.removeLayer(window._plannedLayer);
+      window._plannedLayerVisible = false;
+      if (btn) btn.textContent = 'Show Planned';
+    } else {
+      map.addLayer(window._plannedLayer);
+      window._plannedLayerVisible = true;
+      if (btn) btn.textContent = 'Hide Planned';
+    }
+  };
 
   function mkIcon(color, label, size) {
     const s = size || 30;
@@ -1386,26 +1637,67 @@ async function triggerRefresh() {
     });
   }
 
-  L.marker([45.4959, -73.5913], {icon: mkIcon('#FC4C02','🏠',34)}).addTo(map)
-    .bindPopup('<b>Start — 1745 Cedar Ave</b><br>H3G 1A7 · 5:50 am · Your home');
-
-  L.marker([45.5175, -73.5480], {icon: mkIcon('#FC4C02','🌉',28)}).addTo(map)
-    .bindPopup('<b>Pont Jacques-Cartier — pedestrian lane</b><br>~km 5 · Caffeine gel here · ~6:50 am<br>Cross to Île Sainte-Hélène then Île Notre-Dame');
-
-  L.marker([45.5022, -73.5268], {icon: mkIcon('#30D158','F1',34)}).addTo(map)
-    .bindPopup('<b>Circuit Gilles Villeneuve</b><br>45.5017, -73.5281 · Open Apr 15–Nov 15<br>2 laps = 8.72 km flat · ~km 6 · ~6:50 am<br>F1 Canadian GP: May 22–24 (after your race ✓)');
-
-  L.marker([45.5042, -73.5352], {icon: mkIcon('#30D158','🏎',28)}).addTo(map)
-    .bindPopup('<b>Casino Hairpin</b><br>Tightest corner. Slow down. No shame.<br>Non-caffeine gel at start of lap 2');
-
-  L.marker([45.5150, -73.5848], {icon: mkIcon('#0A84FF','💧',28)}).addTo(map)
-    .bindPopup('<b>Water stop — Plateau café</b><br>~km 19 · Laurier or Saint-Denis strip<br>Last gel here if needed');
-
-  L.marker([45.5228, -73.5982], {icon: mkIcon('#BF5AF2','🎯',36)}).addTo(map)
-    .bindPopup('<b>MEETUP — 124 Rue Saint-Viateur O</b><br>EBC × Café Olimpico · Gather 9:30 am · Run 10:00 am<br>~21 km solo · You made it');
-
-  map.fitBounds(bounds, {padding: [30, 30]});
+  // Fallback view while GPS not yet drawn
+  map.fitBounds(allPlannedCoords, {padding:[30,30]});
 })();
+
+// Draw real GPS path — called after revealApp() so the container has real dimensions
+window.drawRealGpsPath = function() {
+  const map = window._leafletMap;
+  if (!map) return;
+  const gpsRun = (typeof DATA !== 'undefined') && DATA.gps_runs && DATA.gps_runs[0];
+  if (gpsRun && gpsRun.latlng && gpsRun.latlng.length > 2) {
+    const pts = gpsRun.latlng;
+    const kmData = gpsRun.km_analysis || [];
+    const totalPts = pts.length;
+    const N = kmData.length || gpsRun.dist_km || 23;
+
+    function mkIcon2(color, label, size) {
+      const s = size || 30;
+      return L.divIcon({
+        html: `<div style="background:${color};color:#fff;border-radius:50%;width:${s}px;height:${s}px;display:flex;align-items:center;justify-content:center;font-size:${s<28?10:13}px;font-weight:800;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.7)">${label}</div>`,
+        iconSize: [s,s], iconAnchor: [s/2,s/2], className: ''
+      });
+    }
+
+    // Draw colored segments by zone
+    let segStart = 0;
+    [0.25, 0.5, 0.75, 1.0].forEach((frac, zi) => {
+      const segEnd = Math.min(totalPts-1, Math.round(frac*totalPts));
+      const segPts = pts.slice(segStart, segEnd+1);
+      const colors = ['#FC4C02','#FFD60A','#0A84FF','#30D158'];
+      if (segPts.length > 1) {
+        L.polyline(segPts, {color: colors[zi], weight: 5, opacity: 0.92, lineJoin: 'round'}).addTo(map);
+      }
+      segStart = segEnd;
+    });
+
+    // Start / end markers
+    const first = pts[0], last = pts[pts.length-1];
+    L.marker(first, {icon: mkIcon2('#30D158','GO',34)}).addTo(map)
+      .bindPopup(`<b>Start — ${gpsRun.name}</b><br>${gpsRun.date} · ${gpsRun.dist_km} km`);
+    L.marker(last, {icon: mkIcon2('#FC4C02','END',34)}).addTo(map)
+      .bindPopup(`<b>Finish</b><br>${gpsRun.dist_km} km · ${gpsRun.total_elev_gain}m elevation`);
+
+    // Annotate uphill km markers
+    if (kmData.length) {
+      const ptsPerKmReal = totalPts / kmData.length;
+      kmData.forEach(km => {
+        if (km.elev_gain_m >= 15) {
+          const idx = Math.min(totalPts-1, Math.round(km.km * ptsPerKmReal));
+          const pt = pts[idx];
+          if (pt) {
+            L.circleMarker(pt, {radius:8,color:'#FF453A',fillColor:'#FF453A',fillOpacity:0.9,weight:2})
+              .addTo(map).bindPopup(`<b>km ${km.km}: +${km.elev_gain_m}m climb</b><br>Pace: ${km.pace_s?Math.floor(km.pace_s/60)+':'+(Math.floor(km.pace_s%60)<10?'0':'')+Math.floor(km.pace_s%60)+'/km':'—'} · HR ${km.avg_hr||'—'}`);
+          }
+        }
+      });
+    }
+
+    window._realGpsBounds = pts;
+    map.fitBounds(pts, {padding:[30,30]});
+  }
+};
 </script>
 
 
@@ -1676,18 +1968,9 @@ drawElevationChart();
     });
     L.marker([m.lat,m.lng],{icon:ic}).addTo(tmap).bindPopup(`<b>km ${m.km}</b>`);
   });
-  tmap.fitBounds(tcourse, {padding:[24,24]});
+  window._tcourse = tcourse;
   window._torontoMap = tmap;
-
-  // Fix size if initialized while tab is hidden
-  window._origShowTab = window.showTab;
-  window.showTab = function(name, btn) {
-    (window._origShowTab || window.showTab)(name, btn);
-    if (name === 'marathon') {
-      if (window._torontoMap) setTimeout(() => window._torontoMap.invalidateSize(), 80);
-      setTimeout(() => { if (window.drawElevationChart) window.drawElevationChart(); }, 80);
-    }
-  };
+  window._torontoMapReady = true;
 })();
 </script>
 </body>
