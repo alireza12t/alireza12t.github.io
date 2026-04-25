@@ -196,20 +196,39 @@
 
   <div class="page-header">
     <h1>Personal</h1>
-    <p>Races · Trips · Club — Alireza Toghiani</p>
+    <p>Running · Trips — Alireza Toghiani</p>
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('races',this)">🏃 Races</button>
+    <button class="tab-btn active" onclick="showTab('running',this)">🏃 Running</button>
     <button class="tab-btn" onclick="showTab('trips',this)">✈️ Trips</button>
-    <button class="tab-btn" onclick="showTab('club',this)">👟 MISFITRUNCLUB</button>
   </div>
 
-  <!-- ── RACES TAB ── -->
-  <div class="tab-panel active" id="tab-races">
+  <!-- ── RUNNING TAB ── -->
+  <div class="tab-panel active" id="tab-running">
+
+    <div class="section-label">Club</div>
+    <div class="club-card">
+      <div class="club-icon">🏃</div>
+      <div class="club-info">
+        <div class="club-name">MISFITRUNCLUB</div>
+        <div class="club-sub">
+          Montreal's most inclusive runclub. Every Sunday, 9am @ Ciele.<br>
+          Montréal, Quebec, Canada — I'm a regular member training for the Toronto Marathon 2026.
+        </div>
+        <div class="club-links">
+          <a class="race-link" href="https://www.instagram.com/misfitrunclub" target="_blank" rel="noopener">
+            📸 Instagram @misfitrunclub
+          </a>
+          <a class="race-link" href="https://www.strava.com/clubs/MISFIT" target="_blank" rel="noopener">
+            🟠 Strava Club
+          </a>
+        </div>
+      </div>
+    </div>
 
     <div id="race-upcoming-section">
-      <div class="section-label">Upcoming</div>
+      <div class="section-label">Upcoming Races</div>
       <div id="upcoming-races"></div>
     </div>
 
@@ -256,38 +275,6 @@
 
   </div>
 
-  <!-- ── CLUB TAB ── -->
-  <div class="tab-panel" id="tab-club">
-
-    <div class="section-label">Running Club</div>
-    <div class="club-card">
-      <div class="club-icon">🏃</div>
-      <div class="club-info">
-        <div class="club-name">MISFITRUNCLUB — Montreal</div>
-        <div class="club-sub">
-          A Montreal running community. Weekly group runs, long runs, intervals, and social events.
-          I'm a regular member and train with the club for races including the Toronto Marathon 2026.
-          <br>If you're in Montreal and want to run — this is the club.
-        </div>
-        <div class="club-links">
-          <a class="race-link" href="https://www.instagram.com/misfitrunclub" target="_blank" rel="noopener">
-            📸 Instagram @misfitrunclub
-          </a>
-          <a class="race-link" href="https://www.strava.com/clubs/MISFIT" target="_blank" rel="noopener">
-            🟠 Strava Club
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-label" style="margin-top:28px">My Training</div>
-    <div class="race-card" style="border-color:rgba(252,76,2,0.2)">
-      <div class="race-notes" style="line-height:1.8">
-        Joined MISFITRUNCLUB in early 2026 as part of my Toronto Marathon build.
-      </div>
-    </div>
-
-  </div>
 
   <div class="footer">
     <a href="/">← Home</a>
@@ -301,7 +288,7 @@ function showTab(name, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
 }
 
 // ── Race data ──
