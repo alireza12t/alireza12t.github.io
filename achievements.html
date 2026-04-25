@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Education - Alireza Toghiani, Senior iOS Engineer">
-    <meta name="keywords" content="iOS Developer, Swift, SwiftUI, Mobile Development, Software Engineer">
+    <meta name="description" content="Recognition - Alireza Toghiani, Senior iOS Engineer">
+    <meta name="keywords" content="iOS Developer, Awards, Achievements, Community, WorldSkills, Volunteer">
     <meta name="author" content="Alireza Toghiani Khorasgani">
-    <title>Education | Alireza Toghiani</title>
+    <title>Recognition | Alireza Toghiani</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -27,11 +27,11 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html" data-i18n="nav_home">Home</a></li>
-                <li class="nav-dropdown nav-dropdown-active">
+                <li class="nav-dropdown">
                     <a href="#" class="nav-dropdown-toggle">Profile <i class="fas fa-chevron-down"></i></a>
                     <ul class="dropdown-menu">
                         <li><a href="about.html" data-i18n="nav_about">About</a></li>
-                        <li><a href="education.html" class="active-link" data-i18n="nav_education">Education</a></li>
+                        <li><a href="education.html" data-i18n="nav_education">Education</a></li>
                     </ul>
                 </li>
                 <li class="nav-dropdown">
@@ -42,7 +42,7 @@
                         <li><a href="skills.html" data-i18n="nav_skills">Skills</a></li>
                     </ul>
                 </li>
-                <li><a href="achievements.html">Recognition</a></li>
+                <li><a href="achievements.html" class="active-link">Recognition</a></li>
                 <li><a href="personal/">Personal</a></li>
                 <li class="nav-dropdown">
                     <a href="#" class="nav-dropdown-toggle">Connect <i class="fas fa-chevron-down"></i></a>
@@ -61,34 +61,51 @@
     </nav>
 
     <div class="page-content">
-        <!-- Education Section -->
-        <section id="education" class="experience">
+        <section class="experience">
             <div class="container">
-                <h2 class="section-title" data-i18n="edu_title">Education</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h3>Master of Information Systems Security</h3>
-                            <h4>Concordia University</h4>
-                            <p class="timeline-period"><i class="fas fa-calendar-alt"></i> Sep 2022 - Apr 2025</p>
-                            <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Montreal, QC, Canada</p>
-                            <ul class="timeline-highlights">
-                                <li>Field of study: Computer Science — focus on security principles and cryptographic systems</li>
-                            </ul>
-                        </div>
-                    </div>
+                <h2 class="section-title">Recognition</h2>
 
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h3>Bachelor's Degree, Computer Science</h3>
-                            <h4>Amirkabir University of Technology — Tehran Polytechnic</h4>
-                            <p class="timeline-period"><i class="fas fa-calendar-alt"></i> Sep 2017 - Feb 2022</p>
-                            <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Tehran, Iran</p>
+                <div class="achievements">
+                    <h3 data-i18n="achievements_title">Achievements & Honors</h3>
+                    <div class="achievement-grid">
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <h4 data-i18n="achievement_silver">Silver Medal</h4>
+                            <p data-i18n-html="achievement_silver_desc">Mobile Application Development<br>WorldSkills Asia 2021</p>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h4 data-i18n="achievement_clean">Clean Solution Nomination</h4>
+                            <p data-i18n="achievement_clean_desc">WorldSkills Asia 2021</p>
                         </div>
                     </div>
                 </div>
+
+                <div class="volunteer-section" style="margin-top: 3rem;">
+                    <h3 data-i18n="community_title">Community Involvement</h3>
+                    <div class="volunteer-grid">
+                        <div class="volunteer-card">
+                            <i class="fas fa-users"></i>
+                            <h4 data-i18n="volunteer_vp">Vice President & Lead of App Developement</h4>
+                            <p data-i18n="volunteer_vp_org">AtHackCTF - Concordia Cyber Security Hackathon</p>
+                        </div>
+                        <div class="volunteer-card">
+                            <i class="fas fa-users"></i>
+                            <h4 data-i18n="volunteer_marketing">Lead of Marketing</h4>
+                            <p data-i18n="volunteer_marketing_org">AtHackCTF - Concordia Cyber Security Hackathon</p>
+                        </div>
+                        <div class="volunteer-card">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <h4 data-i18n="volunteer_instructor">iOS Instructor</h4>
+                            <p data-i18n="volunteer_instructor_org">CS50x Iran</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
     </div>
