@@ -140,7 +140,8 @@
     background: var(--surface);
     border: 1px solid var(--surface3);
     border-radius: 14px;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead th {
@@ -852,13 +853,22 @@ function showTab(name, btn) {
   btn.classList.add('active');
   if (name === 'longrun') {
     setTimeout(() => {
-      if (window._leafletMap) window._leafletMap.invalidateSize();
+      if (window._leafletMap) {
+        window._leafletMap.invalidateSize();
+        if (!window._gpxDrawn) { window.drawRealGpsPath && window.drawRealGpsPath(); window._gpxDrawn = true; }
+        else if (window._realGpsBounds) window._leafletMap.fitBounds(window._realGpsBounds, {padding:[30,30]});
+      }
       drawLongRunChart();
     }, 80);
   }
   if (name === 'marathon') {
-    if (window._torontoMap) setTimeout(() => window._torontoMap.invalidateSize(), 80);
-    setTimeout(() => { if (window.drawElevationChart) window.drawElevationChart(); }, 80);
+    setTimeout(() => {
+      if (window._torontoMap) {
+        window._torontoMap.invalidateSize();
+        if (window._tcourse) window._torontoMap.fitBounds(window._tcourse, {padding:[24,24]});
+      }
+      if (window.drawElevationChart) window.drawElevationChart();
+    }, 80);
   }
 }
 
@@ -869,8 +879,8 @@ function revealApp() {
   setTimeout(() => {
     if (window._leafletMap) {
       window._leafletMap.invalidateSize();
-      if (window._realGpsBounds) window._leafletMap.fitBounds(window._realGpsBounds, {padding:[30,30]});
-      else if (window._leafletBounds) window._leafletMap.fitBounds(window._leafletBounds, {padding:[30,30]});
+      window.drawRealGpsPath && window.drawRealGpsPath();
+      window._gpxDrawn = true;
     }
     drawLongRunChart();
     renderRunSummary();
@@ -1627,16 +1637,28 @@ async function triggerRefresh() {
     });
   }
 
-  // Real GPS path (primary — bright, solid)
+  // Fallback view while GPS not yet drawn
+  map.fitBounds(allPlannedCoords, {padding:[30,30]});
+})();
+
+// Draw real GPS path — called after revealApp() so the container has real dimensions
+window.drawRealGpsPath = function() {
+  const map = window._leafletMap;
+  if (!map) return;
   const gpsRun = (typeof DATA !== 'undefined') && DATA.gps_runs && DATA.gps_runs[0];
   if (gpsRun && gpsRun.latlng && gpsRun.latlng.length > 2) {
-    // Color by km zones
     const pts = gpsRun.latlng;
     const kmData = gpsRun.km_analysis || [];
     const totalPts = pts.length;
     const N = kmData.length || gpsRun.dist_km || 23;
-    const ptsPerKm = totalPts / N;
-    const zoneColor = km => km <= N*0.25 ? '#FC4C02' : km <= N*0.5 ? '#FFD60A' : km <= N*0.75 ? '#0A84FF' : '#30D158';
+
+    function mkIcon2(color, label, size) {
+      const s = size || 30;
+      return L.divIcon({
+        html: `<div style="background:${color};color:#fff;border-radius:50%;width:${s}px;height:${s}px;display:flex;align-items:center;justify-content:center;font-size:${s<28?10:13}px;font-weight:800;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.7)">${label}</div>`,
+        iconSize: [s,s], iconAnchor: [s/2,s/2], className: ''
+      });
+    }
 
     // Draw colored segments by zone
     let segStart = 0;
@@ -1652,9 +1674,9 @@ async function triggerRefresh() {
 
     // Start / end markers
     const first = pts[0], last = pts[pts.length-1];
-    L.marker(first, {icon: mkIcon('#30D158','GO',34)}).addTo(map)
+    L.marker(first, {icon: mkIcon2('#30D158','GO',34)}).addTo(map)
       .bindPopup(`<b>Start — ${gpsRun.name}</b><br>${gpsRun.date} · ${gpsRun.dist_km} km`);
-    L.marker(last, {icon: mkIcon('#FC4C02','END',34)}).addTo(map)
+    L.marker(last, {icon: mkIcon2('#FC4C02','END',34)}).addTo(map)
       .bindPopup(`<b>Finish</b><br>${gpsRun.dist_km} km · ${gpsRun.total_elev_gain}m elevation`);
 
     // Annotate uphill km markers
@@ -1674,15 +1696,8 @@ async function triggerRefresh() {
 
     window._realGpsBounds = pts;
     map.fitBounds(pts, {padding:[30,30]});
-  } else {
-    // Fallback: planned route markers
-    L.marker([45.4959,-73.5913],{icon:mkIcon('#FC4C02','🏠',34)}).addTo(map)
-      .bindPopup('<b>Start — 1745 Cedar Ave</b>');
-    L.marker([45.5228,-73.5982],{icon:mkIcon('#BF5AF2','🎯',36)}).addTo(map)
-      .bindPopup('<b>MEETUP — 124 Rue Saint-Viateur O</b>');
-    map.fitBounds(allPlannedCoords, {padding:[30,30]});
   }
-})();
+};
 </script>
 
 
@@ -1953,9 +1968,8 @@ drawElevationChart();
     });
     L.marker([m.lat,m.lng],{icon:ic}).addTo(tmap).bindPopup(`<b>km ${m.km}</b>`);
   });
-  tmap.fitBounds(tcourse, {padding:[24,24]});
+  window._tcourse = tcourse;
   window._torontoMap = tmap;
-
   window._torontoMapReady = true;
 })();
 </script>
