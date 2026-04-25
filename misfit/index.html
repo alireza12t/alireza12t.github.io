@@ -1961,7 +1961,8 @@ drawElevationChart();
   kmMarks.forEach(m => {
     const isKey = m.km % 10 === 0;
     const s = isKey ? 28 : 22;
-    const col = m.km>=30?'#30D158':m.km>=21?'#0A84FF':m.km>=10?'#FFD60A':'#FC4C02';
+    const frac = m.km / 42.2;
+    const col = frac>=0.75?'#30D158':frac>=0.5?'#0A84FF':frac>=0.25?'#FFD60A':'#FC4C02';
     const ic = L.divIcon({
       html:`<div style="background:#1c1c1e;color:${col};border:1.5px solid ${col};border-radius:50%;width:${s}px;height:${s}px;display:flex;align-items:center;justify-content:center;font-size:${isKey?11:9}px;font-weight:800">${m.km}</div>`,
       iconSize:[s,s],iconAnchor:[s/2,s/2],className:''
