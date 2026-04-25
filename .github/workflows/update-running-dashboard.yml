@@ -20,6 +20,17 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Check if auto-refresh is still active (stops after race day)
+        run: |
+          RACE_DATE="2026-05-03"
+          TODAY=$(date -u +%Y-%m-%d)
+          if [[ "$TODAY" > "$RACE_DATE" ]] && [[ "${{ github.event_name }}" == "schedule" ]]; then
+            echo "Race day has passed ($TODAY > $RACE_DATE). Scheduled auto-refresh disabled."
+            echo "Use the Refresh button on the dashboard or trigger manually via workflow_dispatch."
+            exit 0
+          fi
+          echo "Auto-refresh active — proceeding."
+
       - name: Fetch Strava data and rebuild dashboard
         env:
           STRAVA_CLIENT_ID:     ${{ secrets.STRAVA_CLIENT_ID }}
