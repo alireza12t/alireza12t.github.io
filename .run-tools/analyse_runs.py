@@ -467,7 +467,7 @@ def main():
     report = "\n".join(lines)
     print(report)
 
-    out_path = Path("/Users/alirezatoghianikhorasgani/Desktop/Claude/Run Analyser/race_analysis.txt")
+    out_path = Path(__file__).parent / "race_analysis.txt"
     out_path.write_text(report)
     print(f"\n\nFull report saved to {out_path}")
 
