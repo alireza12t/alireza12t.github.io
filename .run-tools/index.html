@@ -1891,11 +1891,20 @@ drawElevationChart();
           [43.634470,-79.408933],[43.634573,-79.408935],[43.634662,-79.409000],[43.634757,-79.409059],[43.634844,-79.409120]
   ];
 
-  // Color the course by phase
-  const seg1 = tcourse.slice(0, Math.floor(tcourse.length * 0.25));   // km 0-10: orange
-  const seg2 = tcourse.slice(Math.floor(tcourse.length * 0.25), Math.floor(tcourse.length * 0.5)); // km 10-21: yellow
-  const seg3 = tcourse.slice(Math.floor(tcourse.length * 0.5), Math.floor(tcourse.length * 0.75)); // km 21-32: blue
-  const seg4 = tcourse.slice(Math.floor(tcourse.length * 0.75)); // km 32-42: green
+  // Split course by real distance (haversine) so colors match chart km boundaries exactly
+  function hav(a, b) {
+    const R = 6371, dLat = (b[0]-a[0])*Math.PI/180, dLon = (b[1]-a[1])*Math.PI/180;
+    const s = Math.sin(dLat/2)**2 + Math.cos(a[0]*Math.PI/180)*Math.cos(b[0]*Math.PI/180)*Math.sin(dLon/2)**2;
+    return R * 2 * Math.atan2(Math.sqrt(s), Math.sqrt(1-s));
+  }
+  let cum = [0];
+  for (let i = 1; i < tcourse.length; i++) cum.push(cum[i-1] + hav(tcourse[i-1], tcourse[i]));
+  const idxAt = km => { let i = cum.findIndex(d => d >= km); return i < 0 ? tcourse.length-1 : i; };
+  const i10 = idxAt(10), i21 = idxAt(21), i32 = idxAt(32);
+  const seg1 = tcourse.slice(0, i10+1);        // km 0-10: orange
+  const seg2 = tcourse.slice(i10, i21+1);      // km 10-21: yellow
+  const seg3 = tcourse.slice(i21, i32+1);      // km 21-32: blue
+  const seg4 = tcourse.slice(i32);             // km 32-42: green
 
   [
     [seg1,'#FC4C02','km 0–10: North York south on Yonge'],
@@ -1961,8 +1970,7 @@ drawElevationChart();
   kmMarks.forEach(m => {
     const isKey = m.km % 10 === 0;
     const s = isKey ? 28 : 22;
-    const frac = m.km / 42.2;
-    const col = frac>=0.75?'#30D158':frac>=0.5?'#0A84FF':frac>=0.25?'#FFD60A':'#FC4C02';
+    const col = m.km>32?'#30D158':m.km>21?'#0A84FF':m.km>10?'#FFD60A':'#FC4C02';
     const ic = L.divIcon({
       html:`<div style="background:#1c1c1e;color:${col};border:1.5px solid ${col};border-radius:50%;width:${s}px;height:${s}px;display:flex;align-items:center;justify-content:center;font-size:${isKey?11:9}px;font-weight:800">${m.km}</div>`,
       iconSize:[s,s],iconAnchor:[s/2,s/2],className:''
