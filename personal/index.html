@@ -196,7 +196,7 @@
 
   <div class="page-header">
     <h1>Personal</h1>
-    <p>Running · Trips — Alireza Toghiani</p>
+    <p>Running · Trips · Alireza Toghiani</p>
   </div>
 
   <div class="tabs">
@@ -295,14 +295,25 @@ function showTab(name, btn) {
 // ── Race data ──
 const RACE_DAY = new Date('2026-05-03T07:00:00-04:00');
 
-function pad(n) { return String(n).padStart(2,'0'); }
+// Inline seed so the card renders instantly without waiting for a fetch
+const SEED_RACES = {
+  upcoming: [{
+    id: 'toronto-2026',
+    name: 'Toronto Waterfront Marathon',
+    date: '2026-05-03',
+    location: 'Toronto, ON',
+    distance_km: 42.2,
+    status: 'upcoming',
+    notes: 'First marathon. Training with MISFITRUNCLUB Montreal.'
+  }],
+  completed: []
+};
 
 function renderRaces(data) {
-  // Upcoming
   const upcomingEl = document.getElementById('upcoming-races');
   const upcomingSection = document.getElementById('race-upcoming-section');
   const now = Date.now();
-  const raceOver = now >= RACE_DAY.getTime() + 8*3600*1000; // 8h after gun = race over
+  const raceOver = now >= RACE_DAY.getTime() + 8 * 3600 * 1000;
 
   if (data.upcoming && data.upcoming.length > 0) {
     upcomingEl.innerHTML = data.upcoming.map(r => {
@@ -310,7 +321,6 @@ function renderRaces(data) {
       const daysTo = Math.ceil((rDate - now) / 86400000);
 
       if (raceOver && r.status === 'upcoming') {
-        // Race happened — show result placeholder until manual data update
         return `
         <div class="race-card upcoming">
           <div class="race-header">
@@ -321,17 +331,15 @@ function renderRaces(data) {
             <span class="race-badge badge-done">Completed</span>
           </div>
           <div class="race-notes">
-            Race completed. Official results pending — hit Refresh to load finishing time and splits.
+            Race completed. Official results pending. Hit Refresh to load finishing time and splits.
             ${r.notes ? '<br><br>' + r.notes : ''}
           </div>
           <div class="race-links">
             <a class="race-link" href="https://www.sportstats.ca" target="_blank" rel="noopener">🏅 Official Results (Sportstats)</a>
-            <a class="race-link" href="https://www.strava.com/athletes/alireza12t" target="_blank" rel="noopener">🟠 Strava</a>
           </div>
         </div>`;
       }
 
-      // Pre-race: countdown
       return `
       <div class="race-card upcoming">
         <div class="race-header">
@@ -343,13 +351,13 @@ function renderRaces(data) {
         </div>
         <div class="countdown-block">
           <div>
-            <div class="countdown-num" id="cd-days">${daysTo}</div>
+            <div class="countdown-num">${daysTo}</div>
             <div class="countdown-lbl">Days to go</div>
           </div>
           <div class="countdown-detail">
-            <strong>Toronto Waterfront Marathon</strong> — May 3, 2026<br>
+            <strong>Toronto Waterfront Marathon</strong> · May 3, 2026<br>
             Gun time: ~7:00 AM · Start: Mel Lastman Square<br>
-            Target: 5h31–5h56 · Pace: 8:30/km<br>
+            Target: 5h31 to 5h56 · Pace: 8:30/km<br>
             Training: 166.9 km in 90 days · Longest run: 23.7 km
           </div>
         </div>
@@ -357,7 +365,6 @@ function renderRaces(data) {
         <div class="race-links">
           <a class="race-link" href="https://torontowaterfrontmarathon.com" target="_blank" rel="noopener">🏁 Race Website</a>
           <a class="race-link" href="/misfit/">📊 Training Dashboard</a>
-          <a class="race-link" href="https://www.strava.com/athletes/alireza12t" target="_blank" rel="noopener">🟠 Strava</a>
         </div>
       </div>`;
     }).join('');
