@@ -39,5 +39,6 @@ jobs:
           git add misfit/index.html
           git diff --staged --quiet && echo "No changes, skipping commit" || (
             git commit -m "chore: update running dashboard $(date -u +%Y-%m-%d)"
+            git pull --rebase origin master
             git push
           )
