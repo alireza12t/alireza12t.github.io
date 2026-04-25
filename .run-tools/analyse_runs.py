@@ -45,13 +45,22 @@ def load_token():
             TOKEN_PATH.write_text(json.dumps(data, indent=2))
     return data["access_token"]
 
-def strava_get(token, path):
-    req = urllib.request.Request(
-        f"https://www.strava.com/api/v3{path}",
-        headers={"Authorization": f"Bearer {token}"},
-    )
-    with urllib.request.urlopen(req) as r:
-        return json.loads(r.read())
+def strava_get(token, path, max_retries=4):
+    for attempt in range(max_retries):
+        req = urllib.request.Request(
+            f"https://www.strava.com/api/v3{path}",
+            headers={"Authorization": f"Bearer {token}"},
+        )
+        try:
+            with urllib.request.urlopen(req) as r:
+                return json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < max_retries - 1:
+                wait = 65 * (attempt + 1)
+                print(f"  Rate limited (429) — waiting {wait}s before retry {attempt+2}/{max_retries}...", flush=True)
+                time.sleep(wait)
+            else:
+                raise
 
 def sec_to_hms(s):
     h, rem = divmod(int(s), 3600)
@@ -133,6 +142,79 @@ def main():
         splits = det.get("splits_metric", [])
         detailed.append((det, splits))
         time.sleep(0.3)  # be polite to the API
+
+    # ── Fetch GPS streams for top runs (longest by distance) ─────────────────
+    # Sort by distance, take top 5 that have GPS
+    runs_with_gps = sorted(
+        [(det, splits) for det, splits in detailed if det.get("distance", 0) >= 3000],
+        key=lambda x: x[0]["distance"], reverse=True
+    )[:5]
+    print(f"\nFetching GPS streams for top {len(runs_with_gps)} runs...", flush=True)
+    gps_runs = []
+    for det, splits in runs_with_gps:
+        act_id = det["id"]
+        try:
+            stream = strava_get(token, f"/activities/{act_id}/streams?keys=latlng,altitude,heartrate,velocity_smooth&key_by_type=true")
+            latlng = stream.get("latlng", {}).get("data", [])
+            alt = stream.get("altitude", {}).get("data", [])
+            hr = stream.get("heartrate", {}).get("data", [])
+            vel = stream.get("velocity_smooth", {}).get("data", [])
+            if latlng:
+                # Sample to max 300 points to keep JSON small
+                step = max(1, len(latlng) // 300)
+                sampled_ll = latlng[::step]
+                sampled_alt = alt[::step] if alt else []
+                sampled_hr = hr[::step] if hr else []
+                sampled_vel = vel[::step] if vel else []
+
+                # Compute per-km uphill analysis
+                km_analysis = []
+                if alt and vel and len(alt) == len(vel):
+                    n = len(alt)
+                    # Estimate distance at each stream point using velocity integration
+                    # stream is sampled at 1 Hz by Strava by default
+                    cum_dist = 0.0
+                    km_bucket = 0
+                    km_elev_start = alt[0]
+                    km_hr_vals = []
+                    km_pace_vals = []
+                    for j in range(n):
+                        speed = vel[j] if vel[j] else 0
+                        cum_dist += speed  # metres per second * 1 second = metres
+                        if hr and j < len(hr): km_hr_vals.append(hr[j])
+                        if speed > 0: km_pace_vals.append(1000.0 / speed)
+                        if cum_dist >= (km_bucket + 1) * 1000:
+                            elev_gain = max(0, alt[j] - km_elev_start)
+                            elev_loss = max(0, km_elev_start - alt[j])
+                            net_elev = alt[j] - km_elev_start
+                            avg_hr_km = round(sum(km_hr_vals) / len(km_hr_vals)) if km_hr_vals else None
+                            med_pace = sorted(km_pace_vals)[len(km_pace_vals)//2] if km_pace_vals else None
+                            km_analysis.append({
+                                "km": km_bucket + 1,
+                                "elev_gain_m": round(elev_gain, 1),
+                                "elev_net_m": round(net_elev, 1),
+                                "avg_hr": avg_hr_km,
+                                "pace_s": round(med_pace) if med_pace else None,
+                            })
+                            km_bucket += 1
+                            km_elev_start = alt[j]
+                            km_hr_vals = []
+                            km_pace_vals = []
+
+                gps_runs.append({
+                    "id": act_id,
+                    "date": det["start_date_local"][:10],
+                    "name": det["name"],
+                    "dist_km": round(det["distance"] / 1000, 2),
+                    "latlng": [[round(p[0], 6), round(p[1], 6)] for p in sampled_ll],
+                    "altitude": [round(a, 1) for a in sampled_alt],
+                    "total_elev_gain": round(det.get("total_elevation_gain", 0), 1),
+                    "km_analysis": km_analysis,
+                })
+                print(f"  GPS: {det['name']} ({det['start_date_local'][:10]}) — {len(sampled_ll)} pts, {len(km_analysis)} km analysed", flush=True)
+            time.sleep(0.3)
+        except Exception as e:
+            print(f"  GPS fetch failed for {act_id}: {e}", flush=True)
 
     # ── per-run table ─────────────────────────────────────────────────────────
 
@@ -513,14 +595,14 @@ def main():
             for r in runs_data
         ],
         "plan": [
-            {"date": "Apr 25", "day": "Sat", "km": "10",   "note": f"Easy {easy_pace if predicted_range else '?'} — first day of taper"},
-            {"date": "Apr 26", "day": "Sun", "km": "6",    "note": f"Easy {easy_pace if predicted_range else '?'} — short shakeout"},
-            {"date": "Apr 27", "day": "Mon", "km": "REST", "note": "Full rest or 20 min walk. No running."},
-            {"date": "Apr 28", "day": "Tue", "km": "10",   "note": f"Tune-up: 2 km easy + 3×1 km @ {pace_10k if predicted_range else '?'} (90s recovery) + 2 km easy"},
-            {"date": "Apr 29", "day": "Wed", "km": "6",    "note": f"Easy {easy_pace if predicted_range else '?'} — keep it honest"},
-            {"date": "Apr 30", "day": "Thu", "km": "REST", "note": "Full rest. Legs up. Hydrate aggressively."},
+            {"date": "Apr 25", "day": "Sat", "km": "DONE", "note": "23.7 km long run COMPLETED — longest run ever. Legs earned it."},
+            {"date": "Apr 26", "day": "Sun", "km": "REST", "note": "Full rest. Legs up after 23 km yesterday. No running."},
+            {"date": "Apr 27", "day": "Mon", "km": "6",    "note": f"Easy {easy_pace if predicted_range else '?'} — gentle shakeout, just flush the legs"},
+            {"date": "Apr 28", "day": "Tue", "km": "REST", "note": "Full rest. Hydrate aggressively. Eat carbs."},
+            {"date": "Apr 29", "day": "Wed", "km": "8",    "note": f"Tune-up: 2 km easy + 3×1 km @ {pace_10k if predicted_range else '?'} (90s jog recovery) + 2 km easy"},
+            {"date": "Apr 30", "day": "Thu", "km": "REST", "note": "Full rest. Legs up. Carb-load starts today."},
             {"date": "May 1",  "day": "Fri", "km": "5",    "note": f"Easy {easy_pace if predicted_range else '?'} — shakeout, stop before you feel tired"},
-            {"date": "May 2",  "day": "Sat", "km": "4",    "note": "Shake-out: 3 km easy + 4×80 m strides @ 10K effort"},
+            {"date": "May 2",  "day": "Sat", "km": "3",    "note": "Shake-out: 2 km easy + 4×80 m strides @ 10K effort, full walk recovery"},
             {"date": "May 3",  "day": "Sun", "km": "42.2", "note": f"RACE — Toronto Marathon. Start @ {pace_str(1000/(t2_lo/42.195)) if predicted_range else '?'}. Do NOT go out faster."},
         ] if predicted_range else [],
         "red_flags": [f for f in [
@@ -529,6 +611,7 @@ def main():
             *[f"Back-to-back hard: {b}" for b in back2back],
         ] if f],
         "strengths": strengths,
+        "gps_runs": gps_runs,
     }
     script_dir = Path(__file__).parent
     json_path = script_dir / "race_data.json"
@@ -537,6 +620,7 @@ def main():
 
     # ── Embed data into index.html ──
     # Checks script_dir/index.html (CI: .run-tools/) and the local dev copy
+    import re
     new_data_line = f"const DATA = {json.dumps(json_data)};"
     for html_path in [
         script_dir / "index.html",
@@ -546,8 +630,8 @@ def main():
         if not html_path.exists():
             continue
         content = html_path.read_text()
-        import re
-        updated = re.sub(r"const DATA = \{.*?\};", new_data_line, content, count=1, flags=re.DOTALL)
+        # Use lambda replacement to avoid re interpreting backslashes in JSON (e.g. \u escapes)
+        updated = re.sub(r"const DATA = \{.*?\};", lambda _: new_data_line, content, count=1, flags=re.DOTALL)
         if updated != content:
             html_path.write_text(updated)
             print(f"Updated DATA in {html_path}")
