@@ -819,8 +819,8 @@ const DATA = {"athlete": "Alireza Toghiani", "race_date": "2026-05-03", "race_na
 // ── GitHub Actions config ──
 // ── Refresh via Cloudflare Worker (no PAT prompt) ──
 // Worker stores GITHUB_PAT + REFRESH_KEY as secrets. Dashboard only knows the key + worker URL.
-const GH_WORKER_URL = ''; // paste your Worker URL here, e.g. https://misfit-refresh.you.workers.dev
-const GH_REFRESH_KEY = 'misfit2026'; // must match REFRESH_KEY secret set in the Worker
+const GH_WORKER_URL = 'https://r7n6gzfefcwld37lyjkabauqk40sqydj.lambda-url.us-east-1.on.aws/run-refresh';
+const GH_REFRESH_KEY = 'misfit2026';
 
 // ── Password Gate ──
 const PW_HASH = '4eed7e4819d12d57bc5c053c291cd8ecebfc2b4b0b834d127e39bdad25e12e4d';

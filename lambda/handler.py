@@ -46,6 +46,11 @@ from botocore.exceptions import ClientError
 GOOGLE_CLIENT_ID = os.environ["GOOGLE_CLIENT_ID"]
 SSM_CLIENT_SECRET_PARAM = os.environ.get("SSM_CLIENT_SECRET_PARAM", "/booking/google_client_secret")
 SSM_REFRESH_TOKEN_PARAM = os.environ.get("SSM_REFRESH_TOKEN_PARAM", "/booking/google_refresh_token")
+SSM_GITHUB_PAT_PARAM = os.environ.get("SSM_GITHUB_PAT_PARAM", "/booking/github_pat")
+SSM_REFRESH_KEY_PARAM = os.environ.get("SSM_REFRESH_KEY_PARAM", "/booking/refresh_key")
+GH_OWNER = "alireza12t"
+GH_REPO  = "alireza12t.github.io"
+GH_WORKFLOW = "update-running-dashboard.yml"
 HOST_EMAIL = os.environ.get("HOST_EMAIL", "alireza.toghiani@icloud.com")
 HOST_NAME = os.environ.get("HOST_NAME", "Alireza Toghiani")
 TIMEZONE = os.environ.get("TIMEZONE", "America/Toronto")
@@ -212,15 +217,63 @@ def _get_booked_slots():
         return []
 
 
+def _handle_run_refresh(event):
+    """Trigger the GitHub Actions dashboard-update workflow."""
+    key = (event.get("headers") or {}).get("x-refresh-key", "")
+    try:
+        expected = _get_secret(SSM_REFRESH_KEY_PARAM)
+    except Exception:
+        return _response(500, {"error": "refresh_key_not_configured"})
+    if not key or key != expected:
+        return _response(403, {"error": "forbidden"})
+
+    try:
+        pat = _get_secret(SSM_GITHUB_PAT_PARAM)
+    except Exception:
+        return _response(500, {"error": "github_pat_not_configured"})
+    if pat == "PLACEHOLDER":
+        return _response(500, {"error": "github_pat_not_set — run: aws ssm put-parameter --name /booking/github_pat --type SecureString --value YOUR_PAT --overwrite"})
+
+    body = json.dumps({"ref": "master"}).encode()
+    req = urllib.request.Request(
+        f"https://api.github.com/repos/{GH_OWNER}/{GH_REPO}/actions/workflows/{GH_WORKFLOW}/dispatches",
+        data=body,
+        headers={
+            "Authorization": f"Bearer {pat}",
+            "Accept": "application/vnd.github.v3+json",
+            "Content-Type": "application/json",
+            "User-Agent": "misfit-dashboard-lambda",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10) as r:
+            status = r.status
+    except urllib.error.HTTPError as e:
+        status = e.code
+    if status == 204:
+        return _response(200, {"ok": True})
+    return _response(status, {"error": f"github_api_{status}"})
+
+
 def lambda_handler(event, context):
     method = (
         event.get("requestContext", {}).get("http", {}).get("method")
         or event.get("httpMethod")
         or ""
     ).upper()
-    print(f"[booking] method={method}")
+    path = (event.get("requestContext", {}).get("http", {}).get("path")
+            or event.get("path") or "/")
+    print(f"[booking] method={method} path={path}")
     if method == "OPTIONS":
         return {"statusCode": 204, "headers": {}, "body": ""}
+
+    # Dashboard refresh trigger — separate from booking flow
+    if path.rstrip("/") == "/run-refresh":
+        if method != "POST":
+            return _response(405, {"error": "method not allowed"})
+        return _handle_run_refresh(event)
+
     if method == "GET":
         slots = _get_booked_slots()
         print(f"[booking] GET returning {len(slots)} booked slots")
