@@ -27,14 +27,30 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html" data-i18n="nav_home">Home</a></li>
-                <li><a href="about.html" class="active-link" data-i18n="nav_about">About</a></li>
-                <li><a href="experience.html" data-i18n="nav_experience">Experience</a></li>
-                <li><a href="education.html" data-i18n="nav_education">Education</a></li>
-                <li><a href="projects.html" data-i18n="nav_projects">Projects</a></li>
-                <li><a href="skills.html" data-i18n="nav_skills">Skills</a></li>
-                <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                <li class="nav-dropdown nav-dropdown-active">
+                    <a href="#" class="nav-dropdown-toggle">Profile <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about.html" class="active-link" data-i18n="nav_about">About</a></li>
+                        <li><a href="education.html" data-i18n="nav_education">Education</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <a href="#" class="nav-dropdown-toggle">Work <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="experience.html" data-i18n="nav_experience">Experience</a></li>
+                        <li><a href="projects.html" data-i18n="nav_projects">Projects</a></li>
+                        <li><a href="skills.html" data-i18n="nav_skills">Skills</a></li>
+                    </ul>
+                </li>
+                <li><a href="achievements.html">Recognition</a></li>
                 <li><a href="personal/">Personal</a></li>
-                <li><a href="booking.html" data-i18n="nav_booking">Book a Call</a></li>
+                <li class="nav-dropdown">
+                    <a href="#" class="nav-dropdown-toggle">Connect <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                        <li><a href="booking.html" data-i18n="nav_booking">Book a Call</a></li>
+                    </ul>
+                </li>
             </ul>
             <div class="hamburger">
                 <span></span>
