@@ -430,10 +430,76 @@
   <!-- Tab: Marathon -->
   <div class="tab-panel" id="tab-marathon">
 
-  <!-- Pacing strategy banner (unique to Marathon tab — informed by long run data) -->
-  <div style="background:rgba(252,76,2,0.08);border:1px solid rgba(252,76,2,0.3);border-radius:12px;padding:14px 18px;margin-bottom:20px;font-size:13px">
-    <span style="color:var(--orange);font-weight:700">Your long run verdict for May 3:</span>
-    <span style="color:var(--text-dim)"> km 20–22 today ran at 6:22–6:53/km (HR 164–166) after 3h on your feet — you have a finishing gear. Lock into <strong style="color:var(--text)">8:30/km</strong> from the gun and save it for km 32+. Toronto's hardest hill (+32m at km 5–6) is easier than what you walked today at km 17 (+36.6m). Run everything on race day.</span>
+  <!-- Coach's Analysis — Apr 25 long run → May 3 race prediction -->
+  <div style="margin-bottom:24px">
+    <div class="section-title" style="margin-bottom:14px">Coach's Analysis — Where You Stand</div>
+
+    <!-- Prediction + terrain comparison strip -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:16px">
+      <div style="background:var(--surface);border:1px solid rgba(252,76,2,0.4);border-radius:12px;padding:14px 16px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:6px">Realistic Finish</div>
+        <div style="font-size:22px;font-weight:800;color:var(--orange)">5h45–6h10</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:4px">Based on Apr 25 effort · disciplined start</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:12px;padding:14px 16px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:6px">Best Case</div>
+        <div style="font-size:22px;font-weight:800;color:var(--green)">5h30</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:4px">Perfect pacing + no wall · Riegel upper bound</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:12px;padding:14px 16px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:6px">Terrain Advantage</div>
+        <div style="font-size:22px;font-weight:800;color:var(--blue)">2.5×</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:4px">Apr 25: 290m gain · Toronto: ~116m net downhill</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:12px;padding:14px 16px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:6px">Biggest Risk</div>
+        <div style="font-size:22px;font-weight:800;color:var(--red)">km 24–42</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:4px">Uncharted — you've never run past 23.7 km</div>
+      </div>
+    </div>
+
+    <!-- What the long run proved -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:16px;font-size:13px">
+      <div style="background:rgba(48,209,88,0.06);border:1px solid rgba(48,209,88,0.25);border-radius:12px;padding:14px 16px">
+        <div style="color:var(--green);font-weight:700;margin-bottom:6px">✓ Aerobic engine confirmed</div>
+        <div style="color:var(--text-dim);line-height:1.6">km 20–22: 6:22–6:53/km at HR 164–166 <em>after 3h+ on harder terrain than Toronto</em>. You have a finishing gear. Toronto's downhill course will feel easier than today.</div>
+      </div>
+      <div style="background:rgba(48,209,88,0.06);border:1px solid rgba(48,209,88,0.25);border-radius:12px;padding:14px 16px">
+        <div style="color:var(--green);font-weight:700;margin-bottom:6px">✓ Climbs don't spike your HR</div>
+        <div style="color:var(--text-dim);line-height:1.6">km 6 (+30m): pace dropped to 9:03 but HR stayed at 144 — no cardiac spike. Toronto's toughest climb (+32m at km 5–6) is the same difficulty. You've done it. Run through it.</div>
+      </div>
+      <div style="background:rgba(48,209,88,0.06);border:1px solid rgba(48,209,88,0.25);border-radius:12px;padding:14px 16px">
+        <div style="color:var(--green);font-weight:700;margin-bottom:6px">✓ Walk → run recovery is instant</div>
+        <div style="color:var(--text-dim);line-height:1.6">km 17: walked Beaver Lake (+36.6m), HR dropped to 117. km 18: back to 7:11/km immediately. This is your race strategy. Walk every aid station km 21+, run between them.</div>
+      </div>
+      <div style="background:rgba(255,69,58,0.06);border:1px solid rgba(255,69,58,0.25);border-radius:12px;padding:14px 16px">
+        <div style="color:var(--red);font-weight:700;margin-bottom:6px">⚠ You opened too fast today</div>
+        <div style="color:var(--text-dim);line-height:1.6">km 1–5: 7:11–7:43/km at HR 142–150. That's 45–75 sec/km faster than your marathon pace. On race day the crowd energy + downhill will push you even faster. This is the #1 thing that kills marathon debuts.</div>
+      </div>
+    </div>
+
+    <!-- Km-by-km race plan -->
+    <div style="background:var(--surface);border:1px solid var(--surface3);border-radius:12px;padding:16px 18px;font-size:13px">
+      <div style="font-weight:700;margin-bottom:12px;color:var(--orange)">Race-Day Execution Plan — May 3</div>
+      <div style="display:grid;gap:8px">
+        <div style="display:grid;grid-template-columns:90px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid var(--surface3)">
+          <div style="font-weight:700;color:#FC4C02">km 1–10</div>
+          <div style="color:var(--text-dim)"><strong style="color:var(--text)">8:30/km absolute cap.</strong> It will feel embarrassingly slow. Everyone around you will go faster. Let them. You ran km 1 today at 7:11 — Toronto adrenaline will want to push you to 6:30. Resist. Check your watch every km. HR must stay ≤145.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:90px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid var(--surface3)">
+          <div style="font-weight:700;color:#FFD60A">km 10–21</div>
+          <div style="color:var(--text-dim)"><strong style="color:var(--text)">8:30–9:00/km, walk every aid station.</strong> Rolling terrain, net descent. Hit the 21K timing mat at 2h58–3h05. If you're ahead of that, you went out too hard — slow down immediately. This is where your race is won or lost.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:90px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid var(--surface3)">
+          <div style="font-weight:700;color:#0A84FF">km 21–32</div>
+          <div style="color:var(--text-dim)"><strong style="color:var(--text)">9:00–10:00/km, walk all aid stations + 30 sec extra.</strong> Flat waterfront, wind off the lake. The wall arrives here for most runners. You've never run this far — your legs will feel different at km 28 than anything today. Short steps, high cadence, don't reach.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:90px 1fr;gap:12px;padding:8px 0">
+          <div style="font-weight:700;color:#30D158">km 32–42</div>
+          <div style="color:var(--text-dim)"><strong style="color:var(--text)">Survival + your finishing gear.</strong> If you executed the first 32 km correctly, you still have legs. Use your km 20–22 gear (6:30–7:00/km) here. Walk aid stations. Run between. No more hills — this is where the training pays off. Every step is a PR.</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Toronto Marathon Course Map -->
