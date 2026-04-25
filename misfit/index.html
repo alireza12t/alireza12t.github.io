@@ -817,11 +817,10 @@ const DATA = {"athlete": "Alireza Toghiani", "race_date": "2026-05-03", "race_na
 })();
 
 // ── GitHub Actions config ──
-const GH_OWNER = 'alireza12t';
-const GH_REPO  = 'alireza12t.github.io';
-const GH_WORKFLOW = 'update-running-dashboard.yml';
-// PAT is stored in sessionStorage only — never hardcoded (GitHub auto-revokes hardcoded tokens)
-function getGhPat() { return sessionStorage.getItem('gh_pat') || ''; }
+// ── Refresh via Cloudflare Worker (no PAT prompt) ──
+// Worker stores GITHUB_PAT + REFRESH_KEY as secrets. Dashboard only knows the key + worker URL.
+const GH_WORKER_URL = ''; // paste your Worker URL here, e.g. https://misfit-refresh.you.workers.dev
+const GH_REFRESH_KEY = 'misfit2026'; // must match REFRESH_KEY secret set in the Worker
 
 // ── Password Gate ──
 const PW_HASH = '4eed7e4819d12d57bc5c053c291cd8ecebfc2b4b0b834d127e39bdad25e12e4d';
@@ -1084,42 +1083,31 @@ function drawLongRunChart() {
 // ── Refresh button ──
 async function triggerRefresh() {
   const btn = document.getElementById('refresh-btn');
-  let pat = getGhPat();
 
-  // Prompt for PAT if not in session — stored in sessionStorage only, never in code
-  if (!pat) {
-    pat = window.prompt('GitHub PAT (workflow scope)\nStored in this browser session only — never saved to code:');
-    if (!pat) return;
-    if (!pat.startsWith('ghp_') && !pat.startsWith('github_pat_')) {
-      alert('That doesn\'t look like a GitHub token (should start with ghp_ or github_pat_)');
-      return;
-    }
-    sessionStorage.setItem('gh_pat', pat);
+  if (!GH_WORKER_URL) {
+    btn.textContent = 'Worker URL not set — see .run-tools/refresh-worker.js';
+    btn.style.color = 'var(--yellow)';
+    setTimeout(() => { btn.textContent = 'Refresh Data'; btn.style.color = ''; }, 4000);
+    return;
   }
 
   btn.textContent = 'Triggering…';
   btn.disabled = true;
   try {
-    const r = await fetch(
-      `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW}/dispatches`,
-      { method:'POST',
-        headers:{ Authorization:`Bearer ${pat}`, Accept:'application/vnd.github.v3+json', 'Content-Type':'application/json' },
-        body: JSON.stringify({ ref:'main' }) }
-    );
-    if (r.status === 204) {
-      btn.textContent = 'Running… auto-reload in 2 min';
+    const r = await fetch(GH_WORKER_URL, {
+      method: 'POST',
+      headers: { 'X-Refresh-Key': GH_REFRESH_KEY, 'Content-Type': 'application/json' },
+    });
+    const json = await r.json().catch(() => ({}));
+    if (json.ok) {
+      btn.textContent = 'Running… reload in 2 min';
       btn.style.color = 'var(--green)';
       setTimeout(() => location.reload(), 130000);
-    } else if (r.status === 401) {
-      sessionStorage.removeItem('gh_pat'); // clear bad token
-      btn.textContent = '401 — bad token, cleared';
-      btn.style.color = 'var(--red)';
-      btn.disabled = false;
-      setTimeout(() => { btn.textContent = 'Refresh Data'; btn.style.color = ''; }, 3000);
     } else {
-      btn.textContent = `Error ${r.status}`;
+      btn.textContent = `Error — ${json.error || r.status}`;
       btn.style.color = 'var(--red)';
       btn.disabled = false;
+      setTimeout(() => { btn.textContent = 'Refresh Data'; btn.style.color = ''; }, 4000);
     }
   } catch(e) {
     btn.textContent = 'Network error';
