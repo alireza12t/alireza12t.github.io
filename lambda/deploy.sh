@@ -57,12 +57,12 @@ echo "[4/5] Creating Function URL with CORS..."
 if ! aws lambda create-function-url-config \
        --function-name "$FN" \
        --auth-type NONE \
-       --cors "AllowOrigins=[\"$ALLOWED_ORIGIN\"],AllowMethods=[\"*\"],AllowHeaders=[\"content-type\"],MaxAge=300" \
+       --cors "AllowOrigins=[\"$ALLOWED_ORIGIN\"],AllowMethods=[\"*\"],AllowHeaders=[\"content-type\",\"x-refresh-key\"],MaxAge=300" \
        --region "$REGION" 2>/dev/null; then
   aws lambda update-function-url-config \
     --function-name "$FN" \
     --auth-type NONE \
-    --cors "AllowOrigins=[\"$ALLOWED_ORIGIN\"],AllowMethods=[\"*\"],AllowHeaders=[\"content-type\"],MaxAge=300" \
+    --cors "AllowOrigins=[\"$ALLOWED_ORIGIN\"],AllowMethods=[\"*\"],AllowHeaders=[\"content-type\",\"x-refresh-key\"],MaxAge=300" \
     --region "$REGION" >/dev/null
 fi
 
