@@ -182,12 +182,34 @@
     .trip-info { padding-right: 0; }
     .countdown-num { font-size: 36px; }
   }
+
+  @media (max-width: 480px) {
+    .topnav { padding: 10px 16px; }
+    .shell { padding: 20px 16px 60px; }
+    .page-header h1 { font-size: 22px; }
+    .tabs { gap: 0; overflow-x: auto; }
+    .tab-btn { padding: 10px 12px; font-size: 13px; flex-shrink: 0; }
+    .race-card { padding: 16px; }
+    .race-title { font-size: 15px; }
+    .countdown-block { flex-direction: column; gap: 10px; padding: 14px 16px; }
+    .countdown-num { font-size: 32px; }
+    .race-stats { grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 8px; }
+    .rs-val { font-size: 16px; }
+    .club-card { padding: 16px; gap: 14px; }
+    .club-icon { font-size: 36px; }
+    .trip-card { padding: 14px 16px; gap: 14px; }
+    .trip-flag { font-size: 28px; }
+    .trip-name { font-size: 15px; }
+    /* keep table scrollable — overflow-x: auto already set on .table-wrap */
+    table { font-size: 12px; }
+    thead th, tbody td { padding: 8px 10px; }
+  }
 </style>
 </head>
 <body>
 
 <nav class="topnav">
-  <a class="topnav-back" href="/">← alireza12t.github.io</a>
+  <a class="topnav-back" href="/">← Home</a>
   <span class="topnav-brand">Personal</span>
   <span style="width:120px"></span>
 </nav>

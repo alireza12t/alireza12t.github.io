@@ -227,6 +227,32 @@
     .cards { grid-template-columns: 1fr 1fr; }
     thead th:nth-child(n+6) { display: none; }
     tbody td:nth-child(n+6) { display: none; }
+    .header-left h1 { font-size: 20px; }
+    .countdown .days { font-size: 36px; }
+    .tab-btn { padding: 10px 14px; font-size: 12px; }
+    #map { height: 260px; }
+    .chart-inner { min-width: 340px; }
+    .sched-row { grid-template-columns: 70px 60px 1fr; gap: 8px; font-size: 12px; }
+    .sched-wrap { padding: 4px 12px 4px; }
+    .segments-grid { grid-template-columns: 1fr; }
+    .route-stats { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
+    .verdict-grid { grid-template-columns: 1fr; }
+    .tips { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .shell { padding: 16px 14px 48px; }
+    .header { padding: 20px 0 16px; gap: 12px; }
+    .header-left h1 { font-size: 17px; }
+    .card .card-value { font-size: 20px; }
+    .cards { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .card { padding: 14px 16px; }
+    .tab-btn { padding: 9px 12px; font-size: 11px; letter-spacing: 0; }
+    .sched-row { grid-template-columns: 62px 1fr; gap: 6px; }
+    .sched-tag { display: none; }
+    #map { height: 220px; }
+    .chart-inner { min-width: 300px; }
+    .gate-box { padding: 28px 24px; }
   }
 
   /* ── Route section ── */
