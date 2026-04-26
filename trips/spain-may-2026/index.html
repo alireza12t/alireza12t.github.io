@@ -598,6 +598,7 @@
           <span class="sched-note">Realejo — free tapas with every drink in Granada. Bar Los Diamantes or Bodegas Castañeda.</span>
         </div>
       </div>
+      <div id="map-may11" class="map-container" style="margin-top:14px"></div>
     </div>
 
     <div class="section">
@@ -635,11 +636,7 @@
           <span class="sched-note">Córdoba &bull; taxi to hotel in La Judería</span>
         </div>
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Granada — Map</div>
-      <div id="map-granada" class="map-container"></div>
+      <div id="map-may12" class="map-container" style="margin-top:14px"></div>
     </div>
 
   </div>
@@ -687,6 +684,7 @@
           <span class="sched-note">Casa Pepe de la Judería or Garum 2.1 &bull; Córdoba sleeps early</span>
         </div>
       </div>
+      <div id="map-may13" class="map-container" style="margin-top:14px"></div>
     </div>
 
     <div class="section">
@@ -708,11 +706,6 @@
           <span class="sched-note">Valencia Estació del Nord &bull; taxi/metro to Hotel Primus</span>
         </div>
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Córdoba — Map</div>
-      <div id="map-cordoba" class="map-container"></div>
     </div>
 
   </div>
@@ -740,6 +733,7 @@
           <span class="sched-note">Let them pick — paella at Malvarrosa beach (La Pepica / Casa Carmela — book ahead) OR tapas crawl in Ruzafa (Canalla Bistro, Central Bar, Bar Cremaet)</span>
         </div>
       </div>
+      <div id="map-may14" class="map-container" style="margin-top:14px"></div>
     </div>
 
     <div class="section">
@@ -776,11 +770,7 @@
           <span class="sched-note">Gràcia plazas — Plaça del Sol, Plaça de la Virreina — vermut and tapas. Easy first night.</span>
         </div>
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Valencia — Map</div>
-      <div id="map-valencia" class="map-container"></div>
+      <div id="map-may15" class="map-container" style="margin-top:14px"></div>
     </div>
 
   </div>
@@ -804,11 +794,6 @@
           <div class="accom-conf"><span class="priv-block">Conf <span class="priv-val">0164264186</span> &bull; </span>✓ Booked</div>
         </div>
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Barcelona — Map</div>
-      <div id="map-barcelona" class="map-container"></div>
     </div>
 
     <div class="section">
@@ -850,6 +835,7 @@
           <span class="sched-note">Razzmatazz (Poblenou, 5 rooms, till 6am) or Sala Apolo (Poble Sec) &bull; Dark jeans + shirt + clean sneakers.</span>
         </div>
       </div>
+      <div id="map-may16" class="map-container" style="margin-top:14px"></div>
     </div>
 
     <div class="section">
@@ -881,6 +867,7 @@
           <span class="sched-note">El Born or Gothic Quarter — lively either way</span>
         </div>
       </div>
+      <div id="map-may17" class="map-container" style="margin-top:14px"></div>
     </div>
 
     <div class="section">
@@ -917,6 +904,7 @@
           <span class="sched-note">El Born — Paradiso cocktail bar afterwards</span>
         </div>
       </div>
+      <div id="map-may18" class="map-container" style="margin-top:14px"></div>
     </div>
 
     <div class="section">
@@ -943,6 +931,7 @@
           <span class="sched-note">Near Sagrada Família — Lo de Flor or Fonda Pepa</span>
         </div>
       </div>
+      <div id="map-may19" class="map-container" style="margin-top:14px"></div>
     </div>
 
     <div class="section">
@@ -979,6 +968,7 @@
           <span class="sched-note">Magic Fountain of Montjuïc (check schedule). Alternate: Hotel 1898 rooftop bar.</span>
         </div>
       </div>
+      <div id="map-may20" class="map-container" style="margin-top:14px"></div>
     </div>
 
     <div class="section">
@@ -1027,6 +1017,7 @@
           <span class="sched-note">BCN → Brussels &bull; Brussels Airlines SN 3706 &bull; 2h5m &bull; Arr 23:25</span>
         </div>
       </div>
+      <div id="map-may21" class="map-container" style="margin-top:14px"></div>
     </div>
 
     <div class="section">
@@ -1191,15 +1182,24 @@ async function checkPw() {
 
 // Tabs
 const mapInited = {};
+
+function initTabMaps(tabId) {
+  const panel = document.getElementById('tab-' + tabId);
+  if (!panel) return;
+  panel.querySelectorAll('.map-container[id]').forEach(el => {
+    if (!mapInited[el.id]) {
+      mapInited[el.id] = true;
+      initMap(el.id);
+    }
+  });
+}
+
 function showTab(id, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
   btn.classList.add('active');
-  if (!mapInited[id]) {
-    mapInited[id] = true;
-    setTimeout(() => initMap(id), 50);
-  }
+  setTimeout(() => initTabMaps(id), 50);
 }
 
 // Maps
@@ -1211,7 +1211,6 @@ function mkMap(divId, lat, lng, zoom) {
     .addLayer(L.tileLayer(TILE, {attribution: ATTR, maxZoom: 19}));
 }
 
-// Numbered pin: n=visit order, label=name, desc=detail text, lat/lng for Google Maps link
 function pin(map, lat, lng, n, label, desc) {
   const icon = L.divIcon({
     html: `<div style="
@@ -1233,61 +1232,103 @@ function pin(map, lat, lng, n, label, desc) {
   return L.marker([lat, lng], {icon}).addTo(map).bindPopup(popup);
 }
 
-function initMap(id) {
-  if (!document.getElementById('map-' + id)) return;
+function initMap(mapId) {
+  const el = document.getElementById(mapId);
+  if (!el) return;
 
-  if (id === 'tarifa') {
+  if (mapId === 'map-tarifa') {
     const m = mkMap('map-tarifa', 36.013, -5.606, 14);
-    pin(m, 36.0145, -5.6065, 1, 'Soulcation Retreat', 'C. María Antonia Toledo 12 · Boutique home in Tarifa old town with rooftop terrace · May 7–11');
-    pin(m, 36.0136, -5.6063, 2, 'Tarifa Old Town', 'Medieval walls, cathedral, and winding streets. The windiest town in Europe.');
+    pin(m, 36.0145, -5.6065, 1, 'Soulcation Retreat', 'C. María Antonia Toledo 12 · Boutique home in Tarifa old town · May 7–11');
+    pin(m, 36.0136, -5.6063, 2, 'Tarifa Old Town', 'Medieval walls, cathedral, and winding streets.');
     pin(m, 36.0040, -5.6038, 3, 'Playa Chica', 'Small sheltered beach in town. Great for swimming and watching kitesurfers.');
   }
 
-  else if (id === 'granada') {
-    const m = mkMap('map-granada', 37.178, -3.596, 14);
-    pin(m, 37.1773, -3.5982, 1, 'Eurostars Gran Vía Hotel', 'Check-in from 15:00 · May 11–12 · Gran Via De Colón 20');
-    pin(m, 37.1807, -3.5898, 2, 'Mirador San Nicolás', 'May 11 · 20:30 · Best sunset view of the Alhambra in all of Granada. Arrive early for a spot.');
-    pin(m, 37.1758, -3.5975, 3, 'Realejo — Tapas Night', 'May 11 · 21:30 · Free tapas with every drink. Bar Los Diamantes or Bodegas Castañeda.');
-    pin(m, 37.1760, -3.5882, 4, 'Alhambra', 'May 12 · 09:00–13:00 · Palace Carlos V, Alcazaba, Generalife & Gardens. One of the greatest monuments in the world.');
-    pin(m, 37.1768, -3.5985, 5, 'Plaza Nueva', 'May 12 · 13:30 · Lunch area. The main square at the foot of the Alhambra hill.');
-    pin(m, 37.1779, -3.5909, 6, 'Albaicín Quarter', 'May 12 · 15:00–16:30 · Best-preserved Moorish quarter in Spain. Narrow white-washed lanes and surprise viewpoints.');
+  else if (mapId === 'map-may11') {
+    const m = mkMap('map-may11', 37.178, -3.594, 15);
+    pin(m, 37.1773, -3.5982, 1, 'Eurostars Gran Vía Hotel', 'Check-in from 15:00 · Gran Via De Colón 20');
+    pin(m, 37.1807, -3.5898, 2, 'Mirador San Nicolás', '20:30 · Best sunset view of the Alhambra. Arrive early for a spot.');
+    pin(m, 37.1758, -3.5975, 3, 'Realejo Tapas', '21:30 · Free tapas with every drink. Bar Los Diamantes or Bodegas Castañeda.');
   }
 
-  else if (id === 'cordoba') {
-    const m = mkMap('map-cordoba', 37.880, -4.781, 15);
-    pin(m, 37.8784, -4.7802, 1, 'Hotel Mezquita Center', 'Arrive evening May 12 · Check out May 14 · Calle Bulevar Hernán Ruiz 4');
-    pin(m, 37.8761, -4.7803, 2, 'Alcázar de los Reyes Cristianos', 'May 13 · 10:00 · Moorish-Christian fortress with beautiful water gardens. Underrated — most tourists skip it.');
-    pin(m, 37.8770, -4.7815, 3, 'Bodegas Campos', 'May 13 · 13:00 · Classic Córdoba lunch spot. Order the salmorejo — cold tomato soup, the city\'s signature dish.');
-    pin(m, 37.8792, -4.7795, 4, 'Mezquita-Catedral', 'May 13 · 15:00–17:30 · Breathtaking red-and-white arches. One of the most surreal spaces in Europe. Go late to avoid tour buses.');
-    pin(m, 37.8789, -4.7764, 5, 'Roman Bridge', 'May 13 · 18:00 · 2,000-year-old bridge over the Guadalquivir. Walk across at dusk for the best light.');
-    pin(m, 37.8798, -4.7828, 6, 'La Judería', 'May 13 · 18:00 · Ancient Jewish quarter. Peek into hidden flower patios (Patios de Córdoba) along the way.');
+  else if (mapId === 'map-may12') {
+    const m = mkMap('map-may12', 37.179, -3.592, 14);
+    pin(m, 37.1760, -3.5882, 1, 'Alhambra', '09:00–13:00 · Palace Carlos V, Alcazaba, Generalife & Gardens.');
+    pin(m, 37.1768, -3.5985, 2, 'Plaza Nueva', '13:30 · Lunch at the foot of the Alhambra hill.');
+    pin(m, 37.1779, -3.5909, 3, 'Albaicín Quarter', '15:00–16:30 · Best-preserved Moorish quarter in Spain.');
+    pin(m, 37.1871, -3.6094, 4, 'Granada Train Station', '18:00 · AVE #02197 → Córdoba · 1h56m');
   }
 
-  else if (id === 'valencia') {
-    const m = mkMap('map-valencia', 39.466, -0.368, 13);
+  else if (mapId === 'map-may13') {
+    const m = mkMap('map-may13', 37.879, -4.780, 16);
+    pin(m, 37.8761, -4.7803, 1, 'Alcázar de los Reyes Cristianos', '10:00 · Moorish-Christian fortress with beautiful water gardens.');
+    pin(m, 37.8770, -4.7815, 2, 'Bodegas Campos', '13:00 · Order the salmorejo — cold tomato soup, the city\'s signature dish.');
+    pin(m, 37.8792, -4.7795, 3, 'Mezquita-Catedral', '15:00–17:30 · Breathtaking red-and-white arches. Go late to avoid tour buses.');
+    pin(m, 37.8789, -4.7764, 4, 'Roman Bridge', '18:00 · Walk across at dusk for the best light.');
+    pin(m, 37.8798, -4.7828, 5, 'La Judería', '18:00 · Ancient Jewish quarter with hidden flower patios.');
+  }
+
+  else if (mapId === 'map-may14') {
+    const m = mkMap('map-may14', 39.463, -0.355, 13);
     pin(m, 39.4601, -0.3526, 1, 'Hotel Primus Valencia', 'Arrive evening May 14 · Calle Menorca 22');
-    pin(m, 39.4602, -0.3686, 2, 'Ruzafa', 'May 14 evening · Friend night. Canalla Bistro, Central Bar, Bar Cremaet. Valencia\'s coolest neighbourhood.');
-    pin(m, 39.4798, -0.3269, 3, 'Malvarrosa Beach — La Pepica', 'May 14 (dinner option) · Legendary paella restaurant on the beach. Book ahead. Hemingway ate here.');
-    pin(m, 39.4545, -0.3509, 4, 'Ciudad de las Artes y las Ciencias', 'May 15 · 10:00–12:00 · Santiago Calatrava\'s white spaceship architecture. Walk the full plaza — stunning even without going inside.');
-    pin(m, 39.4733, -0.3790, 5, 'Mercado Central', 'May 15 · 12:30 · One of Europe\'s largest covered markets. Paella counter if time allows.');
-    pin(m, 39.4699, -0.3763, 6, 'Estació del Nord', 'May 15 · 15:36 · Train to Barcelona. Beautiful Art Nouveau station — worth arriving a few minutes early.');
+    pin(m, 39.4602, -0.3686, 2, 'Ruzafa', 'Friend night · Canalla Bistro, Central Bar, Bar Cremaet.');
+    pin(m, 39.4798, -0.3269, 3, 'Malvarrosa Beach — La Pepica', 'Dinner option · Legendary paella on the beach. Book ahead.');
   }
 
-  else if (id === 'barcelona') {
-    const m = mkMap('map-barcelona', 41.394, 2.163, 13);
-    pin(m, 41.3932, 2.1619, 1,  'Central Apartments', 'May 15–18 · Eixample Dret. Near Billy Brunch (1 min walk).');
-    pin(m, 41.3955, 2.1527, 2,  'Casa Milà / La Pedrera', 'May 16 · 09:00 · Gaudí\'s rooftop sculptures in morning light. Book tickets online.');
-    pin(m, 41.3917, 2.1650, 3,  'Casa Batlló', 'May 16 · 15:00 · Dragon-spine rooftop on Passeig de Gràcia. Book timed entry.');
-    pin(m, 41.4035, 2.1907, 4,  'Razzmatazz', 'May 16 · 23:30 · 5 rooms across multiple floors, till 6am. Biggest Saturday night in Barcelona.');
-    pin(m, 41.4145, 2.1527, 5,  'Park Güell', 'May 17 · Morning · Gaudí\'s mosaic hillside park. Pre-book timed entry — sells out fast.');
-    pin(m, 41.3809, 2.1228, 6,  'Spotify Camp Nou', 'May 17 · 17:00 (confirm kickoff) · FC Barcelona vs Real Betis. Bring a long-sleeve — no roof.');
-    pin(m, 41.3851, 2.1764, 7,  'El Born', 'Multiple nights · Best neighbourhood for dinner and bars. Cal Pep, Bar del Pla, Paradiso cocktail bar.');
-    pin(m, 41.4036, 2.1744, 8,  'Sagrada Família', 'May 18 · 13:15 · Audioguide + Nativity Tower included. Shoulders + knees covered.');
-    pin(m, 41.3988, 2.1706, 9,  'Radisson Blu 1882', 'May 18–21 · Carrer de Còrsega 482. Near Sagrada Família.');
-    pin(m, 41.3727, 2.1590, 10, 'Montjuïc + Fundació Miró', 'May 20 · Funicular up to the castle for views, then Fundació Joan Miró — book tickets ahead.');
-    pin(m, 41.3762, 2.1894, 11, 'Barceloneta Beach', 'May 21 · Last morning walk. Can Paixano (La Xampanyeria) nearby for cheap cava + sandwiches.');
+  else if (mapId === 'map-may15') {
+    const m = mkMap('map-may15', 39.467, -0.374, 14);
+    pin(m, 39.4545, -0.3509, 1, 'Ciudad de las Artes y las Ciencias', '10:00–12:00 · Calatrava\'s white spaceship architecture.');
+    pin(m, 39.4733, -0.3790, 2, 'Mercado Central', '12:30 · One of Europe\'s largest covered markets.');
+    pin(m, 39.4699, -0.3763, 3, 'Estació del Nord', '15:36 · Train to Barcelona · 3h24m');
+  }
+
+  else if (mapId === 'map-may16') {
+    const m = mkMap('map-may16', 41.394, 2.162, 14);
+    pin(m, 41.3955, 2.1527, 1, 'Casa Milà / La Pedrera', '09:00 · Gaudí\'s rooftop sculptures in morning light.');
+    pin(m, 41.3917, 2.1650, 2, 'Casa Batlló', '15:00 · Dragon-spine rooftop on Passeig de Gràcia.');
+    pin(m, 41.3851, 2.1764, 3, 'El Born — Dinner', '20:30 · Cal Pep, Bar del Pla, or Sagardi tapas crawl.');
+    pin(m, 41.4035, 2.1907, 4, 'Razzmatazz', '23:30 · 5 rooms across multiple floors, till 6am.');
+  }
+
+  else if (mapId === 'map-may17') {
+    const m = mkMap('map-may17', 41.396, 2.148, 13);
+    pin(m, 41.4145, 2.1527, 1, 'Park Güell', '11:00 · Gaudí\'s mosaic hillside park. Pre-booked slot.');
+    pin(m, 41.3809, 2.1228, 2, 'Spotify Camp Nou', '17:00 · FC Barcelona vs Real Betis. Confirm kickoff.');
+    pin(m, 41.3851, 2.1764, 3, 'El Born', 'Post-match · Celebratory dinner and bars.');
+  }
+
+  else if (mapId === 'map-may18') {
+    const m = mkMap('map-may18', 41.391, 2.170, 14);
+    pin(m, 41.3932, 2.1619, 1, 'Central Apartments — Checkout', '11:00 · Taxi to Radisson to drop bags.');
+    pin(m, 41.4036, 2.1744, 2, 'Sagrada Família', '13:15 · Audioguide + Nativity Tower included.');
+    pin(m, 41.3988, 2.1706, 3, 'Radisson Blu 1882', '15:30 · Check-in · Carrer de Còrsega 482.');
+    pin(m, 41.3838, 2.1760, 4, 'Gothic Quarter', '16:30 · Barcelona Cathedral, Plaça Sant Felip Neri.');
+    pin(m, 41.3826, 2.1834, 5, 'Santa Maria del Mar', '18:30 · Free Gothic church, stunning interior.');
+  }
+
+  else if (mapId === 'map-may19') {
+    const m = mkMap('map-may19', 41.484, 1.991, 10);
+    pin(m, 41.3747, 2.1498, 1, 'Plaça Espanya — Depart', '09:00 · Metro to Plaça Espanya, R5 train to Montserrat-Aeri.');
+    pin(m, 41.5931, 1.8340, 2, 'Montserrat', '10:30–15:00 · Monastery, Basilica, hike to Sant Joan, boys\' choir 13:00.');
+  }
+
+  else if (mapId === 'map-may20') {
+    const m = mkMap('map-may20', 41.370, 2.157, 15);
+    pin(m, 41.3736, 2.1647, 1, 'Carrer de Blai', '10:30 · Poble Sec · pincho street.');
+    pin(m, 41.3641, 2.1649, 2, 'Montjuïc Castle', '11:30 · Funicular + cable car · panoramic views.');
+    pin(m, 41.3688, 2.1618, 3, 'Fundació Joan Miró', '13:30 · Book tickets ahead.');
+    pin(m, 41.3685, 2.1535, 4, 'MNAC', '16:00 · Palau Nacional · iconic view from the steps.');
+  }
+
+  else if (mapId === 'map-may21') {
+    const m = mkMap('map-may21', 41.382, 2.184, 14);
+    pin(m, 41.3762, 2.1894, 1, 'Barceloneta Beach', '11:30 · Last morning walk along the beach.');
+    pin(m, 41.3797, 2.1857, 2, 'Can Paixano / La Xampanyeria', 'Cheap cava + sandwiches · legendary local bar.');
+    pin(m, 41.3912, 2.1808, 3, 'Arc de Triomf', 'Walk through to Ciutadella Park.');
+    pin(m, 41.3884, 2.1877, 4, 'Parc de la Ciutadella', 'Relaxed park stroll before heading to the airport.');
   }
 }
+
+setTimeout(() => initTabMaps('tarifa'), 100);
 </script>
 </body>
 </html>
