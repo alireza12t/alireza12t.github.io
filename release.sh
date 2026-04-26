@@ -49,13 +49,16 @@ blue "About to release:"
 echo "  Tag   : $VERSION"
 echo "  Notes : $NOTES"
 echo ""
-read -rp "Proceed? [Y/n]: " OK
-[[ "${OK:-Y}" =~ ^[Nn]$ ]] && { echo "Aborted."; exit 0; }
+# Skip confirm prompt when both args supplied (non-interactive mode)
+if [[ $# -lt 2 ]]; then
+    read -rp "Proceed? [Y/n]: " OK
+    [[ "${OK:-Y}" =~ ^[Nn]$ ]] && { echo "Aborted."; exit 0; }
+fi
 
 # ── Tests ─────────────────────────────────────────────────────────────────────
 echo ""
 blue "→ Running tests..."
-python -m pytest lambda/test_handler.py -v --tb=short || red "Tests failed — release aborted."
+python3 -m pytest lambda/test_handler.py -v --tb=short || red "Tests failed — release aborted."
 
 # ── Tag & push ────────────────────────────────────────────────────────────────
 echo ""
