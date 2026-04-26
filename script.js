@@ -275,7 +275,7 @@ hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
 });
 
-// Close mobile menu when clicking on a real nav link (not dropdown toggles)
+// Close mobile menu when clicking a nav link (not dropdown toggles)
 document.querySelectorAll('.nav-menu a:not(.nav-dropdown-toggle)').forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
@@ -301,44 +301,49 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Smooth scroll for anchor links
+// Smooth scroll for all anchor links, accounting for fixed navbar
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) {
-            const offset = 80;
-            const targetPosition = target.offsetTop - offset;
+            const navbarHeight = document.querySelector('.navbar').offsetHeight;
             window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
+                top: target.getBoundingClientRect().top + window.pageYOffset - navbarHeight,
+                behavior: 'smooth',
             });
         }
     });
 });
 
-// Navbar hide-on-scroll-down, show-on-scroll-up
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
-const SCROLL_THRESHOLD = 10;
+// Highlight active nav link/dropdown as sections scroll into view
+const pageSections = document.querySelectorAll('section[id]');
+if (pageSections.length) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.id;
 
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
+            // Clear all active states
+            document.querySelectorAll('.nav-menu a.active-link').forEach(a => a.classList.remove('active-link'));
+            document.querySelectorAll('.nav-dropdown.nav-dropdown-active').forEach(d => d.classList.remove('nav-dropdown-active'));
 
-    if (currentScroll <= 0) {
-        navbar.classList.remove('nav-hidden');
-        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-    } else if (currentScroll > lastScroll + SCROLL_THRESHOLD && currentScroll > 80) {
-        // Scrolling down past threshold
-        navbar.classList.add('nav-hidden');
-    } else if (currentScroll < lastScroll - SCROLL_THRESHOLD) {
-        // Scrolling up past threshold
-        navbar.classList.remove('nav-hidden');
-        navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
-    }
+            // Find nav link with matching data-section
+            const activeLink = document.querySelector(`.nav-menu a[data-section="${id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active-link');
+                const parentDropdown = activeLink.closest('.nav-dropdown');
+                if (parentDropdown) parentDropdown.classList.add('nav-dropdown-active');
+            }
+        });
+    }, { rootMargin: '-40% 0px -55% 0px' });
 
-    lastScroll = currentScroll;
-});
+    pageSections.forEach(s => sectionObserver.observe(s));
+}
+
+// Navbar is always visible — no hide-on-scroll on the one-pager
 
 // ===== CSS class-based scroll-reveal system =====
 const revealObserver = new IntersectionObserver((entries) => {
@@ -802,21 +807,3 @@ document.querySelectorAll('.skill-tags').forEach(container => {
     renderCalendar();
 })();
 
-// Add CSS for active link
-const style = document.createElement('style');
-style.textContent = `
-    .nav-menu a.active-link {
-        color: var(--primary-color);
-        position: relative;
-    }
-    .nav-menu a.active-link::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: var(--primary-color);
-    }
-`;
-document.head.appendChild(style);
