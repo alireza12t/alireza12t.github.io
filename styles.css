@@ -1835,6 +1835,12 @@ section {
 
     .nav-dropdown.open .dropdown-menu { display: block; }
 
+    /* Center dropdown toggles to match direct nav links */
+    .nav-dropdown-toggle {
+        justify-content: center;
+        width: 100%;
+    }
+
     .dropdown-menu li a {
         font-size: 0.85rem;
         color: var(--text-light);
@@ -1881,15 +1887,68 @@ section {
 }
 
 @media (max-width: 480px) {
+    /* Disable scroll-snap on phones — sections taller than viewport get stuck */
+    html {
+        scroll-snap-type: none;
+    }
+
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+    }
+
+    .hero-description {
+        font-size: 0.95rem;
     }
 
     .section-title {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        width: 90%;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .page-section {
+        min-height: auto;
+        padding-top: 5rem;
+        padding-bottom: 4rem;
+    }
+
+    .hero.page-section {
+        min-height: 100vh;
+    }
+
+    .timeline-item {
+        padding-left: 28px;
+    }
+
+    .timeline-content {
+        padding: 1rem;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-methods {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .achievement-grid,
+    .volunteer-grid {
+        grid-template-columns: 1fr;
     }
 }
