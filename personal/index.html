@@ -312,7 +312,10 @@ function showTab(name, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   if (btn) btn.classList.add('active');
+  else document.querySelector(`.tab-btn[onclick*="'${name}'"]`)?.classList.add('active');
 }
+
+if (location.hash === '#trips') showTab('trips');
 
 // ── Race data ──
 const RACE_DAY = new Date('2026-05-03T07:00:00-04:00');
