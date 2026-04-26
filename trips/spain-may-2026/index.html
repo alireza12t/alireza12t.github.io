@@ -157,6 +157,25 @@
   .sched-row.warn .sched-note { color: var(--text); }
   .sched-row.booked .sched-note { color: var(--text); }
 
+  /* ── Expandable schedule rows ── */
+  .sched-row.has-detail { cursor: pointer; }
+  .sched-row.has-detail .sched-note::after {
+    content: ' ›'; color: var(--gold-dim); margin-left: 4px; font-size: 15px;
+  }
+  .sched-row.has-detail.open .sched-note::after { content: ' ↓'; }
+  .sched-detail {
+    display: none; grid-column: 1 / -1;
+    padding: 8px 0 6px; margin-top: 4px;
+    border-top: 1px dashed var(--surface3);
+    font-size: 12px; color: var(--text-dim); line-height: 1.7;
+  }
+  .sched-row.has-detail.open .sched-detail { display: block; }
+  .sched-detail ul { list-style: none; padding: 0; margin: 0; }
+  .sched-detail li { padding: 1px 0; }
+  .sched-detail li::before { content: '· '; color: var(--gold); }
+  .sched-detail li.warn { color: var(--red); }
+  .sched-detail li.warn::before { content: '⚠ '; }
+
   /* ── Alert boxes ── */
   .warning-box {
     background: rgba(255,69,58,0.08); border: 1px solid rgba(255,69,58,0.3);
@@ -595,12 +614,19 @@
 
     <div class="section">
       <div class="section-title">Tue May 12 — Alhambra → Córdoba Evening</div>
-      <div class="warning-box">⚠ Nasrid Palaces NOT included in current ticket — book separately (see Buy Now tab).</div>
       <div class="sched-wrap">
-        <div class="sched-row highlight booked">
-          <span class="sched-time">09:00–13:00</span>
+        <div class="sched-row highlight booked has-detail">
+          <span class="sched-time">10:00–13:00</span>
           <span class="sched-tag">Alhambra</span>
-          <span class="sched-note">✓ Booked<span class="priv-block"> &bull; Order <span class="priv-val">401779013438</span></span> &bull; Palace Carlos V &bull; Alcazaba &bull; Generalife &bull; Gardens &bull; Audio guide included</span>
+          <span class="sched-note">✓ Booked<span class="priv-block"> &bull; Viator Ref <span class="priv-val">1389086863</span></span> &bull; Nasrid Palaces &bull; Alcazaba &bull; Generalife &bull; Gardens &bull; Use Basir app</span>
+          <div class="sched-detail">
+            <ul>
+              <li class="warn">Ticket emailed May 11 — check inbox that evening before bed</li>
+              <li class="warn">Download Basir app before leaving home — works fully offline (search "Basir Audioguía de La Alhambra")</li>
+              <li>Visit order: Alcazaba → Nasrid Palaces (timed, do not be late) → Palace Carlos V → Generalife</li>
+              <li class="warn">Non-refundable, cannot be changed · Provider: +14375232036</li>
+            </ul>
+          </div>
         </div>
         <div class="sched-row">
           <span class="sched-time">13:30</span>
@@ -806,13 +832,13 @@
           <span class="sched-tag">Walk</span>
           <span class="sched-note">Passeig de Gràcia — admire Casa Batlló + Casa Amatller facades</span>
         </div>
-        <div class="sched-row warn">
-          <span class="sched-time">15:00</span>
-          <span class="sched-tag">Casa Batlló</span>
-          <span class="sched-note">Timed entry — book now (see Buy Now tab)</span>
+        <div class="sched-row">
+          <span class="sched-time">13:00</span>
+          <span class="sched-tag">Lunch</span>
+          <span class="sched-note">El Nacional or Cervecería Catalana — recharge on Passeig de Gràcia</span>
         </div>
         <div class="sched-row">
-          <span class="sched-time">17:00</span>
+          <span class="sched-time">15:00</span>
           <span class="sched-tag">Rest</span>
           <span class="sched-note">Apartment — nap, recharge. Tonight is late.</span>
         </div>
@@ -838,10 +864,19 @@
           <span class="sched-tag">Recovery</span>
           <span class="sched-note">Slow wake-up, recovery breakfast</span>
         </div>
-        <div class="sched-row warn">
-          <span class="sched-time">11:00</span>
+        <div class="sched-row highlight booked has-detail">
+          <span class="sched-time">11:30</span>
           <span class="sched-tag">Park Güell</span>
-          <span class="sched-note">Pre-booked morning slot needed (see Buy Now tab)</span>
+          <span class="sched-note">✓ Booked<span class="priv-block"> &bull; Locator <span class="priv-val">700433231665</span> &bull; Booking <span class="priv-val">8363624</span></span> &bull; €24 &bull; Start at Gaudí House Museum &bull; Enter via Carrer del Carmel 23 &bull; Arrive before 12:00</span>
+          <div class="sched-detail">
+            <ul>
+              <li>Enter via Carrer del Carmel 23 — go to Gaudí House Museum first, not the main park gate</li>
+              <li class="warn">Reservation held only 30 min — must arrive by 12:00 or entry not guaranteed</li>
+              <li class="warn">No re-entry once ticket is validated — do not leave and come back</li>
+              <li>One-way system with possible waits at Plaça Natura, Hypostyle Room, Dragon Stairway</li>
+              <li>Museum ~30 min, then explore freely · Can change date until day before (ref 8363624)</li>
+            </ul>
+          </div>
         </div>
         <div class="sched-row">
           <span class="sched-time">16:00</span>
@@ -863,17 +898,40 @@
     </div>
 
     <div class="section">
-      <div class="section-title">Mon May 18 — Sagrada Família + Hotel Swap</div>
+      <div class="section-title">Mon May 18 — Casa Batlló + Sagrada Família + Hotel Swap</div>
       <div class="sched-wrap">
+        <div class="sched-row highlight booked has-detail">
+          <span class="sched-time">08:30</span>
+          <span class="sched-tag">Casa Batlló</span>
+          <span class="sched-note">✓ Booked<span class="priv-block"> &bull; Locator <span class="priv-val">loc.293126002</span></span> &bull; €39 &bull; "Be the First" morning visit &bull; Dragon-spine rooftop before crowds</span>
+          <div class="sched-detail">
+            <ul>
+              <li>Walkable from Airbnb on Passeig de Gràcia &bull; ~1h 15min visit</li>
+              <li>Bring student ID</li>
+            </ul>
+          </div>
+        </div>
+        <div class="sched-row">
+          <span class="sched-time">10:30</span>
+          <span class="sched-tag">Coffee</span>
+          <span class="sched-note">Nearby café on Passeig de Gràcia — decompress before checkout</span>
+        </div>
         <div class="sched-row">
           <span class="sched-time">11:00</span>
           <span class="sched-tag">Checkout</span>
           <span class="sched-note">Airbnb checkout &bull; taxi to Radisson Blu 1882, drop bags (check-in 3 PM)</span>
         </div>
-        <div class="sched-row highlight booked">
+        <div class="sched-row highlight booked has-detail">
           <span class="sched-time">13:15</span>
           <span class="sched-tag">Sagrada Família</span>
           <span class="sched-note"><span class="priv-block">✓ Reservation <span class="priv-val">98217880</span> &bull; Ticket <span class="priv-val">292979276</span> &bull; </span>Audioguide included &bull; Nativity Tower 13:45 &bull; Shoulders + knees covered</span>
+          <div class="sched-detail">
+            <ul>
+              <li class="warn">Dress code: shoulders + knees covered — enforced at entrance</li>
+              <li>Nativity Tower timed slot at 13:45 — included in ticket</li>
+              <li>Audioguide included · Allow ~2h total</li>
+            </ul>
+          </div>
         </div>
         <div class="sched-row">
           <span class="sched-time">15:30</span>
@@ -908,19 +966,36 @@
           <span class="sched-note">Metro to Plaça Espanya &bull; R5 train to Montserrat-Aeri (~1h) &bull; cable car up</span>
         </div>
         <div class="sched-row highlight">
-          <span class="sched-time">10:30–15:00</span>
+          <span class="sched-time">10:30–14:00</span>
           <span class="sched-tag">Montserrat</span>
-          <span class="sched-note">Monastery &bull; Basilica &bull; Black Madonna &bull; Hike to Sant Joan &bull; Escolania boys' choir 13:00</span>
+          <span class="sched-note">Monastery &bull; Basilica &bull; Black Madonna &bull; Hike to Sant Joan &bull; Escolania boys' choir 13:00 &bull; Leave by 14:30</span>
         </div>
         <div class="sched-row">
-          <span class="sched-time">16:00</span>
+          <span class="sched-time">15:15</span>
           <span class="sched-tag">Return</span>
-          <span class="sched-note">Train back to Barcelona</span>
+          <span class="sched-note">Train back to Barcelona &bull; arrive El Born ~15:15</span>
+        </div>
+        <div class="sched-row highlight booked has-detail">
+          <span class="sched-time">16:00</span>
+          <span class="sched-tag">Picasso Museum</span>
+          <span class="sched-note">✓ Booked<span class="priv-block"> &bull; Booking <span class="priv-val">5/1550054</span></span> &bull; €18 &bull; Guided Tour English &bull; Meeting point: C/ Montcada 17 &bull; 15-min late = cancelled</span>
+          <div class="sched-detail">
+            <ul>
+              <li class="warn">Arrive at C/ Montcada 17 by 15:50 — 10 min early</li>
+              <li class="warn">15 min late = ticket cancelled · Non-refundable</li>
+              <li>Tour in English &bull; Duration ~1h 30min &bull; C/ Montcada 15-23, 08003 Barcelona</li>
+            </ul>
+          </div>
+        </div>
+        <div class="sched-row">
+          <span class="sched-time">17:30</span>
+          <span class="sched-tag">El Born</span>
+          <span class="sched-note">Wander El Born neighbourhood after the tour</span>
         </div>
         <div class="sched-row">
           <span class="sched-time">20:00</span>
           <span class="sched-tag">Dinner</span>
-          <span class="sched-note">Near Sagrada Família — Lo de Flor or Fonda Pepa</span>
+          <span class="sched-note">El Born — Bar del Pla or Cal Pep</span>
         </div>
       </div>
       <div id="map-may19" class="map-container" style="margin-top:14px"></div>
@@ -1246,7 +1321,7 @@ function initMap(mapId) {
   else if (mapId === 'map-may12') {
     const m = mkMap('map-may12', 37.181, -3.596, 14);
     pin(m, 37.1773, -3.5982, 1, 'Eurostars Gran Vía Hotel — Checkout', 'Pack and go · start of day');
-    pin(m, 37.1760, -3.5882, 2, 'Alhambra', '09:00–13:00 · Palace Carlos V, Alcazaba, Generalife & Gardens.');
+    pin(m, 37.1760, -3.5882, 2, 'Alhambra', '10:00–13:00 · Nasrid Palaces, Alcazaba, Generalife & Gardens · Use Basir app.');
     pin(m, 37.1768, -3.5985, 3, 'Plaza Nueva', '13:30 · Lunch at the foot of the Alhambra hill.');
     pin(m, 37.1779, -3.5909, 4, 'Albaicín Quarter', '15:00–16:30 · Best-preserved Moorish quarter in Spain.');
     pin(m, 37.1871, -3.6094, 5, 'Granada Train Station', '18:00 · AVE #02197 → Córdoba · 1h56m');
@@ -1283,7 +1358,7 @@ function initMap(mapId) {
     const m = mkMap('map-may16', 41.394, 2.162, 14);
     pin(m, 41.3932, 2.1619, 1, 'Central Apartments', 'Eixample Dret · May 15–18');
     pin(m, 41.3955, 2.1527, 2, 'Casa Milà / La Pedrera', '09:00 · Gaudí\'s rooftop sculptures in morning light.');
-    pin(m, 41.3917, 2.1650, 3, 'Casa Batlló', '15:00 · Dragon-spine rooftop on Passeig de Gràcia.');
+    pin(m, 41.3917, 2.1650, 3, 'Passeig de Gràcia — Lunch', '13:00 · El Nacional or Cervecería Catalana.');
     pin(m, 41.3851, 2.1764, 4, 'El Born — Dinner', '20:30 · Cal Pep, Bar del Pla, or Sagardi tapas crawl.');
     pin(m, 41.4035, 2.1907, 5, 'Razzmatazz', '23:30 · 5 rooms across multiple floors, till 6am.');
   }
@@ -1291,25 +1366,27 @@ function initMap(mapId) {
   else if (mapId === 'map-may17') {
     const m = mkMap('map-may17', 41.396, 2.148, 13);
     pin(m, 41.3932, 2.1619, 1, 'Central Apartments', 'Eixample Dret · May 15–18');
-    pin(m, 41.4145, 2.1527, 2, 'Park Güell', '11:00 · Gaudí\'s mosaic hillside park. Pre-booked slot.');
+    pin(m, 41.4145, 2.1527, 2, 'Park Güell', '11:30 · Booked (Locator 700433231665) · Enter via Carrer del Carmel 23 · Arrive before 12:00.');
     pin(m, 41.3809, 2.1228, 3, 'Spotify Camp Nou', '17:00 · FC Barcelona vs Real Betis. Confirm kickoff.');
     pin(m, 41.3851, 2.1764, 4, 'El Born', 'Post-match · Celebratory dinner and bars.');
   }
 
   else if (mapId === 'map-may18') {
     const m = mkMap('map-may18', 41.391, 2.170, 14);
-    pin(m, 41.3932, 2.1619, 1, 'Central Apartments — Checkout', '11:00 · Taxi to Radisson to drop bags.');
-    pin(m, 41.4036, 2.1744, 2, 'Sagrada Família', '13:15 · Audioguide + Nativity Tower included.');
-    pin(m, 41.3988, 2.1706, 3, 'Radisson Blu 1882', '15:30 · Check-in · Carrer de Còrsega 482.');
-    pin(m, 41.3838, 2.1760, 4, 'Gothic Quarter', '16:30 · Barcelona Cathedral, Plaça Sant Felip Neri.');
-    pin(m, 41.3826, 2.1834, 5, 'Santa Maria del Mar', '18:30 · Free Gothic church, stunning interior.');
+    pin(m, 41.3917, 2.1650, 1, 'Casa Batlló', '08:30 · Be the First visit · €39 · Dragon-spine rooftop before crowds.');
+    pin(m, 41.3932, 2.1619, 2, 'Central Apartments — Checkout', '11:00 · Taxi to Radisson to drop bags.');
+    pin(m, 41.4036, 2.1744, 3, 'Sagrada Família', '13:15 · Audioguide + Nativity Tower included.');
+    pin(m, 41.3988, 2.1706, 4, 'Radisson Blu 1882', '15:30 · Check-in · Carrer de Còrsega 482.');
+    pin(m, 41.3838, 2.1760, 5, 'Gothic Quarter', '16:30 · Barcelona Cathedral, Plaça Sant Felip Neri.');
+    pin(m, 41.3826, 2.1834, 6, 'Santa Maria del Mar', '18:30 · Free Gothic church, stunning interior.');
   }
 
   else if (mapId === 'map-may19') {
     const m = mkMap('map-may19', 41.484, 1.991, 10);
     pin(m, 41.3988, 2.1706, 1, 'Radisson Blu 1882', 'Start of day · Carrer de Còrsega 482');
     pin(m, 41.3747, 2.1498, 2, 'Plaça Espanya', '09:00 · Metro here · R5 train to Montserrat-Aeri');
-    pin(m, 41.5931, 1.8340, 3, 'Montserrat', '10:30–15:00 · Monastery, Basilica, hike to Sant Joan, boys\' choir 13:00.');
+    pin(m, 41.5931, 1.8340, 3, 'Montserrat', '10:30–14:00 · Monastery, Basilica, hike to Sant Joan, boys\' choir 13:00 · Leave by 14:30');
+    pin(m, 41.3837, 2.1808, 4, 'Picasso Museum', '16:00 · Guided Tour English · C/ Montcada 17 · Booking 5/1550054 · 15-min late = cancelled');
   }
 
   else if (mapId === 'map-may20') {
@@ -1333,6 +1410,10 @@ function initMap(mapId) {
 }
 
 setTimeout(() => initTabMaps('tarifa'), 100);
+
+document.querySelectorAll('.sched-row.has-detail').forEach(row => {
+  row.addEventListener('click', () => row.classList.toggle('open'));
+});
 </script>
 </body>
 </html>
