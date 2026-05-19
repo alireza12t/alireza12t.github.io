@@ -2,25 +2,17 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-05-18T12:59:12.596932",
+  "generated": "2026-05-19T12:33:38.950553",
   "predicted_lo": "5h31m00s",
   "predicted_hi": "5h56m28s",
   "mp_pace": "7:50/km",
   "peak_week_km": 42.8,
-  "total_km_90d": 192.9,
+  "total_km_90d": 192.2,
   "longest_run_km": 42.83,
   "longest_run_date": "2026-05-03",
   "taper_note": "YES \u2014 current week is 3% of previous (1 vs 43 km)",
-  "lr_summary": "42.8 km on 2026-05-03 (15 days ago)",
+  "lr_summary": "42.8 km on 2026-05-03 (16 days ago)",
   "weeks": [
-    {
-      "label": "Feb 16",
-      "n_runs": 1,
-      "total_km": 0.7,
-      "longest_km": 0.7,
-      "total_time_s": 704,
-      "med_easy_pace_s": 1038
-    },
     {
       "label": "Feb 23",
       "n_runs": 2,
@@ -111,18 +103,6 @@
     }
   ],
   "runs": [
-    {
-      "date": "2026-02-17",
-      "dow": "Tue",
-      "name": "Morning Run",
-      "dist_km": 0.68,
-      "duration_s": 704,
-      "pace": "17:18/km",
-      "avg_hr": 149.5,
-      "max_hr": 170.0,
-      "elev_m": 0,
-      "type": "recovery"
-    },
     {
       "date": "2026-02-24",
       "dow": "Tue",
@@ -597,7 +577,7 @@
       "date": "Apr 27",
       "day": "Mon",
       "km": "6",
-      "note": "Easy 9:34/km \u2014 gentle shakeout, just flush the legs"
+      "note": "Easy 9:27/km \u2014 gentle shakeout, just flush the legs"
     },
     {
       "date": "Apr 28",
@@ -621,7 +601,7 @@
       "date": "May 1",
       "day": "Fri",
       "km": "5",
-      "note": "Easy 9:34/km \u2014 shakeout, stop before you feel tired"
+      "note": "Easy 9:27/km \u2014 shakeout, stop before you feel tired"
     },
     {
       "date": "May 2",
@@ -638,7 +618,6 @@
   ],
   "red_flags": [
     "HR drift +-14.5 bpm on long run",
-    "Gap: 2026-02-17 \u2192 2026-02-24 (7 days)",
     "Gap: 2026-03-04 \u2192 2026-03-14 (10 days)",
     "Gap: 2026-04-25 \u2192 2026-05-03 (8 days)",
     "Gap: 2026-05-03 \u2192 2026-05-13 (10 days)"
