@@ -2,16 +2,16 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-05-24T11:05:25.414717",
+  "generated": "2026-05-25T12:55:21.858672",
   "predicted_lo": "5h31m00s",
   "predicted_hi": "5h56m28s",
   "mp_pace": "7:50/km",
   "peak_week_km": 42.8,
-  "total_km_90d": 194.0,
+  "total_km_90d": 198.2,
   "longest_run_km": 42.83,
   "longest_run_date": "2026-05-03",
-  "taper_note": "NOT YET \u2014 current week is 161% of previous (2 vs 1 km) \u2014 needs more reduction",
-  "lr_summary": "42.8 km on 2026-05-03 (21 days ago)",
+  "taper_note": "NOT YET \u2014 current week is 532% of previous (6 vs 1 km) \u2014 needs more reduction",
+  "lr_summary": "42.8 km on 2026-05-03 (22 days ago) \u26a0 22 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Feb 23",
@@ -103,10 +103,10 @@
     },
     {
       "label": "May 18",
-      "n_runs": 1,
-      "total_km": 1.8,
-      "longest_km": 1.8,
-      "total_time_s": 983,
+      "n_runs": 2,
+      "total_km": 5.9,
+      "longest_km": 4.1,
+      "total_time_s": 2707,
       "med_easy_pace_s": 549
     }
   ],
@@ -578,6 +578,18 @@
       "max_hr": 138.0,
       "elev_m": 5,
       "type": "recovery"
+    },
+    {
+      "date": "2026-05-24",
+      "dow": "Sun",
+      "name": "Morning Run",
+      "dist_km": 4.14,
+      "duration_s": 1724,
+      "pace": "6:55/km",
+      "avg_hr": 175.6,
+      "max_hr": 192.0,
+      "elev_m": 13,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -597,7 +609,7 @@
       "date": "Apr 27",
       "day": "Mon",
       "km": "6",
-      "note": "Easy 9:27/km \u2014 gentle shakeout, just flush the legs"
+      "note": "Easy 9:26/km \u2014 gentle shakeout, just flush the legs"
     },
     {
       "date": "Apr 28",
@@ -621,7 +633,7 @@
       "date": "May 1",
       "day": "Fri",
       "km": "5",
-      "note": "Easy 9:27/km \u2014 shakeout, stop before you feel tired"
+      "note": "Easy 9:26/km \u2014 shakeout, stop before you feel tired"
     },
     {
       "date": "May 2",
