@@ -2,16 +2,16 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-05-27T12:46:09.508315",
+  "generated": "2026-05-28T13:00:30.015958",
   "predicted_lo": "5h31m00s",
   "predicted_hi": "5h56m28s",
   "mp_pace": "7:50/km",
   "peak_week_km": 44.3,
-  "total_km_90d": 195.2,
+  "total_km_90d": 200.2,
   "longest_run_km": 42.83,
   "longest_run_date": "2026-05-03",
-  "taper_note": "YES \u2014 current week is 7% of previous (0 vs 6 km)",
-  "lr_summary": "42.8 km on 2026-05-03 (24 days ago) \u26a0 24 days ago \u2014 may be too far back",
+  "taper_note": "NOT YET \u2014 current week is 92% of previous (5 vs 6 km) \u2014 needs more reduction",
+  "lr_summary": "42.8 km on 2026-05-03 (25 days ago) \u26a0 25 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Feb 23",
@@ -111,10 +111,10 @@
     },
     {
       "label": "May 25",
-      "n_runs": 1,
-      "total_km": 0.4,
-      "longest_km": 0.4,
-      "total_time_s": 205,
+      "n_runs": 2,
+      "total_km": 5.5,
+      "longest_km": 5.0,
+      "total_time_s": 2487,
       "med_easy_pace_s": 461
     }
   ],
@@ -610,6 +610,18 @@
       "max_hr": 140.0,
       "elev_m": 0,
       "type": "recovery"
+    },
+    {
+      "date": "2026-05-27",
+      "dow": "Wed",
+      "name": "Night Run",
+      "dist_km": 5.01,
+      "duration_s": 2282,
+      "pace": "7:35/km",
+      "avg_hr": 155.4,
+      "max_hr": 194.0,
+      "elev_m": 119,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -629,7 +641,7 @@
       "date": "Apr 27",
       "day": "Mon",
       "km": "6",
-      "note": "Easy 9:26/km \u2014 gentle shakeout, just flush the legs"
+      "note": "Easy 9:20/km \u2014 gentle shakeout, just flush the legs"
     },
     {
       "date": "Apr 28",
@@ -653,7 +665,7 @@
       "date": "May 1",
       "day": "Fri",
       "km": "5",
-      "note": "Easy 9:26/km \u2014 shakeout, stop before you feel tired"
+      "note": "Easy 9:20/km \u2014 shakeout, stop before you feel tired"
     },
     {
       "date": "May 2",
@@ -676,8 +688,7 @@
     "Gap: 2026-05-13 \u2192 2026-05-23 (10 days)"
   ],
   "strengths": [
-    "solid long run (42.8 km)",
-    "taper underway"
+    "solid long run (42.8 km)"
   ],
   "gps_runs": [
     {
