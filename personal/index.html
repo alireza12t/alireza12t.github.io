@@ -329,7 +329,13 @@ const SEED_RACES = {
     date: '2026-05-03',
     location: 'Toronto, ON',
     distance_km: 42.2,
-    status: 'upcoming',
+    status: 'completed',
+    finish_time: '06:43:43',
+    pace: '9:34/km',
+    overall_place: '3180 / 3197',
+    gender_place: '2255 / 2266',
+    age_group: 'M25-29',
+    age_group_place: '503 / 503',
     notes: 'First marathon. Training with MISFITRUNCLUB Montreal.',
     results_url: 'https://sportstats.one/event/toronto-marathon/leaderboard/145787?focus=2569&type=pid'
   }],
@@ -350,9 +356,22 @@ function renderRaces(data) {
       const rDate = new Date(r.date + 'T07:00:00-04:00');
       const daysTo = Math.ceil((rDate - now) / 86400000);
 
-      if (raceOver && r.status === 'upcoming') {
+      if (raceOver) {
+        const stats = r.finish_time ? `
+          <div class="race-stats">
+            <div class="race-stat"><div class="rs-label">Finish · Chip</div><div class="rs-val orange">${r.finish_time}</div></div>
+            <div class="race-stat"><div class="rs-label">Pace</div><div class="rs-val">${r.pace || '—'}</div></div>
+            <div class="race-stat"><div class="rs-label">Overall</div><div class="rs-val">${r.overall_place || '—'}</div></div>
+            <div class="race-stat"><div class="rs-label">${r.age_group || 'Category'}</div><div class="rs-val">${r.age_group_place || '—'}</div></div>
+          </div>
+          ${r.notes ? `<div class="race-notes">${r.notes}</div>` : ''}`
+        : `
+          <div class="race-notes">
+            Race completed. Official results pending. Hit Refresh to load finishing time and splits.
+            ${r.notes ? '<br><br>' + r.notes : ''}
+          </div>`;
         return `
-        <div class="race-card upcoming">
+        <div class="race-card completed">
           <div class="race-header">
             <div>
               <div class="race-title">${r.name}</div>
@@ -360,10 +379,7 @@ function renderRaces(data) {
             </div>
             <span class="race-badge badge-done">Completed</span>
           </div>
-          <div class="race-notes">
-            Race completed. Official results pending. Hit Refresh to load finishing time and splits.
-            ${r.notes ? '<br><br>' + r.notes : ''}
-          </div>
+          ${stats}
           <div class="race-links">
             <a class="race-link" href="${r.results_url || 'https://sportstats.one'}" target="_blank" rel="noopener">🏅 Official Results (Sportstats)</a>
           </div>
