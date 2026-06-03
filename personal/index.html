@@ -252,7 +252,7 @@
     </div>
 
     <div id="race-upcoming-section">
-      <div class="section-label">Upcoming Races</div>
+      <div class="section-label" id="upcoming-label">Upcoming Races</div>
       <div id="upcoming-races"></div>
     </div>
 
@@ -330,7 +330,8 @@ const SEED_RACES = {
     location: 'Toronto, ON',
     distance_km: 42.2,
     status: 'upcoming',
-    notes: 'First marathon. Training with MISFITRUNCLUB Montreal.'
+    notes: 'First marathon. Training with MISFITRUNCLUB Montreal.',
+    results_url: 'https://sportstats.one/event/toronto-marathon/leaderboard/145787?focus=2569&type=pid'
   }],
   completed: []
 };
@@ -342,6 +343,9 @@ function renderRaces(data) {
   const raceOver = now >= RACE_DAY.getTime() + 8 * 3600 * 1000;
 
   if (data.upcoming && data.upcoming.length > 0) {
+    // Past races are no longer "upcoming" — relabel the section accordingly
+    const lbl = document.getElementById('upcoming-label');
+    if (lbl) lbl.textContent = raceOver ? 'Most Recent Race' : 'Upcoming Races';
     upcomingEl.innerHTML = data.upcoming.map(r => {
       const rDate = new Date(r.date + 'T07:00:00-04:00');
       const daysTo = Math.ceil((rDate - now) / 86400000);
@@ -361,7 +365,7 @@ function renderRaces(data) {
             ${r.notes ? '<br><br>' + r.notes : ''}
           </div>
           <div class="race-links">
-            <a class="race-link" href="https://www.sportstats.ca" target="_blank" rel="noopener">🏅 Official Results (Sportstats)</a>
+            <a class="race-link" href="${r.results_url || 'https://sportstats.one'}" target="_blank" rel="noopener">🏅 Official Results (Sportstats)</a>
           </div>
         </div>`;
       }
