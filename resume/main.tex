@@ -1,0 +1,82 @@
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\PassOptionsToPackage{dvipsnames}{xcolor}
+
+\documentclass[10pt,a4paper]{altacv}
+
+% Page layout
+\geometry{left=1.4cm,right=8.4cm,marginparwidth=6cm,marginparsep=1cm,top=1.3cm,bottom=1.3cm,footskip=2\baselineskip}
+
+% Font
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[default]{lato}
+
+% Colours
+\definecolor{Black}{HTML}{000000}
+\definecolor{SlateGrey}{HTML}{2E2E2E}
+\definecolor{LightGrey}{HTML}{444444}
+\colorlet{heading}{Black}
+\colorlet{accent}{Black}
+\colorlet{emphasis}{SlateGrey}
+\colorlet{body}{LightGrey}
+
+% Markers
+\renewcommand{\itemmarker}{{\small\textbullet}}
+\renewcommand{\ratingmarker}{\faCircle}
+
+\addbibresource{sample.bib}
+
+\usepackage[colorlinks]{hyperref}
+\hypersetup{
+    pdftitle={Alireza_Toghiani_Resume},
+    linkcolor={black},
+    citecolor={black},
+    urlcolor={black},
+    anchorcolor={black},
+    filecolor={black}
+}
+
+% ─────────────────────────────────────────
+\begin{document}
+
+\name{Alireza Toghiani}
+\tagline{Senior iOS Engineer}
+\personalinfo{
+    \location{Montreal, Canada}
+    \phone{(+1) 514-518-0179}
+    \email{alireza.toghiani@icloud.com}
+    \linkedin{alireza12t}
+    \github{alireza12t}
+}
+
+\begin{fullwidth}
+\makecvheader
+\end{fullwidth}
+
+% Page 1 sidebar is attached to the Summary heading; the page 2 sidebar is
+% queued here and injected at the top of the next page by \afterpage.
+\cvsection[sidebars/page1sidebar]{Summary}
+\input{sections/summary}
+
+% Page 1 holds the three most recent roles; an explicit break keeps every
+% remaining entry whole on page 2 (no role split mid-bullet).
+\cvsection{Experience}
+\input{sections/exp_ziffdavis}
+\divider
+\input{sections/exp_vinmeet}
+\divider
+\input{sections/exp_sfl}
+
+\addnextpagesidebar{sidebars/page2sidebar}
+\clearpage
+
+% ── Page 2 ────────────────────────────────
+\input{sections/exp_mesh}
+\divider
+\input{sections/exp_hamrahe}
+\divider
+\input{sections/exp_boonoob}
+\divider
+\input{sections/exp_carpino}
+
+\end{document}
