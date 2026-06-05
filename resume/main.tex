@@ -4,7 +4,7 @@
 \documentclass[10pt,a4paper]{altacv}
 
 % Page layout
-\geometry{left=1.4cm,right=8.4cm,marginparwidth=6cm,marginparsep=1cm,top=1.3cm,bottom=1.3cm,footskip=2\baselineskip}
+\geometry{left=1.4cm,right=8.4cm,marginparwidth=6cm,marginparsep=1cm,top=1.0cm,bottom=1.0cm,footskip=2\baselineskip}
 
 % Font
 \usepackage[T1]{fontenc}
@@ -23,6 +23,11 @@
 % Markers
 \renewcommand{\itemmarker}{{\small\textbullet}}
 \renewcommand{\ratingmarker}{\faCircle}
+
+% Tighten vertical spacing so all roles fit on two pages
+\setlist{leftmargin=*,labelsep=0.5em,nosep,itemsep=0.12\baselineskip,after=\vskip0.12\baselineskip}
+\setlist[itemize]{label=\itemmarker}
+\renewcommand{\divider}{\textcolor{body!30}{\hdashrule{\linewidth}{0.6pt}{0.5ex}}\smallskip}
 
 \addbibresource{sample.bib}
 
@@ -60,23 +65,34 @@
 
 % Page 1 holds the three most recent roles; an explicit break keeps every
 % remaining entry whole on page 2 (no role split mid-bullet).
+% \vfill between entries distributes any leftover vertical space so the roles
+% spread to fill the full column height (no empty gap at the page bottom). On a
+% page that is already full the glue collapses to zero, so it is harmless.
 \cvsection{Experience}
+\vfill
 \input{sections/exp_ziffdavis}
+\vfill
 \divider
 \input{sections/exp_vinmeet}
+\vfill
 \divider
 \input{sections/exp_sfl}
+\vfill
 
 \addnextpagesidebar{sidebars/page2sidebar}
 \clearpage
 
 % ── Page 2 ────────────────────────────────
 \input{sections/exp_mesh}
+\vfill
 \divider
 \input{sections/exp_hamrahe}
+\vfill
 \divider
 \input{sections/exp_boonoob}
+\vfill
 \divider
 \input{sections/exp_carpino}
+\vfill
 
 \end{document}

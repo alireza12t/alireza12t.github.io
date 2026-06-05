@@ -20,3 +20,17 @@ lambda/*.zip
 .claude/
 CLAUDE.md
 
+# LaTeX build artifacts (resume/) — re-created by latexmk
+resume/*.aux
+resume/*.bbl
+resume/*.bcf
+resume/*.blg
+resume/*.fdb_latexmk
+resume/*.fls
+resume/*.log
+resume/*.out
+resume/*.run.xml
+resume/*.synctex.gz
+resume/main.pdf
+resume/tmp_main.*
+
