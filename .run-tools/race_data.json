@@ -2,16 +2,16 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-06-07T11:41:36.925025",
+  "generated": "2026-06-08T13:57:57.802463",
   "predicted_lo": "5h31m00s",
   "predicted_hi": "5h56m28s",
   "mp_pace": "7:50/km",
   "peak_week_km": 44.3,
-  "total_km_90d": 212.2,
+  "total_km_90d": 223.3,
   "longest_run_km": 42.83,
   "longest_run_date": "2026-05-03",
-  "taper_note": "NOT YET \u2014 current week is 86% of previous (15 vs 18 km) \u2014 needs more reduction",
-  "lr_summary": "42.8 km on 2026-05-03 (35 days ago) \u26a0 35 days ago \u2014 may be too far back",
+  "taper_note": "YES \u2014 current week is 23% of previous (5 vs 22 km)",
+  "lr_summary": "42.8 km on 2026-05-03 (36 days ago) \u26a0 36 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Mar 09",
@@ -103,11 +103,19 @@
     },
     {
       "label": "Jun 01",
-      "n_runs": 3,
-      "total_km": 15.5,
+      "n_runs": 5,
+      "total_km": 21.6,
       "longest_km": 7.6,
-      "total_time_s": 7903,
-      "med_easy_pace_s": 514
+      "total_time_s": 10611,
+      "med_easy_pace_s": 449
+    },
+    {
+      "label": "Jun 08",
+      "n_runs": 1,
+      "total_km": 5.0,
+      "longest_km": 5.0,
+      "total_time_s": 2916,
+      "med_easy_pace_s": 587
     }
   ],
   "runs": [
@@ -662,6 +670,42 @@
       "max_hr": 183.0,
       "elev_m": 67,
       "type": "recovery"
+    },
+    {
+      "date": "2026-06-07",
+      "dow": "Sun",
+      "name": "Misfit Sunday Run 1",
+      "dist_km": 4.84,
+      "duration_s": 2122,
+      "pace": "7:18/km",
+      "avg_hr": 154.0,
+      "max_hr": 164.0,
+      "elev_m": 33,
+      "type": "recovery"
+    },
+    {
+      "date": "2026-06-07",
+      "dow": "Sun",
+      "name": "Misfits Sunday Run 2",
+      "dist_km": 1.31,
+      "duration_s": 586,
+      "pace": "7:28/km",
+      "avg_hr": 158.2,
+      "max_hr": 174.0,
+      "elev_m": 11,
+      "type": "recovery"
+    },
+    {
+      "date": "2026-06-08",
+      "dow": "Mon",
+      "name": "Morning Run",
+      "dist_km": 4.96,
+      "duration_s": 2916,
+      "pace": "9:47/km",
+      "avg_hr": 139.3,
+      "max_hr": 162.0,
+      "elev_m": 189,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -727,7 +771,8 @@
     "Gap: 2026-05-13 \u2192 2026-05-23 (10 days)"
   ],
   "strengths": [
-    "solid long run (42.8 km)"
+    "solid long run (42.8 km)",
+    "taper underway"
   ],
   "gps_runs": [
     {
