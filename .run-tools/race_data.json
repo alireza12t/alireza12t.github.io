@@ -2,7 +2,7 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-06-19T13:26:25.461515",
+  "generated": "2026-06-20T11:49:56.966263",
   "predicted_lo": "5h27m27s",
   "predicted_hi": "5h52m38s",
   "mp_pace": "7:45/km",
@@ -11,7 +11,7 @@
   "longest_run_km": 42.83,
   "longest_run_date": "2026-05-03",
   "taper_note": "YES \u2014 current week is 41% of previous (8 vs 21 km)",
-  "lr_summary": "42.8 km on 2026-05-03 (47 days ago) \u26a0 47 days ago \u2014 may be too far back",
+  "lr_summary": "42.8 km on 2026-05-03 (48 days ago) \u26a0 48 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Mar 23",
