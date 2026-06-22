@@ -2,16 +2,16 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-06-21T12:04:14.164132",
+  "generated": "2026-06-22T15:11:57.899569",
   "predicted_lo": "5h27m27s",
   "predicted_hi": "5h52m38s",
   "mp_pace": "7:45/km",
   "peak_week_km": 44.3,
-  "total_km_90d": 236.7,
+  "total_km_90d": 244.6,
   "longest_run_km": 42.83,
   "longest_run_date": "2026-05-03",
-  "taper_note": "YES \u2014 current week is 41% of previous (8 vs 21 km)",
-  "lr_summary": "42.8 km on 2026-05-03 (49 days ago) \u26a0 49 days ago \u2014 may be too far back",
+  "taper_note": "NOT YET \u2014 current week is 79% of previous (16 vs 21 km) \u2014 needs more reduction",
+  "lr_summary": "42.8 km on 2026-05-03 (50 days ago) \u26a0 50 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Mar 23",
@@ -103,10 +103,10 @@
     },
     {
       "label": "Jun 15",
-      "n_runs": 5,
-      "total_km": 8.4,
-      "longest_km": 4.0,
-      "total_time_s": 3858,
+      "n_runs": 7,
+      "total_km": 16.4,
+      "longest_km": 5.1,
+      "total_time_s": 7260,
       "med_easy_pace_s": 428
     }
   ],
@@ -782,6 +782,30 @@
       "max_hr": 173.0,
       "elev_m": 12,
       "type": "recovery"
+    },
+    {
+      "date": "2026-06-21",
+      "dow": "Sun",
+      "name": "Pre Misfits Run",
+      "dist_km": 2.84,
+      "duration_s": 1169,
+      "pace": "6:51/km",
+      "avg_hr": 145.1,
+      "max_hr": 168.0,
+      "elev_m": 14,
+      "type": "recovery"
+    },
+    {
+      "date": "2026-06-21",
+      "dow": "Sun",
+      "name": "Misfits Run",
+      "dist_km": 5.13,
+      "duration_s": 2233,
+      "pace": "7:14/km",
+      "avg_hr": 161.8,
+      "max_hr": 189.0,
+      "elev_m": 75,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -801,7 +825,7 @@
       "date": "Apr 27",
       "day": "Mon",
       "km": "6",
-      "note": "Easy 8:38/km \u2014 gentle shakeout, just flush the legs"
+      "note": "Easy 8:33/km \u2014 gentle shakeout, just flush the legs"
     },
     {
       "date": "Apr 28",
@@ -825,7 +849,7 @@
       "date": "May 1",
       "day": "Fri",
       "km": "5",
-      "note": "Easy 8:38/km \u2014 shakeout, stop before you feel tired"
+      "note": "Easy 8:33/km \u2014 shakeout, stop before you feel tired"
     },
     {
       "date": "May 2",
@@ -847,8 +871,7 @@
     "Gap: 2026-05-13 \u2192 2026-05-23 (10 days)"
   ],
   "strengths": [
-    "solid long run (42.8 km)",
-    "taper underway"
+    "solid long run (42.8 km)"
   ],
   "gps_runs": [
     {
