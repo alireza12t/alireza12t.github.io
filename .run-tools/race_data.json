@@ -2,16 +2,16 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-06-24T12:13:10.728549",
+  "generated": "2026-06-25T12:11:07.365263",
   "predicted_lo": "5h27m27s",
   "predicted_hi": "5h52m38s",
   "mp_pace": "7:45/km",
   "peak_week_km": 44.3,
-  "total_km_90d": 246.7,
+  "total_km_90d": 250.7,
   "longest_run_km": 42.83,
   "longest_run_date": "2026-05-03",
-  "taper_note": "YES \u2014 current week is 20% of previous (3 vs 16 km)",
-  "lr_summary": "42.8 km on 2026-05-03 (52 days ago) \u26a0 52 days ago \u2014 may be too far back",
+  "taper_note": "YES \u2014 current week is 44% of previous (7 vs 16 km)",
+  "lr_summary": "42.8 km on 2026-05-03 (53 days ago) \u26a0 53 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Mar 23",
@@ -111,11 +111,11 @@
     },
     {
       "label": "Jun 22",
-      "n_runs": 1,
-      "total_km": 3.2,
-      "longest_km": 3.2,
-      "total_time_s": 1679,
-      "med_easy_pace_s": 521
+      "n_runs": 2,
+      "total_km": 7.2,
+      "longest_km": 4.0,
+      "total_time_s": 3841,
+      "med_easy_pace_s": 539
     }
   ],
   "runs": [
@@ -814,6 +814,18 @@
       "max_hr": 179.0,
       "elev_m": 25,
       "type": "recovery"
+    },
+    {
+      "date": "2026-06-24",
+      "dow": "Wed",
+      "name": "Short Run",
+      "dist_km": 4.01,
+      "duration_s": 2162,
+      "pace": "8:59/km",
+      "avg_hr": 145.6,
+      "max_hr": 164.0,
+      "elev_m": 82,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -833,7 +845,7 @@
       "date": "Apr 27",
       "day": "Mon",
       "km": "6",
-      "note": "Easy 8:33/km \u2014 gentle shakeout, just flush the legs"
+      "note": "Easy 8:38/km \u2014 gentle shakeout, just flush the legs"
     },
     {
       "date": "Apr 28",
@@ -857,7 +869,7 @@
       "date": "May 1",
       "day": "Fri",
       "km": "5",
-      "note": "Easy 8:33/km \u2014 shakeout, stop before you feel tired"
+      "note": "Easy 8:38/km \u2014 shakeout, stop before you feel tired"
     },
     {
       "date": "May 2",
