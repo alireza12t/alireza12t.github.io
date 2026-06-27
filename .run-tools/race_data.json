@@ -2,23 +2,23 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-06-26T12:05:54.356867",
+  "generated": "2026-06-27T11:18:50.780944",
   "predicted_lo": "5h27m27s",
   "predicted_hi": "5h52m38s",
   "mp_pace": "7:45/km",
   "peak_week_km": 44.3,
-  "total_km_90d": 245.9,
+  "total_km_90d": 244.0,
   "longest_run_km": 42.83,
   "longest_run_date": "2026-05-03",
-  "taper_note": "YES \u2014 current week is 44% of previous (7 vs 16 km)",
-  "lr_summary": "42.8 km on 2026-05-03 (54 days ago) \u26a0 54 days ago \u2014 may be too far back",
+  "taper_note": "YES \u2014 current week is 50% of previous (8 vs 16 km)",
+  "lr_summary": "42.8 km on 2026-05-03 (55 days ago) \u26a0 55 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Mar 23",
-      "n_runs": 3,
-      "total_km": 3.8,
-      "longest_km": 1.6,
-      "total_time_s": 2560,
+      "n_runs": 1,
+      "total_km": 0.9,
+      "longest_km": 0.9,
+      "total_time_s": 683,
       "med_easy_pace_s": 797
     },
     {
@@ -111,38 +111,14 @@
     },
     {
       "label": "Jun 22",
-      "n_runs": 2,
-      "total_km": 7.2,
+      "n_runs": 3,
+      "total_km": 8.2,
       "longest_km": 4.0,
-      "total_time_s": 3841,
+      "total_time_s": 4429,
       "med_easy_pace_s": 539
     }
   ],
   "runs": [
-    {
-      "date": "2026-03-28",
-      "dow": "Sat",
-      "name": "Morning Run",
-      "dist_km": 1.35,
-      "duration_s": 595,
-      "pace": "7:19/km",
-      "avg_hr": 137.3,
-      "max_hr": 160.0,
-      "elev_m": 33,
-      "type": "recovery"
-    },
-    {
-      "date": "2026-03-28",
-      "dow": "Sat",
-      "name": "Lunch Run",
-      "dist_km": 1.58,
-      "duration_s": 1282,
-      "pace": "13:33/km",
-      "avg_hr": 133.3,
-      "max_hr": 156.0,
-      "elev_m": 0,
-      "type": "recovery"
-    },
     {
       "date": "2026-03-29",
       "dow": "Sun",
@@ -814,6 +790,18 @@
       "max_hr": 164.0,
       "elev_m": 82,
       "type": "recovery"
+    },
+    {
+      "date": "2026-06-26",
+      "dow": "Fri",
+      "name": "Night Run",
+      "dist_km": 0.95,
+      "duration_s": 588,
+      "pace": "10:20/km",
+      "avg_hr": 129.2,
+      "max_hr": 161.0,
+      "elev_m": 19,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -833,7 +821,7 @@
       "date": "Apr 27",
       "day": "Mon",
       "km": "6",
-      "note": "Easy 8:33/km \u2014 gentle shakeout, just flush the legs"
+      "note": "Easy 8:38/km \u2014 gentle shakeout, just flush the legs"
     },
     {
       "date": "Apr 28",
@@ -857,7 +845,7 @@
       "date": "May 1",
       "day": "Fri",
       "km": "5",
-      "note": "Easy 8:33/km \u2014 shakeout, stop before you feel tired"
+      "note": "Easy 8:38/km \u2014 shakeout, stop before you feel tired"
     },
     {
       "date": "May 2",
