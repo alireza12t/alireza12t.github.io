@@ -2,23 +2,23 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-07-07T12:20:29.216274",
+  "generated": "2026-07-08T11:40:41.661072",
   "predicted_lo": "5h27m27s",
   "predicted_hi": "5h52m38s",
   "mp_pace": "7:45/km",
   "peak_week_km": 44.3,
-  "total_km_90d": 244.8,
+  "total_km_90d": 243.5,
   "longest_run_km": 42.83,
   "longest_run_date": "2026-05-03",
-  "taper_note": "NOT YET \u2014 current week is 121% of previous (24 vs 20 km) \u2014 needs more reduction",
-  "lr_summary": "42.8 km on 2026-05-03 (65 days ago) \u26a0 65 days ago \u2014 may be too far back",
+  "taper_note": "YES \u2014 current week is 5% of previous (1 vs 24 km)",
+  "lr_summary": "42.8 km on 2026-05-03 (66 days ago) \u26a0 66 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Apr 06",
-      "n_runs": 7,
-      "total_km": 31.8,
+      "n_runs": 6,
+      "total_km": 29.5,
       "longest_km": 7.4,
-      "total_time_s": 17729,
+      "total_time_s": 15929,
       "med_easy_pace_s": 547
     },
     {
@@ -108,21 +108,17 @@
       "longest_km": 5.7,
       "total_time_s": 9899,
       "med_easy_pace_s": 427
+    },
+    {
+      "label": "Jul 06",
+      "n_runs": 1,
+      "total_km": 1.1,
+      "longest_km": 1.1,
+      "total_time_s": 500,
+      "med_easy_pace_s": 447
     }
   ],
   "runs": [
-    {
-      "date": "2026-04-08",
-      "dow": "Wed",
-      "name": "Evening Run",
-      "dist_km": 2.36,
-      "duration_s": 1800,
-      "pace": "12:42/km",
-      "avg_hr": 132.7,
-      "max_hr": 177.0,
-      "elev_m": 66,
-      "type": "recovery"
-    },
     {
       "date": "2026-04-09",
       "dow": "Thu",
@@ -770,6 +766,18 @@
       "max_hr": 177.0,
       "elev_m": 53,
       "type": "recovery"
+    },
+    {
+      "date": "2026-07-07",
+      "dow": "Tue",
+      "name": "Morning Run",
+      "dist_km": 1.12,
+      "duration_s": 500,
+      "pace": "7:26/km",
+      "avg_hr": 147.2,
+      "max_hr": 160.0,
+      "elev_m": 5,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -789,7 +797,7 @@
       "date": "Apr 27",
       "day": "Mon",
       "km": "6",
-      "note": "Easy 7:53/km \u2014 gentle shakeout, just flush the legs"
+      "note": "Easy 7:41/km \u2014 gentle shakeout, just flush the legs"
     },
     {
       "date": "Apr 28",
@@ -813,7 +821,7 @@
       "date": "May 1",
       "day": "Fri",
       "km": "5",
-      "note": "Easy 7:53/km \u2014 shakeout, stop before you feel tired"
+      "note": "Easy 7:41/km \u2014 shakeout, stop before you feel tired"
     },
     {
       "date": "May 2",
@@ -835,7 +843,8 @@
     "Gap: 2026-05-13 \u2192 2026-05-23 (10 days)"
   ],
   "strengths": [
-    "solid long run (42.8 km)"
+    "solid long run (42.8 km)",
+    "taper underway"
   ],
   "gps_runs": [
     {
