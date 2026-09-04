@@ -2,16 +2,16 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-09-03T13:58:42.283245",
-  "predicted_lo": "4h54m36s",
-  "predicted_hi": "5h17m16s",
-  "mp_pace": "6:58/km",
+  "generated": "2026-09-04T13:52:10.091904",
+  "predicted_lo": "4h33m37s",
+  "predicted_hi": "4h54m40s",
+  "mp_pace": "6:29/km",
   "peak_week_km": 28.8,
-  "total_km_90d": 236.4,
+  "total_km_90d": 240.3,
   "longest_run_km": 28.78,
   "longest_run_date": "2026-07-19",
-  "taper_note": "PARTIAL \u2014 current week is 52% of previous (9 vs 17 km)",
-  "lr_summary": "28.8 km on 2026-07-19 (46 days ago) \u26a0 46 days ago \u2014 may be too far back",
+  "taper_note": "NOT YET \u2014 current week is 75% of previous (13 vs 17 km) \u2014 needs more reduction",
+  "lr_summary": "28.8 km on 2026-07-19 (47 days ago) \u26a0 47 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Jun 01",
@@ -119,11 +119,11 @@
     },
     {
       "label": "Aug 31",
-      "n_runs": 4,
-      "total_km": 8.7,
+      "n_runs": 5,
+      "total_km": 12.6,
       "longest_km": 4.0,
-      "total_time_s": 3687,
-      "med_easy_pace_s": 457
+      "total_time_s": 4966,
+      "med_easy_pace_s": 406
     }
   ],
   "runs": [
@@ -858,6 +858,18 @@
       "max_hr": 169.0,
       "elev_m": 33,
       "type": "recovery"
+    },
+    {
+      "date": "2026-09-03",
+      "dow": "Thu",
+      "name": "Intervals Run 11.0 Vancouver",
+      "dist_km": 3.94,
+      "duration_s": 1279,
+      "pace": "5:24/km",
+      "avg_hr": 164.0,
+      "max_hr": 187.0,
+      "elev_m": 19,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -889,7 +901,7 @@
       "date": "Apr 29",
       "day": "Wed",
       "km": "8",
-      "note": "Tune-up: 2 km easy + 3\u00d71 km @ 6:08/km (90s jog recovery) + 2 km easy"
+      "note": "Tune-up: 2 km easy + 3\u00d71 km @ 5:42/km (90s jog recovery) + 2 km easy"
     },
     {
       "date": "Apr 30",
@@ -913,16 +925,14 @@
       "date": "May 3",
       "day": "Sun",
       "km": "42.2",
-      "note": "RACE \u2014 Toronto Marathon. Start @ 6:58/km. Do NOT go out faster."
+      "note": "RACE \u2014 Toronto Marathon. Start @ 6:29/km. Do NOT go out faster."
     }
   ],
   "red_flags": [
     "HR drift +1.3 bpm on long run",
     "Gap: 2026-07-12 \u2192 2026-07-19 (7 days)"
   ],
-  "strengths": [
-    "taper underway"
-  ],
+  "strengths": [],
   "gps_runs": [
     {
       "id": 19379084282,
