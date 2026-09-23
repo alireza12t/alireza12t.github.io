@@ -2,24 +2,24 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-09-22T14:14:20.331372",
+  "generated": "2026-09-23T14:30:02.327663",
   "predicted_lo": "4h33m37s",
   "predicted_hi": "4h54m40s",
   "mp_pace": "6:29/km",
   "peak_week_km": 28.8,
-  "total_km_90d": 245.7,
+  "total_km_90d": 241.7,
   "longest_run_km": 28.78,
   "longest_run_date": "2026-07-19",
   "taper_note": "YES \u2014 current week is 8% of previous (2 vs 28 km)",
-  "lr_summary": "28.8 km on 2026-07-19 (65 days ago) \u26a0 65 days ago \u2014 may be too far back",
+  "lr_summary": "28.8 km on 2026-07-19 (66 days ago) \u26a0 66 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Jun 22",
-      "n_runs": 4,
-      "total_km": 16.3,
+      "n_runs": 3,
+      "total_km": 12.3,
       "longest_km": 10.3,
-      "total_time_s": 8068,
-      "med_easy_pace_s": 539
+      "total_time_s": 5906,
+      "med_easy_pace_s": 620
     },
     {
       "label": "Jun 29",
@@ -127,18 +127,6 @@
     }
   ],
   "runs": [
-    {
-      "date": "2026-06-24",
-      "dow": "Wed",
-      "name": "Short Run",
-      "dist_km": 4.01,
-      "duration_s": 2162,
-      "pace": "8:59/km",
-      "avg_hr": 145.6,
-      "max_hr": 164.0,
-      "elev_m": 82,
-      "type": "recovery"
-    },
     {
       "date": "2026-06-26",
       "dow": "Fri",
