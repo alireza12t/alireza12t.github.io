@@ -2,23 +2,23 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-09-28T17:51:34.264198",
+  "generated": "2026-09-29T16:11:27.202257",
   "predicted_lo": "4h33m37s",
   "predicted_hi": "4h54m40s",
   "mp_pace": "6:29/km",
   "peak_week_km": 28.8,
-  "total_km_90d": 238.0,
+  "total_km_90d": 237.6,
   "longest_run_km": 28.78,
   "longest_run_date": "2026-07-19",
-  "taper_note": "YES \u2014 current week is 39% of previous (11 vs 28 km)",
-  "lr_summary": "28.8 km on 2026-07-19 (71 days ago) \u26a0 71 days ago \u2014 may be too far back",
+  "taper_note": "YES \u2014 current week is 33% of previous (4 vs 11 km)",
+  "lr_summary": "28.8 km on 2026-07-19 (72 days ago) \u26a0 72 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Jun 29",
-      "n_runs": 6,
-      "total_km": 23.5,
+      "n_runs": 5,
+      "total_km": 19.5,
       "longest_km": 5.7,
-      "total_time_s": 9899,
+      "total_time_s": 8185,
       "med_easy_pace_s": 427
     },
     {
@@ -116,21 +116,17 @@
       "longest_km": 4.2,
       "total_time_s": 4409,
       "med_easy_pace_s": 409
+    },
+    {
+      "label": "Sep 28",
+      "n_runs": 2,
+      "total_km": 3.6,
+      "longest_km": 2.6,
+      "total_time_s": 1609,
+      "med_easy_pace_s": 480
     }
   ],
   "runs": [
-    {
-      "date": "2026-07-01",
-      "dow": "Wed",
-      "name": "Morning Run",
-      "dist_km": 4.02,
-      "duration_s": 1714,
-      "pace": "7:06/km",
-      "avg_hr": 160.2,
-      "max_hr": 174.0,
-      "elev_m": 24,
-      "type": "recovery"
-    },
     {
       "date": "2026-07-02",
       "dow": "Thu",
@@ -789,6 +785,30 @@
       "avg_hr": 159.9,
       "max_hr": 186.0,
       "elev_m": 56,
+      "type": "recovery"
+    },
+    {
+      "date": "2026-09-28",
+      "dow": "Mon",
+      "name": "Afternoon Run",
+      "dist_km": 2.63,
+      "duration_s": 1149,
+      "pace": "7:17/km",
+      "avg_hr": 151.8,
+      "max_hr": 175.0,
+      "elev_m": 61,
+      "type": "recovery"
+    },
+    {
+      "date": "2026-09-29",
+      "dow": "Tue",
+      "name": "Morning Run",
+      "dist_km": 0.96,
+      "duration_s": 460,
+      "pace": "8:00/km",
+      "avg_hr": 122.8,
+      "max_hr": 136.0,
+      "elev_m": 11,
       "type": "recovery"
     }
   ],
