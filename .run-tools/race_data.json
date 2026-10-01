@@ -2,23 +2,23 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-09-30T16:08:39.262331",
+  "generated": "2026-10-01T16:45:36.033928",
   "predicted_lo": "4h33m37s",
   "predicted_hi": "4h54m40s",
   "mp_pace": "6:29/km",
   "peak_week_km": 28.8,
-  "total_km_90d": 237.6,
+  "total_km_90d": 234.5,
   "longest_run_km": 28.78,
   "longest_run_date": "2026-07-19",
-  "taper_note": "YES \u2014 current week is 33% of previous (4 vs 11 km)",
-  "lr_summary": "28.8 km on 2026-07-19 (73 days ago) \u26a0 73 days ago \u2014 may be too far back",
+  "taper_note": "PARTIAL \u2014 current week is 70% of previous (8 vs 11 km)",
+  "lr_summary": "28.8 km on 2026-07-19 (74 days ago) \u26a0 74 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Jun 29",
-      "n_runs": 5,
-      "total_km": 19.5,
+      "n_runs": 3,
+      "total_km": 12.4,
       "longest_km": 5.7,
-      "total_time_s": 8185,
+      "total_time_s": 5171,
       "med_easy_pace_s": 427
     },
     {
@@ -119,38 +119,14 @@
     },
     {
       "label": "Sep 28",
-      "n_runs": 2,
-      "total_km": 3.6,
-      "longest_km": 2.6,
-      "total_time_s": 1609,
-      "med_easy_pace_s": 480
+      "n_runs": 3,
+      "total_km": 7.6,
+      "longest_km": 4.0,
+      "total_time_s": 3304,
+      "med_easy_pace_s": 437
     }
   ],
   "runs": [
-    {
-      "date": "2026-07-02",
-      "dow": "Thu",
-      "name": "Pre Interval Warmup",
-      "dist_km": 2.36,
-      "duration_s": 1167,
-      "pace": "8:15/km",
-      "avg_hr": 159.2,
-      "max_hr": 171.0,
-      "elev_m": 85,
-      "type": "recovery"
-    },
-    {
-      "date": "2026-07-02",
-      "dow": "Thu",
-      "name": "Interval Run 4.0",
-      "dist_km": 4.74,
-      "duration_s": 1847,
-      "pace": "6:29/km",
-      "avg_hr": 175.2,
-      "max_hr": 196.0,
-      "elev_m": 295,
-      "type": "recovery"
-    },
     {
       "date": "2026-07-04",
       "dow": "Sat",
@@ -809,6 +785,18 @@
       "avg_hr": 122.8,
       "max_hr": 136.0,
       "elev_m": 11,
+      "type": "recovery"
+    },
+    {
+      "date": "2026-09-30",
+      "dow": "Wed",
+      "name": "Evening Run",
+      "dist_km": 4.04,
+      "duration_s": 1695,
+      "pace": "6:59/km",
+      "avg_hr": 151.5,
+      "max_hr": 166.0,
+      "elev_m": 6,
       "type": "recovery"
     }
   ],
