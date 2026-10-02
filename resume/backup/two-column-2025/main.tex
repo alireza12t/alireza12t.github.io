@@ -4,7 +4,7 @@
 \documentclass[10pt,a4paper]{altacv}
 
 % Page layout
-\geometry{left=1.4cm,right=1.4cm,marginparwidth=0cm,marginparsep=0cm,top=1.0cm,bottom=1.0cm,footskip=2\baselineskip}
+\geometry{left=1.4cm,right=8.4cm,marginparwidth=6cm,marginparsep=1cm,top=1.0cm,bottom=1.0cm,footskip=2\baselineskip}
 
 % Font
 \usepackage[T1]{fontenc}
@@ -47,11 +47,11 @@
 \name{Alireza Toghiani}
 \tagline{Senior iOS Engineer}
 \personalinfo{
-    \location{Montreal, Canada}
+    \location{Vancouver, Canada}
     \phone{(+1) 514-518-0179}
     \email{alireza.toghiani@icloud.com}
-    \printinfo{\linkedinsymbol}{\href{https://www.linkedin.com/in/alireza12t}{linkedin.com/in/alireza12t}}
-    \printinfo{\githubsymbol}{\href{https://github.com/alireza12t}{github.com/alireza12t}}
+    \linkedin{alireza12t}
+    \github{alireza12t}
 }
 
 \begin{fullwidth}
@@ -60,26 +60,33 @@
 
 % Page 1 sidebar is attached to the Summary heading; the page 2 sidebar is
 % queued here and injected at the top of the next page by \afterpage.
-\cvsection{Summary}
+\cvsection[sidebars/page1sidebar]{Summary}
 \input{sections/summary}
 
-\input{sidebars/skills}
-
+% Page 1 holds the three most recent roles; an explicit break keeps every
+% remaining entry whole on page 2 (no role split mid-bullet).
+% \vfill between entries distributes any leftover vertical space so the roles
+% spread to fill the full column height (no empty gap at the page bottom). On a
+% page that is already full the glue collapses to zero, so it is harmless.
 \cvsection{Experience}
+\vfill
 \input{sections/exp_ziffdavis}
 \vspace{3pt}\divider\vspace{1pt}
-\input{sections/exp_indie}
-\vspace{3pt}\divider\vspace{1pt}
 \input{sections/exp_vinmeet}
-\clearpage
-\input{sections/exp_sfl}
 \vspace{3pt}\divider\vspace{1pt}
+\input{sections/exp_sfl}
+\vfill
+
+\addnextpagesidebar{sidebars/page2sidebar}
+\clearpage
+
+% ── Page 2 ────────────────────────────────
 \input{sections/exp_mesh}
 \vspace{3pt}\divider\vspace{1pt}
 \input{sections/exp_hamrahe}
 \vspace{3pt}\divider\vspace{1pt}
+\input{sections/exp_boonoob}
+\vspace{3pt}\divider\vspace{1pt}
 \input{sections/exp_carpino}
-
-\input{ats/bottom}
 
 \end{document}
