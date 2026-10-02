@@ -2,24 +2,24 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-10-01T16:45:36.033928",
+  "generated": "2026-10-02T16:00:36.730107",
   "predicted_lo": "4h33m37s",
   "predicted_hi": "4h54m40s",
   "mp_pace": "6:29/km",
   "peak_week_km": 28.8,
-  "total_km_90d": 234.5,
+  "total_km_90d": 227.6,
   "longest_run_km": 28.78,
   "longest_run_date": "2026-07-19",
   "taper_note": "PARTIAL \u2014 current week is 70% of previous (8 vs 11 km)",
-  "lr_summary": "28.8 km on 2026-07-19 (74 days ago) \u26a0 74 days ago \u2014 may be too far back",
+  "lr_summary": "28.8 km on 2026-07-19 (75 days ago) \u26a0 75 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Jun 29",
-      "n_runs": 3,
-      "total_km": 12.4,
-      "longest_km": 5.7,
-      "total_time_s": 5171,
-      "med_easy_pace_s": 427
+      "n_runs": 1,
+      "total_km": 5.5,
+      "longest_km": 5.5,
+      "total_time_s": 2371,
+      "med_easy_pace_s": 431
     },
     {
       "label": "Jul 06",
@@ -127,30 +127,6 @@
     }
   ],
   "runs": [
-    {
-      "date": "2026-07-04",
-      "dow": "Sat",
-      "name": "Morning Run",
-      "dist_km": 1.19,
-      "duration_s": 507,
-      "pace": "7:07/km",
-      "avg_hr": 138.7,
-      "max_hr": 155.0,
-      "elev_m": 4,
-      "type": "recovery"
-    },
-    {
-      "date": "2026-07-04",
-      "dow": "Sat",
-      "name": "Project Run 2nd Anniversary",
-      "dist_km": 5.74,
-      "duration_s": 2293,
-      "pace": "6:39/km",
-      "avg_hr": 159.4,
-      "max_hr": 186.0,
-      "elev_m": 34,
-      "type": "recovery"
-    },
     {
       "date": "2026-07-05",
       "dow": "Sun",
