@@ -34,3 +34,6 @@ resume/*.synctex.gz
 resume/main.pdf
 resume/tmp_main.*
 
+
+# Local release helper
+*.command
