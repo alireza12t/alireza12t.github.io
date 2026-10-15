@@ -28,6 +28,7 @@
     --navy-dark: #0F1F3D;
     --navbar-bg: rgba(255, 255, 255, 0.95);
     --ease-out-expo: cubic-bezier(0.4, 0, 0.2, 1);
+    --app-squircle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C88 0 100 12 100 50S88 100 50 100 0 88 0 50 12 0 50 0Z'/%3E%3C/svg%3E");
 }
 
 /* Dark Theme Overrides */
@@ -1698,6 +1699,383 @@ section {
     }
 }
 
+/* ===== Apps Section ===== */
+.apps {
+    background-color: var(--bg-white);
+}
+
+.apps-intro {
+    max-width: 560px;
+    margin: -1rem auto 3.5rem;
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* Shared card surface: a soft wash of the app's own colour over the theme background */
+.app-feature,
+.app-card {
+    --app-tint: color-mix(in srgb, var(--app-accent) 9%, var(--bg-white));
+    background:
+        radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--app-accent) 16%, transparent), transparent 60%),
+        var(--app-tint);
+    border-radius: 28px;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .app-feature,
+[data-theme="dark"] .app-card {
+    --app-tint: color-mix(in srgb, var(--app-accent) 12%, var(--bg-light));
+}
+
+/* Featured hero row */
+.app-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 3rem;
+    padding: 3.5rem 3.5rem 0 4rem;
+    margin-bottom: 2rem;
+}
+
+.app-feature-text {
+    padding-bottom: 3.5rem;
+}
+
+.app-feature .app-name {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+.app-feature .app-pitch {
+    font-size: 1.15rem;
+}
+
+.app-feature .app-icon {
+    width: 96px;
+    height: 96px;
+}
+
+.app-feature-devices {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    align-self: end;
+    gap: 0;
+}
+
+.app-feature-devices .device {
+    width: 46%;
+    max-width: 230px;
+    margin-bottom: -18%;
+}
+
+.app-feature-devices .device:nth-child(2) {
+    margin-inline-start: -8%;
+    margin-bottom: -30%;
+    transform: rotate(4deg);
+}
+
+/* Card grid */
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+}
+
+.apps-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.app-card-wrap {
+    display: flex;
+}
+
+.app-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2.25rem 2.25rem 0;
+    transition: transform 0.45s var(--ease-out-expo), box-shadow 0.45s var(--ease-out-expo), background-color 0.4s ease;
+}
+
+.app-card:hover,
+.app-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.app-card .app-actions {
+    padding-bottom: 2.25rem;
+}
+
+.app-card-device {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    height: 300px;
+    overflow: hidden;
+}
+
+.app-card-device .device {
+    width: 62%;
+    max-width: 220px;
+    align-self: flex-start;
+    transition: transform 0.6s var(--ease-out-expo);
+}
+
+.app-card:hover .app-card-device .device {
+    transform: translateY(-10px);
+}
+
+/* Text */
+.app-head {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.app-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.2rem;
+}
+
+.app-name {
+    font-size: 1.6rem;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+}
+
+.app-native-name {
+    font-weight: 500;
+    color: var(--text-light);
+    margin-inline-start: 0.35rem;
+}
+
+.app-pitch {
+    color: var(--text-dark);
+    font-weight: 500;
+    margin-top: 0.35rem;
+    line-height: 1.45;
+}
+
+.app-description {
+    color: var(--text-light);
+    margin-bottom: 1.25rem;
+    max-width: 52ch;
+}
+
+/* Squircle icon: mask clips the image, drop-shadow lives on the wrapper so it follows the curve */
+.app-icon {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    filter: drop-shadow(0 6px 14px rgba(15, 31, 61, 0.18)) drop-shadow(0 1px 2px rgba(15, 31, 61, 0.12));
+}
+
+.app-icon img,
+.app-icon--monogram span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    -webkit-mask: var(--app-squircle) center / 100% 100% no-repeat;
+    mask: var(--app-squircle) center / 100% 100% no-repeat;
+}
+
+.app-icon--monogram span {
+    display: grid;
+    place-items: center;
+    background: linear-gradient(145deg, color-mix(in srgb, var(--app-accent) 85%, white), color-mix(in srgb, var(--app-accent) 80%, black));
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Platform chips */
+.app-platforms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin-bottom: 1.5rem;
+}
+
+.app-platforms li {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    color: var(--text-dark);
+    background: color-mix(in srgb, var(--text-dark) 7%, transparent);
+}
+
+/* Actions */
+.app-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.app-store-badge {
+    display: inline-flex;
+    border-radius: 8px;
+}
+
+.app-store-badge img {
+    display: block;
+    height: 40px;
+    width: auto;
+}
+
+.app-website {
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.app-website:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.app-arrow {
+    display: inline-block;
+    transition: transform 0.3s var(--ease-out-expo);
+}
+
+.app-website:hover .app-arrow {
+    transform: translateX(3px);
+}
+
+[dir="rtl"] .app-arrow {
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] .app-website:hover .app-arrow {
+    transform: scaleX(-1) translateX(3px);
+}
+
+.app-store-badge:focus-visible,
+.app-website:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 4px;
+}
+
+/* Device frame: screenshot inside a dark bezel with a Dynamic Island */
+.device {
+    position: relative;
+    margin: 0;
+    padding: 3.2%;
+    background: #0b0c10;
+    border-radius: 17% / 8%;
+    box-shadow:
+        0 0 0 1.5px #3a3d45,
+        0 30px 60px -20px rgba(15, 31, 61, 0.45),
+        0 12px 24px -12px rgba(15, 31, 61, 0.3);
+}
+
+.device img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 14% / 6.5%;
+}
+
+.device::before {
+    content: '';
+    position: absolute;
+    top: 3.3%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    aspect-ratio: 3.4 / 1;
+    border-radius: 999px;
+    background: #000;
+    z-index: 1;
+}
+
+.apps-noscript {
+    list-style: none;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .apps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .app-feature {
+        gap: 2rem;
+        padding: 3rem 2.5rem 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-feature {
+        grid-template-columns: 1fr;
+        padding: 2.25rem 1.75rem 0;
+    }
+
+    .app-feature-text {
+        padding-bottom: 0;
+    }
+
+    .app-feature-devices {
+        height: 360px;
+        overflow: hidden;
+        align-items: flex-start;
+    }
+
+    .app-feature-devices .device {
+        margin-bottom: 0;
+    }
+
+    .app-feature-devices .device:nth-child(2) {
+        margin-top: 2rem;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .apps-grid,
+    .apps-grid--2 {
+        grid-template-columns: 1fr;
+    }
+
+    .app-card {
+        padding: 1.75rem 1.5rem 0;
+    }
+
+    .app-feature .app-icon {
+        width: 72px;
+        height: 72px;
+    }
+
+    .app-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .app-card:hover,
+    .app-card:focus-within,
+    .app-card:hover .app-card-device .device,
+    .app-website:hover .app-arrow {
+        transform: none;
+    }
+}
+
 /* ===== Scroll-reveal system ===== */
 .reveal {
     opacity: 0;
@@ -1944,11 +2322,101 @@ section {
     }
 
     .contact-methods {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .contact-card {
+        padding: 1.75rem 1rem;
+        overflow-wrap: anywhere;
+    }
+
+    /* Email and phone values don't fit a half-width card */
+    .contact-card[href^="mailto:"],
+    .contact-card[href^="tel:"] {
+        grid-column: 1 / -1;
     }
 
     .achievement-grid,
     .volunteer-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Hero strip linking to the Apps section */
+.hero-apps {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin: 0 auto 2rem;
+    padding: 0.5rem 1.1rem 0.5rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease, transform 0.3s var(--ease-out-expo);
+}
+
+.hero-apps:empty {
+    display: none;
+}
+
+.hero-apps:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+}
+
+.hero-apps:focus-visible {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 3px;
+}
+
+.hero-apps-icons {
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+.hero-apps-label {
+    white-space: nowrap;
+}
+
+.hero-apps .app-icon {
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.3));
+}
+
+.hero-apps .app-icon + .app-icon {
+    margin-inline-start: -10px;
+}
+
+.hero-apps .fa-arrow-down {
+    color: var(--secondary-color);
+    font-size: 0.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-apps:hover {
+        transform: none;
+    }
+}
+
+/* Phones: side slide-ins start off-screen and cause sideways scrolling */
+@media (max-width: 768px) {
+    html,
+    body {
+        overflow-x: clip;
+    }
+
+    .reveal-left,
+    .reveal-right {
+        transform: translateY(30px);
+    }
+
+    .reveal-left.revealed,
+    .reveal-right.revealed {
+        transform: none;
     }
 }

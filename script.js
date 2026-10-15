@@ -30,6 +30,14 @@ const translations = {
         nav_about: 'About',
         nav_experience: 'Experience',
         nav_education: 'Education',
+        hero_cta_apps: '<i class="fas fa-mobile-screen"></i> My Apps',
+        hero_apps_label: 'My apps',
+        nav_apps: 'Apps',
+        apps_title: 'Apps',
+        apps_intro: 'Products I design, build and ship end to end, plus apps I built for clients.',
+        apps_featured: 'Featured',
+        apps_client: 'Client work',
+        apps_website: 'Website',
         nav_projects: 'Projects',
         nav_skills: 'Skills',
         nav_contact: 'Contact',
@@ -97,6 +105,14 @@ const translations = {
         nav_about: '\u00C0 propos',
         nav_experience: 'Exp\u00E9rience',
         nav_education: 'Formation',
+        hero_cta_apps: '<i class="fas fa-mobile-screen"></i> Mes applications',
+        hero_apps_label: 'Mes apps',
+        nav_apps: 'Applications',
+        apps_title: 'Applications',
+        apps_intro: 'Des produits que je conçois, développe et publie de bout en bout, ainsi que des apps créées pour des clients.',
+        apps_featured: 'En vedette',
+        apps_client: 'Projet client',
+        apps_website: 'Site web',
         nav_projects: 'Projets',
         nav_skills: 'Comp\u00E9tences',
         nav_contact: 'Contact',
@@ -164,6 +180,14 @@ const translations = {
         nav_about: '\u062F\u0631\u0628\u0627\u0631\u0647 \u0645\u0646',
         nav_experience: '\u062A\u062C\u0631\u0628\u0647',
         nav_education: '\u062A\u062D\u0635\u06CC\u0644\u0627\u062A',
+        hero_cta_apps: '<i class="fas fa-mobile-screen"></i> اپ‌های من',
+        hero_apps_label: 'اپ‌های من',
+        nav_apps: 'اپلیکیشن‌ها',
+        apps_title: 'اپلیکیشن‌ها',
+        apps_intro: 'محصولاتی که خودم از صفر تا انتشار می‌سازم، و اپ‌هایی که برای مشتری‌ها ساخته‌ام.',
+        apps_featured: 'ویژه',
+        apps_client: 'پروژهٔ مشتری',
+        apps_website: 'وب‌سایت',
         nav_projects: '\u067E\u0631\u0648\u0698\u0647\u200C\u0647\u0627',
         nav_skills: '\u0645\u0647\u0627\u0631\u062A\u200C\u0647\u0627',
         nav_contact: '\u062A\u0645\u0627\u0633',
@@ -345,6 +369,132 @@ if (pageSections.length) {
 
 // Navbar is always visible — no hide-on-scroll on the one-pager
 
+// ===== Apps section =====
+// To add an app, append one object. `featured: true` renders it as the large hero row;
+// `client` marks work built for someone else. Screenshots: WebP, ~600px wide, real pixel size in w/h.
+const APPS = [
+    {
+        name: 'Ganjineh',
+        nativeName: 'گنجینه',
+        pitch: 'Classical Persian poetry: Hafez, Rumi, Saadi and 200+ poets.',
+        description: 'Read and listen to the great Persian poets, with a verse of the day, Fal-e Hafez and full-text search. One app for iPhone, iPad, Mac and Apple Watch.',
+        platforms: ['iPhone', 'iPad', 'Mac', 'Apple Watch'],
+        accent: '#3B5BB5',
+        icon: 'images/apps/ganjineh-icon.webp',
+        screenshots: [
+            { src: 'images/apps/ganjineh-home.webp', w: 506, h: 1100, alt: 'Ganjineh home screen with the verse of the day and Fal-e Hafez' },
+            { src: 'images/apps/ganjineh-poem.webp', w: 506, h: 1100, alt: 'A Hafez ghazal open in Ganjineh' },
+        ],
+        appStore: 'https://apps.apple.com/us/app/ganjineh/id6822480269',
+        website: 'https://ganjinehparsi.com',
+        featured: true,
+    },
+    {
+        name: 'MonFrigo',
+        pitch: 'Track your fridge, waste less food.',
+        description: 'Keep tabs on your fridge, freezer and pantry, get a nudge before things go off, and cook with what you already have. In English and French.',
+        platforms: ['iPhone', 'iPad'],
+        accent: '#E0A33A',
+        icon: 'images/apps/monfrigo-icon.webp',
+        screenshots: [
+            { src: 'images/apps/monfrigo-fridge.webp', w: 600, h: 1298, alt: 'MonFrigo fridge list showing items to eat soon' },
+        ],
+        appStore: 'https://apps.apple.com/ca/app/monfrigo/id6808321210',
+        website: 'MonFrigo/',
+    },
+    {
+        name: 'VIN.Meet',
+        pitch: 'Social sports networking: find people and meets to play with.',
+        description: 'Built solo as a contractor, from architecture to App Store release: 14 modules, 55+ screens, real-time chat and Stripe / Apple Pay.',
+        platforms: ['iPhone'],
+        accent: '#9DBB12',
+        icon: 'images/apps/vinmeet-icon.webp',
+        screenshots: [
+            { src: 'images/apps/vinmeet-matching.webp', w: 600, h: 1300, alt: 'VIN.Meet AI-powered matching screen listing people to meet' },
+        ],
+        client: 'VIN.Meet',
+        appStore: 'https://apps.apple.com/app/id6449683352',
+        website: 'https://vinmeet.io',
+    },
+];
+
+(function renderApps() {
+    const root = document.getElementById('apps-root');
+    if (!root) return;
+
+    const t = (key, fallback) => (translations[getCurrentLang()] || {})[key] || fallback;
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const external = url => /^https?:/.test(url) ? ' target="_blank" rel="noopener"' : '';
+
+    const icon = app => app.icon
+        ? `<div class="app-icon"><img src="${esc(app.icon)}" alt="${esc(app.name)} app icon" width="128" height="128" loading="lazy" decoding="async"></div>`
+        : `<div class="app-icon app-icon--monogram" role="img" aria-label="${esc(app.name)} app icon"><span>${esc(app.name.charAt(0))}</span></div>`;
+
+    const device = shot => `
+        <figure class="device">
+            <img src="${esc(shot.src)}" alt="${esc(shot.alt)}" width="${shot.w}" height="${shot.h}" loading="lazy" decoding="async">
+        </figure>`;
+
+    const meta = app => `
+        <div class="app-meta">
+            ${app.client ? `<p class="app-eyebrow"><span data-i18n="apps_client">${t('apps_client', 'Client work')}</span> · ${esc(app.client)}</p>`
+                : app.featured ? `<p class="app-eyebrow" data-i18n="apps_featured">${t('apps_featured', 'Featured')}</p>` : ''}
+            <h3 class="app-name" dir="auto">${esc(app.name)}${app.nativeName ? ` <span class="app-native-name" lang="fa" dir="rtl">${esc(app.nativeName)}</span>` : ''}</h3>
+            <p class="app-pitch" dir="auto">${esc(app.pitch)}</p>
+        </div>`;
+
+    const actions = app => `
+        <div class="app-actions">
+            <a class="app-store-badge" href="${esc(app.appStore)}" target="_blank" rel="noopener" aria-label="Download ${esc(app.name)} on the App Store">
+                <img src="images/apps/app-store-badge.svg" alt="" width="120" height="40">
+            </a>
+            ${app.website ? `<a class="app-website" href="${esc(app.website)}"${external(app.website)}><span data-i18n="apps_website">${t('apps_website', 'Website')}</span> <span class="app-arrow" aria-hidden="true">→</span></a>` : ''}
+        </div>`;
+
+    const chips = app => `<ul class="app-platforms" aria-label="Platforms">${app.platforms.map(p => `<li>${esc(p)}</li>`).join('')}</ul>`;
+
+    const featured = APPS.find(a => a.featured);
+    const rest = APPS.filter(a => a !== featured);
+    let html = '';
+
+    if (featured) {
+        html += `
+        <article class="app-feature reveal" style="--app-accent: ${featured.accent}">
+            <div class="app-feature-text">
+                <div class="app-head">${icon(featured)}${meta(featured)}</div>
+                <p class="app-description" dir="auto">${esc(featured.description)}</p>
+                ${chips(featured)}
+                ${actions(featured)}
+            </div>
+            <div class="app-feature-devices">${(featured.screenshots || []).slice(0, 2).map(device).join('')}</div>
+        </article>`;
+    }
+
+    if (rest.length) {
+        html += `<div class="apps-grid${rest.length < 3 ? ` apps-grid--${rest.length}` : ''}">` + rest.map(app => `
+            <div class="app-card-wrap">
+                <article class="app-card" style="--app-accent: ${app.accent}">
+                    <div class="app-head">${icon(app)}${meta(app)}</div>
+                    <p class="app-description" dir="auto">${esc(app.description)}</p>
+                    ${chips(app)}
+                    ${actions(app)}
+                    ${app.screenshots && app.screenshots.length ? `<div class="app-card-device">${device(app.screenshots[0])}</div>` : ''}
+                </article>
+            </div>`).join('') + '</div>';
+    }
+
+    root.innerHTML = html;
+
+    // Hero strip: the app icons, linking down to the section
+    const strip = document.getElementById('hero-apps');
+    if (strip) {
+        strip.innerHTML = `<span class="hero-apps-icons">${APPS.filter(a => a.icon).map(app =>
+            `<span class="app-icon"><img src="${esc(app.icon)}" alt="" width="48" height="48"></span>`).join('')}</span>
+            <span class="hero-apps-label" data-i18n="hero_apps_label">${t('hero_apps_label', 'My apps')}</span>
+            <i class="fas fa-arrow-down" aria-hidden="true"></i>`;
+    }
+})();
+
 // ===== CSS class-based scroll-reveal system =====
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -356,7 +506,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
 // Mark grid containers for staggered children
-document.querySelectorAll('.projects-grid, .achievement-grid, .volunteer-grid, .skills-grid, .contact-methods').forEach(grid => {
+document.querySelectorAll('.apps-grid, .projects-grid, .achievement-grid, .volunteer-grid, .skills-grid, .contact-methods').forEach(grid => {
     grid.classList.add('reveal-stagger');
     Array.from(grid.children).forEach((child, i) => {
         child.classList.add('reveal');
@@ -378,7 +528,7 @@ document.querySelectorAll('.section-title').forEach(title => {
 });
 
 // Booking widget
-document.querySelectorAll('.booking-widget').forEach(el => {
+document.querySelectorAll('.booking-widget, .app-feature').forEach(el => {
     el.classList.add('reveal');
     revealObserver.observe(el);
 });
@@ -746,6 +896,7 @@ document.querySelectorAll('.skill-tags').forEach(container => {
                     duration_min: duration,
                     name,
                     email,
+                    visitor_tz: visitorTz,
                 }),
             });
             const data = await resp.json();
@@ -785,11 +936,17 @@ document.querySelectorAll('.skill-tags').forEach(container => {
         } catch (err) {
             confirmBtn.disabled = false;
             confirmBtn.textContent = 'Confirm & Send Invite';
+            // The visitor already chose a time: offer an email with it filled in instead of a dead end
+            console.error('[booking]', err);
+            const when = `${selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}, ${selectedSlot.label}`;
+            const mailto = `mailto:alireza.toghiani@icloud.com?subject=${encodeURIComponent('Call request')}&body=${encodeURIComponent(`Hi Alireza,\n\nI'd like to book a call on ${when}.\n\n${name}`)}`;
+            const confirmPanel = slotsPanel.querySelector('.booking-confirm');
+            confirmPanel.querySelector('.booking-error')?.remove();
             const errDiv = document.createElement('div');
             errDiv.className = 'booking-error';
-            errDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${err.message}. Please try again.`;
-            slotsPanel.querySelector('.booking-confirm').prepend(errDiv);
-            setTimeout(() => errDiv.remove(), 5000);
+            errDiv.setAttribute('role', 'alert');
+            errDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> <span>The booking couldn't be completed automatically. <a href="${mailto}">Email me this time</a> and I'll send you an invite.</span>`;
+            confirmPanel.prepend(errDiv);
         }
     }
 

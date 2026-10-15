@@ -27,6 +27,7 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="#home" class="active-link" data-section="home" data-i18n="nav_home">Home</a></li>
+                <li><a href="#apps" data-section="apps" data-i18n="nav_apps">Apps</a></li>
                 <li class="nav-dropdown">
                     <a href="#" class="nav-dropdown-toggle">Profile <i class="fas fa-chevron-down"></i></a>
                     <ul class="dropdown-menu">
@@ -70,9 +71,10 @@
                 <div class="hero-buttons">
                     <a href="booking.html" class="btn btn-primary" data-i18n="nav_booking"><i class="fas fa-calendar-alt"></i> Book a Call</a>
                     <a href="#contact" class="btn btn-secondary" data-i18n="hero_cta_primary">Get In Touch</a>
-                    <a href="#projects" class="btn btn-secondary" data-i18n="hero_cta_secondary">View My Work</a>
+                    <a href="#apps" class="btn btn-secondary" data-i18n-html="hero_cta_apps"><i class="fas fa-mobile-screen"></i> My Apps</a>
                     <a href="Alireza_Toghiani_Resume.pdf" class="btn btn-secondary" download><i class="fas fa-file-arrow-down"></i> Download Résumé</a>
                 </div>
+                <a href="#apps" class="hero-apps" id="hero-apps"></a>
                 <div class="social-links" aria-label="Social media links">
                     <a href="https://linkedin.com/in/alireza12t" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     <a href="https://github.com/alireza12t" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -80,9 +82,24 @@
                 </div>
             </div>
         </div>
-        <a href="#about" class="scroll-indicator" aria-label="Scroll to About">
+        <a href="#apps" class="scroll-indicator" aria-label="Scroll to my apps">
             <i class="fas fa-chevron-down"></i>
         </a>
+    </section>
+
+    <!-- Apps (rendered from the APPS array in script.js) -->
+    <section id="apps" class="apps page-section">
+        <div class="container">
+            <h2 class="section-title" data-i18n="apps_title">Apps</h2>
+            <p class="apps-intro" data-i18n="apps_intro">Products I design, build and ship end to end, plus apps I built for clients.</p>
+            <div id="apps-root"></div>
+            <noscript>
+                <ul class="apps-noscript">
+                    <li><a href="https://apps.apple.com/us/app/ganjineh/id6822480269">Ganjineh on the App Store</a></li>
+                    <li><a href="https://apps.apple.com/ca/app/monfrigo/id6808321210">MonFrigo on the App Store</a></li>
+                </ul>
+            </noscript>
+        </div>
     </section>
 
     <!-- 2. About -->
