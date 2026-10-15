@@ -1,6 +1,219 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MonFrigo</title><link rel="stylesheet" href="style.css"></head><body><main>
-<nav><a href="index.html">MonFrigo</a><a href="privacy.html">Privacy</a><a href="support.html">Support</a></nav>
-<h1>MonFrigo</h1><p>Keep track of what's in your fridge and eat it before it goes off. In English and French.</p>
-<p><a href="support.html">Support</a> · <a href="privacy.html">Privacy Policy</a></p>
-</main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MonFrigo — Track your fridge, waste less food</title>
+<meta name="description" content="MonFrigo keeps track of what's in your fridge, freezer and pantry, reminds you before food goes off, and suggests recipes for what you already have. For iPhone and iPad, in English and French.">
+<link rel="icon" type="image/png" href="assets/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1c1a17">
+<meta name="apple-itunes-app" content="app-id=6808321210">
+<meta property="og:site_name" content="MonFrigo">
+<meta property="og:title" content="MonFrigo — Track your fridge, waste less food">
+<meta property="og:description" content="Know what's in your fridge, get a nudge before it goes off, and cook with what you have.">
+<meta property="og:image" content="https://alireza12t.github.io/MonFrigo/assets/apple-touch-icon.png">
+<link rel="canonical" href="https://alireza12t.github.io/MonFrigo/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="index.html"><img src="assets/icon.webp" alt="" width="36" height="36"><span>MonFrigo</span></a>
+    <nav class="nav" data-nav>
+      <a href="#features"><span class="only-en">Features</span><span class="only-fr">Fonctionnalités</span></a>
+      <a href="#screens"><span class="only-en">Screenshots</span><span class="only-fr">Captures</span></a>
+      <a href="#download"><span class="only-en">Download</span><span class="only-fr">Télécharger</span></a>
+      <a href="support.html"><span class="only-en">Support</span><span class="only-fr">Assistance</span></a>
+      <a href="privacy.html"><span class="only-en">Privacy</span><span class="only-fr">Confidentialité</span></a>
+    </nav>
+    <button class="menu-btn" data-menu aria-label="Menu" aria-expanded="false">☰</button>
+    <a href="#" class="lang-toggle" data-lang-toggle>Français</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero shelf" style="padding:0">
+    <div class="wrap hero-inner">
+      <div>
+        <span class="eyebrow">iPhone · iPad · English · Français</span>
+        <h1 class="title">MonFrigo</h1>
+        <p class="tagline"><span class="only-en">Track your fridge, waste less food.</span><span class="only-fr">Suivez votre frigo, gaspillez moins.</span></p>
+        <p class="lead only-en">Know what's in your fridge, freezer and pantry, get a nudge the morning before something goes off, and turn what you already have into dinner.</p>
+        <p class="lead only-fr">Sachez ce qu’il y a dans votre frigo, votre congélateur et votre garde-manger, recevez un rappel la veille au matin avant qu’un aliment se perde, et cuisinez avec ce que vous avez déjà.</p>
+        <div class="cta">
+          <a class="badge" data-link="appStore" href="#download" aria-label="Download MonFrigo on the App Store"><img src="assets/app-store-badge.svg" alt="" width="156" height="52"></a>
+        </div>
+        <div class="cta-sub">
+          <a href="#features"><span class="only-en">See what it does →</span><span class="only-fr">Voir les fonctionnalités →</span></a>
+          <a href="support.html"><span class="only-en">Questions? Support →</span><span class="only-fr">Des questions ? Assistance →</span></a>
+        </div>
+        <p class="req"><span class="only-en">iPhone & iPad on iOS 17 or later</span><span class="only-fr">iPhone et iPad avec iOS 17 ou version ultérieure</span></p>
+      </div>
+      <div class="hero-visual">
+        <img class="tile" src="assets/icon.webp" alt="" width="256" height="256">
+        <div class="phone"><img src="assets/shots/fridge.webp" width="600" height="1298" alt="MonFrigo's Fridge tab, with the foods to eat soon at the top"></div>
+      </div>
+    </div>
+  </section>
+  <div class="border-band"></div>
+
+  <div class="wrap">
+    <div class="soon">
+      <div class="label"><span class="only-en">Eat soon</span><span class="only-fr">À manger bientôt</span></div>
+      <ul>
+        <li><span class="dot"></span><span>Spinach<small class="only-en">Use today · Fridge</small><small class="only-fr">Aujourd’hui · Frigo</small></span></li>
+        <li><span class="dot"></span><span><span class="only-en">Greek yogurt</span><span class="only-fr">Yogourt grec</span><small class="only-en">Use tomorrow · Fridge</small><small class="only-fr">Demain · Frigo</small></span></li>
+        <li><span class="dot later"></span><span><span class="only-en">Strawberries</span><span class="only-fr">Fraises</span><small class="only-en">Expires in 3 days</small><small class="only-fr">Dans 3 jours</small></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="why">
+    <div class="wrap split">
+      <div>
+        <p class="kicker"><span class="only-en">01 — Why</span><span class="only-fr">01 — Pourquoi</span></p>
+        <h2 class="only-en">The spinach shouldn't die at the back of the fridge.</h2>
+        <h2 class="only-fr">Les épinards ne devraient pas finir oubliés au fond du frigo.</h2>
+        <p class="only-en">Most food waste isn't a choice. It's the yogurt you forgot you opened and the chicken you meant to cook on Tuesday. MonFrigo keeps the list for you and puts what needs eating first at the top.</p>
+        <p class="only-fr">Le gaspillage n’est presque jamais un choix : c’est le yogourt ouvert qu’on a oublié, le poulet qu’on voulait cuisiner mardi. MonFrigo tient la liste pour vous et place en premier ce qu’il faut manger.</p>
+        <p class="only-en">Add an item in seconds and MonFrigo fills in a typical shelf life for where you keep it. You can always change the date.</p>
+        <p class="only-fr">Ajoutez un aliment en quelques secondes : MonFrigo propose une durée de conservation selon l’endroit où vous le rangez. Vous pouvez toujours changer la date.</p>
+      </div>
+      <div class="split-visual"><div class="phone"><img loading="lazy" src="assets/shots/add-item.webp" width="600" height="1298" alt="Adding milk in MonFrigo, with the expiry date filled in"></div></div>
+    </div>
+  </section>
+
+  <section id="features" class="tinted">
+    <div class="wrap">
+      <p class="kicker center"><span class="only-en">02 — Features</span><span class="only-fr">02 — Fonctionnalités</span></p>
+      <h2 class="section-title"><span class="only-en">Everything your fridge forgets</span><span class="only-fr">Tout ce que votre frigo oublie</span></h2>
+      <p class="section-sub"><span class="only-en">Small, calm tools that add up to less food in the bin</span><span class="only-fr">De petits outils simples pour jeter moins</span></p>
+      <div class="ornament"></div>
+      <div class="features">
+        <div class="feature"><p class="num">01</p><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2"/></svg></div><h3 class="only-en">Eat soon, first</h3><h3 class="only-fr">À manger en premier</h3><p class="only-en">What expires next sits at the top, colour-coded from "use today" to "this week".</p><p class="only-fr">Ce qui expire bientôt est en haut, avec un code couleur d’« aujourd’hui » à « cette semaine ».</p></div>
+        <div class="feature"><p class="num">02</p><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M6 9h12M9 5.5v1.5M9 12v3"/></svg></div><h3 class="only-en">Fridge, freezer, pantry</h3><h3 class="only-fr">Frigo, congélateur, garde-manger</h3><p class="only-en">Keep each place separate, with quantities and an "opened" tag where it matters.</p><p class="only-fr">Chaque endroit séparé, avec les quantités et une étiquette « ouvert » quand c’est utile.</p></div>
+        <div class="feature"><p class="num">03</p><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg></div><h3 class="only-en">A morning nudge</h3><h3 class="only-fr">Un rappel le matin</h3><p class="only-en">One reminder a day at 9am, the morning before things need using. Never a flood.</p><p class="only-fr">Un seul rappel par jour à 9 h, la veille au matin. Jamais d’avalanche.</p></div>
+        <div class="feature"><p class="num">04</p><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3v8a2 2 0 0 0 2 2v8M5 3v5M9 3v5M16 21V3c2.5 1 3.5 4 3.5 8H16"/></svg></div><h3 class="only-en">Recipes from what you have</h3><h3 class="only-fr">Des recettes avec ce que vous avez</h3><p class="only-en">Ideas built around the ingredients you need to use, with nutrition per serving.</p><p class="only-fr">Des idées autour des ingrédients à utiliser, avec la valeur nutritive par portion.</p></div>
+        <div class="feature"><p class="num">05</p><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg></div><h3 class="only-en">Shopping list</h3><h3 class="only-fr">Liste d’épicerie</h3><p class="only-en">Add a recipe's missing ingredients in one tap, then tick them off in the store.</p><p class="only-fr">Ajoutez d’un geste les ingrédients manquants d’une recette, puis cochez-les au magasin.</p></div>
+        <div class="feature"><p class="num">06</p><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg></div><h3 class="only-en">English & French</h3><h3 class="only-fr">Anglais et français</h3><p class="only-en">MonFrigo follows your device language, or set one just for the app.</p><p class="only-fr">MonFrigo suit la langue de votre appareil, ou choisissez-en une juste pour l’app.</p></div>
+      </div>
+      <div class="proof">
+        <article><strong class="only-en">No</strong><strong class="only-fr">Aucun</strong><span class="only-en">account to create</span><span class="only-fr">compte à créer</span></article>
+        <article><strong>1</strong><span class="only-en">reminder a day, at most</span><span class="only-fr">rappel par jour, au plus</span></article>
+        <article><strong>3</strong><span class="only-en">places: fridge, freezer, pantry</span><span class="only-fr">endroits : frigo, congélateur, garde-manger</span></article>
+      </div>
+    </div>
+  </section>
+
+  <div class="border-band"></div>
+  <section class="shots-section shelf" id="screens">
+    <div class="wrap">
+      <p class="kicker center"><span class="only-en">03 — The app</span><span class="only-fr">03 — L’app</span></p>
+      <h2 class="section-title"><span class="only-en">A quick look inside</span><span class="only-fr">Un aperçu</span></h2>
+      <p class="section-sub"><span class="only-en">Swipe through the main screens</span><span class="only-fr">Faites défiler les écrans principaux</span></p>
+      <div class="ornament"></div>
+      <div class="gallery" tabindex="0" aria-label="Screenshots">
+        <figure><div class="phone"><img loading="lazy" src="assets/shots/fridge.webp" width="600" height="1298" alt=""></div><figcaption><span class="only-en">What to eat soon</span><span class="only-fr">À manger bientôt</span></figcaption></figure>
+        <figure><div class="phone"><img loading="lazy" src="assets/shots/fridge-freezer-pantry.webp" width="600" height="1298" alt=""></div><figcaption><span class="only-en">Fridge, freezer & pantry</span><span class="only-fr">Frigo, congélateur et garde-manger</span></figcaption></figure>
+        <figure><div class="phone"><img loading="lazy" src="assets/shots/recipes.webp" width="600" height="1298" alt=""></div><figcaption><span class="only-en">Recipes for what you have</span><span class="only-fr">Recettes avec ce que vous avez</span></figcaption></figure>
+        <figure><div class="phone"><img loading="lazy" src="assets/shots/recipe-detail.webp" width="600" height="1298" alt=""></div><figcaption><span class="only-en">Nutrition and ingredients</span><span class="only-fr">Nutrition et ingrédients</span></figcaption></figure>
+        <figure><div class="phone"><img loading="lazy" src="assets/shots/shopping.webp" width="600" height="1298" alt=""></div><figcaption><span class="only-en">Shopping list</span><span class="only-fr">Liste d’épicerie</span></figcaption></figure>
+        <figure><div class="phone"><img loading="lazy" src="assets/shots/reminders.webp" width="600" height="1298" alt=""></div><figcaption><span class="only-en">One nudge, the morning before</span><span class="only-fr">Un rappel, la veille au matin</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+  <div class="border-band"></div>
+
+  <section id="privacy">
+    <div class="wrap split">
+      <div>
+        <p class="kicker"><span class="only-en">04 — Privacy</span><span class="only-fr">04 — Confidentialité</span></p>
+        <h2 class="only-en">Your fridge is your business.</h2>
+        <h2 class="only-fr">Votre frigo, c’est votre affaire.</h2>
+        <ul class="checks only-en">
+          <li><strong>No account</strong>: no sign-up, no email.</li>
+          <li><strong>On your device</strong>: your foods, dates, lists and recipes are stored only on your phone.</li>
+          <li><strong>Local reminders</strong>: scheduled on your device, with no push server.</li>
+          <li><strong>Nothing sold</strong>: only anonymous usage and crash data, never used for advertising.</li>
+        </ul>
+        <ul class="checks only-fr">
+          <li><strong>Aucun compte</strong> : ni inscription, ni courriel.</li>
+          <li><strong>Sur votre appareil</strong> : vos aliments, dates, listes et recettes restent sur votre téléphone.</li>
+          <li><strong>Rappels locaux</strong> : programmés sur votre appareil, sans serveur.</li>
+          <li><strong>Rien n’est vendu</strong> : seulement des données anonymes d’utilisation et de plantage, jamais pour la publicité.</li>
+        </ul>
+        <p><a href="privacy.html"><span class="only-en">Read the full privacy policy →</span><span class="only-fr">Lire la politique de confidentialité →</span></a></p>
+      </div>
+      <div class="split-visual"><div class="phone"><img loading="lazy" src="assets/shots/reminders.webp" width="600" height="1298" alt="MonFrigo's reminder screen: one nudge, the morning before"></div></div>
+    </div>
+  </section>
+
+  <section id="faq" class="tinted">
+    <div class="wrap narrow">
+      <p class="kicker center"><span class="only-en">05 — FAQ</span><span class="only-fr">05 — FAQ</span></p>
+      <h2 class="section-title"><span class="only-en">Questions people ask</span><span class="only-fr">Questions fréquentes</span></h2>
+      <div class="ornament"></div>
+      <div class="only-en">
+        <details><summary>How are expiry dates chosen?</summary><p>When you add a common food, MonFrigo fills in a typical shelf life for where you store it. You can always change the date.</p></details>
+        <details><summary>When do reminders arrive?</summary><p>Once a day at 9am, for what needs using. Make sure notifications for MonFrigo are allowed in iOS Settings.</p></details>
+        <details><summary>Does my data sync between devices?</summary><p>Not yet. Everything is stored on your device.</p></details>
+        <details><summary>How do I change the language?</summary><p>MonFrigo follows your device language (English or French). You can set a different one for the app in iOS Settings → MonFrigo → Language.</p></details>
+      </div>
+      <div class="only-fr">
+        <details><summary>Comment les dates d’expiration sont-elles choisies ?</summary><p>Quand vous ajoutez un aliment courant, MonFrigo propose une durée de conservation selon l’endroit où vous le rangez. Vous pouvez toujours changer la date.</p></details>
+        <details><summary>Quand les rappels arrivent-ils ?</summary><p>Une fois par jour à 9 h, pour ce qu’il faut utiliser. Vérifiez que les notifications de MonFrigo sont autorisées dans les Réglages d’iOS.</p></details>
+        <details><summary>Mes données sont-elles synchronisées entre appareils ?</summary><p>Pas encore. Tout est enregistré sur votre appareil.</p></details>
+        <details><summary>Comment changer la langue ?</summary><p>MonFrigo suit la langue de votre appareil (anglais ou français). Vous pouvez en choisir une autre dans Réglages → MonFrigo → Langue.</p></details>
+      </div>
+      <p style="text-align:center;margin-top:20px"><a href="support.html"><span class="only-en">Another question? Visit support →</span><span class="only-fr">Une autre question ? Assistance →</span></a></p>
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="wrap">
+      <div class="download-card">
+        <img class="icon" src="assets/icon.webp" width="96" height="96" alt="MonFrigo app icon">
+        <h3>MonFrigo</h3>
+        <p><span class="only-en">For iPhone and iPad · iOS 17 or later</span><span class="only-fr">Pour iPhone et iPad · iOS 17 ou version ultérieure</span></p>
+        <a class="badge" data-link="appStore" href="#download" aria-label="Download MonFrigo on the App Store"><img src="assets/app-store-badge.svg" alt="" width="156" height="52"></a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap narrow">
+      <div class="creator">
+        <div class="avatar"><img src="../links/avatar.jpg" alt="Alireza Toghiani" width="96" height="96"></div>
+        <div>
+          <h3><span class="only-en">Made by Alireza Toghiani</span><span class="only-fr">Créé par Alireza Toghiani</span></h3>
+          <p class="only-en">MonFrigo is built by one independent iOS developer. I read every message, so if something's missing or broken, tell me.</p>
+          <p class="only-fr">MonFrigo est conçu par un développeur iOS indépendant. Je lis tous les messages : si quelque chose manque ou ne fonctionne pas, écrivez-moi.</p>
+          <div class="links">
+            <a class="chip" href="support.html"><span class="only-en">Support</span><span class="only-fr">Assistance</span></a>
+            <a class="chip" href="../"><span class="only-en">My other apps</span><span class="only-fr">Mes autres apps</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="border-band"></div>
+  <section class="close shelf">
+    <div class="wrap">
+      <p class="kicker center" style="color:var(--amber-light)"><span class="only-en">Less waste, starting tonight</span><span class="only-fr">Moins de gaspillage, dès ce soir</span></p>
+      <h2><span class="only-en">Open your fridge with a plan.</span><span class="only-fr">Ouvrez votre frigo avec un plan.</span></h2>
+      <div class="cta">
+        <a class="badge" data-link="appStore" href="#download" aria-label="Download MonFrigo on the App Store"><img src="assets/app-store-badge.svg" alt="" width="156" height="52"></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="border-band"></div>
+<footer data-footer></footer>
+</body>
+</html>
