@@ -4,6 +4,7 @@ Run: python -m pytest lambda/test_handler.py -v
 These tests mock all AWS/external calls — no real credentials needed.
 """
 import json
+import urllib.parse
 import sys
 import types
 import unittest
@@ -187,6 +188,41 @@ class TestPostBooking(unittest.TestCase):
         _mock_ssm.get_parameter.return_value = {"Parameter": {"Value": "dummy"}}
         r = lambda_handler(_event("POST", "/", body=payload), None)
         self.assertEqual(r["statusCode"], 409)
+
+    @patch("urllib.request.urlopen")
+    def test_calendar_error_sends_telegram_alert(self, mock_urlopen):
+        _mock_ddb_table.put_item.side_effect = None
+        _mock_ssm.get_parameter.return_value = {"Parameter": {"Value": "dummy"}}
+        # first call: Google token exchange fails; second call: Telegram alert succeeds
+        mock_urlopen.side_effect = [Exception("invalid_grant"), MagicMock()]
+        payload = {
+            "slot_iso": "2099-06-01T10:00:00+00:00",
+            "duration_min": 30,
+            "name": "Bob",
+            "email": "bob@example.com",
+            "visitor_tz": "Europe/Paris",
+        }
+        r = lambda_handler(_event("POST", "/", body=payload), None)
+        self.assertEqual(r["statusCode"], 502)
+        self.assertEqual(mock_urlopen.call_count, 2)
+        alert_req = mock_urlopen.call_args_list[1][0][0]
+        self.assertIn("api.telegram.org", alert_req.full_url)
+        text = urllib.parse.parse_qs(alert_req.data.decode())["text"][0]
+        self.assertIn("invalid_grant", text)
+        self.assertIn("bob@example.com", text)
+        # 10:00 UTC on June 1 is 6:00 AM in Toronto and 12:00 PM in Paris
+        self.assertIn("Mon, Jun 1 · 6:00–6:30 AM (America/Toronto)", text)
+        self.assertIn("Their time: Mon, Jun 1 · 12:00–12:30 PM (Europe/Paris)", text)
+
+    def test_bad_visitor_tz_is_ignored(self):
+        parsed, err = handler._validate({
+            "slot_iso": "2099-06-01T10:00:00+00:00",
+            "name": "Bob",
+            "email": "bob@example.com",
+            "visitor_tz": "Not/AZone",
+        })
+        self.assertIsNone(err)
+        self.assertIsNone(parsed["visitor_tz"])
 
     def test_invalid_body_returns_400(self):
         ev = _event("POST", "/")

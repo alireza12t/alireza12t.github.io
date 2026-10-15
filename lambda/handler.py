@@ -38,6 +38,7 @@ import re
 import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import boto3
 from botocore.exceptions import ClientError
@@ -48,6 +49,8 @@ SSM_CLIENT_SECRET_PARAM = os.environ.get("SSM_CLIENT_SECRET_PARAM", "/booking/go
 SSM_REFRESH_TOKEN_PARAM = os.environ.get("SSM_REFRESH_TOKEN_PARAM", "/booking/google_refresh_token")
 SSM_GITHUB_PAT_PARAM = os.environ.get("SSM_GITHUB_PAT_PARAM", "/booking/github_pat")
 SSM_REFRESH_KEY_PARAM = os.environ.get("SSM_REFRESH_KEY_PARAM", "/booking/refresh_key")
+SSM_TELEGRAM_TOKEN_PARAM = os.environ.get("SSM_TELEGRAM_TOKEN_PARAM", "/booking/telegram_bot_token")
+SSM_TELEGRAM_CHAT_PARAM = os.environ.get("SSM_TELEGRAM_CHAT_PARAM", "/booking/telegram_chat_id")
 GH_OWNER = "alireza12t"
 GH_REPO  = "alireza12t.github.io"
 GH_WORKFLOW = "update-running-dashboard.yml"
@@ -85,6 +88,53 @@ def _response(status, body):
         "headers": {"Content-Type": "application/json"},
         "body": json.dumps(body),
     }
+
+
+def _alert(text):
+    """Best-effort Telegram alert. Never raises: an alert must not break a booking."""
+    try:
+        token = _get_secret(SSM_TELEGRAM_TOKEN_PARAM)
+        chat_id = _get_secret(SSM_TELEGRAM_CHAT_PARAM)
+        data = urllib.parse.urlencode({
+            "chat_id": chat_id,
+            "text": text,
+            "disable_web_page_preview": "true",
+        }).encode()
+        req = urllib.request.Request(
+            f"https://api.telegram.org/bot{token}/sendMessage", data=data, method="POST"
+        )
+        urllib.request.urlopen(req, timeout=5).close()
+    except Exception as e:
+        print(f"[booking] telegram alert failed: {e!r}")
+
+
+def _format_slot(start_iso, end_iso, tz_name):
+    """'Fri, Oct 16 · 10:00–10:30 AM' in the given timezone."""
+    tz = ZoneInfo(tz_name)
+    start = datetime.fromisoformat(start_iso).astimezone(tz)
+    end = datetime.fromisoformat(end_iso).astimezone(tz)
+    def t(d):
+        return d.strftime("%I:%M").lstrip("0")
+    return f"{start:%a, %b} {start.day} · {t(start)}–{t(end)} {end:%p}"
+
+
+def _booking_failed_alert(parsed, error):
+    lines = [
+        "🔴 Booking failed — book this call manually",
+        f"👤 {parsed['name']} <{parsed['email']}>",
+        f"🕒 {_format_slot(parsed['slot_iso'], parsed['end_iso'], TIMEZONE)} ({TIMEZONE})",
+    ]
+    if parsed.get("visitor_tz") and parsed["visitor_tz"] != TIMEZONE:
+        lines.append(
+            f"🌍 Their time: {_format_slot(parsed['slot_iso'], parsed['end_iso'], parsed['visitor_tz'])}"
+            f" ({parsed['visitor_tz']})"
+        )
+    lines += [
+        f"⏱ {parsed['duration_min']} min · UTC {parsed['slot_iso']}",
+        f"Error: {error!r}",
+        "If this is invalid_grant, the Google refresh token expired.",
+    ]
+    return "\n".join(lines)
 
 
 def _get_access_token():
@@ -153,12 +203,22 @@ def _validate(payload):
     if start_dt < datetime.now(timezone.utc) - timedelta(minutes=1):
         return None, "slot is in the past"
     end_dt = start_dt + timedelta(minutes=duration_min)
+    # Optional: only used to tell the host the visitor's local time
+    visitor_tz = payload.get("visitor_tz")
+    if not isinstance(visitor_tz, str) or len(visitor_tz) > 64:
+        visitor_tz = None
+    else:
+        try:
+            ZoneInfo(visitor_tz)
+        except (ZoneInfoNotFoundError, ValueError):
+            visitor_tz = None
     return {
         "slot_iso": start_dt.isoformat(),
         "end_iso": end_dt.isoformat(),
         "duration_min": duration_min,
         "name": name,
         "email": email,
+        "visitor_tz": visitor_tz,
     }, None
 
 
@@ -316,6 +376,7 @@ def lambda_handler(event, context):
     except Exception as e:
         _release_slot(slot_iso)
         print(f"[booking] calendar error: {e!r}")
+        _alert(_booking_failed_alert(parsed, e))
         return _response(502, {"error": "calendar_error"})
 
     event_id = ev.get("id")

@@ -56,3 +56,18 @@ resulting URL. It contains NO secrets.
 The Lambda execution role has least-privilege access: DynamoDB on the
 `bookings` table only, SSM GetParameter on `/booking/*` only, and KMS
 Decrypt only via the SSM service.
+
+## Failure alerts (Telegram)
+
+Booking failures and failed GitHub workflows post to a Telegram chat.
+
+1. In Telegram, message **@BotFather** → `/newbot` → copy the bot token.
+2. Create a private channel, add the bot as an admin, post one message, then open
+   `https://api.telegram.org/bot<TOKEN>/getUpdates` to read the channel's `chat.id` (starts with `-100`).
+3. Lambda alerts (read by `_alert` in `handler.py`):
+   ```
+   aws ssm put-parameter --name /booking/telegram_bot_token --type SecureString --value <TOKEN> --overwrite --region us-east-1
+   aws ssm put-parameter --name /booking/telegram_chat_id --type SecureString --value <CHAT_ID> --overwrite --region us-east-1
+   ```
+4. Workflow alerts (`.github/workflows/notify-failures.yml`): add repo secrets
+   `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`.
