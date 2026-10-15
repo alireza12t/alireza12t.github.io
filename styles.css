@@ -2382,14 +2382,24 @@ section {
     white-space: nowrap;
 }
 
+/* Each icon sits in a squircle ring the colour of the pill, so overlapping
+   dark icons stay distinct */
 .hero-apps .app-icon {
-    width: 40px;
-    height: 40px;
-    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.3));
+    width: 42px;
+    height: 42px;
+    padding: 2.5px;
+    background: #3d5a88;
+    filter: none;
+    -webkit-mask: var(--app-squircle) center / 100% 100% no-repeat;
+    mask: var(--app-squircle) center / 100% 100% no-repeat;
 }
 
 .hero-apps .app-icon + .app-icon {
-    margin-inline-start: -10px;
+    margin-inline-start: -8px;
+}
+
+[data-theme="dark"] .hero-apps .app-icon {
+    background: #2b3a57;
 }
 
 .hero-apps .fa-arrow-down {
