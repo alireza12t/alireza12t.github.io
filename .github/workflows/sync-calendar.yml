@@ -2,8 +2,10 @@ name: Sync Calendar Availability
 
 on:
   schedule:
-    # Runs every Monday at 10:00 AM UTC (6:00 AM Eastern)
-    - cron: "0 10 * * 1"
+    # Daily at 11:15 UTC (7:15 AM Toronto in summer), so new calendar events
+    # are blocked on the booking page within a day. Offset from the running
+    # dashboard (10:00 UTC) so the two don't race when pushing.
+    - cron: "15 11 * * *"
   workflow_dispatch: # Allow manual trigger
 
 permissions:
@@ -39,4 +41,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add availabilities.json
           git diff --staged --quiet || git commit -m "chore: sync calendar availability [skip ci]"
+          git pull --rebase origin master
           git push
