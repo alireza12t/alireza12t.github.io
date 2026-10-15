@@ -58,7 +58,10 @@ fi
 # ── Tests ─────────────────────────────────────────────────────────────────────
 echo ""
 blue "→ Running tests..."
-python3 -m pytest lambda/test_handler.py -v --tb=short || red "Tests failed — release aborted."
+# Prefer the project venv (has pytest); fall back to the system Python
+PY=python3
+[[ -x .venv/bin/python ]] && PY=.venv/bin/python
+"$PY" -m pytest lambda/test_handler.py tests/ -q --tb=short || red "Tests failed — release aborted."
 
 # ── Tag & push ────────────────────────────────────────────────────────────────
 echo ""

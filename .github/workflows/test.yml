@@ -1,6 +1,8 @@
 name: Tests
 
 on:
+  push:
+    branches: [master]
   pull_request:
     branches: [master]
   workflow_dispatch:
@@ -21,3 +23,6 @@ jobs:
 
       - name: Run Lambda unit tests
         run: python -m pytest lambda/test_handler.py -v --tb=short
+
+      - name: Run website checks (links, assets, translations, apps data)
+        run: python -m pytest tests/ -v --tb=short
