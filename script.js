@@ -97,7 +97,7 @@ const translations = {
         booking_step_date: 'Select Date',
         booking_step_time: 'Choose Time',
         booking_step_confirm: 'Confirm',
-        footer_copyright: '&copy; 2025 Alireza Toghiani Khorasgani. All rights reserved.',
+        footer_copyright: `&copy; ${new Date().getFullYear()} Alireza Toghiani Khorasgani. All rights reserved.`,
         footer_built: 'Built with <i class="fas fa-heart"></i> in Montreal',
     },
     fr: {
@@ -172,7 +172,7 @@ const translations = {
         booking_step_date: 'Choisir la date',
         booking_step_time: 'Choisir l\u2019heure',
         booking_step_confirm: 'Confirmer',
-        footer_copyright: '&copy; 2025 Alireza Toghiani Khorasgani. Tous droits r\u00E9serv\u00E9s.',
+        footer_copyright: `&copy; ${new Date().getFullYear()} Alireza Toghiani Khorasgani. Tous droits r\u00E9serv\u00E9s.`,
         footer_built: 'Con\u00E7u avec <i class="fas fa-heart"></i> \u00E0 Montr\u00E9al',
     },
     fa: {
@@ -192,7 +192,7 @@ const translations = {
         nav_skills: '\u0645\u0647\u0627\u0631\u062A\u200C\u0647\u0627',
         nav_contact: '\u062A\u0645\u0627\u0633',
         nav_booking: '\u0631\u0632\u0631\u0648 \u062A\u0645\u0627\u0633',
-        hero_title: '\u0633\u0644\u0627\u0645\u060C \u0645\u0646 <span class="highlight">\u0639\u0644\u06CC\u0631\u0636\u0627 \u062A\u0642\u06CC\u0627\u0646\u06CC</span> \u0647\u0633\u062A\u0645',
+        hero_title: '\u0633\u0644\u0627\u0645\u060C \u0645\u0646 <span class="highlight">\u0639\u0644\u06CC\u0631\u0636\u0627 \u0637\u063A\u06CC\u0627\u0646\u06CC</span> \u0647\u0633\u062A\u0645',
         hero_subtitle: '\u0645\u0647\u0646\u062F\u0633 \u0627\u0631\u0634\u062F iOS',
         hero_description: '\u0633\u0627\u062E\u062A \u0648 \u0627\u0646\u062A\u0634\u0627\u0631 \u0627\u067E\u0644\u06CC\u06A9\u06CC\u0634\u0646\u200C\u0647\u0627\u06CC iOS \u062A\u0648\u0644\u06CC\u062F\u06CC \u2014 \u0627\u0632 \u067E\u0644\u062A\u0641\u0631\u0645\u200C\u0647\u0627\u06CC \u0686\u0646\u062F\u0645\u06CC\u0644\u06CC\u0648\u0646\u200C\u06A9\u0627\u0631\u0628\u0631\u0647 \u062A\u0627 \u0645\u062D\u0635\u0648\u0644\u0627\u062A \u06A9\u0627\u0645\u0644 \u06A9\u0647 \u0628\u0647\u200C\u062A\u0646\u0647\u0627\u06CC\u06CC \u062A\u0648\u0633\u0639\u0647 \u062F\u0627\u062F\u0647\u200C\u0627\u0645 \u2014 \u0628\u0627 \u0628\u06CC\u0634 \u0627\u0632 \u06F6 \u0633\u0627\u0644 \u062A\u062C\u0631\u0628\u0647 \u062F\u0631 Swift\u060C SwiftUI \u0648 \u0647\u0645\u0631\u0648\u0646\u062F\u06CC \u0645\u062F\u0631\u0646',
         hero_cta_primary: '\u062A\u0645\u0627\u0633 \u0628\u0627 \u0645\u0646',
@@ -247,7 +247,7 @@ const translations = {
         booking_step_date: '\u0627\u0646\u062A\u062E\u0627\u0628 \u062A\u0627\u0631\u06CC\u062E',
         booking_step_time: '\u0627\u0646\u062A\u062E\u0627\u0628 \u0633\u0627\u0639\u062A',
         booking_step_confirm: '\u062A\u0623\u06CC\u06CC\u062F',
-        footer_copyright: '&copy; 2025 \u0639\u0644\u06CC\u0631\u0636\u0627 \u062A\u0642\u06CC\u0627\u0646\u06CC \u062E\u0631\u0627\u0633\u06AF\u0627\u0646\u06CC. \u062A\u0645\u0627\u0645 \u062D\u0642\u0648\u0642 \u0645\u062D\u0641\u0648\u0638 \u0627\u0633\u062A.',
+        footer_copyright: `&copy; ${new Date().getFullYear()} \u0639\u0644\u06CC\u0631\u0636\u0627 \u0637\u063A\u06CC\u0627\u0646\u06CC \u062E\u0631\u0627\u0633\u06AF\u0627\u0646\u06CC. \u062A\u0645\u0627\u0645 \u062D\u0642\u0648\u0642 \u0645\u062D\u0641\u0648\u0638 \u0627\u0633\u062A.`,
         footer_built: '\u0633\u0627\u062E\u062A\u0647 \u0634\u062F\u0647 \u0628\u0627 <i class="fas fa-heart"></i> \u062F\u0631 \u0645\u0648\u0646\u062A\u0631\u0627\u0644',
     }
 };

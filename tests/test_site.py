@@ -346,3 +346,15 @@ def test_personal_trips_hash_respects_hidden_tab():
     if trips_hidden:
         assert "location.hash === '#trips' &&" in src and "style.display !== 'none'" in src, \
             "#trips handler opens the hidden Trips tab, which shows a blank page"
+
+
+def test_persian_name_spelling():
+    """The surname is طغیانی (Toghiani); تقیانی is a different name."""
+    wrong, right = "تقیانی", "طغیانی"
+    for path in ["script.js"] + PAGES:
+        text = (ROOT / path).read_text(encoding="utf-8")
+        decoded = re.sub(r"\\u([0-9A-Fa-f]{4})", lambda m: chr(int(m.group(1), 16)), text)
+        assert wrong not in decoded, f"{path}: misspelled Persian surname {wrong!r}, should be {right!r}"
+    fa = (ROOT / "script.js").read_text(encoding="utf-8")
+    fa = re.sub(r"\\u([0-9A-Fa-f]{4})", lambda m: chr(int(m.group(1), 16)), fa)
+    assert "علیرضا طغیانی" in fa
