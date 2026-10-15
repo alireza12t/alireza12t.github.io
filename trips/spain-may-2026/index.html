@@ -389,7 +389,7 @@
           <div class="dot"></div>
           <div class="check-body">
             <div class="check-title">Fundació Joan Miró — May 20, Montjuïc</div>
-            <div class="check-detail"><a href="https://fmirobcn.org" target="_blank">fmirobcn.org</a></div>
+            <div class="check-detail"><a href="https://fmirobcn.org" target="_blank" rel="noopener">fmirobcn.org</a></div>
             <div class="check-by">🟡 By May 3</div>
           </div>
         </div>
@@ -403,7 +403,7 @@
           <div class="dot"></div>
           <div class="check-body">
             <div class="check-title">Barcelona Apartment — Guest Registration + Tourist Tax</div>
-            <div class="check-detail">Central Apartments · Booking 847/2026 · HMJTSDBDKB. Guest form + tourist tax (~€28.50 for 3 nights) at <a href="https://centralapartments.kross.travel" target="_blank">centralapartments.kross.travel</a></div>
+            <div class="check-detail">Central Apartments · Booking 847/2026 · HMJTSDBDKB. Guest form + tourist tax (~€28.50 for 3 nights) at <a href="https://centralapartments.kross.travel" target="_blank" rel="noopener">centralapartments.kross.travel</a></div>
             <div class="check-by">🟠 Before May 15</div>
           </div>
         </div>
@@ -537,8 +537,8 @@
       <div class="retreat-card">
         <div class="retreat-icon">🌊</div>
         <div class="retreat-body">
-          <div class="retreat-name"><a href="https://www.a-way.ca/event-details/soulcation" target="_blank">5 Day Soulcation in Tarifa</a></div>
-          <div class="retreat-host">Organized by Yasmin &amp; Anna &bull; <a href="https://www.a-way.ca/event-details/soulcation" target="_blank">a-way.ca &rarr;</a></div>
+          <div class="retreat-name"><a href="https://www.a-way.ca/event-details/soulcation" target="_blank" rel="noopener">5 Day Soulcation in Tarifa</a></div>
+          <div class="retreat-host">Organized by Yasmin &amp; Anna &bull; <a href="https://www.a-way.ca/event-details/soulcation" target="_blank" rel="noopener">a-way.ca &rarr;</a></div>
           <div class="retreat-pills">
             <span class="retreat-pill">May 7–11, 2026</span>
             <span class="retreat-pill">15–18 guests</span>
@@ -1324,7 +1324,7 @@ function pin(map, lat, lng, n, label, desc, ico) {
   const popup = L.popup({maxWidth: 260, className: ''}).setContent(
     `<div class="map-popup-title">${label}</div>` +
     (desc ? `<div class="map-popup-desc">${desc}</div>` : '') +
-    `<a class="map-popup-link" href="${gmaps}" target="_blank">Open in Google Maps →</a>`
+    `<a class="map-popup-link" href="${gmaps}" target="_blank" rel="noopener">Open in Google Maps →</a>`
   );
   return L.marker([lat, lng], {icon, zIndexOffset: (100 - n) * 10}).addTo(map).bindPopup(popup);
 }

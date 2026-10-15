@@ -397,7 +397,7 @@ const APPS = [
         accent: '#E0A33A',
         icon: 'images/apps/monfrigo-icon.webp',
         screenshots: [
-            { src: 'images/apps/monfrigo-fridge.webp', w: 600, h: 1298, alt: 'MonFrigo fridge list showing items to eat soon' },
+            { src: 'images/apps/monfrigo-fridge.webp', w: 600, h: 1299, alt: 'MonFrigo fridge list showing items to eat soon' },
         ],
         appStore: 'https://apps.apple.com/ca/app/monfrigo/id6808321210',
         website: 'MonFrigo/',

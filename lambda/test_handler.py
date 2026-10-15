@@ -214,6 +214,19 @@ class TestPostBooking(unittest.TestCase):
         self.assertIn("Mon, Jun 1 · 6:00–6:30 AM (America/Toronto)", text)
         self.assertIn("Their time: Mon, Jun 1 · 12:00–12:30 PM (Europe/Paris)", text)
 
+    @patch("urllib.request.urlopen")
+    def test_token_error_includes_google_reason(self, mock_urlopen):
+        import io, urllib.error
+        _mock_ssm.get_parameter.return_value = {"Parameter": {"Value": "dummy"}}
+        mock_urlopen.side_effect = urllib.error.HTTPError(
+            handler.TOKEN_URL, 400, "Bad Request", {},
+            io.BytesIO(b'{"error": "invalid_grant", "error_description": "Token has been expired or revoked."}'),
+        )
+        with self.assertRaises(RuntimeError) as ctx:
+            handler._get_access_token()
+        self.assertIn("invalid_grant", str(ctx.exception))
+        self.assertIn("expired or revoked", str(ctx.exception))
+
     def test_bad_visitor_tz_is_ignored(self):
         parsed, err = handler._validate({
             "slot_iso": "2099-06-01T10:00:00+00:00",

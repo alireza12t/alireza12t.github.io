@@ -316,7 +316,9 @@ function showTab(name, btn) {
   else document.querySelector(`.tab-btn[onclick*="'${name}'"]`)?.classList.add('active');
 }
 
-if (location.hash === '#trips') showTab('trips');
+// Only while the Trips tab is shown; otherwise #trips would open a blank, hidden panel
+const tripsBtn = document.querySelector(`.tab-btn[onclick*="'trips'"]`);
+if (location.hash === '#trips' && tripsBtn && tripsBtn.style.display !== 'none') showTab('trips');
 
 // ── Race data ──
 const RACE_DAY = new Date('2026-05-03T07:00:00-04:00');

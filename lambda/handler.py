@@ -36,6 +36,7 @@ import time
 import uuid
 import re
 import urllib.parse
+import urllib.error
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -145,8 +146,13 @@ def _get_access_token():
         "grant_type": "refresh_token",
     }).encode()
     req = urllib.request.Request(TOKEN_URL, data=data, method="POST")
-    with urllib.request.urlopen(req, timeout=10) as r:
-        return json.loads(r.read())["access_token"]
+    try:
+        with urllib.request.urlopen(req, timeout=10) as r:
+            return json.loads(r.read())["access_token"]
+    except urllib.error.HTTPError as e:
+        # Google explains the failure in the body, e.g. {"error": "invalid_grant"}
+        body = e.read().decode(errors="replace")[:300]
+        raise RuntimeError(f"Google token exchange failed ({e.code}): {body}") from e
 
 
 def _create_calendar_event(access_token, start_iso, end_iso, visitor_name, visitor_email):
