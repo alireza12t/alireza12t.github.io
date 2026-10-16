@@ -37,11 +37,6 @@
   },
   "blockedSlots": [
     {
-      "date": "2026-10-15",
-      "start": "18:00",
-      "end": "20:30"
-    },
-    {
       "date": "2026-10-16",
       "start": "00:00",
       "end": "23:59"
@@ -205,9 +200,14 @@
       "date": "2026-11-13",
       "start": "07:00",
       "end": "10:00"
+    },
+    {
+      "date": "2026-11-14",
+      "start": "08:30",
+      "end": "11:00"
     }
   ],
   "maxBookingDaysAhead": 30,
   "contactEmail": "alireza.toghiani@icloud.com",
-  "lastUpdated": "2026-10-15T11:53:29.852870+00:00"
+  "lastUpdated": "2026-10-16T15:23:00.460560+00:00"
 }
