@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["58WM5RF23G.com.alireza.MonFrigo-iOS-App"],
+        "components": [
+          { "/": "/MonFrigo/join/*", "comment": "Household invites: https://alireza12t.github.io/MonFrigo/join/?code=ABC234" },
+          { "/": "/MonFrigo/join", "comment": "The same, without the last slash" }
+        ]
+      }
+    ]
+  }
+}

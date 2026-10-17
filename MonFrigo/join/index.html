@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Join a household on MonFrigo</title>
+<meta name="description" content="You're invited to share a fridge and a shopping list on MonFrigo.">
+<!-- An invite is someone's private link: keep it out of search engines and
+     out of the Referer of anything this page links to. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" href="../assets/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1c1a17">
+<!-- The site's look, without its web fonts: this page loads nothing from
+     anyone but this site and MonFrigo's own server. No analytics. -->
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/site.js" defer></script>
+<style>
+  .join-card { max-width: 560px; margin: -44px auto 64px; position: relative; text-align: center; background: var(--cream-card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 32px 24px; box-shadow: var(--shadow); }
+  .join-card .icon { width: 84px; height: 84px; border-radius: 22%; margin: 0 auto 14px; box-shadow: 0 12px 30px rgba(28, 26, 23, .25); }
+  .join-household { font-size: 19px; font-weight: 600; color: var(--char); margin: 0 0 4px; overflow-wrap: anywhere; }
+  .join-members { color: var(--ink-soft); margin: 0; }
+  .join-problem { color: var(--tomato-deep); font-weight: 600; margin: 0; }
+  .code-label { margin: 22px 0 6px; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+  .code { font: 700 clamp(40px, 12vw, 56px)/1.1 ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: .14em; color: var(--char); margin: 0 0 6px; user-select: all; }
+  .join-actions { display: grid; gap: 14px; justify-items: center; margin-top: 24px; }
+  .open-app { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 10px 22px; border-radius: 999px; background: var(--char); color: var(--cream); font-weight: 600; text-decoration: none; }
+  .open-app:hover { background: var(--char-soft); }
+  .play-soon { display: inline-flex; align-items: center; min-height: 48px; padding: 10px 18px; border-radius: 12px; border: 1px dashed var(--rule); color: var(--ink-soft); font-weight: 600; }
+  .join-steps { margin: 26px 0 0; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--ink-soft); font-size: 15.5px; }
+  .join-shared { margin: 12px 0 0; color: var(--ink-soft); font-size: 14.5px; }
+  .join-foot { text-align: center; padding: 26px 16px 34px; font-size: 14px; background: var(--char-deep); color: rgba(246, 241, 234, .75); }
+  .join-foot a { color: var(--amber-light); }
+  [hidden] { display: none !important; }
+  @media (max-width: 560px) { .join-card { margin-inline: 16px; padding: 26px 18px; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="../index.html"><img src="../assets/icon.webp" alt="" width="36" height="36"><span>MonFrigo</span></a>
+    <a href="#" class="lang-toggle" data-lang-toggle style="margin-inline-start: auto">Français</a>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero shelf">
+    <h1><span class="only-en">You're invited to share a fridge on MonFrigo</span><span class="only-fr">Vous êtes invité à partager un frigo dans MonFrigo</span></h1>
+    <p><span class="only-en">One fridge and one shopping list for the whole home.</span><span class="only-fr">Un frigo et une liste de courses pour toute la maison.</span></p>
+  </section>
+
+  <div class="join-card">
+    <img class="icon" src="../assets/icon.webp" alt="" width="84" height="84">
+
+    <!-- Filled in from the server's preview, when it answers. -->
+    <div aria-live="polite">
+      <p class="join-household" data-household hidden>
+        <span class="only-en">Join <span data-name></span></span><span class="only-fr">Rejoindre <span data-name></span></span>
+      </p>
+      <p class="join-members" data-members hidden>
+        <span class="only-en" data-members-en></span><span class="only-fr" data-members-fr></span>
+      </p>
+      <p class="join-problem" data-expired hidden>
+        <span class="only-en">This invite doesn't work anymore. Invites last two days: ask for a new one.</span>
+        <span class="only-fr">Cette invitation ne fonctionne plus. Une invitation dure deux jours : demandez-en une nouvelle.</span>
+      </p>
+      <p class="join-problem" data-no-code hidden>
+        <span class="only-en">This link has no invite code in it. Ask for the invite again.</span>
+        <span class="only-fr">Ce lien ne contient pas de code d’invitation. Demandez l’invitation à nouveau.</span>
+      </p>
+    </div>
+
+    <div data-code-block hidden>
+      <p class="code-label"><span class="only-en">Your invite code</span><span class="only-fr">Votre code d’invitation</span></p>
+      <p class="code" data-code aria-describedby="code-help"></p>
+    </div>
+
+    <div class="join-actions">
+      <a class="badge" href="https://apps.apple.com/app/id6808321210" target="_blank" rel="noopener noreferrer">
+        <img src="../assets/app-store-badge.svg" alt="" width="156" height="52">
+        <span class="only-en" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Download MonFrigo on the App Store</span>
+        <span class="only-fr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Télécharger MonFrigo dans l’App Store</span>
+      </a>
+
+      <!-- For the Android app. Off until it exists: set SHOW_GOOGLE_PLAY
+           below, and give this a real link. -->
+      <span class="play-soon" data-google-play hidden>
+        <span class="only-en">Get it on Google Play — coming soon</span><span class="only-fr">Disponible sur Google Play — bientôt</span>
+      </span>
+
+      <a class="open-app" data-open-app href="monfrigo://join" hidden>
+        <span class="only-en">Already have MonFrigo? Open the invite</span><span class="only-fr">Vous avez déjà MonFrigo ? Ouvrir l’invitation</span>
+      </a>
+    </div>
+
+    <p class="join-steps" id="code-help">
+      <span class="only-en">After installing, open this link again, or enter the code in Settings → Household.</span>
+      <span class="only-fr">Après l’installation, ouvrez ce lien à nouveau, ou entrez le code dans Réglages → Foyer.</span>
+    </p>
+    <p class="join-shared">
+      <span class="only-en">Only your foods' names, amounts, dates and places, and your shopping list, are shared. Prices and your history stay on your phone.</span>
+      <span class="only-fr">Seuls le nom, la quantité, les dates et l’emplacement de vos aliments, et votre liste de courses, sont partagés. Les prix et votre historique restent sur votre téléphone.</span>
+    </p>
+  </div>
+</main>
+
+<div class="border-band"></div>
+<footer class="join-foot">
+  <a href="../privacy.html"><span class="only-en">Privacy</span><span class="only-fr">Confidentialité</span></a>
+  ·
+  <a href="../support.html"><span class="only-en">Support</span><span class="only-fr">Assistance</span></a>
+</footer>
+
+<script>
+// The invite page. Reads ?code=, shows it, and asks MonFrigo's server
+// which household it opens. The answer is only the household's name and
+// how many people are in it; if the server can't be reached the page
+// still works, it just doesn't name the household.
+(function () {
+  // Off until there is an Android app on Google Play.
+  var SHOW_GOOGLE_PLAY = false;
+  var SERVER = "https://xxcegjnzqt.us-east-1.awsapprunner.com";
+  // The same alphabet as the app: no 0/O, no 1/I/L.
+  var ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+
+  function $(selector) { return document.querySelector(selector); }
+  function show(selector) { var el = $(selector); if (el) el.hidden = false; }
+  function hide(selector) { var el = $(selector); if (el) el.hidden = true; }
+
+  if (SHOW_GOOGLE_PLAY) show("[data-google-play]");
+
+  function normalized(raw) {
+    var code = String(raw || "").toUpperCase().replace(/[\s-]/g, "");
+    if (code.length !== 6) return null;
+    for (var i = 0; i < code.length; i++) {
+      if (ALPHABET.indexOf(code[i]) < 0) return null;
+    }
+    return code;
+  }
+
+  var code = normalized(new URLSearchParams(window.location.search).get("code"));
+  if (!code) {
+    show("[data-no-code]");
+    return;
+  }
+
+  $("[data-code]").textContent = code;
+  $("[data-code]").setAttribute("aria-label", code.split("").join(" "));
+  show("[data-code-block]");
+  var open = $("[data-open-app]");
+  open.href = "monfrigo://join?code=" + encodeURIComponent(code);
+  open.hidden = false;
+
+  function members(count) {
+    $("[data-members-en]").textContent = count === 1 ? "1 person already shares it" : count + " people already share it";
+    $("[data-members-fr]").textContent = count === 1 ? "1 personne le partage déjà" : count + " personnes le partagent déjà";
+    show("[data-members]");
+  }
+
+  if (!window.fetch) return;
+  var controller = window.AbortController ? new AbortController() : null;
+  var timer = setTimeout(function () { if (controller) controller.abort(); }, 8000);
+  fetch(SERVER + "/v1/invites/" + encodeURIComponent(code), {
+    method: "GET",
+    mode: "cors",
+    credentials: "omit",
+    cache: "no-store",
+    referrerPolicy: "no-referrer",
+    signal: controller ? controller.signal : undefined
+  }).then(function (response) {
+    clearTimeout(timer);
+    if (response.status === 404) {
+      show("[data-expired]");
+      hide("[data-open-app]");
+      return null;
+    }
+    return response.ok ? response.json() : null;
+  }).then(function (preview) {
+    if (!preview) return;
+    var name = typeof preview.householdName === "string" ? preview.householdName.trim() : "";
+    if (name) {
+      // Text only: a household's name is whatever its people typed.
+      document.querySelectorAll("[data-name]").forEach(function (el) {
+        el.textContent = el.closest(".only-fr") ? "« " + name + " »" : "“" + name + "”";
+      });
+      show("[data-household]");
+    }
+    if (typeof preview.memberCount === "number" && preview.memberCount > 0) {
+      members(preview.memberCount);
+    }
+  }).catch(function () {
+    // Offline, busy or blocked: the code and the buttons are enough.
+    clearTimeout(timer);
+  });
+})();
+</script>
+</body>
+</html>
