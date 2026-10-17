@@ -27,6 +27,9 @@ jobs:
           CONCLUSION: ${{ github.event.workflow_run.conclusion }}
           BRANCH: ${{ github.event.workflow_run.head_branch }}
           RUN_URL: ${{ github.event.workflow_run.html_url }}
+          # MonFrigo's own links, only for its health check: the server's
+          # /health and its App Runner service. Public URLs, nothing secret.
+          MONFRIGO_HEALTH_URL: ${{ vars.MONFRIGO_HEALTH_URL }}
         run: |
           if [ -z "$TELEGRAM_BOT_TOKEN" ] || [ -z "$TELEGRAM_CHAT_ID" ]; then
             echo "::error::TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID secrets are not set"
@@ -34,6 +37,14 @@ jobs:
           fi
           text="🔴 ${WORKFLOW} ${CONCLUSION} on ${BRANCH}
           ${RUN_URL}"
+          if [ "$WORKFLOW" = "MonFrigo Health Check" ]; then
+            if [ -n "$MONFRIGO_HEALTH_URL" ]; then
+              text="${text}
+          Health: ${MONFRIGO_HEALTH_URL}"
+            fi
+            text="${text}
+          App Runner: https://us-east-1.console.aws.amazon.com/apprunner/home?region=us-east-1#/services"
+          fi
           curl -sS --fail-with-body -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
             --data-urlencode "text=${text}" \
