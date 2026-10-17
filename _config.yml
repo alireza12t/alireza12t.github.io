@@ -1,0 +1,7 @@
+# GitHub Pages builds this site with Jekyll, which leaves out folders whose
+# names start with a dot. .well-known has to be served: iOS reads
+# /.well-known/apple-app-site-association to open MonFrigo's invite links in
+# the app, and Android will read /.well-known/assetlinks.json the same way.
+# Everything else builds exactly as before.
+include:
+  - .well-known
