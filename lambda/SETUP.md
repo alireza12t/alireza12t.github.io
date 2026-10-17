@@ -71,3 +71,6 @@ Booking failures and failed GitHub workflows post to a Telegram chat.
    ```
 4. Workflow alerts (`.github/workflows/notify-failures.yml`): add repo secrets
    `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`.
+5. MonFrigo uptime (`.github/workflows/monfrigo-health-check.yml`): set the repo variable
+   `MONFRIGO_HEALTH_URL` to the MonFrigo server's `https://….awsapprunner.com/health`. Every 30 minutes
+   the check asks it (three tries), and a failure posts here through `notify-failures.yml`. Unset, it does nothing.
