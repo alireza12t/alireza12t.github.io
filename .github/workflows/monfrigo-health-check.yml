@@ -1,0 +1,41 @@
+name: MonFrigo Health Check
+
+# The MonFrigo server (an iOS app's backend on AWS App Runner) sends its own
+# Telegram alerts while it runs, but it can't say that it is down. This asks
+# its /health every 30 minutes; when it doesn't answer, the run fails and
+# notify-failures.yml posts to the same Telegram chat.
+#
+# Needs repo variable MONFRIGO_HEALTH_URL, e.g.
+# https://<service>.us-east-1.awsapprunner.com/health. Unset, it does nothing
+# and passes (unset it while the server is paused on purpose).
+on:
+  schedule:
+    # Off the hour, when GitHub's scheduler is busiest and runs late.
+    - cron: "7,37 * * * *"
+  workflow_dispatch: # Allow manual trigger
+
+permissions: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ask /health
+        env:
+          URL: ${{ vars.MONFRIGO_HEALTH_URL }}
+        run: |
+          if [ -z "$URL" ]; then
+            echo "MONFRIGO_HEALTH_URL is not set; nothing to check."
+            exit 0
+          fi
+          # Three tries, 20 seconds apart, so one dropped connection isn't an alert.
+          body="$(curl -fsS --retry 2 --retry-delay 20 --retry-all-errors --max-time 15 "$URL")" || {
+            echo "::error::MonFrigo server did not answer /health after 3 tries"
+            exit 1
+          }
+          if ! printf '%s' "$body" | grep -q '"status" *: *"ok"'; then
+            echo "::error::MonFrigo /health answered, but not with status ok"
+            exit 1
+          fi
+          echo "MonFrigo is up: $body"

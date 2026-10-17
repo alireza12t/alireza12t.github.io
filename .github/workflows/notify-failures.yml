@@ -11,6 +11,7 @@ on:
       - Add Holiday
       - Tests
       - Test Alert
+      - MonFrigo Health Check
     types: [completed]
 
 jobs:
