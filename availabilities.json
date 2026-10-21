@@ -93,6 +93,11 @@
     },
     {
       "date": "2026-10-29",
+      "start": "17:30",
+      "end": "20:00"
+    },
+    {
+      "date": "2026-10-29",
       "start": "18:00",
       "end": "20:30"
     },
@@ -195,9 +200,14 @@
       "date": "2026-11-18",
       "start": "06:00",
       "end": "08:30"
+    },
+    {
+      "date": "2026-11-19",
+      "start": "18:00",
+      "end": "20:30"
     }
   ],
   "maxBookingDaysAhead": 30,
   "contactEmail": "alireza.toghiani@icloud.com",
-  "lastUpdated": "2026-10-20T15:39:42.548029+00:00"
+  "lastUpdated": "2026-10-21T15:57:59.706611+00:00"
 }
