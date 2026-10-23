@@ -358,3 +358,18 @@ def test_persian_name_spelling():
     fa = (ROOT / "script.js").read_text(encoding="utf-8")
     fa = re.sub(r"\\u([0-9A-Fa-f]{4})", lambda m: chr(int(m.group(1), 16)), fa)
     assert "علیرضا طغیانی" in fa
+
+
+# ── Owner admin hub ──────────────────────────────────────────────────────────
+
+def test_admin_pages_are_noindex():
+    for page in ("admin/index.html", "figbo/admin/index.html"):
+        robots = [m.get("content", "") for m in parse(page).metas if m.get("name") == "robots"]
+        assert robots and "noindex" in robots[0], f"{page} must be noindex"
+
+
+def test_admin_hub_holds_no_secrets():
+    """The hub is static: logins are checked by the booking Lambda, never in the page."""
+    src = (ROOT / "admin/admin.js").read_text(encoding="utf-8")
+    assert "sessionStorage" in src and "Authorization" in src
+    assert not re.search(r"(password|code)\s*===?\s*['\"]", src), "never compare a login in browser JS"

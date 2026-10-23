@@ -3,6 +3,7 @@ Unit tests for booking-api Lambda handler.
 Run: python -m pytest lambda/test_handler.py -v
 These tests mock all AWS/external calls — no real credentials needed.
 """
+import base64
 import json
 import urllib.parse
 import sys
@@ -166,7 +167,27 @@ class TestGetBookedSlots(unittest.TestCase):
         self.assertEqual(r["statusCode"], 200)
         body = json.loads(r["body"])
         self.assertIn("booked_slots", body)
-        self.assertEqual(len(body["booked_slots"]), 1)
+        # Same string as the browser's toISOString(), which booking.html compares against
+        self.assertEqual(body["booked_slots"], ["2099-06-01T10:00:00.000Z"])
+
+    def test_owner_block_hides_every_slot_inside_it(self):
+        from datetime import date, timedelta
+        day = (date.today() + timedelta(days=2)).isoformat()
+        _mock_ddb_table.scan.return_value = {"Items": [
+            {"slot_iso": "block#abc", "start_utc": f"{day}T14:15:00+00:00",
+             "end_utc": f"{day}T15:00:00+00:00", "status": "blocked"},
+            {"slot_iso": "admin#auth", "fails": 0},
+            {"slot_iso": "2001-01-01T10:00:00+00:00", "status": "booked"},  # past
+        ]}
+        body = json.loads(lambda_handler(_event("GET", "/"), None)["body"])
+        self.assertEqual(body["booked_slots"], [f"{day}T14:00:00.000Z", f"{day}T14:30:00.000Z"])
+
+    def test_blocks_stop_at_the_horizon(self):
+        _mock_ddb_table.scan.return_value = {"Items": [
+            {"slot_iso": "block#far", "start_utc": "2099-06-01T00:00:00+00:00",
+             "end_utc": "2099-06-30T00:00:00+00:00"}]}
+        body = json.loads(lambda_handler(_event("GET", "/"), None)["body"])
+        self.assertEqual(body["booked_slots"], [])
 
 
 # ── POST booking — slot already taken ────────────────────────────────────────
@@ -250,3 +271,219 @@ class TestPostBooking(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# ── Owner admin ──────────────────────────────────────────────────────────────
+import importlib.util  # noqa: E402
+import time as _time  # noqa: E402
+from pathlib import Path  # noqa: E402
+
+TOTP_SECRET = "JBSWY3DPEHPK3PXP"
+PW_HASH = handler._hash_password("correct horse battery", n=2**10)
+
+
+def _ssm_values(Name, WithDecryption=True):
+    values = {
+        "/booking/admin_password_hash": PW_HASH,
+        "/booking/admin_totp_secret": TOTP_SECRET,
+        "/booking/admin_session_key": "test-session-key",
+    }
+    return {"Parameter": {"Value": values.get(Name, "dummy")}}
+
+
+def _now_code():
+    return handler._totp(TOTP_SECRET, int(_time.time() // 30))
+
+
+@patch.object(handler, "_alert")
+class TestAdmin(unittest.TestCase):
+    def setUp(self):
+        handler._admin_secret_cache.clear()
+        handler._secret_cache.clear()
+        _mock_ssm.get_parameter.side_effect = _ssm_values
+        _mock_ddb_table.reset_mock(return_value=True, side_effect=True)
+        _mock_ddb_table.get_item.return_value = {}
+        _mock_ddb_table.scan.return_value = {"Items": []}
+
+    def tearDown(self):
+        _mock_ssm.get_parameter.side_effect = None
+
+    def _login(self, password="correct horse battery", code=None):
+        return lambda_handler(_event("POST", "/admin/login",
+                                     body={"password": password, "code": code or _now_code()}), None)
+
+    def _authed(self, method, path, body=None):
+        token = json.loads(self._login()["body"])["token"]
+        return lambda_handler(_event(method, path, body=body,
+                                     headers={"authorization": f"Bearer {token}"}), None)
+
+    def test_totp_matches_rfc6238_vector(self, _alert):
+        # RFC 6238 SHA-1 vector: secret "12345678901234567890", T=59s -> 94287082 (last 6 digits)
+        secret = base64.b32encode(b"12345678901234567890").decode()
+        self.assertEqual(handler._totp(secret, 59 // 30), "287082")
+
+    def test_login_success_returns_token_and_alerts(self, alert):
+        r = self._login()
+        self.assertEqual(r["statusCode"], 200)
+        self.assertEqual(r["headers"]["Cache-Control"], "no-store")
+        self.assertIn("token", json.loads(r["body"]))
+        alert.assert_called_once()
+
+    def test_wrong_password_is_401(self, _alert):
+        self.assertEqual(self._login(password="nope")["statusCode"], 401)
+        saved = _mock_ddb_table.put_item.call_args.kwargs["Item"]
+        self.assertEqual(saved["fails"], 1)
+
+    def test_wrong_code_is_401(self, _alert):
+        wrong = f"{(int(_now_code()) + 1) % 1_000_000:06d}"
+        self.assertEqual(self._login(code=wrong)["statusCode"], 401)
+
+    def test_code_cannot_be_reused(self, _alert):
+        step = int(_time.time() // 30)
+        _mock_ddb_table.get_item.return_value = {"Item": {"slot_iso": "admin#auth", "fails": 0,
+                                                          "first_fail": 0, "last_counter": step + 1}}
+        self.assertEqual(self._login()["statusCode"], 401)
+
+    def test_locked_after_five_failures(self, alert):
+        _mock_ddb_table.get_item.return_value = {"Item": {"slot_iso": "admin#auth", "fails": 5,
+                                                          "first_fail": int(_time.time()) - 60,
+                                                          "last_counter": 0}}
+        r = self._login()
+        self.assertEqual(r["statusCode"], 429)
+
+    def test_lock_expires(self, _alert):
+        _mock_ddb_table.get_item.return_value = {"Item": {"slot_iso": "admin#auth", "fails": 5,
+                                                          "first_fail": int(_time.time()) - 16 * 60,
+                                                          "last_counter": 0}}
+        self.assertEqual(self._login()["statusCode"], 200)
+
+    def test_fifth_failure_alerts(self, alert):
+        _mock_ddb_table.get_item.return_value = {"Item": {"slot_iso": "admin#auth", "fails": 4,
+                                                          "first_fail": int(_time.time()) - 60,
+                                                          "last_counter": 0}}
+        self.assertEqual(self._login(password="nope")["statusCode"], 401)
+        self.assertIn("locked", alert.call_args.args[0])
+
+    def test_not_configured_is_503(self, _alert):
+        _mock_ssm.get_parameter.side_effect = Exception("ParameterNotFound")
+        self.assertEqual(self._login()["statusCode"], 503)
+
+    def test_routes_need_a_token(self, _alert):
+        for method, path in (("GET", "/admin/bookings"), ("POST", "/admin/cancel"),
+                             ("POST", "/admin/block"), ("POST", "/admin/unblock")):
+            r = lambda_handler(_event(method, path), None)
+            self.assertEqual(r["statusCode"], 401, path)
+
+    def test_tampered_and_expired_tokens_rejected(self, _alert):
+        token = json.loads(self._login()["body"])["token"]
+        payload, sig = token.split(".")
+        forged = handler._b64url(json.dumps({"sub": "owner", "exp": 4102444800}).encode())
+        self.assertFalse(handler._token_valid(f"{forged}.{sig}", _time.time()))
+        self.assertFalse(handler._token_valid(token, _time.time() + handler.SESSION_TTL + 1))
+        self.assertTrue(handler._token_valid(token, _time.time()))
+
+    def test_list_bookings_and_blocks(self, _alert):
+        _mock_ddb_table.scan.return_value = {"Items": [
+            {"slot_iso": "2099-06-02T10:00:00+00:00", "visitor_name": "B", "visitor_email": "b@x.com",
+             "status": "booked", "created_at": 1},
+            {"slot_iso": "2099-06-01T10:00:00+00:00", "visitor_name": "A", "visitor_email": "a@x.com",
+             "status": "booked", "duration_min": 30, "created_at": 1},
+            {"slot_iso": "block#1", "start_utc": "2099-07-01T04:00:00+00:00",
+             "end_utc": "2099-07-02T04:00:00+00:00", "note": "trip"},
+            {"slot_iso": "admin#auth", "fails": 0},
+        ]}
+        r = self._authed("GET", "/admin/bookings")
+        self.assertEqual(r["statusCode"], 200)
+        body = json.loads(r["body"])
+        self.assertEqual([b["name"] for b in body["bookings"]], ["A", "B"])
+        self.assertEqual(body["blocks"][0]["note"], "trip")
+
+    @patch("urllib.request.urlopen")
+    def test_cancel_deletes_event_then_row(self, mock_urlopen, alert):
+        mock_urlopen.return_value.__enter__.return_value.read.return_value = b'{"access_token":"t"}'
+        _mock_ddb_table.get_item.side_effect = [
+            {},  # login throttle row
+            {"Item": {"slot_iso": "2099-06-01T10:00:00+00:00", "event_id": "ev1",
+                      "visitor_name": "A", "visitor_email": "a@x.com"}},
+        ]
+        r = self._authed("POST", "/admin/cancel", body={"slot_iso": "2099-06-01T10:00:00+00:00"})
+        self.assertEqual(r["statusCode"], 200)
+        delete_req = mock_urlopen.call_args_list[-1].args[0]
+        self.assertEqual(delete_req.get_method(), "DELETE")
+        self.assertIn("/events/ev1?sendUpdates=all", delete_req.full_url)
+        _mock_ddb_table.delete_item.assert_called_once_with(Key={"slot_iso": "2099-06-01T10:00:00+00:00"})
+
+    @patch("urllib.request.urlopen")
+    def test_cancel_keeps_row_when_google_fails(self, mock_urlopen, _alert):
+        mock_urlopen.side_effect = Exception("invalid_grant")
+        _mock_ddb_table.get_item.side_effect = [
+            {}, {"Item": {"slot_iso": "2099-06-01T10:00:00+00:00", "event_id": "ev1"}},
+        ]
+        r = self._authed("POST", "/admin/cancel", body={"slot_iso": "2099-06-01T10:00:00+00:00"})
+        self.assertEqual(r["statusCode"], 502)
+        _mock_ddb_table.delete_item.assert_not_called()
+
+    def test_cancel_refuses_non_booking_rows(self, _alert):
+        r = self._authed("POST", "/admin/cancel", body={"slot_iso": "admin#auth"})
+        self.assertEqual(r["statusCode"], 400)
+
+    def test_block_whole_days_is_one_row(self, _alert):
+        r = self._authed("POST", "/admin/block",
+                         body={"start_date": "2099-12-24", "end_date": "2099-12-26", "note": "holiday"})
+        self.assertEqual(r["statusCode"], 200)
+        item = _mock_ddb_table.put_item.call_args.kwargs["Item"]
+        self.assertTrue(item["slot_iso"].startswith("block#"))
+        self.assertEqual(item["start_utc"], "2099-12-24T05:00:00+00:00")  # Toronto midnight, EST
+        self.assertEqual(item["end_utc"], "2099-12-27T05:00:00+00:00")
+
+    def test_block_with_times_is_one_row_per_day(self, _alert):
+        r = self._authed("POST", "/admin/block", body={"start_date": "2099-07-01", "end_date": "2099-07-03",
+                                                       "start_time": "12:00", "end_time": "13:30"})
+        self.assertEqual(len(json.loads(r["body"])["ids"]), 3)
+        item = _mock_ddb_table.put_item.call_args.kwargs["Item"]
+        self.assertEqual(item["start_utc"], "2099-07-03T16:00:00+00:00")  # EDT
+        self.assertEqual(item["end_utc"], "2099-07-03T17:30:00+00:00")
+
+    def test_block_rejects_bad_input(self, _alert):
+        for body in ({"start_date": "tomorrow"},
+                     {"start_date": "2099-07-03", "end_date": "2099-07-01"},
+                     {"start_date": "2099-07-01", "start_time": "13:00", "end_time": "12:00"},
+                     {"start_date": "2001-07-01"}):
+            self.assertEqual(self._authed("POST", "/admin/block", body=body)["statusCode"], 400, body)
+
+    def test_unblock(self, _alert):
+        r = self._authed("POST", "/admin/unblock", body={"id": "block#abc"})
+        self.assertEqual(r["statusCode"], 200)
+        _mock_ddb_table.delete_item.assert_called_once_with(Key={"slot_iso": "block#abc"})
+        self.assertEqual(self._authed("POST", "/admin/unblock",
+                                      body={"id": "2099-06-01T10:00:00+00:00"})["statusCode"], 400)
+
+    def test_public_booking_inside_block_is_409(self, _alert):
+        _mock_ddb_table.scan.return_value = {"Items": [
+            {"slot_iso": "block#1", "start_utc": "2099-06-01T00:00:00+00:00",
+             "end_utc": "2099-06-02T00:00:00+00:00"}]}
+        payload = {"slot_iso": "2099-06-01T10:00:00+00:00", "duration_min": 30,
+                   "name": "Bob", "email": "bob@example.com"}
+        r = lambda_handler(_event("POST", "/", body=payload), None)
+        self.assertEqual(r["statusCode"], 409)
+        _mock_ddb_table.put_item.assert_not_called()
+
+
+class TestSetupScript(unittest.TestCase):
+    """scripts/setup_booking_admin.py must write what the Lambda checks."""
+
+    def setUp(self):
+        path = Path(__file__).resolve().parent.parent / "scripts" / "setup_booking_admin.py"
+        spec = importlib.util.spec_from_file_location("setup_booking_admin", path)
+        self.mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.mod)
+
+    def test_password_hash_is_accepted_by_lambda(self):
+        stored = self.mod.hash_password("hunter2 hunter2")
+        self.assertTrue(handler._check_password("hunter2 hunter2", stored))
+        self.assertFalse(handler._check_password("hunter3 hunter3", stored))
+
+    def test_totp_agrees_with_lambda(self):
+        secret = self.mod.new_totp_secret()
+        for step in (0, 1, 55_000_000):
+            self.assertEqual(self.mod.totp(secret, step), handler._totp(secret, step))

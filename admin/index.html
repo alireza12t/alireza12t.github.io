@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<!-- This page holds no secrets or data. Booking data comes from the booking
+     Lambda after a password + authenticator login there; the Figbo panel has
+     its own login on the Figbo server and can't be framed, so it opens in a tab. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src https://r7n6gzfefcwld37lyjkabauqk40sqydj.lambda-url.us-east-1.on.aws; base-uri 'none'; form-action 'none'">
+<title>Admin | Alireza Toghiani</title>
+<style>
+  :root {
+    color-scheme: light;
+    --primary: #1B3A6B; --accent: #FDB813; --text: #1B3A6B; --muted: #5A6C84;
+    --bg: #F7F9FC; --card: #FFFFFF; --border: #D2D2D7; --danger: #C62828; --ok: #2E7D32;
+    --shadow: 0 4px 6px rgba(27, 58, 107, 0.1);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --primary: #4A90D9; --text: #E8EDF5; --muted: #A0B1C5; --bg: #0F1F3D; --card: #1a2744;
+      --border: #3A4F6E; --danger: #EF6C6C; --ok: #6FCF7C; --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --primary: #4A90D9; --text: #E8EDF5; --muted: #A0B1C5; --bg: #0F1F3D; --card: #1a2744;
+    --border: #3A4F6E; --danger: #EF6C6C; --ok: #6FCF7C; --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 16px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+  h1 { margin: 0; font-size: 1.6rem; }
+  h1 span { color: var(--accent); }
+  h2 { font-size: 1.1rem; margin: 0 0 12px; }
+  a { color: var(--primary); }
+  .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--border); margin-bottom: 20px; }
+  .tab { appearance: none; border: 0; background: none; color: var(--muted); font: inherit; font-weight: 600;
+         padding: 10px 16px; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+          box-shadow: var(--shadow); margin-bottom: 16px; }
+  .muted { color: var(--muted); font-size: 0.92rem; }
+  label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+  input { font: inherit; color: inherit; background: var(--bg); border: 1px solid var(--border);
+          border-radius: 8px; padding: 9px 10px; width: 100%; }
+  input[type="checkbox"] { width: auto; }
+  .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 12px; }
+  .check { display: flex; align-items: center; gap: 8px; font-weight: 400; margin-bottom: 12px; }
+  .btn { appearance: none; border: 0; border-radius: 8px; padding: 10px 18px; font: inherit; font-weight: 600;
+         background: var(--primary); color: #fff; cursor: pointer; text-decoration: none; display: inline-block; }
+  .btn.accent { background: var(--accent); color: #1B3A6B; }
+  .btn.ghost { background: none; color: var(--muted); border: 1px solid var(--border); padding: 6px 12px; }
+  .btn.danger { background: none; color: var(--danger); border: 1px solid var(--danger); padding: 6px 12px; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+  .login { max-width: 360px; }
+  .login input { margin-bottom: 12px; }
+  .list { list-style: none; margin: 0; padding: 0; }
+  .list li { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+             padding: 12px 0; border-top: 1px solid var(--border); }
+  .list li:first-child { border-top: 0; }
+  .list .what { min-width: 0; overflow-wrap: anywhere; }
+  .list .when { font-weight: 600; }
+  .tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 1px 6px; border-radius: 4px;
+         border: 1px solid currentColor; margin-left: 6px; color: var(--muted); }
+  .msg { min-height: 1.5em; margin: 8px 0 0; font-size: 0.92rem; }
+  .msg.err { color: var(--danger); }
+  .msg.ok { color: var(--ok); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Admin<span>.</span></h1>
+    <button class="btn ghost" id="logout" type="button" hidden>Log out</button>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-booking" aria-controls="booking" aria-selected="true" type="button">Booking</button>
+    <button class="tab" role="tab" id="tab-figbo" aria-controls="figbo" aria-selected="false" type="button">Figbo</button>
+  </div>
+
+  <section id="booking" role="tabpanel" aria-labelledby="tab-booking">
+    <form class="card login" id="login-form">
+      <h2>Log in</h2>
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" required>
+      <label for="code">Authenticator code</label>
+      <input id="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required>
+      <button class="btn" type="submit">Log in</button>
+      <p class="msg" id="login-msg"></p>
+    </form>
+
+    <div id="booking-app" hidden>
+      <div class="card">
+        <h2>Upcoming calls</h2>
+        <ul class="list" id="bookings"></ul>
+        <p class="muted" id="bookings-empty" hidden>No upcoming calls.</p>
+        <p class="msg" id="bookings-msg"></p>
+      </div>
+
+      <form class="card" id="block-form">
+        <h2>Block time</h2>
+        <p class="muted">Hides these times on the booking page right away. Existing calls stay booked.</p>
+        <div class="row">
+          <div><label for="b-start">From</label><input id="b-start" type="date" required></div>
+          <div><label for="b-end">To (inclusive)</label><input id="b-end" type="date"></div>
+        </div>
+        <label class="check"><input id="b-allday" type="checkbox" checked> Whole days</label>
+        <div class="row" id="b-times" hidden>
+          <div><label for="b-from">Start time</label><input id="b-from" type="time" step="1800"></div>
+          <div><label for="b-to">End time</label><input id="b-to" type="time" step="1800"></div>
+        </div>
+        <div class="row">
+          <div><label for="b-note">Note (only you see it)</label><input id="b-note" maxlength="100"></div>
+        </div>
+        <button class="btn accent" type="submit">Block</button>
+        <p class="msg" id="block-msg"></p>
+      </form>
+
+      <div class="card">
+        <h2>Blocked times</h2>
+        <ul class="list" id="blocks"></ul>
+        <p class="muted" id="blocks-empty" hidden>Nothing blocked. Your calendars still block busy times through the daily sync.</p>
+      </div>
+      <p class="muted" id="tz-note"></p>
+    </div>
+  </section>
+
+  <section id="figbo" role="tabpanel" aria-labelledby="tab-figbo" hidden>
+    <div class="card">
+      <h2>Figbo admin</h2>
+      <p>Orders, packing slips, refunds, settings and renewal reminders. It runs on the Figbo server with its own password and two-factor login, and opens in a new tab.</p>
+      <a class="btn" href="https://ewvpcvjjcb.us-east-1.awsapprunner.com/admin" target="_blank" rel="noopener noreferrer">Open Figbo admin</a>
+      <p class="muted">Shortcut: <a href="../figbo/admin/">/figbo/admin/</a></p>
+    </div>
+  </section>
+</div>
+<script src="admin.js"></script>
+</body>
+</html>
