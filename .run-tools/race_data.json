@@ -2,25 +2,17 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-10-23T14:30:43.149998",
+  "generated": "2026-10-24T13:42:09.214865",
   "predicted_lo": "4h33m37s",
   "predicted_hi": "4h54m40s",
   "mp_pace": "6:29/km",
   "peak_week_km": 28.1,
-  "total_km_90d": 224.0,
+  "total_km_90d": 223.4,
   "longest_run_km": 11.75,
   "longest_run_date": "2026-09-19",
-  "taper_note": "NOT YET \u2014 current week is 120% of previous (17 vs 14 km) \u2014 needs more reduction",
-  "lr_summary": "11.8 km on 2026-09-19 (33 days ago) \u26a0\u26a0 ONLY 11.8 km \u2014 marathon prep expects \u226528\u201332 km \u26a0 33 days ago \u2014 may be too far back",
+  "taper_note": "NOT YET \u2014 current week is 163% of previous (22 vs 14 km) \u2014 needs more reduction",
+  "lr_summary": "11.8 km on 2026-09-19 (34 days ago) \u26a0\u26a0 ONLY 11.8 km \u2014 marathon prep expects \u226528\u201332 km \u26a0 34 days ago \u2014 may be too far back",
   "weeks": [
-    {
-      "label": "Jul 20",
-      "n_runs": 1,
-      "total_km": 6.6,
-      "longest_km": 6.6,
-      "total_time_s": 2592,
-      "med_easy_pace_s": 395
-    },
     {
       "label": "Jul 27",
       "n_runs": 3,
@@ -119,26 +111,14 @@
     },
     {
       "label": "Oct 19",
-      "n_runs": 4,
-      "total_km": 16.5,
+      "n_runs": 5,
+      "total_km": 22.5,
       "longest_km": 8.8,
-      "total_time_s": 6702,
-      "med_easy_pace_s": 406
+      "total_time_s": 9204,
+      "med_easy_pace_s": 419
     }
   ],
   "runs": [
-    {
-      "date": "2026-07-26",
-      "dow": "Sun",
-      "name": "Misfits Run",
-      "dist_km": 6.57,
-      "duration_s": 2592,
-      "pace": "6:34/km",
-      "avg_hr": 169.0,
-      "max_hr": 191.0,
-      "elev_m": 101,
-      "type": "recovery"
-    },
     {
       "date": "2026-07-30",
       "dow": "Thu",
@@ -834,6 +814,18 @@
       "max_hr": 166.0,
       "elev_m": 35,
       "type": "recovery"
+    },
+    {
+      "date": "2026-10-23",
+      "dow": "Fri",
+      "name": "Morning Run",
+      "dist_km": 5.96,
+      "duration_s": 2502,
+      "pace": "6:59/km",
+      "avg_hr": 146.3,
+      "max_hr": 155.0,
+      "elev_m": 24,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -853,7 +845,7 @@
       "date": "Apr 27",
       "day": "Mon",
       "km": "6",
-      "note": "Easy 6:58/km \u2014 gentle shakeout, just flush the legs"
+      "note": "Easy 6:59/km \u2014 gentle shakeout, just flush the legs"
     },
     {
       "date": "Apr 28",
@@ -877,7 +869,7 @@
       "date": "May 1",
       "day": "Fri",
       "km": "5",
-      "note": "Easy 6:58/km \u2014 shakeout, stop before you feel tired"
+      "note": "Easy 6:59/km \u2014 shakeout, stop before you feel tired"
     },
     {
       "date": "May 2",
