@@ -2,16 +2,16 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-10-27T15:35:32.421503",
+  "generated": "2026-10-28T16:19:27.937629",
   "predicted_lo": "4h33m37s",
   "predicted_hi": "4h54m40s",
   "mp_pace": "6:29/km",
   "peak_week_km": 28.1,
-  "total_km_90d": 227.7,
+  "total_km_90d": 233.7,
   "longest_run_km": 11.75,
   "longest_run_date": "2026-09-19",
-  "taper_note": "NOT YET \u2014 current week is 195% of previous (27 vs 14 km) \u2014 needs more reduction",
-  "lr_summary": "11.8 km on 2026-09-19 (37 days ago) \u26a0\u26a0 ONLY 11.8 km \u2014 marathon prep expects \u226528\u201332 km \u26a0 37 days ago \u2014 may be too far back",
+  "taper_note": "YES \u2014 current week is 22% of previous (6 vs 27 km)",
+  "lr_summary": "11.8 km on 2026-09-19 (38 days ago) \u26a0\u26a0 ONLY 11.8 km \u2014 marathon prep expects \u226528\u201332 km \u26a0 38 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Jul 27",
@@ -116,6 +116,14 @@
       "longest_km": 8.8,
       "total_time_s": 11060,
       "med_easy_pace_s": 419
+    },
+    {
+      "label": "Oct 26",
+      "n_runs": 3,
+      "total_km": 6.0,
+      "longest_km": 4.7,
+      "total_time_s": 2452,
+      "med_easy_pace_s": 422
     }
   ],
   "runs": [
@@ -838,6 +846,42 @@
       "max_hr": 181.0,
       "elev_m": 44,
       "type": "recovery"
+    },
+    {
+      "date": "2026-10-26",
+      "dow": "Mon",
+      "name": "Afternoon Run",
+      "dist_km": 4.67,
+      "duration_s": 1784,
+      "pace": "6:21/km",
+      "avg_hr": 154.4,
+      "max_hr": 168.0,
+      "elev_m": 17,
+      "type": "recovery"
+    },
+    {
+      "date": "2026-10-26",
+      "dow": "Mon",
+      "name": "Afternoon Run",
+      "dist_km": 0.37,
+      "duration_s": 267,
+      "pace": "12:09/km",
+      "avg_hr": 117.1,
+      "max_hr": 127.0,
+      "elev_m": 3,
+      "type": "recovery"
+    },
+    {
+      "date": "2026-10-27",
+      "dow": "Tue",
+      "name": "Afternoon Run",
+      "dist_km": 0.95,
+      "duration_s": 401,
+      "pace": "7:02/km",
+      "avg_hr": 144.7,
+      "max_hr": 159.0,
+      "elev_m": 5,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -899,7 +943,9 @@
   "red_flags": [
     "HR drift +-1.7 bpm on long run"
   ],
-  "strengths": [],
+  "strengths": [
+    "taper underway"
+  ],
   "gps_runs": [
     {
       "id": 20248919753,
