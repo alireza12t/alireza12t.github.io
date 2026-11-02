@@ -2,16 +2,16 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-11-01T16:30:19.168421",
+  "generated": "2026-11-02T19:52:18.429936",
   "predicted_lo": "4h33m37s",
   "predicted_hi": "4h54m40s",
   "mp_pace": "6:29/km",
   "peak_week_km": 28.1,
-  "total_km_90d": 212.8,
+  "total_km_90d": 219.6,
   "longest_run_km": 11.75,
   "longest_run_date": "2026-09-19",
-  "taper_note": "YES \u2014 current week is 24% of previous (7 vs 27 km)",
-  "lr_summary": "11.8 km on 2026-09-19 (42 days ago) \u26a0\u26a0 ONLY 11.8 km \u2014 marathon prep expects \u226528\u201332 km \u26a0 42 days ago \u2014 may be too far back",
+  "taper_note": "YES \u2014 current week is 50% of previous (13 vs 27 km)",
+  "lr_summary": "11.8 km on 2026-09-19 (43 days ago) \u26a0\u26a0 ONLY 11.8 km \u2014 marathon prep expects \u226528\u201332 km \u26a0 43 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Aug 03",
@@ -111,10 +111,10 @@
     },
     {
       "label": "Oct 26",
-      "n_runs": 4,
-      "total_km": 6.6,
-      "longest_km": 4.7,
-      "total_time_s": 2697,
+      "n_runs": 5,
+      "total_km": 13.3,
+      "longest_km": 6.8,
+      "total_time_s": 5837,
       "med_easy_pace_s": 434
     }
   ],
@@ -850,6 +850,18 @@
       "max_hr": 154.0,
       "elev_m": 28,
       "type": "recovery"
+    },
+    {
+      "date": "2026-11-01",
+      "dow": "Sun",
+      "name": "Morning Run",
+      "dist_km": 6.79,
+      "duration_s": 3140,
+      "pace": "7:42/km",
+      "avg_hr": 158.5,
+      "max_hr": 176.0,
+      "elev_m": 189,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -869,7 +881,7 @@
       "date": "Apr 27",
       "day": "Mon",
       "km": "6",
-      "note": "Easy 6:59/km \u2014 gentle shakeout, just flush the legs"
+      "note": "Easy 7:02/km \u2014 gentle shakeout, just flush the legs"
     },
     {
       "date": "Apr 28",
@@ -893,7 +905,7 @@
       "date": "May 1",
       "day": "Fri",
       "km": "5",
-      "note": "Easy 6:59/km \u2014 shakeout, stop before you feel tired"
+      "note": "Easy 7:02/km \u2014 shakeout, stop before you feel tired"
     },
     {
       "date": "May 2",
