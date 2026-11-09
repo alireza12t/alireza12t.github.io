@@ -582,7 +582,7 @@ const OPEN_SOURCE = [
     {
         group: 'brand',
         name: 'SeatSight',
-        brand: 'Cineplex',
+        brand: 'Any cinema ticket app',
         pitch: 'Why doesn\'t any movie app show you the view from your seat?',
         description: 'Tap a seat on the cinema seat map, fly into it in 3D and see the screen at its real format: IMAX, UltraAVX, Regular or VIP. No server and no 3D library. The renderer is written by hand, in Canvas2D on the web and SwiftUI Canvas on iOS.',
         platforms: ['Web', 'iOS'],
