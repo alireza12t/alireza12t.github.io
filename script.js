@@ -41,9 +41,9 @@ const translations = {
         oss_title: 'Open Source',
         oss_intro: 'Free apps and features I build and share the code for.',
         oss_rebuilds_title: 'Free versions of paid apps',
-        oss_rebuilds_intro: 'Paid apps I\'m rebuilding from scratch. They\'ll be free, with the code on GitHub, and everything runs on your device.',
+        oss_rebuilds_intro: 'Free, open source, runs on your device.',
         oss_brands_title: 'Features I built for brands',
-        oss_brands_intro: 'Features I think a brand\'s app is missing, so I build them myself. From my YouTube series I Built Your Missing Feature. Not affiliated with the brands.',
+        oss_brands_intro: 'Features their apps are missing. Not affiliated.',
         oss_alt: 'Free alternative to',
         oss_and: 'and',
         oss_missing: 'Missing feature',
@@ -132,9 +132,9 @@ const translations = {
         oss_title: 'Open source',
         oss_intro: 'Des apps et des fonctionnalit\u00E9s gratuites que je cr\u00E9e et dont je partage le code.',
         oss_rebuilds_title: 'Versions gratuites d\u2019apps payantes',
-        oss_rebuilds_intro: 'Je recr\u00E9e des apps payantes \u00E0 partir de z\u00E9ro. Elles seront gratuites, avec le code sur GitHub, et tout tourne sur votre appareil.',
+        oss_rebuilds_intro: 'Gratuit, open source, tout sur votre appareil.',
         oss_brands_title: 'Des fonctionnalit\u00E9s cr\u00E9\u00E9es pour des marques',
-        oss_brands_intro: 'Quand l\u2019app d\u2019une marque n\u2019a pas une fonctionnalit\u00E9 qui me semble \u00E9vidente, je la cr\u00E9e. Tir\u00E9 de ma s\u00E9rie YouTube I Built Your Missing Feature. Sans lien avec ces marques.',
+        oss_brands_intro: 'Des fonctionnalit\u00E9s qui manquent \u00E0 leurs apps. Sans lien avec ces marques.',
         oss_alt: 'Alternative gratuite \u00E0',
         oss_and: 'et',
         oss_missing: 'Fonctionnalit\u00E9 manquante',
@@ -223,9 +223,9 @@ const translations = {
         oss_title: 'متن‌باز',
         oss_intro: 'اپ‌ها و قابلیت‌های رایگانی که می‌سازم و کدشان را منتشر می‌کنم.',
         oss_rebuilds_title: 'نسخهٔ رایگان اپ‌های پولی',
-        oss_rebuilds_intro: 'اپ‌های پولی را از صفر دوباره می‌سازم. رایگان خواهند بود، کدشان در GitHub است و همه‌چیز روی دستگاه خودتان اجرا می‌شود.',
+        oss_rebuilds_intro: 'رایگان، متن‌باز، روی دستگاه خودتان.',
         oss_brands_title: 'قابلیت‌هایی که برای برندها ساختم',
-        oss_brands_intro: 'وقتی فکر می‌کنم اپ یک برند قابلیتی کم دارد، خودم آن را می‌سازم. از سری یوتیوب من، I Built Your Missing Feature. وابسته به این برندها نیستم.',
+        oss_brands_intro: 'قابلیت‌هایی که اپ‌هایشان ندارد. وابسته به این برندها نیستم.',
         oss_alt: 'جایگزین رایگان برای',
         oss_and: 'و',
         oss_missing: 'قابلیت جاافتاده',
@@ -607,8 +607,8 @@ const OPEN_SOURCE = [
     const label = (key, fallback) => `<span data-i18n="${key}">${t(key, fallback)}</span>`;
 
     const GROUPS = [
-        { id: 'rebuild', title: ['oss_rebuilds_title', 'Free versions of paid apps'], intro: ['oss_rebuilds_intro', 'Paid apps I\'m rebuilding from scratch. They\'ll be free, with the code on GitHub, and everything runs on your device.'] },
-        { id: 'brand', title: ['oss_brands_title', 'Features I built for brands'], intro: ['oss_brands_intro', 'Features I think a brand\'s app is missing, so I build them myself. From my YouTube series I Built Your Missing Feature. Not affiliated with the brands.'] },
+        { id: 'rebuild', title: ['oss_rebuilds_title', 'Free versions of paid apps'], intro: ['oss_rebuilds_intro', 'Free, open source, runs on your device.'] },
+        { id: 'brand', title: ['oss_brands_title', 'Features I built for brands'], intro: ['oss_brands_intro', 'Features their apps are missing. Not affiliated.'] },
     ];
     const LINKS = [
         ['demo', 'oss_demo', 'Demo', 'fas fa-play'],
@@ -646,7 +646,6 @@ const OPEN_SOURCE = [
                             <p class="app-pitch" dir="auto">${esc(item.pitch)}</p>
                         </div>
                     </div>
-                    <p class="app-description" dir="auto">${esc(item.description)}</p>
                     <ul class="app-platforms" aria-label="Platforms">${item.platforms.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
                     ${badges(item)}
                     ${links(item)}
