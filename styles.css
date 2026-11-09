@@ -2204,12 +2204,23 @@ section {
     justify-content: center;
 }
 
+.oss-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: auto;
+}
+
+.oss-chips .app-platforms {
+    margin: 0;
+}
+
 .oss-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
     list-style: none;
-    margin-top: auto;
 }
 
 .oss-badge {
@@ -2293,19 +2304,72 @@ section {
 }
 
 @media (max-width: 640px) {
-    .oss-body .app-head {
-        flex-direction: column;
-        align-items: flex-start;
+    /* Compact phone cards: small icon beside the name, tight spacing */
+    .oss-grid {
         gap: 1rem;
+    }
+
+    .oss-group + .oss-group {
+        margin-top: 2.5rem;
+    }
+
+    .oss-group-intro {
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .oss-card {
+        border-radius: 20px;
+    }
+
+    .oss-body .app-head {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .oss-body .app-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        font-size: 1.2rem;
+    }
+
+    .oss-body .app-eyebrow {
+        font-size: 0.68rem;
+        margin-bottom: 0.15rem;
+    }
+
+    .oss-body .app-name {
+        font-size: 1.25rem;
+    }
+
+    .oss-body .app-pitch {
+        font-size: 0.95rem;
     }
 
     .oss-body,
     .oss-grid--1 .oss-card--media .oss-body {
-        padding: 1.75rem 1.5rem;
+        padding: 1.25rem;
+    }
+
+    .oss-chips li {
+        font-size: 0.75rem;
+    }
+
+    .oss-links {
+        margin-top: 1rem;
+        gap: 0.5rem;
+    }
+
+    .oss-link {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.85rem;
     }
 
     .oss-group-title {
-        font-size: 1.3rem;
+        font-size: 1.25rem;
     }
 }
 

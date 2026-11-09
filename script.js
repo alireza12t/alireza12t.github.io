@@ -593,7 +593,6 @@ const OPEN_SOURCE = [
             demo: 'https://alireza12t.github.io/seatsight/',
             code: 'https://github.com/alireza12t/seatsight',
             video: 'https://youtu.be/xLEtWH8cA_4',
-            short: 'https://youtube.com/shorts/A0X7a8VpUZw',
         },
     },
 ];
@@ -623,7 +622,6 @@ const OPEN_SOURCE = [
 
     const badges = item => `
         <ul class="oss-badges">
-            <li class="oss-badge oss-badge--free">${label('oss_free', 'Free')}</li>
             ${item.license ? `<li class="oss-badge">${label('oss_license', 'Open source')} · ${esc(item.license)}</li>` : ''}
             ${item.status === 'soon' ? `<li class="oss-badge oss-badge--soon">${label('oss_soon', 'Coming soon')}</li>` : ''}
         </ul>`;
@@ -646,8 +644,10 @@ const OPEN_SOURCE = [
                             <p class="app-pitch" dir="auto">${esc(item.pitch)}</p>
                         </div>
                     </div>
-                    <ul class="app-platforms" aria-label="Platforms">${item.platforms.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
-                    ${badges(item)}
+                    <div class="oss-chips">
+                        <ul class="app-platforms" aria-label="Platforms">${item.platforms.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
+                        ${badges(item)}
+                    </div>
                     ${links(item)}
                 </div>
             </article>
