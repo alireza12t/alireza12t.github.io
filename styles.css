@@ -293,6 +293,13 @@ body {
     gap: 2rem;
 }
 
+/* Tighter spacing on small laptops and tablets so the menu stays on one line */
+@media (min-width: 769px) and (max-width: 1000px) {
+    .nav-menu {
+        gap: 0.85rem;
+    }
+}
+
 .nav-menu a {
     text-decoration: none;
     color: var(--text-dark);
@@ -2072,6 +2079,240 @@ section {
     .app-card:focus-within,
     .app-card:hover .app-card-device .device,
     .app-website:hover .app-arrow {
+        transform: none;
+    }
+}
+
+/* ===== Open Source Section ===== */
+.oss {
+    background-color: var(--bg-light);
+}
+
+.oss-group + .oss-group {
+    margin-top: 4rem;
+}
+
+.oss-group-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-dark);
+}
+
+.oss-group-intro {
+    color: var(--text-light);
+    margin: 0.4rem 0 1.75rem;
+    max-width: 62ch;
+}
+
+.oss-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+}
+
+.oss-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.oss-grid--1 {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.oss-card-wrap {
+    display: flex;
+    min-width: 0;
+}
+
+/* Same accent wash as the app cards, on the white surface so it lifts off the grey section */
+.oss-card {
+    --app-tint: color-mix(in srgb, var(--app-accent) 7%, var(--bg-white));
+    background:
+        radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--app-accent) 14%, transparent), transparent 60%),
+        var(--app-tint);
+    border-radius: 28px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    transition: transform 0.45s var(--ease-out-expo), box-shadow 0.45s var(--ease-out-expo), background-color 0.4s ease;
+}
+
+[data-theme="dark"] .oss-card {
+    --app-tint: color-mix(in srgb, var(--app-accent) 10%, var(--bg-white));
+}
+
+.oss-card:hover,
+.oss-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.oss-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 2.25rem;
+}
+
+/* Narrow three-up cards: icon on top so the eyebrow and name get the full width */
+.oss-body .app-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.oss-body .app-icon {
+    width: 64px;
+    height: 64px;
+}
+
+.oss-body .app-description {
+    margin-bottom: 1rem;
+}
+
+.oss-body .app-platforms {
+    margin-bottom: 1rem;
+}
+
+/* Dark letterbox, like a cinema screen, so the whole picture shows at any card height */
+.oss-media {
+    display: flex;
+    align-items: center;
+    background: #0b0c10;
+}
+
+.oss-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* A single card with a picture lies on its side: picture left, text right */
+.oss-grid--1 .oss-card--media {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+}
+
+.oss-grid--1 .oss-media {
+    min-height: 100%;
+}
+
+.oss-grid--1 .oss-card--media .oss-body {
+    padding: 2.75rem;
+    justify-content: center;
+}
+
+.oss-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin-top: auto;
+}
+
+.oss-badge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    color: var(--text-dark);
+    border: 1px solid color-mix(in srgb, var(--text-dark) 22%, transparent);
+}
+
+.oss-badge--free {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: #1B3A6B;
+}
+
+.oss-badge--soon {
+    border-style: dashed;
+    color: var(--text-light);
+}
+
+.oss-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+}
+
+.oss-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-dark);
+    background: color-mix(in srgb, var(--text-dark) 8%, transparent);
+    transition: background-color 0.3s ease, transform 0.3s var(--ease-out-expo);
+}
+
+.oss-link:hover {
+    background: color-mix(in srgb, var(--text-dark) 15%, transparent);
+    transform: translateY(-2px);
+}
+
+.oss-link--primary {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.oss-link--primary:hover {
+    background: color-mix(in srgb, var(--primary-color) 85%, black);
+}
+
+.oss-link:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+@media (max-width: 1024px) {
+    /* One wide column reads better than two cramped ones with an orphan */
+    .oss-grid,
+    .oss-grid--2,
+    .oss-grid--1,
+    .oss-grid--1 .oss-card--media {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .oss-grid--1 .oss-card--media .oss-body {
+        padding: 2.25rem;
+    }
+
+    .oss-body .app-head {
+        flex-direction: row;
+        align-items: center;
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .oss-body .app-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .oss-body,
+    .oss-grid--1 .oss-card--media .oss-body {
+        padding: 1.75rem 1.5rem;
+    }
+
+    .oss-group-title {
+        font-size: 1.3rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .oss-card:hover,
+    .oss-card:focus-within,
+    .oss-link:hover {
         transform: none;
     }
 }

@@ -304,6 +304,44 @@ def test_apps_screenshot_sizes_match_files():
         assert real == (int(w), int(h)), f"{src}: declared {w}x{h}, file is {real[0]}x{real[1]}"
 
 
+# ── Open source section ──────────────────────────────────────────────────────
+
+def _oss_items():
+    src = (ROOT / "script.js").read_text(encoding="utf-8")
+    start = src.index("const OPEN_SOURCE = [")
+    return re.split(r"\n    \{", src[start: src.index("\n];", start)])[1:]
+
+
+def test_open_source_items_have_required_fields():
+    items = _oss_items()
+    assert items, "OPEN_SOURCE is empty"
+    for item in items:
+        name = re.search(r"name: '([^']+)'", item)
+        assert name, f"item without a name:\n{item[:120]}"
+        name = name.group(1)
+        group = re.search(r"group: '(\w+)'", item)
+        assert group and group.group(1) in ("rebuild", "brand"), f"{name}: group must be 'rebuild' or 'brand'"
+        for field in ("pitch", "description", "platforms", "accent"):
+            assert re.search(rf"\b{field}:", item), f"{name}: missing {field}"
+        if group.group(1) == "rebuild":
+            assert re.search(r"replaces: \['", item), f"{name}: say which paid apps it replaces"
+        else:
+            assert re.search(r"brand: '", item), f"{name}: say which brand it's for"
+        urls = re.findall(r"(?:demo|code|video|short): '([^']+)'", item)
+        if "status: 'soon'" in item:
+            assert not urls, f"{name}: coming soon items have no links"
+        else:
+            assert urls and all(u.startswith("https://") for u in urls), f"{name}: needs https links"
+        assert not re.search(r"\$\d", item), f"{name}: no prices, only name the paid apps"
+
+
+def test_open_source_text_has_no_dashes():
+    """House style: no em dash, en dash or double hyphen in the written text."""
+    for item in _oss_items():
+        for text in re.findall(r"(?:pitch|description|alt): '((?:[^'\\]|\\.)*)'", item):
+            assert not re.search(r"[\u2013\u2014]|--", text), f"dash in: {text}"
+
+
 def _image_size(path):
     """Width/height for WebP (VP8/VP8L/VP8X) without Pillow."""
     data = path.read_bytes()[:64]

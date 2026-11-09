@@ -37,6 +37,23 @@ const translations = {
         apps_featured: 'Featured',
         apps_client: 'Client work',
         apps_website: 'Website',
+        nav_oss: 'Open Source',
+        oss_title: 'Open Source',
+        oss_intro: 'Free apps and features I build and share the code for.',
+        oss_rebuilds_title: 'Free versions of paid apps',
+        oss_rebuilds_intro: 'Paid apps I\'m rebuilding from scratch. They\'ll be free, with the code on GitHub, and everything runs on your device.',
+        oss_brands_title: 'Features I built for brands',
+        oss_brands_intro: 'Features I think a brand\'s app is missing, so I build them myself. From my YouTube series I Built Your Missing Feature. Not affiliated with the brands.',
+        oss_alt: 'Free alternative to',
+        oss_and: 'and',
+        oss_missing: 'Missing feature',
+        oss_free: 'Free',
+        oss_license: 'Open source',
+        oss_soon: 'Coming soon',
+        oss_demo: 'Demo',
+        oss_code: 'Code',
+        oss_video: 'Video',
+        oss_short: 'Short',
         nav_projects: 'Projects',
         nav_skills: 'Skills',
         nav_contact: 'Contact',
@@ -111,6 +128,23 @@ const translations = {
         apps_featured: 'En vedette',
         apps_client: 'Projet client',
         apps_website: 'Site web',
+        nav_oss: 'Open source',
+        oss_title: 'Open source',
+        oss_intro: 'Des apps et des fonctionnalit\u00E9s gratuites que je cr\u00E9e et dont je partage le code.',
+        oss_rebuilds_title: 'Versions gratuites d\u2019apps payantes',
+        oss_rebuilds_intro: 'Je recr\u00E9e des apps payantes \u00E0 partir de z\u00E9ro. Elles seront gratuites, avec le code sur GitHub, et tout tourne sur votre appareil.',
+        oss_brands_title: 'Des fonctionnalit\u00E9s cr\u00E9\u00E9es pour des marques',
+        oss_brands_intro: 'Quand l\u2019app d\u2019une marque n\u2019a pas une fonctionnalit\u00E9 qui me semble \u00E9vidente, je la cr\u00E9e. Tir\u00E9 de ma s\u00E9rie YouTube I Built Your Missing Feature. Sans lien avec ces marques.',
+        oss_alt: 'Alternative gratuite \u00E0',
+        oss_and: 'et',
+        oss_missing: 'Fonctionnalit\u00E9 manquante',
+        oss_free: 'Gratuit',
+        oss_license: 'Open source',
+        oss_soon: 'Bient\u00F4t',
+        oss_demo: 'D\u00E9mo',
+        oss_code: 'Code',
+        oss_video: 'Vid\u00E9o',
+        oss_short: 'Short',
         nav_projects: 'Projets',
         nav_skills: 'Comp\u00E9tences',
         nav_contact: 'Contact',
@@ -185,6 +219,23 @@ const translations = {
         apps_featured: 'ویژه',
         apps_client: 'پروژهٔ مشتری',
         apps_website: 'وب‌سایت',
+        nav_oss: 'متن‌باز',
+        oss_title: 'متن‌باز',
+        oss_intro: 'اپ‌ها و قابلیت‌های رایگانی که می‌سازم و کدشان را منتشر می‌کنم.',
+        oss_rebuilds_title: 'نسخهٔ رایگان اپ‌های پولی',
+        oss_rebuilds_intro: 'اپ‌های پولی را از صفر دوباره می‌سازم. رایگان خواهند بود، کدشان در GitHub است و همه‌چیز روی دستگاه خودتان اجرا می‌شود.',
+        oss_brands_title: 'قابلیت‌هایی که برای برندها ساختم',
+        oss_brands_intro: 'وقتی فکر می‌کنم اپ یک برند قابلیتی کم دارد، خودم آن را می‌سازم. از سری یوتیوب من، I Built Your Missing Feature. وابسته به این برندها نیستم.',
+        oss_alt: 'جایگزین رایگان برای',
+        oss_and: 'و',
+        oss_missing: 'قابلیت جاافتاده',
+        oss_free: 'رایگان',
+        oss_license: 'متن‌باز',
+        oss_soon: 'به‌زودی',
+        oss_demo: 'دمو',
+        oss_code: 'کد',
+        oss_video: 'ویدیو',
+        oss_short: 'ویدیوی کوتاه',
         nav_projects: '\u067E\u0631\u0648\u0698\u0647\u200C\u0647\u0627',
         nav_skills: '\u0645\u0647\u0627\u0631\u062A\u200C\u0647\u0627',
         nav_contact: '\u062A\u0645\u0627\u0633',
@@ -492,6 +543,129 @@ const APPS = [
     }
 })();
 
+// ===== Open source section =====
+// To add a project, append one object.
+// group: 'rebuild' is a free version of a paid app (`replaces` names the paid apps, names only, no prices).
+// group: 'brand' is a feature built for a brand's app (`brand` is the brand's name).
+// status: 'soon' shows "Coming soon" and no links. Leave it out once the project is public and add `links`.
+const OPEN_SOURCE = [
+    {
+        group: 'rebuild',
+        name: 'Gapsy',
+        pitch: 'Takes the pauses out of videos where you talk to camera, and out of podcasts.',
+        description: 'Finds the silences, shows them on a waveform and lets you preview the tighter cut. Export an MP4, or send the edit to Final Cut Pro, DaVinci Resolve or Premiere Pro. Everything runs on your Mac.',
+        platforms: ['Mac'],
+        accent: '#2FA36B',
+        replaces: ['TimeBolt', 'Recut'],
+        status: 'soon',
+    },
+    {
+        group: 'rebuild',
+        name: 'Saypop',
+        pitch: 'Animated word by word captions for Reels, Shorts and TikTok.',
+        description: 'Listens to your video on your device and adds captions that pop in as you speak. Fix any word, pick one of five styles and export. No account, no upload, no watermark.',
+        platforms: ['iPhone', 'iPad', 'Mac'],
+        accent: '#7C4DFF',
+        replaces: ['Submagic'],
+        status: 'soon',
+    },
+    {
+        group: 'rebuild',
+        name: 'Statpop',
+        pitch: 'Your live workout stats on your workout videos.',
+        description: 'Heart rate, pace, distance, splits, laps and your route, drawn on top of your clip. Works with Apple Health, FIT, GPX and TCX files, and lines the video up with the workout by itself.',
+        platforms: ['iPhone', 'iPad', 'Mac'],
+        accent: '#F2645A',
+        replaces: ['Telemetry Overlay', 'Rushboard'],
+        status: 'soon',
+    },
+    {
+        group: 'brand',
+        name: 'SeatSight',
+        brand: 'Cineplex',
+        pitch: 'Why doesn\'t any movie app show you the view from your seat?',
+        description: 'Tap a seat on the cinema seat map, fly into it in 3D and see the screen at its real format: IMAX, UltraAVX, Regular or VIP. No server and no 3D library. The renderer is written by hand, in Canvas2D on the web and SwiftUI Canvas on iOS.',
+        platforms: ['Web', 'iOS'],
+        accent: '#D6283A',
+        license: 'MIT',
+        image: { src: 'https://alireza12t.github.io/seatsight/og.jpg', w: 1200, h: 630, alt: 'SeatSight showing a cinema screen from a chosen seat' },
+        links: {
+            demo: 'https://alireza12t.github.io/seatsight/',
+            code: 'https://github.com/alireza12t/seatsight',
+            video: 'https://youtu.be/xLEtWH8cA_4',
+            short: 'https://youtube.com/shorts/A0X7a8VpUZw',
+        },
+    },
+];
+
+(function renderOpenSource() {
+    const root = document.getElementById('oss-root');
+    if (!root) return;
+
+    const t = (key, fallback) => (translations[getCurrentLang()] || {})[key] || fallback;
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const label = (key, fallback) => `<span data-i18n="${key}">${t(key, fallback)}</span>`;
+
+    const GROUPS = [
+        { id: 'rebuild', title: ['oss_rebuilds_title', 'Free versions of paid apps'], intro: ['oss_rebuilds_intro', 'Paid apps I\'m rebuilding from scratch. They\'ll be free, with the code on GitHub, and everything runs on your device.'] },
+        { id: 'brand', title: ['oss_brands_title', 'Features I built for brands'], intro: ['oss_brands_intro', 'Features I think a brand\'s app is missing, so I build them myself. From my YouTube series I Built Your Missing Feature. Not affiliated with the brands.'] },
+    ];
+    const LINKS = [
+        ['demo', 'oss_demo', 'Demo', 'fas fa-play'],
+        ['code', 'oss_code', 'Code', 'fab fa-github'],
+        ['video', 'oss_video', 'Video', 'fab fa-youtube'],
+        ['short', 'oss_short', 'Short', 'fas fa-mobile-screen'],
+    ];
+
+    const eyebrow = item => item.group === 'brand'
+        ? `<p class="app-eyebrow">${label('oss_missing', 'Missing feature')} · ${esc(item.brand)}</p>`
+        : `<p class="app-eyebrow">${label('oss_alt', 'Free alternative to')} ${item.replaces.map(esc).join(` ${label('oss_and', 'and')} `)}</p>`;
+
+    const badges = item => `
+        <ul class="oss-badges">
+            <li class="oss-badge oss-badge--free">${label('oss_free', 'Free')}</li>
+            ${item.license ? `<li class="oss-badge">${label('oss_license', 'Open source')} · ${esc(item.license)}</li>` : ''}
+            ${item.status === 'soon' ? `<li class="oss-badge oss-badge--soon">${label('oss_soon', 'Coming soon')}</li>` : ''}
+        </ul>`;
+
+    const links = item => item.status === 'soon' || !item.links ? '' : `
+        <div class="oss-links">${LINKS.filter(([k]) => item.links[k]).map(([k, key, fallback, icon]) =>
+            `<a class="oss-link${k === 'demo' ? ' oss-link--primary' : ''}" href="${esc(item.links[k])}" target="_blank" rel="noopener"><i class="${icon}" aria-hidden="true"></i> ${label(key, fallback)}</a>`).join('')}
+        </div>`;
+
+    const card = item => `
+        <div class="oss-card-wrap">
+            <article class="oss-card${item.image ? ' oss-card--media' : ''}" style="--app-accent: ${item.accent}">
+                ${item.image ? `<div class="oss-media"><img src="${esc(item.image.src)}" alt="${esc(item.image.alt)}" width="${item.image.w}" height="${item.image.h}" loading="lazy" decoding="async"></div>` : ''}
+                <div class="oss-body">
+                    <div class="app-head">
+                        ${item.image ? '' : `<div class="app-icon app-icon--monogram" aria-hidden="true"><span>${esc(item.name.charAt(0))}</span></div>`}
+                        <div class="app-meta">
+                            ${eyebrow(item)}
+                            <h3 class="app-name">${esc(item.name)}</h3>
+                            <p class="app-pitch" dir="auto">${esc(item.pitch)}</p>
+                        </div>
+                    </div>
+                    <p class="app-description" dir="auto">${esc(item.description)}</p>
+                    <ul class="app-platforms" aria-label="Platforms">${item.platforms.map(p => `<li>${esc(p)}</li>`).join('')}</ul>
+                    ${badges(item)}
+                    ${links(item)}
+                </div>
+            </article>
+        </div>`;
+
+    root.innerHTML = GROUPS.map(g => {
+        const items = OPEN_SOURCE.filter(i => i.group === g.id);
+        if (!items.length) return '';
+        return `
+        <div class="oss-group">
+            <h3 class="oss-group-title" data-i18n="${g.title[0]}">${t(...g.title)}</h3>
+            <p class="oss-group-intro" data-i18n="${g.intro[0]}">${t(...g.intro)}</p>
+            <div class="oss-grid${items.length < 3 ? ` oss-grid--${items.length}` : ''}">${items.map(card).join('')}</div>
+        </div>`;
+    }).join('');
+})();
+
 // ===== CSS class-based scroll-reveal system =====
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -503,7 +677,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
 // Mark grid containers for staggered children
-document.querySelectorAll('.apps-grid, .projects-grid, .achievement-grid, .volunteer-grid, .skills-grid, .contact-methods').forEach(grid => {
+document.querySelectorAll('.apps-grid, .oss-grid, .projects-grid, .achievement-grid, .volunteer-grid, .skills-grid, .contact-methods').forEach(grid => {
     grid.classList.add('reveal-stagger');
     Array.from(grid.children).forEach((child, i) => {
         child.classList.add('reveal');
