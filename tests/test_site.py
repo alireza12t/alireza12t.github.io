@@ -35,7 +35,12 @@ def _tracked_files():
 
 
 TRACKED = _tracked_files()
-PAGES = sorted(p for p in TRACKED if p.endswith(".html") and not p.startswith(SKIP_DIRS))
+# Google Search Console verification files (google<id>.html) must stay one bare line, so they're not pages.
+PAGES = sorted(
+    p for p in TRACKED
+    if p.endswith(".html") and not p.startswith(SKIP_DIRS)
+    and not re.fullmatch(r"google[0-9a-f]+\.html", p)
+)
 
 
 class _PageParser(HTMLParser):
