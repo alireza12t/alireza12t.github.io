@@ -39,6 +39,19 @@
     a.rel = "noopener";
   });
 
+  // Download count: assets/stats.json holds the App Store number (App Store Connect is not public,
+  // so it is updated by hand). Hidden until it reaches MIN_DOWNLOADS; add #stats to the address to see it anyway.
+  const MIN_DOWNLOADS = 100;
+  const statsLine = document.querySelector("[data-stats]");
+  if (statsLine) {
+    fetch("assets/stats.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : null).then(d => {
+      const n = d && Number(d.appStoreDownloads);
+      if (!n || (n < MIN_DOWNLOADS && location.hash !== "#stats")) return;
+      statsLine.querySelector("[data-stats-n]").textContent = n.toLocaleString(root.lang === "fr" ? "fr-CA" : "en-CA");
+      statsLine.hidden = false;
+    }).catch(() => {});
+  }
+
   const footer = document.querySelector("[data-footer]");
   if (footer) {
     footer.innerHTML = `
