@@ -4,3 +4,6 @@ Disallow: /admin/
 Disallow: /figbo/admin/
 
 Sitemap: https://alireza12t.github.io/sitemap.xml
+Sitemap: https://alireza12t.github.io/thinstream/sitemap.xml
+Sitemap: https://alireza12t.github.io/foldline/sitemap.xml
+Sitemap: https://alireza12t.github.io/unfold-animated/sitemap.xml
