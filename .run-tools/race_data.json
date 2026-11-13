@@ -2,23 +2,23 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-11-12T17:47:08.980798",
+  "generated": "2026-11-13T17:25:20.106742",
   "predicted_lo": "4h33m37s",
   "predicted_hi": "4h54m40s",
   "mp_pace": "6:29/km",
   "peak_week_km": 28.1,
-  "total_km_90d": 217.4,
+  "total_km_90d": 219.5,
   "longest_run_km": 11.75,
   "longest_run_date": "2026-09-19",
-  "taper_note": "YES \u2014 current week is 12% of previous (1 vs 11 km)",
-  "lr_summary": "11.8 km on 2026-09-19 (53 days ago) \u26a0\u26a0 ONLY 11.8 km \u2014 marathon prep expects \u226528\u201332 km \u26a0 53 days ago \u2014 may be too far back",
+  "taper_note": "PARTIAL \u2014 current week is 51% of previous (6 vs 11 km)",
+  "lr_summary": "11.8 km on 2026-09-19 (54 days ago) \u26a0\u26a0 ONLY 11.8 km \u2014 marathon prep expects \u226528\u201332 km \u26a0 54 days ago \u2014 may be too far back",
   "weeks": [
     {
       "label": "Aug 10",
-      "n_runs": 3,
-      "total_km": 12.0,
+      "n_runs": 2,
+      "total_km": 9.8,
       "longest_km": 7.3,
-      "total_time_s": 4968,
+      "total_time_s": 4042,
       "med_easy_pace_s": 418
     },
     {
@@ -119,26 +119,14 @@
     },
     {
       "label": "Nov 09",
-      "n_runs": 1,
-      "total_km": 1.3,
-      "longest_km": 1.3,
-      "total_time_s": 551,
+      "n_runs": 3,
+      "total_km": 5.6,
+      "longest_km": 2.4,
+      "total_time_s": 2442,
       "med_easy_pace_s": 414
     }
   ],
   "runs": [
-    {
-      "date": "2026-08-14",
-      "dow": "Fri",
-      "name": "Evening Run",
-      "dist_km": 2.18,
-      "duration_s": 926,
-      "pace": "7:05/km",
-      "avg_hr": 147.6,
-      "max_hr": 164.0,
-      "elev_m": 18,
-      "type": "recovery"
-    },
     {
       "date": "2026-08-15",
       "dow": "Sat",
@@ -881,6 +869,30 @@
       "avg_hr": 153.1,
       "max_hr": 161.0,
       "elev_m": 44,
+      "type": "recovery"
+    },
+    {
+      "date": "2026-11-12",
+      "dow": "Thu",
+      "name": "Afternoon Run",
+      "dist_km": 1.85,
+      "duration_s": 1014,
+      "pace": "9:07/km",
+      "avg_hr": 138.3,
+      "max_hr": 169.0,
+      "elev_m": 11,
+      "type": "recovery"
+    },
+    {
+      "date": "2026-11-12",
+      "dow": "Thu",
+      "name": "Evening Run",
+      "dist_km": 2.38,
+      "duration_s": 877,
+      "pace": "6:08/km",
+      "avg_hr": 157.5,
+      "max_hr": 172.0,
+      "elev_m": 9,
       "type": "recovery"
     }
   ],
