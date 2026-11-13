@@ -1,0 +1,27 @@
+# Alireza Toghiani (DevMvRick)
+
+> Alireza Toghiani is a senior iOS engineer in Montreal, Canada. He builds and ships his own SwiftUI apps and shares app building and endurance sport (running, marathon, HYROX) online as DevMvRick.
+
+- Works on iOS at Everyday Health Group (Ziff Davis). Before that he led the iOS team at EBCOM, an 8M-user app.
+- Silver medal in Mobile App Development at WorldSkills Asia 2021.
+- Endurance athlete and runner. Ran his first marathon in Toronto in May 2026. Next challenge: a first HYROX race in Vancouver on December 19, 2026.
+
+## Apps
+
+- [MonFrigo](https://alireza12t.github.io/MonFrigo/): fridge tracker for iPhone that warns you before food expires, in English and French
+- [Ganjineh](https://ganjinehparsi.com): Persian poetry for iPhone, iPad, Mac and Apple Watch
+
+## Open source
+
+- [Foldline](https://github.com/alireza12t/foldline): MCP server that renders HTML canvas animations to MP4 on a Mac
+- [Thinstream](https://github.com/alireza12t/thinstream): listen mode for YouTube as a browser extension
+
+## Profiles
+
+- [Website](https://alireza12t.github.io/): portfolio, experience and projects
+- [GitHub](https://github.com/alireza12t)
+- [YouTube @DevMvRick](https://www.youtube.com/@DevMvRick)
+- [Instagram @devmvrick](https://www.instagram.com/devmvrick/)
+- [X @DevMvRick](https://x.com/DevMvRick)
+- [LinkedIn](https://www.linkedin.com/in/alireza12t)
+- [Medium](https://medium.com/@devmvrick)

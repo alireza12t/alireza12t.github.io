@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /figbo/admin/
+
+Sitemap: https://alireza12t.github.io/sitemap.xml
