@@ -595,6 +595,21 @@ const OPEN_SOURCE = [
             video: 'https://youtu.be/xLEtWH8cA_4',
         },
     },
+    {
+        group: 'brand',
+        name: 'Thinstream',
+        brand: 'YouTube',
+        pitch: 'Listen to YouTube on slow internet, with a transcript that follows along.',
+        description: 'One button holds the video at 144p, hides it and shows a transcript that follows the audio. Tap a line to jump. A browser extension for Chrome, Firefox and Safari, with no account and no tracking.',
+        platforms: ['Chrome', 'Firefox', 'Safari'],
+        accent: '#1FA97A',
+        image: { src: 'https://alireza12t.github.io/thinstream/assets/og.png', w: 1280, h: 640, alt: 'Thinstream listen mode on a YouTube video: the picture is hidden and a transcript fills the player' },
+        links: {
+            demo: 'https://alireza12t.github.io/thinstream/',
+            code: 'https://github.com/alireza12t/thinstream',
+            video: 'https://www.youtube.com/watch?v=9wmyV0hV_Lw',
+        },
+    },
 ];
 
 (function renderOpenSource() {
