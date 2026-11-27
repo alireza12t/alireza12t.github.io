@@ -2,25 +2,17 @@
   "athlete": "Alireza Toghiani",
   "race_date": "2026-05-03",
   "race_name": "Toronto Marathon",
-  "generated": "2026-11-26T19:19:58.169516",
+  "generated": "2026-11-27T19:13:55.249255",
   "predicted_lo": "4h33m37s",
   "predicted_hi": "4h54m40s",
   "mp_pace": "6:29/km",
   "peak_week_km": 28.1,
-  "total_km_90d": 190.3,
+  "total_km_90d": 188.2,
   "longest_run_km": 11.75,
   "longest_run_date": "2026-09-19",
-  "taper_note": "PARTIAL \u2014 current week is 71% of previous (6 vs 8 km)",
-  "lr_summary": "11.8 km on 2026-09-19 (67 days ago) \u26a0\u26a0 ONLY 11.8 km \u2014 marathon prep expects \u226528\u201332 km \u26a0 67 days ago \u2014 may be too far back",
+  "taper_note": "YES \u2014 current week is 43% of previous (2 vs 6 km)",
+  "lr_summary": "11.8 km on 2026-09-19 (68 days ago) \u26a0\u26a0 ONLY 11.8 km \u2014 marathon prep expects \u226528\u201332 km \u26a0 68 days ago \u2014 may be too far back",
   "weeks": [
-    {
-      "label": "Aug 24",
-      "n_runs": 1,
-      "total_km": 4.5,
-      "longest_km": 4.5,
-      "total_time_s": 2396,
-      "med_easy_pace_s": 534
-    },
     {
       "label": "Aug 31",
       "n_runs": 6,
@@ -116,21 +108,17 @@
       "longest_km": 3.6,
       "total_time_s": 2313,
       "med_easy_pace_s": 490
+    },
+    {
+      "label": "Nov 23",
+      "n_runs": 1,
+      "total_km": 2.4,
+      "longest_km": 2.4,
+      "total_time_s": 968,
+      "med_easy_pace_s": 403
     }
   ],
   "runs": [
-    {
-      "date": "2026-08-29",
-      "dow": "Sat",
-      "name": "Morning Run",
-      "dist_km": 4.48,
-      "duration_s": 2396,
-      "pace": "8:54/km",
-      "avg_hr": 134.8,
-      "max_hr": 166.0,
-      "elev_m": 58,
-      "type": "recovery"
-    },
     {
       "date": "2026-08-31",
       "dow": "Mon",
@@ -790,6 +778,18 @@
       "max_hr": 169.0,
       "elev_m": 0,
       "type": "recovery"
+    },
+    {
+      "date": "2026-11-26",
+      "dow": "Thu",
+      "name": "Evening Run",
+      "dist_km": 2.4,
+      "duration_s": 968,
+      "pace": "6:42/km",
+      "avg_hr": 149.6,
+      "max_hr": 165.0,
+      "elev_m": 11,
+      "type": "recovery"
     }
   ],
   "plan": [
@@ -850,7 +850,8 @@
   ],
   "red_flags": [
     "HR drift +-1.7 bpm on long run",
-    "Gap: 2026-11-13 \u2192 2026-11-19 (6 days)"
+    "Gap: 2026-11-13 \u2192 2026-11-19 (6 days)",
+    "Gap: 2026-11-19 \u2192 2026-11-26 (7 days)"
   ],
   "strengths": [
     "taper underway"
